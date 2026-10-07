@@ -4,27 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>English Classroom</title>
+<title>English Classroom | Grades 10 & 11</title>
 
 <style>
+/* =====================================================
+   ENGLISH CLASSROOM
+   Modern Learning Hub
+===================================================== */
 
 :root{
-  --navy:#18213a;
+  --navy:#18213d;
+  --text:#26314d;
+  --muted:#707a93;
+
   --blue:#4f72ff;
-  --blue2:#6ba7ff;
-  --purple:#8867ff;
-  --pink:#ff7eb6;
-  --yellow:#ffd568;
-  --mint:#75e6c3;
+  --blue2:#76a8ff;
+
+  --purple:#8366f5;
+  --purple2:#b478f2;
+
+  --yellow:#ffd86b;
+  --pink:#ff88b7;
+  --mint:#70dfc1;
+
   --page:#f7f8ff;
   --white:#ffffff;
-  --muted:#697386;
+
+  --border:rgba(71,83,138,.10);
+
+  --shadow:
+    0 22px 60px rgba(43,55,115,.12);
 }
 
+
+/* =====================================================
+   RESET
+===================================================== */
+
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
 html{
@@ -33,24 +53,32 @@ html{
 
 body{
   font-family:
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Arial,
-  sans-serif;
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color:var(--text);
 
   background:
-  linear-gradient(180deg,#fbfbff 0%,#f4f6ff 100%);
+    radial-gradient(circle at 15% 10%, #eef2ff 0, transparent 26%),
+    radial-gradient(circle at 90% 25%, #f5ebff 0, transparent 24%),
+    linear-gradient(180deg,#fbfcff,#f5f7ff);
 
-  color:var(--navy);
+  overflow-x:hidden;
+}
+
+a{
+  color:inherit;
 }
 
 
-/* =========================
-NAVBAR
-========================= */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
-nav{
+.navbar{
   height:78px;
 
   display:flex;
@@ -59,58 +87,68 @@ nav{
 
   padding:0 6%;
 
-  background:rgba(255,255,255,.88);
-
-  backdrop-filter:blur(16px);
-
-  border-bottom:
-  1px solid rgba(67,74,120,.08);
-
   position:sticky;
   top:0;
 
-  z-index:100;
+  z-index:1000;
+
+  background:rgba(255,255,255,.88);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid var(--border);
 }
 
-.logo{
+
+.brand{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:12px;
 
-  font-size:21px;
+  font-size:20px;
   font-weight:850;
+
+  color:var(--navy);
+
+  text-decoration:none;
 }
 
-.logo-icon{
-  width:42px;
-  height:42px;
 
-  border-radius:14px;
+.brand-logo{
+  width:44px;
+  height:44px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
+  border-radius:15px;
+
+  font-size:23px;
+
   background:
-  linear-gradient(135deg,#ffd460,#ff9b54);
+    linear-gradient(135deg,#fff2a8,#ffc753);
 
   box-shadow:
-  0 8px 20px rgba(255,171,80,.25);
-
-  font-size:22px;
+    0 9px 22px rgba(255,190,55,.28);
 }
+
 
 .nav-links{
   display:flex;
+  align-items:center;
   gap:30px;
 }
 
 .nav-links a{
   text-decoration:none;
-  color:#434b62;
 
-  font-weight:700;
-  font-size:15px;
+  font-size:14px;
+  font-weight:750;
+
+  color:#525c75;
 
   transition:.2s;
 }
@@ -120,59 +158,62 @@ nav{
 }
 
 
-/* =========================
-HERO
-========================= */
+.nav-cta{
+  padding:11px 17px;
+
+  border-radius:12px;
+
+  color:white !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--blue),
+      var(--purple)
+    );
+
+  box-shadow:
+    0 8px 20px rgba(83,91,220,.18);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero{
-
-  min-height:610px;
+  min-height:650px;
 
   position:relative;
   overflow:hidden;
 
-  display:flex;
+  display:grid;
+
+  grid-template-columns:
+    1.08fr .92fr;
+
   align-items:center;
-  justify-content:center;
 
-  text-align:center;
+  gap:30px;
 
-  padding:80px 20px 90px;
+  padding:
+    65px 7% 75px;
 
   background:
-  linear-gradient(
-    135deg,
-    #516fff 0%,
-    #7258ee 52%,
-    #9e62ed 100%
-  );
+    linear-gradient(
+      135deg,
+      #425ef2 0%,
+      #6862ef 48%,
+      #9564e9 100%
+    );
 
   color:white;
 }
 
 
-/* decorative blobs */
+/* background decoration */
 
 .hero::before{
-
-  content:"";
-
-  position:absolute;
-
-  width:420px;
-  height:420px;
-
-  border-radius:50%;
-
-  background:
-  rgba(255,255,255,.07);
-
-  left:-140px;
-  top:-150px;
-}
-
-.hero::after{
-
   content:"";
 
   position:absolute;
@@ -182,410 +223,520 @@ HERO
 
   border-radius:50%;
 
+  left:-260px;
+  top:-230px;
+
   background:
-  rgba(255,255,255,.06);
+    rgba(255,255,255,.08);
+}
 
-  right:-220px;
-  bottom:-260px;
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:550px;
+  height:550px;
+
+  border-radius:50%;
+
+  right:-280px;
+  bottom:-330px;
+
+  background:
+    rgba(255,255,255,.07);
 }
 
 
-.hero-content{
-
-  max-width:900px;
-
+.hero-copy{
   position:relative;
-  z-index:5;
+  z-index:10;
+
+  max-width:680px;
 }
 
 
-.mini-label{
-
+.hero-label{
   display:inline-flex;
 
   align-items:center;
   gap:8px;
 
-  padding:9px 17px;
+  margin-bottom:24px;
 
-  border-radius:50px;
+  padding:9px 16px;
+
+  border-radius:999px;
 
   background:
-  rgba(255,255,255,.14);
+    rgba(255,255,255,.13);
 
   border:
-  1px solid rgba(255,255,255,.23);
+    1px solid rgba(255,255,255,.25);
 
   font-size:13px;
   font-weight:800;
 
-  letter-spacing:1px;
-
-  margin-bottom:25px;
+  letter-spacing:1.2px;
 }
 
 
 .hero h1{
-
   font-size:
-  clamp(48px,7vw,82px);
+    clamp(52px,7vw,86px);
 
-  line-height:.98;
+  line-height:.96;
 
   letter-spacing:-3px;
 
-  margin-bottom:24px;
+  margin-bottom:23px;
 }
 
 
 .hero h1 span{
-
   display:block;
 
-  color:#ffe68b;
+  color:#ffe58b;
 }
 
 
-.hero-text{
+.hero-subtitle{
+  font-size:
+    clamp(18px,2vw,22px);
 
-  font-size:20px;
+  line-height:1.7;
 
-  line-height:1.65;
+  max-width:620px;
 
   color:
-  rgba(255,255,255,.88);
+    rgba(255,255,255,.88);
+}
 
-  max-width:680px;
 
-  margin:auto;
+.hero-motto{
+  margin-top:22px;
+
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:9px;
+}
+
+
+.motto-chip{
+  padding:8px 13px;
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.12);
+
+  border:
+    1px solid rgba(255,255,255,.16);
+
+  font-size:13px;
+  font-weight:750;
 }
 
 
 .hero-actions{
-
-  margin-top:34px;
-
   display:flex;
 
-  justify-content:center;
-
-  gap:14px;
-
   flex-wrap:wrap;
+
+  gap:13px;
+
+  margin-top:34px;
 }
 
 
-.hero-button{
+.button{
+  display:inline-flex;
 
-  text-decoration:none;
+  align-items:center;
+  gap:9px;
 
-  padding:
-  15px 24px;
+  padding:15px 22px;
 
   border-radius:14px;
 
-  font-weight:800;
-
-  transition:.25s;
-}
-
-
-.hero-button.primary{
-
-  color:#30334b;
-
-  background:#ffe278;
-
-  box-shadow:
-  0 13px 30px
-  rgba(35,30,75,.18);
-}
-
-
-.hero-button.secondary{
-
-  color:white;
-
-  background:
-  rgba(255,255,255,.12);
-
-  border:
-  1px solid
-  rgba(255,255,255,.32);
-}
-
-
-.hero-button:hover{
-
-  transform:
-  translateY(-4px);
-}
-
-
-/* floating chips */
-
-.float-card{
-
-  position:absolute;
-
-  z-index:4;
-
-  padding:
-  12px 17px;
-
-  border-radius:16px;
-
-  background:
-  rgba(255,255,255,.93);
-
-  color:#3c4358;
-
-  font-weight:750;
-
-  box-shadow:
-  0 15px 35px
-  rgba(36,28,94,.16);
-
-  animation:
-  floating 4s
-  ease-in-out
-  infinite;
-}
-
-
-.float-1{
-  left:8%;
-  top:26%;
-}
-
-.float-2{
-  right:8%;
-  top:31%;
-  animation-delay:.7s;
-}
-
-.float-3{
-  left:13%;
-  bottom:18%;
-  animation-delay:1.2s;
-}
-
-.float-4{
-  right:12%;
-  bottom:18%;
-  animation-delay:1.8s;
-}
-
-
-@keyframes floating{
-
-  0%,100%{
-    transform:
-    translateY(0);
-  }
-
-  50%{
-    transform:
-    translateY(-10px);
-  }
-}
-
-
-/* =========================
-MAIN SECTIONS
-========================= */
-
-.container{
-
-  max-width:1160px;
-
-  margin:auto;
-
-  padding:
-  85px 22px;
-}
-
-
-.eyebrow{
-
-  text-align:center;
-
-  font-size:13px;
+  text-decoration:none;
 
   font-weight:850;
 
-  letter-spacing:2px;
-
-  color:var(--blue);
-
-  margin-bottom:12px;
+  transition:
+    transform .2s,
+    box-shadow .2s;
 }
 
 
-.title{
-
-  text-align:center;
-
-  font-size:
-  clamp(32px,4vw,44px);
-
-  letter-spacing:-1px;
-
-  margin-bottom:12px;
+.button:hover{
+  transform:
+    translateY(-4px);
 }
 
 
-.subtitle{
+.button-primary{
+  color:#31354c;
 
-  text-align:center;
+  background:#ffe17b;
 
-  max-width:650px;
-
-  margin:
-  0 auto 46px;
-
-  color:var(--muted);
-
-  line-height:1.6;
-
-  font-size:17px;
+  box-shadow:
+    0 14px 30px rgba(36,32,80,.19);
 }
 
 
-/* =========================
-GRADE PORTALS
-========================= */
+.button-secondary{
+  color:white;
 
-.grade-grid{
+  border:
+    1px solid rgba(255,255,255,.32);
 
-  display:grid;
-
-  grid-template-columns:
-  repeat(2,1fr);
-
-  gap:28px;
+  background:
+    rgba(255,255,255,.11);
 }
 
 
-.grade{
+/* =====================================================
+   HERO VISUAL
+===================================================== */
+
+.hero-visual{
+  min-height:490px;
 
   position:relative;
 
-  overflow:hidden;
+  z-index:9;
 
-  min-height:480px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-  border-radius:32px;
 
-  padding:38px;
+.visual-orbit{
+  width:370px;
+  height:370px;
+
+  position:relative;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,255,255,.15);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.13),
+      rgba(255,255,255,.03)
+    );
+}
+
+
+.visual-center{
+  width:220px;
+  height:220px;
+
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius:42px;
 
   display:flex;
 
   flex-direction:column;
 
-  justify-content:space-between;
+  align-items:center;
+  justify-content:center;
 
-  color:white;
+  background:
+    rgba(255,255,255,.94);
+
+  color:var(--navy);
 
   box-shadow:
-  0 24px 60px
-  rgba(38,51,105,.14);
+    0 30px 65px rgba(31,24,98,.25);
 
-  transition:
-  transform .3s,
-  box-shadow .3s;
+  text-align:center;
 }
 
 
-.grade:hover{
+.visual-center .big-icon{
+  font-size:58px;
 
-  transform:
-  translateY(-8px);
+  margin-bottom:10px;
+}
+
+
+.visual-center strong{
+  font-size:20px;
+}
+
+
+.visual-center small{
+  display:block;
+
+  margin-top:4px;
+
+  color:var(--muted);
+
+  font-size:12px;
+}
+
+
+.orbit-card{
+  position:absolute;
+
+  padding:13px 16px;
+
+  border-radius:16px;
+
+  background:white;
+
+  color:#404963;
 
   box-shadow:
-  0 30px 70px
-  rgba(38,51,105,.22);
+    0 18px 42px rgba(39,29,99,.20);
+
+  font-size:14px;
+  font-weight:800;
+
+  animation:
+    float 4.6s ease-in-out infinite;
+}
+
+
+.orbit-1{
+  top:8px;
+  left:50%;
+
+  transform:
+    translateX(-50%);
+}
+
+
+.orbit-2{
+  right:-35px;
+  top:47%;
+
+  animation-delay:.7s;
+}
+
+
+.orbit-3{
+  bottom:5px;
+  left:48%;
+
+  transform:
+    translateX(-50%);
+
+  animation-delay:1.2s;
+}
+
+
+.orbit-4{
+  left:-45px;
+  top:45%;
+
+  animation-delay:1.8s;
+}
+
+
+@keyframes float{
+  0%,100%{
+    margin-top:0;
+  }
+
+  50%{
+    margin-top:-11px;
+  }
+}
+
+
+/* =====================================================
+   GENERAL SECTION
+===================================================== */
+
+.container{
+  max-width:1180px;
+
+  margin:auto;
+
+  padding:
+    90px 24px;
+}
+
+
+.section-kicker{
+  text-align:center;
+
+  color:var(--blue);
+
+  font-size:13px;
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  margin-bottom:10px;
+}
+
+
+.section-title{
+  text-align:center;
+
+  font-size:
+    clamp(34px,4vw,46px);
+
+  color:var(--navy);
+
+  letter-spacing:-1.3px;
+
+  margin-bottom:13px;
+}
+
+
+.section-subtitle{
+  max-width:670px;
+
+  margin:
+    0 auto 48px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  line-height:1.7;
+
+  font-size:17px;
+}
+
+
+/* =====================================================
+   GRADE CARDS
+===================================================== */
+
+.grade-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:28px;
+}
+
+
+.grade-card{
+  position:relative;
+
+  min-height:480px;
+
+  overflow:hidden;
+
+  border-radius:32px;
+
+  padding:36px;
+
+  color:white;
+
+  box-shadow:var(--shadow);
+
+  transition:
+    transform .3s,
+    box-shadow .3s;
+
+  transform-style:
+    preserve-3d;
+}
+
+
+.grade-card:hover{
+  box-shadow:
+    0 32px 70px rgba(42,49,113,.21);
 }
 
 
 .grade10{
-
   background:
-  linear-gradient(
-  145deg,
-  #4168ef,
-  #629cff
-  );
+    linear-gradient(
+      145deg,
+      #4167ed,
+      #70a5ff
+    );
 }
 
 
 .grade11{
-
   background:
-  linear-gradient(
-  145deg,
-  #7058ee,
-  #ad6fe7
-  );
+    linear-gradient(
+      145deg,
+      #785aea,
+      #b574ed
+    );
 }
 
 
-.grade::after{
-
+.grade-card::after{
   content:"";
 
   position:absolute;
 
-  width:280px;
-
-  height:280px;
+  width:320px;
+  height:320px;
 
   border-radius:50%;
 
+  right:-120px;
+  top:-110px;
+
   background:
-  rgba(255,255,255,.09);
-
-  right:-90px;
-
-  top:-80px;
+    rgba(255,255,255,.09);
 }
 
 
-.grade-head{
-
+.grade-content{
   position:relative;
-  z-index:3;
+
+  z-index:5;
+
+  height:100%;
+
+  display:flex;
+
+  flex-direction:column;
 }
 
 
 .grade-icon{
-
-  width:70px;
-
-  height:70px;
+  width:69px;
+  height:69px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
-  border-radius:20px;
+  border-radius:21px;
 
   background:
-  rgba(255,255,255,.18);
+    rgba(255,255,255,.18);
+
+  border:
+    1px solid rgba(255,255,255,.15);
 
   font-size:35px;
 
-  margin-bottom:28px;
+  margin-bottom:26px;
 }
 
 
 .grade-label{
-
-  font-size:13px;
-
-  font-weight:850;
+  font-size:12px;
+  font-weight:900;
 
   letter-spacing:2px;
 
@@ -593,188 +744,173 @@ GRADE PORTALS
 }
 
 
-.grade h2{
-
+.grade-card h3{
   font-size:46px;
 
-  letter-spacing:-1.5px;
+  letter-spacing:-1.7px;
 
   margin:
-  7px 0 12px;
+    7px 0 12px;
 }
 
 
-.grade-description{
+.grade-card p{
+  max-width:410px;
 
-  max-width:390px;
-
-  line-height:1.6;
+  line-height:1.65;
 
   color:
-  rgba(255,255,255,.86);
+    rgba(255,255,255,.85);
 }
 
 
-.grade-bottom{
-
-  position:relative;
-
-  z-index:3;
-}
-
-
-.grade-shortcuts{
-
+.grade-features{
   display:flex;
 
   flex-wrap:wrap;
 
   gap:9px;
 
-  margin-bottom:25px;
+  margin-top:27px;
 }
 
 
-.shortcut{
+.grade-feature{
+  padding:9px 13px;
 
-  padding:
-  9px 13px;
-
-  border-radius:12px;
-
-  background:
-  rgba(255,255,255,.14);
+  border-radius:11px;
 
   font-size:13px;
+  font-weight:750;
 
-  font-weight:700;
+  background:
+    rgba(255,255,255,.13);
+}
+
+
+.grade-enter{
+  margin-top:auto;
+
+  padding-top:30px;
 }
 
 
 .enter-button{
-
   width:100%;
 
   display:flex;
 
+  align-items:center;
   justify-content:space-between;
 
-  align-items:center;
-
-  text-decoration:none;
-
-  background:white;
-
-  color:#30364e;
-
-  padding:
-  17px 20px;
+  padding:17px 19px;
 
   border-radius:15px;
 
-  font-size:16px;
+  color:#34394f;
+
+  background:white;
+
+  text-decoration:none;
 
   font-weight:850;
 
-  transition:.25s;
+  transition:.22s;
 }
 
 
 .enter-button:hover{
-
   transform:
-  translateX(4px);
+    translateX(4px);
+
+  box-shadow:
+    0 14px 30px rgba(27,31,89,.14);
 }
 
 
-/* =========================
-QUICK TOOLS
-========================= */
+/* =====================================================
+   QUICK ACCESS
+===================================================== */
 
 .quick-section{
-
-  padding-top:10px;
+  margin-top:90px;
 }
 
 
 .quick-grid{
-
   display:grid;
 
   grid-template-columns:
-  repeat(3,1fr);
+    repeat(3,1fr);
 
-  gap:19px;
+  gap:20px;
 }
 
 
-.tool-card{
-
+.quick-card{
   position:relative;
 
   overflow:hidden;
 
+  min-height:230px;
+
+  padding:28px;
+
+  border-radius:24px;
+
   background:white;
 
-  border-radius:22px;
-
-  padding:29px;
-
-  min-height:210px;
-
   border:
-  1px solid
-  rgba(64,75,120,.08);
+    1px solid var(--border);
 
   box-shadow:
-  0 12px 35px
-  rgba(46,56,110,.07);
+    0 15px 38px rgba(43,55,115,.07);
 
-  transition:.25s;
+  transition:
+    .25s;
 }
 
 
-.tool-card:hover{
-
+.quick-card:hover{
   transform:
-  translateY(-7px);
+    translateY(-7px);
+
+  box-shadow:
+    0 22px 45px rgba(43,55,115,.12);
 }
 
 
-.tool-icon{
+.quick-icon{
+  width:57px;
+  height:57px;
 
-  width:55px;
-
-  height:55px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   border-radius:17px;
 
-  display:flex;
+  font-size:28px;
 
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:27px;
-
-  margin-bottom:22px;
+  margin-bottom:21px;
 }
 
 
-.tool1 .tool-icon{
-  background:#fff1d6;
+.quick-1 .quick-icon{
+  background:#fff1d1;
 }
 
-.tool2 .tool-icon{
-  background:#e9f2ff;
+.quick-2 .quick-icon{
+  background:#e8f2ff;
 }
 
-.tool3 .tool-icon{
-  background:#efe8ff;
+.quick-3 .quick-icon{
+  background:#eee7ff;
 }
 
 
-.tool-card h3{
+.quick-card h3{
+  color:var(--navy);
 
   font-size:20px;
 
@@ -782,104 +918,228 @@ QUICK TOOLS
 }
 
 
-.tool-card p{
-
+.quick-card p{
   color:var(--muted);
 
-  line-height:1.55;
+  line-height:1.6;
 
   font-size:15px;
 }
 
 
-/* =========================
-FUN STRIP
-========================= */
+.quick-link{
+  display:inline-flex;
 
-.fun-strip{
+  align-items:center;
 
-  margin-top:70px;
+  gap:6px;
 
-  border-radius:27px;
+  margin-top:20px;
 
-  background:
-  linear-gradient(
-    120deg,
-    #182955,
-    #343f84
-  );
+  color:var(--blue);
+
+  text-decoration:none;
+
+  font-size:14px;
+  font-weight:850;
+}
+
+
+/* =====================================================
+   MESSAGE STRIP
+===================================================== */
+
+.motivation{
+  margin-top:75px;
 
   padding:
-  39px 42px;
+    42px 45px;
 
-  color:white;
+  border-radius:28px;
+
+  position:relative;
+
+  overflow:hidden;
 
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
-  gap:20px;
+  gap:30px;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      120deg,
+      #17234c,
+      #39428b
+    );
 }
 
 
-.fun-strip h2{
+.motivation::after{
+  content:"";
 
-  font-size:29px;
+  position:absolute;
+
+  width:240px;
+  height:240px;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.06);
+
+  right:-70px;
+  top:-100px;
+}
+
+
+.motivation h2{
+  font-size:30px;
 
   margin-bottom:8px;
 }
 
 
-.fun-strip p{
-
+.motivation p{
   color:
-  rgba(255,255,255,.76);
+    rgba(255,255,255,.76);
 }
 
 
-.fun-icons{
+.motivation-icons{
+  position:relative;
 
-  font-size:42px;
+  z-index:3;
+
+  font-size:44px;
 
   letter-spacing:8px;
 }
 
 
-/* =========================
-FOOTER
-========================= */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 footer{
-
-  background:#12182b;
-
-  color:
-  rgba(255,255,255,.63);
+  padding:30px 20px;
 
   text-align:center;
 
-  padding:27px;
+  background:#11182d;
+
+  color:
+    rgba(255,255,255,.67);
 
   font-size:14px;
 }
 
 
-/* =========================
-MOBILE
-========================= */
+footer strong{
+  color:white;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+  position:fixed;
+
+  left:50%;
+  bottom:28px;
+
+  transform:
+    translate(-50%,30px);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  padding:
+    13px 20px;
+
+  border-radius:13px;
+
+  color:white;
+
+  background:#192039;
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.20);
+
+  z-index:2000;
+
+  font-size:14px;
+  font-weight:750;
+
+  transition:.25s;
+}
+
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal{
+  opacity:0;
+
+  transform:
+    translateY(24px);
+
+  transition:
+    opacity .65s,
+    transform .65s;
+}
+
+
+.reveal.visible{
+  opacity:1;
+
+  transform:
+    translateY(0);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:900px){
 
-  .float-card{
-    display:none;
-  }
-
-  .grade-grid{
+  .hero{
     grid-template-columns:1fr;
+
+    text-align:center;
   }
 
+  .hero-copy{
+    margin:auto;
+  }
+
+  .hero-motto,
+  .hero-actions{
+    justify-content:center;
+  }
+
+  .hero-visual{
+    min-height:430px;
+  }
+
+  .grade-grid,
   .quick-grid{
     grid-template-columns:1fr;
   }
@@ -889,9 +1149,11 @@ MOBILE
 
 @media(max-width:700px){
 
-  nav{
+  .navbar{
+    height:70px;
+
     padding:
-    0 20px;
+      0 20px;
   }
 
   .nav-links{
@@ -899,21 +1161,41 @@ MOBILE
   }
 
   .hero{
-    min-height:540px;
+    min-height:auto;
+
+    padding:
+      70px 20px;
   }
 
   .hero h1{
     letter-spacing:-2px;
   }
 
-  .grade{
-    min-height:430px;
-    padding:29px;
+  .hero-visual{
+    display:none;
   }
 
-  .fun-strip{
+  .grade-card{
+    min-height:450px;
+
+    padding:28px;
+  }
+
+  .motivation{
     flex-direction:column;
+
     text-align:center;
+  }
+
+}
+
+
+@media(prefers-reduced-motion:reduce){
+
+  *{
+    scroll-behavior:auto !important;
+    animation:none !important;
+    transition:none !important;
   }
 
 }
@@ -921,22 +1203,30 @@ MOBILE
 </style>
 </head>
 
+
 <body>
 
 
-<!-- NAVIGATION -->
+<!-- =========================
+     NAVIGATION
+========================== -->
 
-<nav>
+<nav class="navbar">
 
-  <div class="logo">
+  <a
+    href="#home"
+    class="brand"
+  >
 
-    <div class="logo-icon">
-      ⭐
+    <div class="brand-logo">
+      🌟
     </div>
 
-    English Classroom
+    <span>
+      English Classroom
+    </span>
 
-  </div>
+  </a>
 
 
   <div class="nav-links">
@@ -949,8 +1239,15 @@ MOBILE
       Grades
     </a>
 
-    <a href="#tools">
-      Quick Tools
+    <a href="#quick">
+      Quick Access
+    </a>
+
+    <a
+      href="#grades"
+      class="nav-cta"
+    >
+      Start Learning
     </a>
 
   </div>
@@ -959,74 +1256,132 @@ MOBILE
 
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================== -->
 
 <section
-class="hero"
-id="home"
+  class="hero"
+  id="home"
 >
 
 
-  <div class="float-card float-1">
-    📚 Vocabulary
-  </div>
+  <div class="hero-copy">
 
-  <div class="float-card float-2">
-    ✏️ Grammar
-  </div>
-
-  <div class="float-card float-3">
-    🎮 Games
-  </div>
-
-  <div class="float-card float-4">
-    🗣️ Speaking
-  </div>
-
-
-  <div class="hero-content">
-
-    <div class="mini-label">
-      ✨ YOUR DIGITAL ENGLISH CLASSROOM
+    <div class="hero-label">
+      ✨ GRADES 10 & 11
     </div>
 
 
     <h1>
 
-      Learn English
+      English
 
       <span>
-        differently.
+        Classroom
       </span>
 
     </h1>
 
 
-    <p class="hero-text">
+    <p class="hero-subtitle">
 
-      Explore lessons, play interactive games,
-      practise your English and discover
-      useful learning resources in one place.
+      Your digital learning space
+      for interactive English lessons,
+      classroom games, practice
+      and useful learning resources.
 
     </p>
+
+
+    <div class="hero-motto">
+
+      <span class="motto-chip">
+        📚 Learn
+      </span>
+
+      <span class="motto-chip">
+        🎮 Play
+      </span>
+
+      <span class="motto-chip">
+        🔎 Explore
+      </span>
+
+      <span class="motto-chip">
+        🚀 Improve
+      </span>
+
+    </div>
 
 
     <div class="hero-actions">
 
       <a
-      class="hero-button primary"
-      href="#grades"
+        href="#grades"
+        class="button button-primary"
       >
-        🚀 Start Exploring
+        🚀 Explore Classes
       </a>
 
 
       <a
-      class="hero-button secondary"
-      href="#tools"
+        href="#quick"
+        class="button button-secondary"
       >
-        ⚡ Quick Activities
+        ⚡ Quick Access
       </a>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- HERO VISUAL -->
+
+  <div
+    class="hero-visual"
+    id="heroVisual"
+  >
+
+    <div class="visual-orbit">
+
+      <div class="visual-center">
+
+        <div class="big-icon">
+          🌍
+        </div>
+
+        <strong>
+          Learn English
+        </strong>
+
+        <small>
+          Explore • Practice • Create
+        </small>
+
+      </div>
+
+
+      <div class="orbit-card orbit-1">
+        📚 Vocabulary
+      </div>
+
+
+      <div class="orbit-card orbit-2">
+        ✏️ Grammar
+      </div>
+
+
+      <div class="orbit-card orbit-3">
+        🎮 Games
+      </div>
+
+
+      <div class="orbit-card orbit-4">
+        🗣 Speaking
+      </div>
 
     </div>
 
@@ -1036,29 +1391,36 @@ id="home"
 
 
 
-<!-- GRADES -->
+<!-- =========================
+     GRADES
+========================== -->
 
-<section
-class="container"
-id="grades"
+<main
+  class="container"
+  id="grades"
 >
 
-  <div class="eyebrow">
-    YOUR LEARNING SPACE
-  </div>
+  <section class="reveal">
+
+    <div class="section-kicker">
+      YOUR LEARNING SPACE
+    </div>
 
 
-  <h2 class="title">
-    Choose Your Grade
-  </h2>
+    <h2 class="section-title">
+      Choose Your Grade
+    </h2>
 
 
-  <p class="subtitle">
+    <p class="section-subtitle">
 
-    Enter your class and explore units,
-    games, tests and learning materials.
+      Select your grade and explore
+      units, games, tests
+      and learning materials.
 
-  </p>
+    </p>
+
+  </section>
 
 
 
@@ -1067,71 +1429,78 @@ id="grades"
 
     <!-- GRADE 10 -->
 
-    <article class="grade grade10">
+    <article
+      class="grade-card grade10 reveal tilt-card"
+    >
 
-      <div class="grade-head">
+      <div class="grade-content">
+
 
         <div class="grade-icon">
           📘
         </div>
 
+
         <div class="grade-label">
-          ENGLISH
+          ENGLISH CLASSROOM
         </div>
 
-        <h2>
+
+        <h3>
           Grade 10
-        </h2>
+        </h3>
 
-        <p class="grade-description">
 
-          Build your English skills
-          through interactive lessons,
-          challenges and creative activities.
+        <p>
+
+          Build confidence in English
+          through lessons, communication,
+          challenges and creative
+          classroom activities.
 
         </p>
 
-      </div>
 
+        <div class="grade-features">
 
-      <div class="grade-bottom">
-
-        <div class="grade-shortcuts">
-
-          <span class="shortcut">
+          <span class="grade-feature">
             📚 Units
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             🎮 Games
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             📝 Tests
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             📂 Materials
           </span>
 
         </div>
 
 
-        <a
-        class="enter-button"
-        href="#"
-        onclick="comingSoon(event,'Grade 10')"
-        >
+        <div class="grade-enter">
 
-          <span>
-            Enter Grade 10
-          </span>
+          <a
+            href="#"
+            class="enter-button"
+            onclick="showComingSoon(event,'Grade 10')"
+          >
 
-          <span>
-            →
-          </span>
+            <span>
+              Enter Grade 10
+            </span>
 
-        </a>
+            <span>
+              →
+            </span>
+
+          </a>
+
+        </div>
 
       </div>
 
@@ -1141,71 +1510,78 @@ id="grades"
 
     <!-- GRADE 11 -->
 
-    <article class="grade grade11">
+    <article
+      class="grade-card grade11 reveal tilt-card"
+    >
 
-      <div class="grade-head">
+      <div class="grade-content">
+
 
         <div class="grade-icon">
           📗
         </div>
 
+
         <div class="grade-label">
-          ENGLISH
+          ENGLISH CLASSROOM
         </div>
 
-        <h2>
-          Grade 11
-        </h2>
 
-        <p class="grade-description">
+        <h3>
+          Grade 11
+        </h3>
+
+
+        <p>
 
           Explore English through
           real-life topics, communication,
-          activities and classroom games.
+          teamwork and interactive
+          learning activities.
 
         </p>
 
-      </div>
 
+        <div class="grade-features">
 
-      <div class="grade-bottom">
-
-        <div class="grade-shortcuts">
-
-          <span class="shortcut">
+          <span class="grade-feature">
             📚 Units
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             🎮 Games
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             📝 Tests
           </span>
 
-          <span class="shortcut">
+          <span class="grade-feature">
             📂 Materials
           </span>
 
         </div>
 
 
-        <a
-        class="enter-button"
-        href="#"
-        onclick="comingSoon(event,'Grade 11')"
-        >
+        <div class="grade-enter">
 
-          <span>
-            Enter Grade 11
-          </span>
+          <a
+            href="#"
+            class="enter-button"
+            onclick="showComingSoon(event,'Grade 11')"
+          >
 
-          <span>
-            →
-          </span>
+            <span>
+              Enter Grade 11
+            </span>
 
-        </a>
+            <span>
+              →
+            </span>
+
+          </a>
+
+        </div>
 
       </div>
 
@@ -1215,101 +1591,153 @@ id="grades"
 
 
 
-  <!-- QUICK TOOLS -->
+  <!-- =========================
+       QUICK ACCESS
+  ========================== -->
 
   <section
-  class="quick-section"
-  id="tools"
+    class="quick-section"
+    id="quick"
   >
 
-    <div style="height:90px"></div>
+    <div class="reveal">
+
+      <div class="section-kicker">
+        QUICK ACCESS
+      </div>
 
 
-    <div class="eyebrow">
-      QUICK ACCESS
+      <h2 class="section-title">
+        Classroom Tools
+      </h2>
+
+
+      <p class="section-subtitle">
+
+        Jump quickly into interactive
+        activities and frequently used
+        learning resources.
+
+      </p>
+
     </div>
-
-
-    <h2 class="title">
-      Classroom Tools
-    </h2>
-
-
-    <p class="subtitle">
-
-      Jump quickly into your favourite
-      classroom activities and resources.
-
-    </p>
 
 
 
     <div class="quick-grid">
 
 
-      <div class="tool-card tool1">
+      <!-- WORDWALL -->
 
-        <div class="tool-icon">
+      <article
+        class="quick-card quick-1 reveal"
+      >
+
+        <div class="quick-icon">
           🎮
         </div>
+
 
         <h3>
           Interactive Games
         </h3>
 
+
         <p>
 
-          HTML games, Wordwall,
-          team competitions and
-          interactive classroom challenges.
+          Access Wordwall,
+          HTML games,
+          quizzes and
+          classroom competitions.
 
         </p>
 
-      </div>
+
+        <a
+          href="#"
+          class="quick-link"
+          onclick="showComingSoon(event,'Interactive Games')"
+        >
+          Explore games →
+        </a>
+
+      </article>
 
 
 
-      <div class="tool-card tool2">
+      <!-- QR -->
 
-        <div class="tool-icon">
+      <article
+        class="quick-card quick-2 reveal"
+      >
+
+        <div class="quick-icon">
           📱
         </div>
+
 
         <h3>
           Scan & Play
         </h3>
 
+
         <p>
 
-          Scan QR codes with your phone
-          and instantly join classroom
-          activities.
+          Scan QR codes
+          to instantly join
+          classroom games
+          and activities.
 
         </p>
 
-      </div>
+
+        <a
+          href="#"
+          class="quick-link"
+          onclick="showComingSoon(event,'QR Activities')"
+        >
+          View activities →
+        </a>
+
+      </article>
 
 
 
-      <div class="tool-card tool3">
+      <!-- MATERIALS -->
 
-        <div class="tool-icon">
+      <article
+        class="quick-card quick-3 reveal"
+      >
+
+        <div class="quick-icon">
           📂
         </div>
+
 
         <h3>
           Learning Resources
         </h3>
 
+
         <p>
 
-          Access worksheets,
-          handouts, tests and
-          useful lesson materials.
+          Find worksheets,
+          handouts, tests
+          and useful lesson
+          materials.
 
         </p>
 
-      </div>
+
+        <a
+          href="#"
+          class="quick-link"
+          onclick="showComingSoon(event,'Learning Resources')"
+        >
+          Open resources →
+        </a>
+
+      </article>
 
     </div>
 
@@ -1317,54 +1745,202 @@ id="grades"
 
 
 
-  <!-- BOTTOM MESSAGE -->
+  <!-- =========================
+       MOTIVATION
+  ========================== -->
 
-  <div class="fun-strip">
+  <section
+    class="motivation reveal"
+  >
 
     <div>
 
       <h2>
-        Learn • Play • Create • Improve
+        Learn • Play • Explore • Improve
       </h2>
 
+
       <p>
-        English learning can be
-        interactive, creative and fun.
+
+        One classroom.
+        Many ways to learn English.
+
       </p>
 
     </div>
 
 
-    <div class="fun-icons">
-      🌍 💬 🚀
+    <div class="motivation-icons">
+      💬 🌍 🚀
     </div>
 
-  </div>
+  </section>
 
-</section>
+</main>
 
 
+
+<!-- =========================
+     FOOTER
+========================== -->
 
 <footer>
 
-  English Classroom
-  • Grades 10 & 11
-  • Learn • Play • Improve
+  <strong>
+    🌟 English Classroom
+  </strong>
+
+  &nbsp; • &nbsp;
+
+  Grades 10 & 11
+
+  &nbsp; • &nbsp;
+
+  Learn • Play • Explore • Improve
 
 </footer>
 
 
 
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast"
+>
+  Coming soon!
+</div>
+
+
+
 <script>
 
-function comingSoon(event, grade){
+/* ==========================================
+   COMING SOON MESSAGE
+========================================== */
+
+function showComingSoon(event,name){
 
   event.preventDefault();
 
-  alert(
-    grade +
-    " learning page is coming next!"
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    name + " page is coming next!";
+
+  toast.classList.add("show");
+
+  setTimeout(
+    function(){
+      toast.classList.remove("show");
+    },
+    2200
   );
+
+}
+
+
+/* ==========================================
+   SCROLL REVEAL
+========================================== */
+
+const observer =
+  new IntersectionObserver(
+    function(entries){
+
+      entries.forEach(
+        function(entry){
+
+          if(entry.isIntersecting){
+
+            entry.target
+              .classList
+              .add("visible");
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.12
+    }
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(
+    function(element){
+      observer.observe(element);
+    }
+  );
+
+
+/* ==========================================
+   SUBTLE CARD TILT
+========================================== */
+
+if(
+  window.matchMedia(
+    "(pointer:fine)"
+  ).matches
+){
+
+  document
+    .querySelectorAll(".tilt-card")
+    .forEach(
+      function(card){
+
+        card.addEventListener(
+          "mousemove",
+          function(event){
+
+            const rect =
+              card.getBoundingClientRect();
+
+            const x =
+              event.clientX -
+              rect.left;
+
+            const y =
+              event.clientY -
+              rect.top;
+
+            const rotateY =
+              ((x / rect.width) - .5) * 4;
+
+            const rotateX =
+              ((y / rect.height) - .5) * -4;
+
+            card.style.transform =
+              "perspective(900px) " +
+              "rotateX(" +
+              rotateX +
+              "deg) rotateY(" +
+              rotateY +
+              "deg) translateY(-5px)";
+
+          }
+        );
+
+
+        card.addEventListener(
+          "mouseleave",
+          function(){
+
+            card.style.transform =
+              "perspective(900px) " +
+              "rotateX(0deg) " +
+              "rotateY(0deg)";
+
+          }
+        );
+
+      }
+    );
 
 }
 
