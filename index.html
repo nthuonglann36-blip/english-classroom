@@ -3,45 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>English Classroom</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: Arial, sans-serif;
+      background: #f4f8ff;
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
       text-align: center;
-      background: #f2f7ff;
-      padding: 50px;
+      padding: 55px 20px;
     }
 
-    h1 {
-      color: #2457c5;
-      font-size: 45px;
+    header h1 {
+      font-size: 48px;
+      margin-bottom: 12px;
     }
 
-    p {
-      font-size: 22px;
-    }
-
-    button {
-      background: #ffb703;
-      border: none;
-      padding: 15px 30px;
+    header p {
       font-size: 20px;
+      opacity: 0.95;
+    }
+
+    nav {
+      background: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #2563eb;
+      font-weight: bold;
+      margin: 0 22px;
+      font-size: 17px;
+    }
+
+    nav a:hover {
+      color: #7c3aed;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 34px;
+      margin-bottom: 30px;
+      color: #1e3a8a;
+    }
+
+    .grades {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .grade-card {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+
+    .grade-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .grade-card h2 {
+      text-align: center;
+      color: #2563eb;
+      margin-bottom: 20px;
+      font-size: 30px;
+    }
+
+    .menu-button {
+      display: block;
+      text-decoration: none;
+      background: #eef4ff;
+      color: #1e40af;
+      margin: 12px 0;
+      padding: 15px;
       border-radius: 12px;
-      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .menu-button:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    .games-section {
+      margin-top: 55px;
+      text-align: center;
+      padding: 40px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    }
+
+    .games-section h2 {
+      color: #7c3aed;
+      margin-bottom: 12px;
+      font-size: 32px;
+    }
+
+    .games-section p {
+      margin-bottom: 22px;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .big-button {
+      display: inline-block;
+      text-decoration: none;
+      background: #f59e0b;
+      color: white;
+      padding: 16px 30px;
+      border-radius: 14px;
+      font-size: 19px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .big-button:hover {
+      background: #d97706;
+      transform: scale(1.04);
+    }
+
+    footer {
+      margin-top: 50px;
+      background: #172554;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    @media (max-width: 700px) {
+      .grades {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 36px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 7px 12px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <h1>🌟 Welcome to English Classroom 🌟</h1>
-
+<header>
+  <h1>🌟 English Classroom 🌟</h1>
   <p>Learn English through games, activities and challenges!</p>
+</header>
 
-  <button onclick="alert('Our English games are coming soon!')">
-    🎮 Play Games
-  </button>
+<nav>
+  <a href="#grade10">Grade 10</a>
+  <a href="#grade11">Grade 11</a>
+  <a href="#games">Games</a>
+</nav>
+
+<div class="container">
+
+  <h2 class="section-title">Choose Your Grade</h2>
+
+  <div class="grades">
+
+    <!-- GRADE 10 -->
+    <div class="grade-card" id="grade10">
+
+      <h2>📘 Grade 10</h2>
+
+      <a class="menu-button" href="#">
+        🎮 Games
+      </a>
+
+      <a class="menu-button" href="#">
+        📚 Vocabulary
+      </a>
+
+      <a class="menu-button" href="#">
+        ✏️ Grammar
+      </a>
+
+      <a class="menu-button" href="#">
+        📝 Tests
+      </a>
+
+      <a class="menu-button" href="#">
+        📄 Handouts
+      </a>
+
+    </div>
+
+
+    <!-- GRADE 11 -->
+    <div class="grade-card" id="grade11">
+
+      <h2>📗 Grade 11</h2>
+
+      <a class="menu-button" href="#">
+        🎮 Games
+      </a>
+
+      <a class="menu-button" href="#">
+        📚 Vocabulary
+      </a>
+
+      <a class="menu-button" href="#">
+        ✏️ Grammar
+      </a>
+
+      <a class="menu-button" href="#">
+        📝 Tests
+      </a>
+
+      <a class="menu-button" href="#">
+        📄 Handouts
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="games-section" id="games">
+
+    <h2>🎮 Classroom Games</h2>
+
+    <p>
+      Interactive English games for vocabulary,
+      grammar, speaking and classroom competitions.
+    </p>
+
+    <a class="big-button" href="#">
+      Explore Games
+    </a>
+
+  </div>
+
+</div>
+
+
+<footer>
+  <p>English Classroom • Learn • Play • Improve 🚀</p>
+</footer>
 
 </body>
 </html>
