@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Lesson 3 · Task 2 — Vocabulary memory match</title>
+<link rel="stylesheet" href="_game.css">
+<!-- =========================================================================
+     Trò của cô: HTML Game/Lesson3_Vocabulary Memory Match.html
+     Giữ nguyên năm cặp từ – nghĩa và luật lật thẻ. Sửa hai chỗ:
+       · thẻ úp giờ hiện dấu "?" thay vì chữ trong suốt — bản gốc để
+         color:transparent nên bôi đen vẫn đọc được nội dung thẻ;
+       · xáo thẻ bằng Fisher–Yates. sort(() => 0.5 - Math.random()) không
+         cho phân bố đều, có ván hai thẻ cùng cặp nằm cạnh nhau ngay.
+     ========================================================================= -->
+<style>
+  .grid{
+    display:grid; grid-template-columns:repeat(5, 1fr);
+    gap:clamp(8px,1vw,14px); flex:1; min-height:0;
+  }
+  .grid .card{
+    position:relative; display:flex; align-items:center; justify-content:center;
+    font-size:.8em; line-height:1.2; padding:.4em .5em;
+    background:var(--accent); border-color:var(--accent);
+  }
+  /* Úp thẻ: ẩn hẳn chữ bằng visibility chứ không phải tô trùng màu nền —
+     tô trùng màu thì bôi đen vẫn đọc được, mà dấu "?" cũng bị lệch. */
+  .grid .card:not(.up):not(.matched) .face{ visibility:hidden; }
+  .grid .card:not(.up):not(.matched)::after{
+    content:'?'; position:absolute; inset:0;
+    display:grid; place-content:center;
+    color:#FFFAE8; font-size:1.6em; font-weight:700;
+  }
+  .grid .card.up{ background:var(--surface); border-color:var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="grid" id="grid"></div>
+<div class="msg" id="msg"></div>
+
+<script src="_game.js"></script>
+<script>
+(function () {
+  var PAIRS = [
+    { id: 1, text: 'responsibility' }, { id: 1, text: 'duty' },
+    { id: 2, text: 'gratitude' },      { id: 2, text: 'feeling of being grateful' },
+    { id: 3, text: 'strengthen' },     { id: 3, text: 'make something stronger' },
+    { id: 4, text: 'bonds' },          { id: 4, text: 'close connections' },
+    { id: 5, text: 'character' },      { id: 5, text: 'qualities that make a person distinct' }
+  ];
+
+  // Fisher–Yates: moi hoan vi deu co cung xac suat
+  for (var i = PAIRS.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = PAIRS[i]; PAIRS[i] = PAIRS[j]; PAIRS[j] = t;
+  }
+
+  var grid = document.getElementById('grid');
+  var msg = document.getElementById('msg');
+  var first = null, second = null, busy = false, done = 0;
+
+  PAIRS.forEach(function (item) {
+    var c = document.createElement('div');
+    c.className = 'card';
+    c.dataset.id = item.id;
+    var face = document.createElement('span');
+    face.className = 'face';
+    face.textContent = item.text;
+    c.appendChild(face);
+    c.addEventListener('click', flip);
+    grid.appendChild(c);
+  });
+
+  function flip() {
+    if (busy || this === first || this.classList.contains('matched')) return;
+    this.classList.add('up');
+    if (!first) { first = this; return; }
+    second = this;
+
+    if (first.dataset.id === second.dataset.id) {
+      first.classList.add('matched');
+      second.classList.add('matched');
+      first = second = null;
+      if (++done === PAIRS.length / 2) msg.textContent = 'Five pairs, all found!';
+    } else {
+      busy = true;
+      var a = first, b = second;
+      first = second = null;
+      setTimeout(function () {
+        a.classList.remove('up');
+        b.classList.remove('up');
+        busy = false;
+      }, 900);
+    }
+  }
+})();
+</script>
+</body>
+</html>

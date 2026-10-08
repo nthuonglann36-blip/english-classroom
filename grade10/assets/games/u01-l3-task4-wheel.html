@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Lesson 3 · Task 4 — Discussion wheel</title>
+<link rel="stylesheet" href="_game.css">
+<!-- =========================================================================
+     Trò của cô: HTML Game/Lucky Wheel Discussion.html
+     Giữ nguyên năm chủ đề thảo luận. Sửa ba chỗ để dùng được trên lớp:
+       · THÊM KIM CHỈ. Bản gốc không vẽ kim nên bánh xe dừng ở đâu cũng
+         không ai kiểm được — dòng kết quả nói gì thì phải tin nấy.
+       · Tính ô trúng theo đúng vị trí kim (đỉnh bánh xe), thay cho công thức
+         cũ vốn không khớp với hình.
+       · Quay bằng requestAnimationFrame + giảm tốc ease-out, thay setInterval
+         20ms; dừng êm và không giật trên máy yếu.
+     ========================================================================= -->
+<style>
+  body{ flex-direction:row; align-items:center; justify-content:center;
+        gap:clamp(16px,4vw,60px); }
+  .wheel-wrap{ position:relative; flex:0 0 auto; }
+  canvas{ display:block; }
+  /* kim chỉ ở đỉnh, chĩa xuống */
+  .pin{
+    position:absolute; top:-2px; left:50%; transform:translateX(-50%);
+    width:0; height:0; border-left:16px solid transparent;
+    border-right:16px solid transparent; border-top:26px solid var(--accent);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+  .side{ display:flex; flex-direction:column; gap:.6em; align-items:flex-start;
+         max-width:11em; }
+  #result{ font-weight:700; color:var(--accent); line-height:1.25; }
+  #result .lead{ display:block; font-size:.62em; color:var(--muted);
+                 font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<div class="wheel-wrap">
+  <canvas id="wheel" width="330" height="330"></canvas>
+  <div class="pin"></div>
+</div>
+
+<div class="side">
+  <button class="go" id="spin">Spin the wheel</button>
+  <div id="result"></div>
+</div>
+
+<script src="_game.js"></script>
+<script>
+(function () {
+  var TOPICS = ['Life skills', 'Responsibility', 'Gratitude', 'Family bonds', 'Teamwork'];
+  var FILLS  = ['#7A4636', '#4E7C5A', '#B5762F', '#5C6B8A', '#96543F'];
+
+  var cv = document.getElementById('wheel');
+  var ctx = cv.getContext('2d');
+  var R = cv.width / 2, ARC = 2 * Math.PI / TOPICS.length;
+  var angle = 0, spinning = false;
+  var btn = document.getElementById('spin');
+  var out = document.getElementById('result');
+
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    for (var i = 0; i < TOPICS.length; i++) {
+      var a = angle + i * ARC;
+      ctx.beginPath();
+      ctx.moveTo(R, R);
+      ctx.arc(R, R, R - 4, a, a + ARC);
+      ctx.closePath();
+      ctx.fillStyle = FILLS[i];
+      ctx.fill();
+      ctx.strokeStyle = '#FFFAE8';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(R, R);
+      ctx.rotate(a + ARC / 2);
+      ctx.fillStyle = '#FFFAE8';
+      ctx.font = 'bold 17px "Segoe UI", Arial, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(TOPICS[i], R - 18, 0);
+      ctx.restore();
+    }
+    ctx.beginPath();
+    ctx.arc(R, R, 26, 0, 2 * Math.PI);
+    ctx.fillStyle = '#FFFAE8';
+    ctx.fill();
+    ctx.strokeStyle = '#7A4636';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  // Kim chi o dinh banh xe = goc -PI/2 tren he toa do canvas.
+  function winner() {
+    var TAU = 2 * Math.PI;
+    var rel = ((-Math.PI / 2 - angle) % TAU + TAU) % TAU;
+    return TOPICS[Math.floor(rel / ARC) % TOPICS.length];
+  }
+
+  function spin() {
+    if (spinning) return;
+    spinning = true;
+    btn.disabled = true;
+    out.textContent = '';
+    var from = angle;
+    var delta = 6 * Math.PI + Math.random() * 2 * Math.PI;   // 3 vong + ngau nhien
+    var dur = 3400, t0 = null;
+
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var t = Math.min((ts - t0) / dur, 1);
+      angle = from + delta * (1 - Math.pow(1 - t, 3));       // ease-out
+      draw();
+      if (t < 1) { requestAnimationFrame(step); return; }
+      spinning = false;
+      btn.disabled = false;
+      btn.textContent = 'Spin again';
+      out.innerHTML = '<span class="lead">Your topic</span>' + winner();
+    }
+    requestAnimationFrame(step);
+  }
+
+  btn.addEventListener('click', spin);
+  draw();
+})();
+</script>
+</body>
+</html>

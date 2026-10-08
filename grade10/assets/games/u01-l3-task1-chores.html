@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Lesson 3 · Task 1 — Who is doing what?</title>
+<link rel="stylesheet" href="_game.css">
+<!-- =========================================================================
+     Trò của cô: HTML Game/Chore Matching.html
+     Giữ nguyên luật chơi và đáp án. Đổi bảng màu sang tông tpl-family, phóng
+     cỡ chữ cho máy chiếu, bỏ tiêu đề + câu dẫn (slide bọc ngoài đã có).
+     ========================================================================= -->
+<style>
+  .board{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,3vw,44px); }
+  .board .card{ margin-bottom:.42em; }
+  .board .card:last-child{ margin-bottom:0; }
+</style>
+</head>
+<body>
+
+<div class="board">
+  <div id="members">
+    <div class="card" data-who="mother">The mother</div>
+    <div class="card" data-who="father">The father</div>
+    <div class="card" data-who="son">The son</div>
+    <div class="card" data-who="daughter">The daughter</div>
+  </div>
+  <div id="actions">
+    <div class="card" data-who="father">laying the table</div>
+    <div class="card" data-who="mother">cooking</div>
+    <div class="card" data-who="daughter">washing vegetables</div>
+    <div class="card" data-who="son">vacuuming the floor</div>
+  </div>
+</div>
+<div class="msg" id="msg"></div>
+
+<script src="_game.js"></script>
+<script>
+(function () {
+  var left = null, right = null, done = 0, busy = false;
+  var total = document.querySelectorAll('#members .card').length;
+  var msg = document.getElementById('msg');
+
+  function clear(el) { if (el) el.classList.remove('selected', 'wrong'); }
+
+  function pick(ev) {
+    var el = ev.currentTarget;
+    if (busy || el.classList.contains('matched')) return;
+
+    if (el.parentElement.id === 'members') { clear(left);  left = el;  }
+    else                                   { clear(right); right = el; }
+    el.classList.add('selected');
+    if (!left || !right) return;
+
+    if (left.dataset.who === right.dataset.who) {
+      [left, right].forEach(function (c) {
+        c.classList.remove('selected');
+        c.classList.add('matched');
+      });
+      left = right = null;
+      if (++done === total) msg.textContent = 'All four matched — well done!';
+    } else {
+      busy = true;
+      left.classList.add('wrong');
+      right.classList.add('wrong');
+      var a = left, b = right;
+      left = right = null;
+      setTimeout(function () { clear(a); clear(b); busy = false; }, 550);
+    }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.card'), function (c) {
+    c.addEventListener('click', pick);
+  });
+})();
+</script>
+</body>
+</html>

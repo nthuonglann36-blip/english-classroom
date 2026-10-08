@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Lesson 3 · Task 3 — Reading comprehension quiz</title>
+<link rel="stylesheet" href="_game.css">
+<!-- =========================================================================
+     Trò của cô: HTML Game/Lesson3_task3.html
+     Giữ nguyên năm câu hỏi, các phương án và đáp án. Thêm ba thứ:
+       · số câu đang làm và điểm — lớp chia đội cần biết đang ở đâu;
+       · khi chọn sai thì tô luôn phương án đúng, chứ bản gốc chỉ tô câu sai
+         nên học sinh không biết đâu mới là đáp án;
+       · nút "Play again" ở cuối để lớp sau chơi lại, khỏi tải lại trang.
+     ========================================================================= -->
+<style>
+  .head{ display:flex; justify-content:space-between; align-items:baseline;
+         font-size:.72em; color:var(--muted); font-weight:700;
+         letter-spacing:.06em; text-transform:uppercase; }
+  .q{ font-weight:700; color:var(--accent); line-height:1.25; }
+  .opts{ display:flex; flex-direction:column; gap:.34em; }
+  .opt{
+    background:var(--surface); border:2px solid var(--rule); border-radius:12px;
+    padding:.4em .7em; text-align:left; font:inherit; color:var(--ink);
+    cursor:pointer; transition:background .15s, border-color .15s;
+  }
+  .opt:hover:not(:disabled){ border-color:var(--accent); }
+  .opt:disabled{ cursor:default; }
+  .opt.right{ background:var(--accent-2); border-color:var(--accent-2); color:#FFFAE8; font-weight:700; }
+  .opt.wrong{ border-color:var(--crit); color:var(--crit); }
+</style>
+</head>
+<body>
+
+<div class="head"><span id="count"></span><span id="score"></span></div>
+<div class="q" id="q"></div>
+<div class="opts" id="opts"></div>
+<button class="go" id="go" hidden></button>
+
+<script src="_game.js"></script>
+<script>
+(function () {
+  var QUESTIONS = [
+    { q: '1. What do most people think about housework?',
+      options: ['It is the responsibility of wives and mothers only.',
+                'It is enjoyable for children of all ages.',
+                'It should be done by schools.'], answer: 0 },
+    { q: "2. Why don't many parents make their children do housework?",
+      options: ['So that they have more time to play or study.',
+                'Because children refuse to do it.',
+                'Because chores are too dangerous.'], answer: 0 },
+    { q: '3. What are some important life skills children learn when doing chores?',
+      options: ['Playing games and sports.',
+                'Doing laundry, cleaning the house, and taking care of others.',
+                'Solving math problems quickly.'], answer: 1 },
+    { q: "4. What do children learn when they finish tasks they don't enjoy?",
+      options: ['To ask for money.', 'To take responsibility.',
+                'To complain to parents.'], answer: 1 },
+    { q: '5. Why does sharing housework strengthen family bonds?',
+      options: ['It allows parents to rest all day.',
+                'It creates special moments and makes children feel like members of a team.',
+                'It reduces time spent together.'], answer: 1 }
+  ];
+
+  var idx = 0, score = 0;
+  var elQ = document.getElementById('q'), elO = document.getElementById('opts');
+  var elC = document.getElementById('count'), elS = document.getElementById('score');
+  var go = document.getElementById('go');
+
+  function show() {
+    var item = QUESTIONS[idx];
+    elC.textContent = 'Question ' + (idx + 1) + ' / ' + QUESTIONS.length;
+    elS.textContent = 'Score ' + score;
+    elQ.textContent = item.q;
+    elO.innerHTML = '';
+    go.hidden = true;
+    item.options.forEach(function (text, i) {
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.textContent = text;
+      b.addEventListener('click', function () { answer(b, i, item.answer); });
+      elO.appendChild(b);
+    });
+  }
+
+  function answer(btn, picked, right) {
+    var all = elO.querySelectorAll('.opt');
+    Array.prototype.forEach.call(all, function (b) { b.disabled = true; });
+    all[right].classList.add('right');            // luon chi ro dau la dap an
+    if (picked === right) { score++; }
+    else { btn.classList.add('wrong'); }
+    elS.textContent = 'Score ' + score;
+    go.hidden = false;
+    go.textContent = idx + 1 < QUESTIONS.length ? 'Next question →' : 'See the result';
+    go.onclick = next;
+  }
+
+  function next() {
+    if (++idx < QUESTIONS.length) { show(); return; }
+    elC.textContent = 'Finished';
+    elS.textContent = '';
+    elQ.textContent = 'Score: ' + score + ' / ' + QUESTIONS.length;
+    elO.innerHTML = '';
+    go.textContent = 'Play again';
+    go.onclick = function () { idx = 0; score = 0; show(); };
+  }
+
+  show();
+})();
+</script>
+</body>
+</html>

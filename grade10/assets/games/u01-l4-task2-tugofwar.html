@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 · Lesson 4 — Debate tug-of-war</title>
+<link rel="stylesheet" href="_game.css">
+<!-- =========================================================================
+     Trò của cô: HTML Game/U1_L4_tug_of_war.html
+     Giữ nguyên tám lập luận, luật kéo, mốc thắng 25%/75% và tiếng động.
+
+     Bốn ảnh cô gửi được ghép vào:
+       img/tug-stage.webp         nền sân đấu
+       img/tug-logo.webp          logo trên đầu, thay dòng chữ h1
+       img/tug-team-should.webp   đội xanh (việc nhà) — đầu dây bên trái
+       img/tug-team-shouldnt.webp đội đỏ (chơi/học) — đầu dây bên phải
+
+     CANH DÂY: ảnh sân gốc có sợi dây ở 60% chiều cao; đã cắt đối xứng quanh
+     sợi dây nên trong tệp webp dây nằm đúng 50%. Nhờ vậy với
+     background-size:cover trên khung rộng thì dây rơi đúng 50% chiều cao
+     khung. Mỗi đội có --rope là vị trí sợi dây trong ảnh CỦA ĐỘI ĐÓ
+     (đo bằng máy: xanh 61,4%, đỏ 62,9%) — đặt top theo công thức
+     50% − --rope × chiều-cao-đội thì tay hai đội nắm đúng vào dây.
+
+     Ảnh đội gốc nền trắng; tách nền bằng flood fill từ mép nên giày trắng
+     và sọc áo trắng còn nguyên. Ảnh đỏ đã lật ngang để hai đội quay mặt vào nhau.
+     ========================================================================= -->
+<style>
+  body{ font-size:20px; gap:8px; }
+
+  header{ display:flex; justify-content:center; }
+  header img{ height:clamp(52px,11vh,88px); width:auto; display:block; }
+
+  /* ---- Sân đấu ---- */
+  .arena{
+    position:relative; width:100%;
+    flex:1 1 auto; min-height:150px; max-height:330px;
+    background:url(img/tug-stage.webp) center 50%/cover no-repeat;
+    border-radius:14px; overflow:hidden;
+    box-shadow:inset 0 0 0 3px rgba(255,250,232,.5);
+  }
+  /* Hai đội. --rope = chỗ sợi dây nằm trong ảnh của đội, tính từ đỉnh ảnh. */
+  .team{
+    position:absolute; height:76%;
+    top:calc(50% - var(--rope) * 76%);
+    transition:transform .5s cubic-bezier(.175,.885,.32,1.275);
+  }
+  .team img{ height:100%; width:auto; display:block; }
+  .team.should  { left:1%;  --rope:.614; }
+  .team.shouldnt{ right:1%; --rope:.629; }
+
+  /* Rung nhẹ tại chỗ: hai đội lệch pha nhau cho đỡ như máy đếm nhịp.
+     Chuyển động nằm ở <img>, còn .team giữ transform kéo dây — chồng hai
+     transform lên một phần tử thì animation nuốt mất cái kia. */
+  @keyframes tug-idle-a{
+    0%,100%{ transform:translateX(0) rotate(0deg); }
+    50%    { transform:translateX(-3px) rotate(-.7deg); }
+  }
+  @keyframes tug-idle-b{
+    0%,100%{ transform:translateX(0) rotate(0deg); }
+    50%    { transform:translateX(3px) rotate(.7deg); }
+  }
+  .team.should   img{ animation:tug-idle-a .9s ease-in-out infinite; transform-origin:100% 80%; }
+  .team.shouldnt img{ animation:tug-idle-b 1.05s ease-in-out infinite; transform-origin:0 80%; }
+  @media (prefers-reduced-motion:reduce){ .team img{ animation:none; } }
+
+  /* Cờ chạy trên dây + hai vạch thắng */
+  .ribbon{
+    position:absolute; top:50%; left:50%;
+    width:26px; height:40px; margin:-30px 0 0 -13px;
+    background:var(--gold,#F1C40F); border:3px solid #FFFAE8; border-radius:5px;
+    box-shadow:0 3px 7px rgba(0,0,0,.35); z-index:6;
+    transition:left .5s cubic-bezier(.175,.885,.32,1.275);
+  }
+  .ribbon::after{
+    content:''; position:absolute; left:50%; top:100%;
+    width:3px; height:16px; margin-left:-1.5px; background:#FFFAE8;
+  }
+  /* Vạch thắng: kẻ hết chiều cao sân và nằm TRÊN hai đội — đội cao lên là
+     che mất vạch nếu để vạch ngắn ngang tầm dây. */
+  .zone{
+    position:absolute; top:0; bottom:0; width:3px;
+    background:rgba(255,250,232,.55); z-index:5;
+  }
+  .zone.l{ left:25%; } .zone.r{ left:75%; }
+  .zone span{
+    position:absolute; top:5px; left:50%; transform:translateX(-50%);
+    font-size:.5em; font-weight:700; letter-spacing:.05em; white-space:nowrap;
+    color:#FFFAE8; background:rgba(58,50,44,.72);
+    padding:.15em .5em; border-radius:999px;
+  }
+
+  /* ---- Hàng dưới: thẻ lập luận + hai nút kéo ---- */
+  .row{ display:grid; grid-template-columns:1fr auto; gap:10px; align-items:stretch; }
+  .debate{
+    background:var(--surface); border:2px solid var(--rule);
+    border-top:6px solid var(--muted); border-radius:12px;
+    padding:.5em .8em; display:flex; flex-direction:column; justify-content:center;
+    min-height:5.2em;   /* giữ nguyên cao dù câu mẫu ẩn hay hiện */
+  }
+  .debate.for-should  { border-top-color:var(--accent-2); }
+  .debate.for-shouldnt{ border-top-color:#C0392B; }
+  .badge{
+    align-self:flex-start; font-size:.55em; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:.15em;
+  }
+  .debate.for-should   .badge{ color:var(--accent-2); }
+  .debate.for-shouldnt .badge{ color:#C0392B; }
+  .claim{ font-weight:700; line-height:1.2; color:var(--ink); }
+  /* Câu mẫu MẶC ĐẮNH ẨN. Đây chính là câu học sinh phải tự nói ra —
+     bày sẵn thì các em chỉ việc đọc lại, hoạt động nói thành hoạt động đọc.
+     Cô chỉ bật sau khi đội đã nói xong, để đối chiếu — hoặc khi đội bí. */
+  .why{ font-size:.68em; color:var(--muted); line-height:1.25; margin-top:.2em; }
+  .why[hidden]{ display:none; }
+  .model{
+    align-self:flex-start; margin-top:.25em;
+    background:none; border:2px dashed var(--rule); border-radius:999px;
+    color:var(--muted); font:inherit; font-size:.55em; font-weight:700;
+    padding:.2em .9em; cursor:pointer;
+  }
+  .model:hover{ border-color:var(--accent); color:var(--accent); }
+  .model[hidden]{ display:none; }
+
+  .pulls{ display:flex; flex-direction:column; gap:8px; }
+  .pull{
+    border:0; border-radius:12px; color:#FFFAE8; font:inherit; font-weight:700;
+    font-size:.72em; padding:.5em 1em; cursor:pointer; white-space:nowrap;
+  }
+  .pull.s{ background:var(--accent-2); }
+  .pull.n{ background:#C0392B; }
+  .pull:disabled{ opacity:.45; cursor:default; }
+
+  .utility{ display:flex; gap:10px; justify-content:center; align-items:center; }
+  .utility .go{ font-size:.7em; padding:.35em 1.1em; }
+  .rules{
+    font-size:.62em; color:var(--muted); line-height:1.35;
+    background:var(--soft); border-radius:10px; padding:.5em .8em;
+  }
+  .rules[hidden]{ display:none; }
+</style>
+</head>
+<body>
+
+<header><img src="img/tug-logo.webp" alt="Debate tug-of-war"></header>
+
+<div class="arena" id="arena">
+  <div class="zone l"><span>SHOULD WIN</span></div>
+  <div class="zone r"><span>SHOULDN’T WIN</span></div>
+  <div class="team should"   id="teamS"><img src="img/tug-team-should.webp"   alt="Team SHOULD pulling the rope"></div>
+  <div class="team shouldnt" id="teamN"><img src="img/tug-team-shouldnt.webp" alt="Team SHOULDN’T pulling the rope"></div>
+  <div class="ribbon" id="ribbon"></div>
+</div>
+
+<div class="row">
+  <div class="debate" id="card">
+    <span class="badge" id="badge">Classroom debate</span>
+    <div class="claim" id="claim">Ready to argue?</div>
+    <button class="model" id="model" type="button" hidden>Model answer</button>
+    <div class="why" id="why">Press “Next argument” to draw a card.</div>
+  </div>
+  <div class="pulls">
+    <button class="pull s" id="pullS" type="button">◀ SHOULD pulls</button>
+    <button class="pull n" id="pullN" type="button">SHOULDN’T pulls ▶</button>
+  </div>
+</div>
+
+<div class="utility">
+  <button class="go" id="next" type="button">Next argument</button>
+  <button class="go" id="reset" type="button">Reset</button>
+  <button class="go" id="rulesBtn" type="button">Rules</button>
+</div>
+<div class="rules" id="rules" hidden>
+  Split the class in two: <b>SHOULD</b> on the left, <b>SHOULDN’T</b> on the right.
+  Draw a card, give that side 30–45 seconds to argue it in English, then press their
+  <b>pull</b> button if they argued well. First side to drag the flag to its line wins.
+</div>
+
+<script src="_game.js"></script>
+<script>
+(function () {
+  // Tám lập luận của cô, giữ nguyên chữ và phe.
+  var ARGS = [
+    { t: 'Develops essential life skills', s: 'should',
+      d: 'Children learn to cook, wash clothes and look after themselves — they will need all of it.' },
+    { t: 'Teaches children to take responsibility', s: 'should',
+      d: 'Chores make a child feel part of the family, with something real to contribute.' },
+    { t: 'Strengthens family bonds', s: 'should',
+      d: 'Working together makes small shared moments that hold a family together.' },
+    { t: 'Shows gratitude to parents', s: 'should',
+      d: 'Helping out is a practical way to thank parents for their work.' },
+    { t: 'Children need plenty of playtime', s: 'shouldnt',
+      d: 'They are young once. Free time to play and explore matters too.' },
+    { t: 'They are young and may break things', s: 'shouldnt',
+      d: 'Without practice they may break dishes or make more mess than they clear.' },
+    { t: 'Children need plenty of study time', s: 'shouldnt',
+      d: 'School and homework already fill the day; study should come first.' },
+    { t: 'Chores are too tiring after school', s: 'shouldnt',
+      d: 'Eight hours at school is exhausting; more work could affect their health.' }
+  ];
+
+  var START = 50, STEP = 5, WIN_L = 25, WIN_R = 75;
+  var pos = START, over = false, pool = [];
+
+  var ribbon = document.getElementById('ribbon');
+  var teamS = document.getElementById('teamS'), teamN = document.getElementById('teamN');
+  var card = document.getElementById('card'), badge = document.getElementById('badge');
+  var claim = document.getElementById('claim'), why = document.getElementById('why');
+  var btnS = document.getElementById('pullS'), btnN = document.getElementById('pullN');
+  var model = document.getElementById('model');
+  var rules = document.getElementById('rules');
+
+  // ---- tiếng động: Web Audio, không tải tệp nào ----
+  var ac = null;
+  function tone(freq, dur, type) {
+    try {
+      if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === 'suspended') ac.resume();
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.type = type || 'sine';
+      o.frequency.setValueAtTime(freq, ac.currentTime);
+      g.gain.setValueAtTime(0.08, ac.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.01, ac.currentTime + dur);
+      o.connect(g); g.connect(ac.destination);
+      o.start(); o.stop(ac.currentTime + dur);
+    } catch (_) { /* máy không cho phát tiếng — kệ, trò vẫn chạy */ }
+  }
+  function pullSound() { tone(300, .1, 'triangle'); setTimeout(function () { tone(450, .08, 'triangle'); }, 60); }
+  function winSound() { [523.25, 659.25, 783.99, 1046.5].forEach(function (f, i) { setTimeout(function () { tone(f, .22); }, i * 150); }); }
+
+  function paint() {
+    ribbon.style.left = pos + '%';
+    // Cả hai đội bị kéo lệch theo dây, đội thắng kéo đội kia về phía mình.
+    var shift = (pos - START) * 1.6;
+    teamS.style.transform = 'translateX(' + shift + 'px)';
+    teamN.style.transform = 'translateX(' + shift + 'px)';
+  }
+
+  function finish(text) {
+    over = true;
+    btnS.disabled = btnN.disabled = true;
+    winSound();
+    badge.textContent = 'Result';
+    claim.textContent = text;
+    why.textContent = 'Well argued — press Reset for another match.';
+    why.hidden = false;
+    model.hidden = true;
+    card.className = 'debate';
+  }
+
+  function pull(side) {
+    if (over) return;
+    pullSound();
+    pos += (side === 'should' ? -STEP : STEP);
+    pos = Math.max(10, Math.min(90, pos));
+    paint();
+    setTimeout(function () {
+      if (pos <= WIN_L) finish('Team SHOULD wins!');
+      else if (pos >= WIN_R) finish('Team SHOULDN’T wins!');
+    }, 500);
+  }
+
+  // Rút bài không lặp cho tới khi hết bộ, rồi mới xáo lại.
+  function nextArg() {
+    tone(400, .1);
+    if (!pool.length) {
+      pool = ARGS.slice();
+      for (var i = pool.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1)), t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+      }
+    }
+    var a = pool.pop();
+    card.className = 'debate ' + (a.s === 'should' ? 'for-should' : 'for-shouldnt');
+    badge.textContent = a.s === 'should' ? 'Argument for SHOULD' : 'Argument for SHOULDN’T';
+    claim.textContent = '“' + a.t + '”';
+    why.textContent = a.d;
+    why.hidden = true;              // đội phải tự nói trước
+    model.hidden = false;
+    model.textContent = 'Model answer';
+  }
+
+  function reset() {
+    tone(400, .15);
+    pos = START; over = false; pool = [];
+    btnS.disabled = btnN.disabled = false;
+    card.className = 'debate';
+    badge.textContent = 'Classroom debate';
+    claim.textContent = 'Ready to argue?';
+    why.textContent = 'Press “Next argument” to draw a card.';
+    why.hidden = false;
+    model.hidden = true;
+    paint();
+  }
+
+  btnS.addEventListener('click', function () { pull('should'); });
+  btnN.addEventListener('click', function () { pull('shouldnt'); });
+  model.addEventListener('click', function () {
+    why.hidden = !why.hidden;
+    model.textContent = why.hidden ? 'Model answer' : 'Hide model';
+  });
+  document.getElementById('next').addEventListener('click', nextArg);
+  document.getElementById('reset').addEventListener('click', reset);
+  document.getElementById('rulesBtn').addEventListener('click', function () {
+    rules.hidden = !rules.hidden;
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>

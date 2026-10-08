@@ -1,0 +1,1246 @@
+/* ==========================================================================
+   gs10.css — Global Success 10 · bài giảng trình chiếu
+   --------------------------------------------------------------------------
+   Chạy được ngoại tuyến: KHÔNG font ngoài, KHÔNG thư viện ngoài, KHÔNG fetch.
+   Module này không sinh log, không lưu tiến độ (SITE-SPEC §0.4, §8.1).
+   ========================================================================== */
+
+:root{
+  /* Bảng màu gốc — AGENTS.md §12, không thêm mã hex mới */
+  --paper:#FBFAF7; --surface:#fff; --sunk:#F4F2EC;
+  --ink:#1A1F35; --muted:#5C6079; --navy:#283567; --brass:#8A6A1C;
+  --rule:#E4E0D6; --ok:#2A6B3F; --crit:#A32D22;
+
+  --radius:12px;
+  --bar:56px;
+
+  /* Cỡ chữ cho máy chiếu: neo theo màn hình, không theo px cố định.
+     Hàng ghế cuối lớp phải đọc được.
+
+     Lấy min() của vw và vh, KHÔNG chỉ vw: máy chiếu lớp phổ biến là 1366×768,
+     rộng nhưng thấp. Neo theo mỗi bề rộng thì chữ to quá và slide tràn xuống
+     dưới, giữa giờ cô phải cuộn.
+
+     MỐC: chữ thân bài phải ≥ **Calibri 24 pt** khi chiếu. Quy đổi: slide
+     PowerPoint 16:9 cao 7,5 inch, nên 24 pt = 24/72 inch = **4,44% chiều cao
+     ảnh chiếu**. Màn 1366×768 → 34 px. Đó là lý do --t-body neo 4,45vh.
+     Đừng hạ con số này để nhét thêm chữ vào slide — tràn thì TÁCH SLIDE. */
+  --t-body:clamp(22px, min(3.30vw, 4.45vh), 44px);   /* 34 px @768 = 24 pt   */
+  --t-lead:clamp(26px, min(3.95vw, 5.35vh), 52px);   /* 41 px @768 = 29 pt   */
+  --t-h2:clamp(30px, min(4.60vw, 6.30vh), 68px);     /* 48 px @768 = 34 pt   */
+  --t-h1:clamp(38px, min(6.20vw, 9.00vh), 96px);     /* 69 px @768 = 49 pt   */
+
+  /* Nền sáng là mặc định: phòng học bật đèn thì nền tối bị rửa trôi. */
+  color-scheme: light;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-size:var(--t-body);
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+
+h1,h2,h3{ font-family:Georgia, "Times New Roman", serif; line-height:1.15; margin:0 0 .4em; }
+h1{ font-size:var(--t-h1); }
+h2{ font-size:var(--t-h2); color:var(--navy); }
+h3{ font-size:var(--t-lead); }
+p{ margin:0 0 .7em; }
+a{ color:var(--navy); }
+
+/* ---------- Thanh trên cùng, dùng chung mọi trang ------------------------ */
+
+.bar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:16px;
+  height:var(--bar); padding:0 18px;
+  background:var(--surface); border-bottom:1px solid var(--rule);
+  font-size:clamp(14px,1.15vw,19px);
+}
+.bar .brand{ font-family:Georgia,serif; font-weight:700; color:var(--navy); letter-spacing:.02em; }
+.bar .spacer{ flex:1; }
+.bar a, .bar button{
+  display:inline-flex; align-items:center; gap:.4em;
+  min-height:40px; padding:0 14px;
+  border:1px solid var(--rule); border-radius:999px;
+  background:var(--surface); color:var(--ink);
+  font:inherit; text-decoration:none; cursor:pointer;
+}
+.bar a:hover, .bar button:hover{ background:var(--sunk); border-color:var(--navy); }
+
+/* ---------- Trang bản đồ ------------------------------------------------- */
+
+.map-wrap{
+  position:relative;
+  width:100%; max-width:1536px;
+  margin:0 auto;
+}
+.map-wrap img{ display:block; width:100%; height:auto; }
+
+/* Vùng bấm đặt chồng lên đúng chỗ ghim đã vẽ sẵn trong ảnh.
+   --x/--y là GÓC TRÊN–TRÁI, --w/--h là kích thước, đều tính theo % của ảnh.
+
+   Bốn số này đo bằng máy từ chính tệp map.webp (dò thẻ tên xanh lục rồi nới ra
+   cho vừa giọt ghim), không ước lượng bằng mắt. Đừng chỉnh tay — sửa ảnh thì
+   đo lại, cách đo ghi ở GLOBAL-SUCCESS-10.md §4. */
+.pin{
+  position:absolute;
+  left:var(--x); top:var(--y);
+  width:var(--w); height:var(--h);
+  border-radius:999px;
+  text-indent:-9999px; overflow:hidden;
+  border:3px solid transparent;
+  transition:border-color .12s, box-shadow .12s, transform .12s;
+}
+.pin:hover, .pin:focus-visible{
+  border-color:var(--brass);
+  box-shadow:0 0 0 4px rgba(138,106,28,.28);
+  transform:scale(1.05);
+  outline:none;
+}
+.pin[aria-disabled="true"]{
+  background:rgba(251,250,247,.72);
+  border-color:rgba(92,96,121,.35);
+  cursor:not-allowed;
+}
+.pin[aria-disabled="true"]:hover{
+  border-color:rgba(92,96,121,.35); box-shadow:none;
+  transform:none;
+}
+
+/* Thẻ tiết ở bản đồ unit là hình chữ nhật bo góc, không phải viên thuốc như
+   ghim ở bản đồ chính — dùng .pin.rect. */
+.pin.rect{ border-radius:18px; }
+
+.map-note{
+  max-width:1536px; margin:14px auto 40px; padding:0 18px;
+  color:var(--muted); font-size:clamp(14px,1.15vw,19px);
+}
+
+/* ---------- Popup: mở bài ngay trên bản đồ, không rời trang -------------- */
+/* Bài giảng nạp bằng <iframe>, KHÔNG bằng fetch: fetch bị chặn trên file://
+   nên trang sẽ trắng khi cô mở từ USB / máy không mạng. iframe thì chạy cả hai. */
+
+body.is-locked{ overflow:hidden; }
+
+.overlay{
+  position:fixed; inset:0; z-index:50;
+  display:none;
+  background:rgba(26,31,53,.62);
+}
+.overlay.is-open{ display:block; }
+
+.overlay .frame-wrap{
+  position:absolute; inset:clamp(6px,1.4vw,26px);
+  background:var(--paper);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 24px 64px rgba(26,31,53,.45);
+  display:flex; flex-direction:column;
+}
+.overlay iframe{
+  flex:1; width:100%; border:0; display:block; background:var(--paper);
+}
+.overlay .close{
+  position:absolute; top:9px; right:12px; z-index:2;
+  width:46px; height:46px; border-radius:50%;
+  border:1px solid var(--rule); background:var(--surface); color:var(--ink);
+  font-size:21px; line-height:1; cursor:pointer;
+}
+.overlay .close:hover{ background:var(--sunk); border-color:var(--navy); }
+
+/* ---------- Trang mục lục của một unit ----------------------------------- */
+
+.hub{ max-width:1100px; margin:0 auto; padding:32px 20px 60px; }
+.hub > p.lead{ color:var(--muted); font-size:var(--t-lead); margin-bottom:1.2em; }
+
+.lesson-grid{
+  display:grid; gap:14px;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  list-style:none; margin:0; padding:0;
+}
+.lesson-grid a{
+  display:block; height:100%;
+  padding:18px 20px;
+  background:var(--surface); border:1px solid var(--rule);
+  border-left:6px solid var(--navy); border-radius:var(--radius);
+  text-decoration:none; color:var(--ink);
+}
+.lesson-grid a:hover{ background:var(--sunk); border-left-color:var(--brass); }
+.lesson-grid .n{
+  display:block; font-size:.62em; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.25em;
+}
+.lesson-grid .t{ font-family:Georgia,serif; font-size:1.08em; }
+.lesson-grid a[aria-disabled="true"]{
+  border-left-color:var(--rule); color:var(--muted);
+  background:var(--sunk); cursor:not-allowed;
+}
+
+/* ---------- Bộ slide ----------------------------------------------------- */
+
+.deck{
+  position:relative;
+  height:calc(100vh - var(--bar));
+  overflow:hidden;
+}
+.slide{
+  position:absolute; inset:0;
+  display:none;
+  /* Đệm dưới phải chừa đủ nút "Hiện hết đáp án" (cao 44px, cách đáy 41px)
+     — dưới 88px là chữ chạm nút. Trên/hai bên thu bớt để lấy chỗ cho chữ to. */
+  padding:clamp(18px, 2.8vw, 56px) clamp(22px, 3.2vw, 64px) clamp(72px, 5.6vw, 94px);
+  overflow-y:auto;
+}
+.slide.is-current{ display:block; }
+/* JS gắn .has-reveal-all cho slide có đáp án — chỉ những slide đó mới phải
+   chừa nút "Hiện hết đáp án" ở góc dưới. */
+.slide.has-reveal-all{ padding-bottom:clamp(100px, 7.8vw, 122px); }
+.slide > :first-child{ margin-top:0; }
+
+/* Slide nhiều chữ (hội thoại dài, bảng nhiều dòng).
+   TRƯỚC ĐÂY hai lớp này thu cỡ chữ (.82× và .72×). Bỏ cách đó: .72× của
+   34px là 24px ≈ 17 pt — dưới mốc 24 pt, hàng ghế cuối mất chữ.
+   Giờ hai lớp này thu KHOẢNG CÁCH: giãn dòng, lề đoạn, khe lưới, đệm thẻ.
+   Vẫn tràn thì tách slide — §7 "Ba cái bẫy khi viết slide". */
+.slide.dense { line-height:1.32; }
+.slide.denser{ line-height:1.22; }
+.slide.dense  h2, .slide.denser h2{ margin-bottom:.3em; }
+.slide.dense  .kicker, .slide.denser .kicker{ margin-bottom:.28em; }
+.slide.dense  .q{ margin-bottom:.5em; }
+.slide.denser .q{ margin-bottom:.26em; }
+.slide.dense  li{ margin-bottom:.26em; }
+.slide.denser li{ margin-bottom:.16em; }
+.slide.dense  p, .slide.denser p{ margin-bottom:.5em; }
+.slide.dense  .cards, .slide.dense  .words,
+.slide.denser .cards, .slide.denser .words{ gap:clamp(8px,.9vw,14px); }
+.slide.dense  .card,  .slide.dense  .word{ padding:clamp(9px,1vw,15px); }
+.slide.denser .card,  .slide.denser .word{ padding:clamp(6px,.7vw,11px); }
+.slide.dense  .box,   .slide.denser .box{ padding:clamp(10px,1.1vw,18px); }
+.slide.dense  .colloc li, .slide.dense  .tf li{ padding:.3em .62em; margin-bottom:.3em; }
+.slide.denser .colloc li, .slide.denser .tf li{ padding:.2em .55em; margin-bottom:.2em; }
+.slide.dense  .reveal{ min-height:38px; padding:.14em .8em; }
+.slide.denser .reveal{ min-height:32px; padding:.08em .7em; }
+.slide.dense  .card .ico, .slide.denser .card .ico{ font-size:1.15em; margin-bottom:.06em; }
+.slide.dense  .card h3,  .slide.denser .card h3{ margin-bottom:.1em; line-height:1.1; }
+.slide.dense  .cards, .slide.dense  .words,
+.slide.denser .cards, .slide.denser .words{ margin-bottom:.35em; }
+.slide.dense  h1, .slide.dense  h2, .slide.dense  h3,
+.slide.denser h1, .slide.denser h2, .slide.denser h3{ line-height:1.06; }
+.slide.dense  .chips, .slide.denser .chips{ gap:.24em .34em; margin-bottom:.42em; }
+.slide.denser .chips li{ padding:.14em .62em; }
+.slide.dense  .box, .slide.denser .box{ margin-bottom:.5em; }
+.slide.denser .compare > div{ padding:clamp(8px,.9vw,14px); }
+.slide.denser .brief{ padding:clamp(8px,.9vw,14px); }
+.slide.dense  .brief, .slide.denser .brief{ margin-bottom:.5em; }
+.slide.dense  .brief .slogan,
+.slide.denser .brief .slogan{ margin:.2em 0 .3em; }
+.slide.dense  .pics figcaption, .slide.denser .pics figcaption{ margin-top:.22em; }
+.slide.dense  .pics, .slide.denser .pics{ gap:clamp(8px,1vw,15px); }
+/* Ảnh nhỏ lại một nấc trên slide dày chữ — ảnh không phải chữ, thu được.
+   Chữ trong ảnh vẫn đủ to vì object-fit:contain không cắt. */
+.slide.denser .pics img{ height:clamp(140px,23vh,240px); }
+.slide.dense  th, .slide.dense  td{ padding:.34em .55em; }
+.slide.denser th, .slide.denser td{ padding:.22em .45em; }
+.slide.dense  table, .slide.denser table{ margin-bottom:.5em; }
+.slide.denser .chat{ gap:.18em; }
+.slide.denser .bubble{ padding:.3em .68em; }
+/* Slide hội thoại thì bóng thoại là toàn bộ nội dung — 78% bề ngang là phí.
+   Nới ra 90% để câu dài bớt xuống dòng, vẫn còn lệch trái/phải để phân vai. */
+.slide.dense .bubble, .slide.denser .bubble{ max-width:90%; }
+.slide.denser .bubble .who{ margin-bottom:0; }
+.slide.dense .bubble, .slide.denser .bubble{ line-height:1.26; }
+
+/* Slide mở đầu mỗi phần */
+.slide.title{
+  background:var(--navy); color:var(--paper);
+}
+.slide.title.is-current{ display:grid; place-content:center; text-align:center; }
+.slide.title h1{ color:var(--paper); }
+.slide.title p{ color:#D6D9E8; font-size:var(--t-lead); }
+
+.kicker{
+  display:inline-block; margin-bottom:.6em;
+  font-size:.68em; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--brass); font-family:"Segoe UI",system-ui,sans-serif;
+}
+
+/* Hai cột — dùng cho ảnh + chữ, hoặc từ + nghĩa */
+.cols{ display:grid; gap:clamp(20px,2.6vw,48px); grid-template-columns:1fr 1fr; align-items:start; }
+@media (max-width:900px){ .cols{ grid-template-columns:1fr; } }
+
+.slide img{ max-width:100%; height:auto; border-radius:var(--radius); }
+
+.slide ul, .slide ol{ margin:0 0 .8em; padding-left:1.3em; }
+.slide li{ margin-bottom:.42em; }
+
+/* Khung nhấn mạnh: mục tiêu bài, lưu ý ngữ pháp */
+.box{
+  padding:clamp(16px,1.6vw,28px);
+  background:var(--sunk); border:1px solid var(--rule);
+  border-left:6px solid var(--brass); border-radius:var(--radius);
+  margin:0 0 1em;
+}
+.box h3{ color:var(--brass); margin-bottom:.3em; }
+
+/* Bảng từ vựng / chia động từ */
+.slide table{ width:100%; border-collapse:collapse; margin:0 0 1em; }
+.slide th, .slide td{
+  padding:.5em .7em; text-align:left;
+  border-bottom:1px solid var(--rule); vertical-align:top;
+}
+.slide th{ color:var(--navy); font-family:Georgia,serif; }
+
+/* ---------- Lật đáp án --------------------------------------------------- */
+/* Trình tự dạy: nêu câu hỏi, gọi HS trả lời, rồi mới bấm lật.
+   Không chấm điểm, không lưu gì. */
+
+.q{ margin:0 0 .9em; }
+.reveal{
+  display:inline-flex; align-items:center; gap:.5em;
+  min-height:48px; padding:.25em 1em; margin-left:.4em;
+  border:2px dashed var(--muted); border-radius:999px;
+  background:transparent; color:var(--muted);
+  font:inherit; font-size:.9em; cursor:pointer;
+  vertical-align:middle;
+}
+.reveal:hover{ border-color:var(--navy); color:var(--navy); }
+.reveal[aria-expanded="true"]{ display:none; }
+
+.answer{ display:none; }
+.answer.is-open{
+  display:inline;
+  color:var(--ok); font-weight:700;
+  background:rgba(42,107,63,.10);
+  padding:.08em .45em; border-radius:6px;
+}
+.answer.note.is-open{ display:block; margin-top:.5em; font-weight:400; }
+/* Đáp án lật ra làm slide cao thêm. Trên slide dày chữ thì thu lề lại,
+   để lúc cô mở hết đáp án cuối mục vẫn không phải cuộn. */
+.slide.dense  .answer.note.is-open{ margin-top:.3em; }
+.slide.denser .answer.note.is-open{ margin-top:.2em; }
+.slide.denser .answer.is-open{ padding:.04em .35em; }
+
+/* Nút lật hết một slide */
+.reveal-all{
+  /* Thanh điều hướng cố định cao 65px đè lên đáy slide. Đặt ở 24px là nút
+     bị cắt mất nửa dưới — phải đẩy lên trên thanh đó. */
+  position:absolute; right:clamp(24px,3.6vw,72px); bottom:clamp(66px,8.6vh,84px);
+  min-height:34px; padding:0 16px;
+  border:1px solid var(--rule); border-radius:999px;
+  background:var(--surface); color:var(--muted);
+  font:inherit; font-size:.8em; cursor:pointer;
+}
+.reveal-all:hover{ border-color:var(--navy); color:var(--navy); }
+
+/* ---------- Điều hướng slide -------------------------------------------- */
+
+.deck-nav{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  display:flex; align-items:center; gap:14px;
+  padding:10px clamp(16px,2vw,28px);
+  background:var(--surface); border-top:1px solid var(--rule);
+  font-size:clamp(13px,1.05vw,17px);
+}
+.deck-nav button{
+  min-width:48px; min-height:44px; padding:0 16px;
+  border:1px solid var(--rule); border-radius:999px;
+  background:var(--surface); color:var(--ink); font:inherit; cursor:pointer;
+}
+.deck-nav button:hover:not(:disabled){ background:var(--sunk); border-color:var(--navy); }
+.deck-nav button:disabled{ opacity:.35; cursor:default; }
+.deck-nav .count{ color:var(--muted); font-variant-numeric:tabular-nums; }
+.deck-nav .spacer{ flex:1; }
+
+.dots{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; max-width:40%; }
+.dots i{
+  width:9px; height:9px; border-radius:50%;
+  background:var(--rule); display:block;
+}
+.dots i.on{ background:var(--navy); }
+
+/* ---------- Âm thanh, video: tệp cục bộ, chạy được khi mất mạng ---------- */
+
+.slide audio, .slide video{ width:100%; max-width:760px; margin:.5em 0 1em; display:block; }
+.slide audio.tight{ margin:.1em 0 .3em; }
+.slide.dense audio.tight, .slide.denser audio.tight{ margin:.04em 0 .16em; }
+
+/* ---------- In ra giấy --------------------------------------------------- */
+
+@media print{
+  .bar, .deck-nav, .reveal, .reveal-all{ display:none !important; }
+  .deck{ height:auto; overflow:visible; }
+  .slide{ position:static; display:block !important; page-break-after:always; padding:0 0 24px; }
+  .slide.title{ background:none; color:var(--ink); }
+  .slide.title h1{ color:var(--ink); }
+  .answer{ display:inline !important; color:var(--ok); font-weight:700; }
+}
+
+/* ==========================================================================
+   LỚP TRÌNH BÀY "CANVA" — thêm 2026-08-27
+   --------------------------------------------------------------------------
+   Bộ thành phần để soạn slide sinh động mà vẫn đọc được từ cuối lớp.
+   Dùng chung cho mọi bài; đừng chép CSS riêng vào từng tệp bài giảng.
+
+   Màu: bảng gốc (AGENTS.md §12) vẫn là nền và chữ. Mỗi unit thêm MỘT bộ màu
+   nhấn lấy theo màu unit trong sách giáo khoa, để slide chiếu lên khớp với
+   trang sách học sinh đang mở. Khai ở <body data-unit="N">.
+   ========================================================================== */
+
+body{ --accent:#283567; --accent-2:#8A6A1C; --accent-soft:#F4F2EC; --on-accent:#fff; }
+
+/* Unit 1 — cam / xanh mòng két, theo trang 8–9 sách Global Success 10 */
+body[data-unit="1"]{
+  --accent:#E1541C; --accent-2:#0E7C86; --accent-soft:#FFF1E9; --on-accent:#fff;
+}
+body[data-unit="2"]{ --accent:#2E7D32; --accent-2:#0E7C86; --accent-soft:#EAF4EA; }
+body[data-unit="3"]{ --accent:#7B3FA0; --accent-2:#C2185B; --accent-soft:#F5EDF9; }
+body[data-unit="4"]{ --accent:#2E5E2E; --accent-2:#B84A2E; --accent-soft:#EBF1E9; }
+body[data-unit="5"]{ --accent:#4A2B7A; --accent-2:#00838F; --accent-soft:#EFEAF7; }
+body[data-unit="6"]{ --accent:#4A2B7A; --accent-2:#C2185B; --accent-soft:#EFEAF7; }
+body[data-unit="7"]{ --accent:#1B5E20; --accent-2:#B71C1C; --accent-soft:#E8F1E8; }
+body[data-unit="8"]{ --accent:#00695C; --accent-2:#1565C0; --accent-soft:#E4F0EE; }
+body[data-unit="9"]{ --accent:#00838F; --accent-2:#EF6C00; --accent-soft:#E2F1F3; }
+body[data-unit="10"]{ --accent:#33691E; --accent-2:#00695C; --accent-soft:#EDF3E7; }
+
+:root{ --font-display:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+
+/* Tiêu đề slide chuyển sang sans đậm: chiếu lên tường bắt mắt hơn serif */
+.deck h1, .deck h2{ font-family:var(--font-display); font-weight:800; letter-spacing:-.015em; }
+.deck h2{ color:var(--accent); }
+.deck h3{ font-family:var(--font-display); font-weight:700; }
+
+/* ---------- Slide bìa ---------------------------------------------------- */
+
+.slide.cover{
+  background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color:var(--on-accent);
+}
+.slide.cover.is-current{ display:grid; place-content:center; }
+.slide.cover h1{
+  color:var(--on-accent);
+  font-size:clamp(44px, 6vw, 104px); line-height:1.03; margin-bottom:.18em;
+}
+.slide.cover .sub{
+  font-size:var(--t-lead); color:rgba(255,255,255,.88);
+  max-width:24ch;
+}
+.slide.cover .kicker{
+  color:var(--on-accent);
+  background:rgba(255,255,255,.20);
+  padding:.42em 1em; border-radius:999px; letter-spacing:.18em;
+}
+.slide.cover .unit-no{
+  position:absolute; right:clamp(24px,4vw,90px); bottom:clamp(80px,8vw,120px);
+  font-family:var(--font-display); font-weight:800;
+  font-size:clamp(120px,20vw,340px); line-height:.8;
+  color:rgba(255,255,255,.14); pointer-events:none; user-select:none;
+}
+
+/* ---------- Slide phân đoạn (WARM-UP, PRACTICE…) ------------------------- */
+
+.slide.phase{ background:var(--accent-soft); }
+.slide.phase.is-current{ display:grid; place-content:center; }
+.slide.phase .step{
+  display:inline-grid; place-content:center;
+  width:clamp(74px,7vw,120px); height:clamp(74px,7vw,120px);
+  border-radius:50%; background:var(--accent); color:var(--on-accent);
+  font-family:var(--font-display); font-weight:800; font-size:clamp(34px,3.4vw,58px);
+  margin-bottom:.4em;
+}
+.slide.phase h1{ color:var(--accent); font-size:clamp(40px,5.4vw,92px); }
+.slide.phase .sub{ color:var(--muted); font-size:var(--t-lead); }
+
+/* ---------- Huy hiệu thời lượng và mã năng lực --------------------------- */
+
+.badge{
+  display:inline-flex; align-items:center; gap:.4em;
+  padding:.3em .85em; border-radius:999px;
+  font-family:var(--font-display); font-size:.72em; font-weight:700;
+  letter-spacing:.04em; white-space:nowrap;
+}
+.badge.time{ background:var(--accent); color:var(--on-accent); }
+.badge.code{ background:#EDE7F6; color:#4527A0; border:1px solid #C9BCE8; }
+.badge.soft{ background:var(--accent-soft); color:var(--accent); border:1px solid var(--rule); }
+.slide.phase .badge.time{ font-size:.8em; margin-top:.6em; }
+
+/* ---------- Chip (danh sách từ, ý tưởng) --------------------------------- */
+
+.chips{ display:flex; flex-wrap:wrap; gap:.5em .6em; margin:0 0 1em; padding:0; list-style:none; }
+.chips li, .chip{
+  display:inline-block; padding:.34em .95em;
+  background:var(--surface); border:2px solid var(--rule); border-radius:999px;
+  font-size:1em;
+}
+.chips li.hot, .chip.hot{
+  background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:700;
+}
+
+/* ---------- Thẻ (mục tiêu, luật chơi, bước làm) -------------------------- */
+
+.cards{
+  display:grid; gap:clamp(12px,1.4vw,22px);
+  /* 200px chứ không rộng hơn: đo thực tế trên 16 tiết, cột rộng hơn làm giảm
+     số cột → thêm một hàng thẻ → slide cao thêm ~200px. Hẹp mà một hàng
+     vẫn thấp hơn rộng mà hai hàng. */
+  grid-template-columns:repeat(auto-fit, minmax(min(185px,100%),1fr));
+  margin:0 0 .7em; padding:0; list-style:none;
+}
+.card{
+  background:var(--surface); border:1px solid var(--rule);
+  border-top:6px solid var(--accent); border-radius:var(--radius);
+  padding:clamp(14px,1.5vw,24px);
+  box-shadow:0 2px 10px rgba(26,31,53,.05);
+}
+.card .ico{ font-size:1.7em; line-height:1; display:block; margin-bottom:.24em; }
+.card h3{ color:var(--accent); font-size:1.02em; margin-bottom:.22em; }
+.card p{ font-size:1em; color:var(--muted); margin:0; }
+.card.alt{ border-top-color:var(--accent-2); }
+.card.alt h3{ color:var(--accent-2); }
+
+/* ---------- Thẻ từ vựng -------------------------------------------------- */
+
+.words{
+  display:grid; gap:clamp(12px,1.3vw,20px);
+  /* Chữ trong thẻ to gấp rưỡi thân bài nên phiên âm dài (/rɪˌspɒnsəˈbɪləti/)
+     cần cả cột rộng mới không xuống dòng. 460px = hai thẻ một hàng ở 1366. */
+  grid-template-columns:repeat(auto-fit, minmax(min(460px,100%),1fr));
+  margin:0 0 .7em; padding:0; list-style:none;
+}
+.word{
+  background:var(--surface); border:2px solid var(--rule); border-radius:var(--radius);
+  padding:clamp(10px,1.1vw,16px); text-align:center;
+  /* Thẻ từ vựng là thứ cả lớp phải chép vào vở — to hơn thân bài 1,5 lần.
+     Con chữ trong thẻ đều tính bằng em nên chỉ cần đặt một chỗ này;
+     tiêu đề slide không đổi (h2 nằm ngoài thẻ). */
+  font-size:1.5em;
+}
+/* Tu va tu loai chung mot dong: o co 1,5em, moi dong an ~50px chieu cao. */
+.word .w{
+  display:inline; font-family:var(--font-display); font-weight:800;
+  font-size:1.15em; line-height:1.12; color:var(--accent);
+}
+.word .pos{ font-size:.84em; color:var(--muted); font-style:italic; }
+.word .ipa{
+  display:block; margin:.08em 0 .26em;
+  font-size:1em; color:var(--accent-2); font-weight:600;
+}
+.word .reveal{ margin:0; font-size:.8em; min-height:34px; }
+.word .answer.is-open{ display:block; margin-top:.35em; font-weight:600; }
+
+/* ---------- Hội thoại dạng bong bóng chat -------------------------------- */
+
+.chat{ display:flex; flex-direction:column; gap:.5em; margin:0 0 1em; }
+.slide.dense .chat, .slide.denser .chat{ gap:.30em; }
+.bubble{
+  max-width:78%; padding:.5em .9em;
+  /* Hội thoại là thứ cả lớp dò từng dòng theo băng — to hơn thân bài một
+     nấc (1,3 em = 44px @768 ≈ 31 pt), vẫn thấp hơn tiêu đề slide (48px). */
+  border-radius:18px; font-size:1.3em; line-height:1.34;
+}
+.bubble .who{
+  display:block; font-family:var(--font-display); font-weight:700;
+  font-size:.84em; letter-spacing:.04em; margin-bottom:.1em; opacity:.72;
+}
+.bubble.l{ align-self:flex-start; background:var(--sunk); border-bottom-left-radius:5px; }
+.bubble.r{
+  align-self:flex-end; background:var(--accent); color:var(--on-accent);
+  border-bottom-right-radius:5px;
+}
+.bubble.r .who{ opacity:.85; }
+.bubble b{ background:rgba(245,166,35,.34); padding:0 .18em; border-radius:4px; font-weight:700; }
+.bubble.r b{ background:rgba(255,255,255,.28); }
+
+/* ---------- Đúng / Sai --------------------------------------------------- */
+
+.tf{ list-style:none; margin:0 0 1em; padding:0; counter-reset:tf; }
+.tf li{
+  display:flex; align-items:flex-start; gap:.7em;
+  padding:.6em .8em; margin-bottom:.5em;
+  background:var(--surface); border:1px solid var(--rule);
+  border-left:6px solid var(--rule); border-radius:var(--radius);
+}
+.tf li::before{
+  counter-increment:tf; content:counter(tf);
+  flex:0 0 auto; display:grid; place-content:center;
+  width:1.7em; height:1.7em; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent);
+  font-family:var(--font-display); font-weight:800; font-size:.86em;
+}
+.tf .verdict{ display:none; font-family:var(--font-display); font-weight:800; }
+.tf .verdict.is-open{ display:inline-block; }
+.tf .verdict.t{ color:var(--ok); }
+.tf .verdict.f{ color:var(--crit); }
+
+/* ---------- Bảng kết hợp từ (Task 3) ------------------------------------- */
+
+.colloc{ list-style:none; margin:0 0 1em; padding:0; display:grid; gap:.5em; }
+.colloc li{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:.6em; align-items:center;
+  padding:.5em .8em; background:var(--surface);
+  border:1px solid var(--rule); border-radius:var(--radius);
+}
+.colloc .v{ text-align:right; font-weight:700; color:var(--accent); }
+.colloc .n{ padding-left:.7em; border-left:3px solid var(--rule); }
+/* Bảng ghép từ 5–6 dòng ở màn thấp (1280×720) hay tràn. Thu lề ở mức denser
+   thay vì thu chữ nhỏ thêm — hàng ghế cuối vẫn phải đọc được. */
+.slide.dense  .colloc{ gap:.38em; }
+.slide.denser .colloc{ gap:.30em; }
+.slide.denser .colloc li{ padding:.34em .62em; }
+.slide.denser .tf li{ padding:.4em .62em; margin-bottom:.34em; }
+
+.colloc .blank{
+  display:inline-block; min-width:5.5em;
+  border-bottom:3px dotted var(--muted);
+}
+
+/* ---------- So sánh ngữ pháp hai cột ------------------------------------- */
+
+.compare{ display:grid; gap:clamp(12px,1.4vw,22px); grid-template-columns:1fr 1fr; margin:0 0 1em; }
+@media (max-width:900px){ .compare{ grid-template-columns:1fr; } }
+.compare > div{
+  padding:clamp(14px,1.5vw,24px); border-radius:var(--radius);
+  border:2px solid var(--rule); background:var(--surface);
+}
+.compare > div:first-child{ border-color:var(--accent); background:var(--accent-soft); }
+.compare > div:last-child { border-color:var(--accent-2); background:var(--sunk); }
+.compare h3{ margin-bottom:.3em; }
+.compare > div:first-child h3{ color:var(--accent); }
+.compare > div:last-child  h3{ color:var(--accent-2); }
+.compare .eg{ font-size:1em; color:var(--muted); font-style:italic; }
+
+/* ---------- Trò chơi nhúng ------------------------------------------------ */
+/* Trò chạy trong <iframe> để CSS/JS của nó không đụng bài giảng — cùng lý do
+   popup bản đồ dùng iframe chứ không fetch (xem README). Trò có class riêng
+   nên lớp .card / .grid của chúng không đè lên .card của module.
+   Chiều cao đặt bằng vh để trò co theo màn, không sinh thanh cuộn trong khung. */
+.game{
+  display:block; width:100%; border:0; background:transparent;
+  height:clamp(250px, 53vh, 490px); margin:0 0 .2em;
+}
+.slide.dense .game, .slide.denser .game{ height:clamp(240px, 51vh, 470px); }
+/* .game.tall — trò chiếm trọn slide (không có gì khác ngoài tiêu đề):
+   cho cao hết phần còn lại của khung nội dung. */
+.slide .game.tall{ height:clamp(280px, 61vh, 540px); }
+/* .slide.play — trò lớn tự có logo, đồng hồ và bảng điểm (U1 L5 Web
+   completion): slide không kicker, không h2, iframe chiếm trọn khung. Đệm
+   dưới 72px là chừa thanh điều hướng cố định cao 65px. */
+.slide.play{ padding:clamp(6px,.7vw,12px) clamp(6px,.7vw,12px) 72px; overflow:hidden; }
+.slide.play .game{ height:100%; margin:0; border-radius:var(--radius); }
+
+/* ---------- Ảnh nhiệm vụ cắt từ SGK ----------------------------------------- */
+/* Ảnh cắt từ bản PDF của sách chỉ ~150 dpi — đủ nét ở khổ này, đừng phóng
+   to hơn. object-fit:contain để cả hàng cao bằng nhau mà KHÔNG cắt mất chữ
+   trong ảnh (ví dụ biển "PLEASE TURN OFF LIGHTS"); nền --sunk lấp phần thừa
+   nên hai bên không hở trắng trên nền tối. */
+.pics{
+  display:grid; gap:clamp(10px,1.2vw,20px);
+  grid-template-columns:repeat(auto-fit, minmax(170px,1fr));
+  margin:0 0 1em;
+}
+.pics figure{ margin:0; }
+.pics img{
+  display:block; width:100%; height:clamp(150px,30vh,300px);
+  object-fit:contain; background:var(--sunk);
+  border:1px solid var(--rule); border-radius:var(--radius);
+}
+.pics figcaption{ margin-top:.42em; font-size:1em; color:var(--muted); }
+.pics figcaption b{ color:var(--ink); }
+/* .pics.wide — một ảnh lớn duy nhất: giữ nguyên tỉ lệ, chặn chiều cao.
+   Ảnh dọc (tr. 11 Unit 1) nếu để height:auto sẽ cao bằng cả cột → tràn slide.
+   max-height chặn lại, width:auto giữ đúng tỉ lệ, không bóp méo. */
+/* .pics.small — hàng ảnh đi kèm bảng cụm từ trên cùng một slide: ảnh thấp
+   hơn một nấc để cả bảng lẫn ảnh cùng vừa màn. */
+/* .pics.small — hàng ảnh đi kèm bảng cụm từ; .pics.big — hàng ảnh đứng một
+   mình, chừa sẵn chỗ cho đáp án lật ra (cao thêm một dòng). Cả hai phải
+   thắng được .slide.denser .pics img nên viết kèm .slide ở đầu. */
+.slide .pics.small img{ height:clamp(120px,19vh,200px); }
+.slide .pics.big img{ height:clamp(150px,30vh,300px); }
+.slide .pics.big figcaption{ min-height:2.4em; }
+.pics.wide{ grid-template-columns:1fr; }
+.pics.wide img{
+  height:auto; max-height:52vh; width:auto; max-width:100%;
+  margin-inline:auto; background:none;
+}
+.slide.denser .pics.wide img{ max-height:50vh; }
+@media (max-width:900px){
+  .pics{ grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); }
+}
+
+/* ---------- Khung nhiệm vụ lớn (poster, project) ------------------------- */
+
+.brief{
+  padding:clamp(16px,1.8vw,30px);
+  border-radius:var(--radius);
+  background:linear-gradient(135deg, var(--accent-soft), var(--surface));
+  border:2px solid var(--accent);
+  margin:0 0 1em;
+}
+.brief h3{ color:var(--accent); margin-bottom:.3em; }
+.brief .slogan{
+  font-family:var(--font-display); font-weight:800;
+  font-size:1.22em; color:var(--accent-2); margin:.3em 0 .5em;
+}
+
+/* ---------- Hoạt hình vào slide (nhẹ, tắt được) -------------------------- */
+
+@keyframes gs10-in{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+.slide.is-current > *{ animation:gs10-in .34s cubic-bezier(.22,.7,.3,1) both; }
+.slide.is-current > *:nth-child(2){ animation-delay:.05s; }
+.slide.is-current > *:nth-child(3){ animation-delay:.10s; }
+.slide.is-current > *:nth-child(4){ animation-delay:.15s; }
+.slide.is-current > *:nth-child(5){ animation-delay:.20s; }
+.slide.is-current > *:nth-child(n+6){ animation-delay:.24s; }
+@media (prefers-reduced-motion:reduce){
+  .slide.is-current > *{ animation:none; }
+}
+
+/* ---------- In: bỏ nền đậm để không tốn mực ------------------------------ */
+
+@media print{
+  .slide.cover, .slide.phase{ background:none !important; color:var(--ink) !important; }
+  .slide.cover h1, .slide.cover .sub, .slide.cover .kicker{ color:var(--ink) !important; background:none !important; }
+  .slide.cover .unit-no{ display:none; }
+  .bubble.r{ background:var(--sunk) !important; color:var(--ink) !important; }
+  .tf .verdict{ display:inline-block !important; }
+}
+
+/* ---------- Video YouTube nhúng chậm ------------------------------------- */
+/* Đây là chỗ DUY NHẤT trong module cần mạng. Thẻ poster vẽ bằng CSS, không
+   tải ảnh từ YouTube — mất mạng thì vẫn thấy thẻ đầy đủ chứ không phải ô đen.
+   iframe chỉ được tạo khi cô bấm nút, nên chưa bấm thì YouTube không hề biết
+   có ai mở slide này. Xem GLOBAL-SUCCESS-10.md §2.4a. */
+
+.video{
+  position:relative;
+  aspect-ratio:16/9; width:100%; max-width:min(100%, 58vh);
+  margin:0 auto .7em;
+  border-radius:var(--radius); overflow:hidden;
+  background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color:#fff;
+  display:grid; place-content:center; text-align:center;
+  border:2px solid var(--accent);
+}
+.video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+.video-play{
+  width:clamp(58px,6vh,90px); height:clamp(58px,6vh,90px);
+  margin:0 auto .5em;
+  border-radius:50%; border:3px solid rgba(255,255,255,.85);
+  background:rgba(255,255,255,.16); color:#fff;
+  font-size:clamp(22px,2.4vh,34px); line-height:1;
+  cursor:pointer; transition:transform .12s, background .12s;
+  display:grid; place-content:center;
+}
+.video-play:hover{ background:rgba(255,255,255,.3); transform:scale(1.07); }
+
+.video .t{ display:block; font-family:var(--font-display); font-weight:800; font-size:1.02em; }
+.video .s{ display:block; font-size:.84em; color:rgba(255,255,255,.85); margin-top:.15em; }
+
+/* Báo mất mạng — hiện thay cho iframe khi navigator.onLine = false */
+.video.offline{ background:var(--sunk); color:var(--ink); border-color:var(--muted); }
+.video.offline .video-play{ display:none; }
+.video.offline .t{ color:var(--crit); }
+.video.offline .s{ color:var(--muted); }
+
+@media print{
+  .video{ background:none !important; color:var(--ink) !important; aspect-ratio:auto; height:auto; padding:1em; }
+  .video-play{ display:none; }
+  .video .s{ color:var(--muted) !important; }
+}
+
+/* ==========================================================================
+   NỀN TEMPLATE CHO SLIDE — thêm 2026-08-27
+   --------------------------------------------------------------------------
+   Khai MỘT lần ở đây, cả unit dùng chung. Không phải sửa từng tệp bài giảng.
+
+   Cách bật cho một unit:
+     1. Bỏ ảnh vào assets/bg-unitNN.webp (nén như bản đồ, xem §5 của spec).
+     2. Bỏ dấu chú thích ở dòng body[data-unit="NN"].has-bg dưới đây.
+     3. Thêm class="has-bg" vào <body> của các tệp bài giảng unit đó.
+
+   Đường dẫn url() trong tệp này tính từ CHÍNH TỆP CSS, nên viết
+   assets/bg-unitNN.webp là đúng cho mọi bài ở mọi thư mục con.
+
+   VÌ SAO CÓ MÀN LỌC (--scrim): chữ thân bài 20–34px chiếu lên tường trong
+   phòng bật đèn, đặt thẳng trên nền có hoạ tiết là mất chữ.
+
+   ĐỪNG HẠ --scrim XUỐNG DƯỚI 0.88. Đo tương phản trong trường hợp xấu nhất
+   (ảnh nền đen tuyền hoặc trắng tinh), ngưỡng WCAG AA là 4.5:
+
+     scrim   chữ chính   đáp án xanh   chữ đỏ   chữ mờ
+     0.88      11.9         4.7         5.2      4.5   ← vừa đủ, mặc định
+     0.82      10.2         4.0         4.5      3.9   ← đáp án tụt dưới ngưỡng
+     0.75       8.5         3.4         3.7      3.2
+     0.60       5.5         2.2         2.4      2.1   ← không đọc nổi
+
+   0.88 là sàn, không phải mức thận trọng. Muốn nền hiện rõ hơn thì chọn ảnh
+   nền nhạt và ít hoạ tiết, đừng hạ con số này.
+   ========================================================================== */
+
+.deck{
+  background-image: none;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ---- Bật nền theo unit. Bỏ chú thích dòng nào là unit đó có nền. ---- */
+/* body[data-unit="1"].has-bg  .deck{ background-image:url(assets/bg-unit01.webp); } */
+/* body[data-unit="2"].has-bg  .deck{ background-image:url(assets/bg-unit02.webp); } */
+/* body[data-unit="3"].has-bg  .deck{ background-image:url(assets/bg-unit03.webp); } */
+
+/* Nền dùng chung cho mọi unit chưa có nền riêng */
+/* body.has-bg .deck{ background-image:url(assets/bg-default.webp); } */
+
+/* ---- Màn lọc giữ chữ đọc được ---- */
+/* Slide bìa và slide phân đoạn tự có nền đặc rồi, không cần lọc. */
+body.has-bg .slide:not(.cover):not(.phase){
+  background: rgba(251, 250, 247, var(--scrim, .88));
+}
+
+/* Slide muốn khoe nguyên nền, không lọc — dùng cho màn trang trí, ít chữ. */
+body.has-bg .slide.bare{ background: transparent; }
+
+/* Hạ nhẹ màn lọc cho slide ít chữ */
+body.has-bg .slide.airy{ background: rgba(251, 250, 247, .72); }
+
+/* Khung nội dung đục hơn nền một chút để nổi khối */
+body.has-bg .box,
+body.has-bg .card,
+body.has-bg .word,
+body.has-bg .colloc li,
+body.has-bg .tf li{ background: rgba(255, 255, 255, .94); }
+
+/* In ra giấy: bỏ nền, đỡ tốn mực */
+@media print{
+  .deck{ background-image: none !important; }
+  body.has-bg .slide{ background: none !important; }
+}
+
+/* ==========================================================================
+   THEME "FAMILY TIME" — theo template Canva của cô, thêm 2026-08-27
+   --------------------------------------------------------------------------
+   Bật bằng: <body data-unit="1" class="tpl-family">
+
+   Ba thứ lấy từ template: nền kem #FFFAE8, chữ nâu, và hai ảnh minh hoạ.
+
+   ⚠ FONT: template dùng một serif tương phản cao (kiểu Playfair Display).
+   Module cấm tải font ngoài (§2.4) nên ở đây dùng serif có sẵn trên máy —
+   Palatino Linotype trên Windows, gần nhất về độ ấm và độ tương phản.
+   Muốn giống hệt thì gửi tệp .woff2 của font đó; nhiều font Canva dùng là
+   giấy phép OFL, nhúng thẳng vào assets/fonts/ là hợp lệ và vẫn chạy offline.
+   ========================================================================== */
+
+body.tpl-family{
+  --paper:#FFFAE8;          /* kem, đo từ chính hai ảnh nền */
+  --surface:#FFFDF5;
+  --sunk:#F7EFD8;
+  --ink:#4A3226;            /* nâu đậm cho chữ thân bài */
+  --muted:#886D5C;          /* đã hạ 2 nấc: #8A6F5E chỉ đạt 4.45, dưới ngưỡng AA */
+  --rule:#E8DDC2;
+  --accent:#7A4636;         /* nâu tiêu đề, lấy từ chữ "Family Time" */
+  --accent-2:#4E7C5A;       /* xanh sofa hạ 16 nấc — bản gốc #5E8C6A chỉ đạt 3.70 */
+  --accent-soft:#FBF3DF;
+  --on-accent:#FFFAE8;
+  --ok:#3D6B4A;             /* xanh đúng — chỉnh ấm lại cho hợp nền kem */
+  --crit:#A6412C;
+  --font-display:"Palatino Linotype", "Book Antiqua", Palatino, Georgia,
+                 "Times New Roman", serif;
+}
+
+/* Tiêu đề: serif nghiêng như template. Chữ thân bài giữ sans cho dễ đọc —
+   nghiêng cả trang chiếu lên tường là mỏi mắt. */
+body.tpl-family .deck h1,
+body.tpl-family .deck h2{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-weight:700;
+  letter-spacing:0;
+  color:var(--accent);
+}
+body.tpl-family .deck h3{ font-family:var(--font-display); font-style:normal; }
+body.tpl-family .bar .brand{ font-family:var(--font-display); color:var(--accent); }
+
+/* Nhãn nhỏ trên tiêu đề — kiểu "Presentation Template" của mẫu */
+body.tpl-family .kicker{
+  color:var(--accent-2);
+  letter-spacing:.18em;
+  font-family:"Segoe UI", system-ui, sans-serif;
+}
+
+/* ---- Slide bìa: nền cả gia đình trên sofa, chữ dồn về nửa trái ---- */
+body.tpl-family .slide.cover{
+  background:var(--paper) url(assets/tpl-family-cover.webp) center/cover no-repeat;
+  color:var(--ink);
+}
+body.tpl-family .slide.cover.is-current{
+  display:grid; place-content:center start; text-align:left;
+  /* Đo từ chính ảnh nền: hình bắt đầu ở 40% bề rộng, nên chữ phải dừng
+     trước đó. Đừng đoán con số này — đổi ảnh thì đo lại. */
+  padding-right:59%;
+}
+body.tpl-family .slide.cover h1{
+  color:var(--accent); font-style:italic;
+  font-size:clamp(40px, min(5.6vw, 9vh), 96px); line-height:1.02;
+}
+body.tpl-family .slide.cover .sub{ color:var(--muted); }
+body.tpl-family .slide.cover .kicker{
+  background:none; color:var(--accent-2); padding:0;
+}
+body.tpl-family .slide.cover .unit-no{ display:none; }
+
+/* ---- Slide phân đoạn: nền đánh răng, hình ở góc phải dưới ---- */
+body.tpl-family .slide.phase{
+  background:var(--paper) url(assets/tpl-family-content.webp) center/cover no-repeat;
+}
+body.tpl-family .slide.phase.is-current{
+  display:grid; place-content:center start; text-align:left;
+  padding-right:29%;                     /* hình ở ảnh này bắt đầu từ 73% */
+}
+body.tpl-family .slide.phase h1{ color:var(--accent); }
+body.tpl-family .slide.phase .step{
+  background:var(--accent); color:var(--paper);
+}
+body.tpl-family .slide.phase .sub{ color:var(--muted); }
+
+/* ---- Slide nội dung: nền kem phẳng, không ảnh — chữ nhiều thì ảnh
+       chỉ làm rối. Ảnh để dành cho bìa và slide phân đoạn. ---- */
+body.tpl-family .slide:not(.cover):not(.phase){ background:var(--paper); }
+
+/* ---- Nút, khung, huy hiệu theo tông nâu ---- */
+body.tpl-family .badge.time{ background:var(--accent); color:var(--paper); }
+body.tpl-family .badge.soft{ background:var(--accent-soft); color:var(--accent);
+                             border-color:var(--rule); }
+body.tpl-family .card{ border-top-color:var(--accent); }
+body.tpl-family .card.alt{ border-top-color:var(--accent-2); }
+body.tpl-family .box{ border-left-color:var(--accent-2); }
+body.tpl-family .box h3{ color:var(--accent-2); }
+body.tpl-family .brief{ border-color:var(--accent); }
+body.tpl-family .brief h3, body.tpl-family .brief .slogan{ color:var(--accent); }
+
+/* Nút lật đáp án: viền mảnh bo tròn, đúng kiểu nút pill của template */
+body.tpl-family .reveal{
+  border:1.5px solid var(--accent); border-style:solid;
+  color:var(--accent); border-radius:999px;
+}
+body.tpl-family .reveal:hover{ background:var(--accent-soft); }
+
+/* ==========================================================================
+   THEME "POLLUTION" — template Unit 2 của cô, thêm 2026-08-27
+   --------------------------------------------------------------------------
+   Bật bằng: <body data-unit="2" class="tpl-env">
+
+   BỐN BỐ CỤC, ứng với bốn ảnh cô gửi. Vị trí khung nội dung ĐO TỪ CHÍNH ẢNH,
+   không ước lượng — chữ phải nằm gọn trong khung, không tràn ra nền.
+
+     lớp                 ảnh nền              khung nội dung
+     .slide.cover        tpl-env-cover        x 18.5–78.9%  y 31.3–68.6%
+     .slide.phase        tpl-env-phase        x 11.5–88.4%  y 17.5–82.4%
+     .slide (thường)     tpl-env-content      x  6.1–93.8%  y 10.9–89.0%
+     .slide.side         tpl-env-side         x 47.8–93.8%  y 10.9–89.0%
+
+   .side dùng cho slide ít chữ mà muốn khoe hình; khung chỉ rộng 46% nên
+   nhồi bảng vào đó là tràn.
+
+   CHỮ TRÊN NỀN TỐI: khung nội dung của template này màu #40484C, nên chữ
+   phải sáng. Toàn bộ biến màu bị đảo lại bên dưới, đã đo tương phản.
+   ========================================================================== */
+
+body.tpl-env{
+  --paper:#F9ECCF;          /* kem, đo từ ảnh */
+  --panel:#40484C;          /* khung nội dung tối */
+  --surface:#454D52;        /* thẻ nổi — #4B5459 sáng quá, ba màu chữ tụt dưới AA */
+  --sunk:#394044;
+  --ink:#F7EEDC;            /* chữ chính: kem trên nền tối */
+  --muted:#D5C6AD;         /* sáng thêm: #C3B49B chỉ đạt 3.81 trên thẻ nổi */
+  --rule:#5E686D;
+  /* Cam gốc của template là #F7931E, nhưng làm CHỮ trên khung tối thì chỉ
+     đạt 4.07 và trên thẻ nổi chỉ 3.37 — dưới ngưỡng AA. Nên tách làm hai:
+     --accent để viết chữ (đã sáng lên), --accent-fill giữ cam gốc để tô nền. */
+  --accent:#FFBA45;         /* cam sáng — dùng cho CHỮ, đạt 4.56 trên thẻ nổi */
+  --accent-fill:#F7931E;    /* cam gốc của template — chỉ dùng làm NỀN */
+  --accent-2:#EFBC73;
+  --accent-soft:#4E585D;
+  --on-accent:#2A3033;
+  --ok:#8FD0A0;             /* xanh/đỏ chỉnh sáng lên cho hợp nền tối */
+  --crit:#FEAC99;           /* sáng thêm cho đủ tương phản trên thẻ nổi */
+  --font-display:"Arial Black", "Segoe UI Black", "Segoe UI", Impact, sans-serif;
+}
+
+body.tpl-env .deck h1,
+body.tpl-env .deck h2{
+  font-family:var(--font-display);
+  font-weight:900; letter-spacing:.01em; color:var(--accent);
+}
+body.tpl-env .deck h3{ font-family:var(--font-display); font-weight:700; }
+body.tpl-env .kicker{ color:var(--accent-2); }
+body.tpl-env .bar{ background:var(--panel); border-bottom-color:var(--rule); }
+body.tpl-env .bar .brand{ color:var(--accent); font-family:var(--font-display); }
+body.tpl-env .bar a{ background:var(--sunk); color:var(--ink); border-color:var(--rule); }
+
+/* ---- Nền chung của bộ slide ---- */
+body.tpl-env .deck{ background:var(--paper); }
+
+/* ---- Bìa: nền cam + khung trắng ---- */
+body.tpl-env .slide.cover{
+  background:url(assets/tpl-env-cover.webp) center/cover no-repeat;
+  color:#22282B;
+}
+/* Ảnh bìa của template ĐÃ CÓ SẴN tên unit in trong ảnh. Chèn thêm chữ lên
+   là đè chồng lên nhau. Nên ẩn toàn bộ nội dung slide bìa — nhưng ẩn theo
+   kiểu "visually hidden" để trình đọc màn hình vẫn đọc được tiêu đề. */
+body.tpl-env .slide.cover > *{
+  position:absolute; width:1px; height:1px;
+  margin:-1px; padding:0; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+body.tpl-env .slide.cover.is-current{
+  display:grid; place-content:center; text-align:center;
+  /* Khung trắng ở x 18.5–78.9%, y 31.3–68.6%.
+     LỀ DỌC PHẢI DÙNG vh: padding % trong CSS tính theo BỀ RỘNG, nên 33%
+     trên màn 1366 thành 451px và nuốt sạch chỗ. */
+  padding:32vh 23% 31vh 20.5%;
+}
+body.tpl-env .slide.cover h1{
+  color:#1C2124; font-family:var(--font-display);
+  font-size:clamp(26px, min(3.6vw, 6.4vh), 60px); line-height:1.06;
+  text-transform:uppercase; letter-spacing:.02em;
+}
+body.tpl-env .slide.cover .sub{ color:#4A5257; font-size:var(--t-body); }
+body.tpl-env .slide.cover .kicker{ color:#6B4A1E; }
+body.tpl-env .slide.cover .unit-no{ display:none; }
+
+/* ---- Slide phân đoạn: nền tối + khung sáng + hình tròn góc dưới trái ---- */
+body.tpl-env .slide.phase{
+  background:url(assets/tpl-env-phase.webp) center/cover no-repeat;
+}
+body.tpl-env .slide.phase.is-current{
+  display:grid; place-content:center; text-align:center;
+  padding:19vh 13.5% 20vh 13.5%;         /* khung ở x 11.5–88.4%, y 17.5–82.4% */
+}
+body.tpl-env .slide.phase h1{ color:#8A4A12; }
+body.tpl-env .slide.phase .sub{ color:#5A4632; }
+body.tpl-env .slide.phase .step{ background:var(--accent-fill); color:#2A3033; }
+body.tpl-env .slide.phase .badge.time{ background:#8A4A12; color:#F9ECCF; }
+
+/* ---- Slide nội dung: khung tối gần tràn viền ---- */
+body.tpl-env .slide:not(.cover):not(.phase):not(.side){
+  background:url(assets/tpl-env-content.webp) center/cover no-repeat;
+  color:var(--ink);
+  /* Khung tối ở x 6.1–93.8%, y 10.9–89.0% — tức cách trên 10,9% × 712px ≈ 78px
+     (≈10,1vh) và cách dưới cũng 78px. Đệm cũ 12vh/19vh thụt sâu hơn khung
+     nhiều, ăn mất 61px chiều cao — gần hai dòng chữ 24 pt. Thu sát khung.
+     12vh dưới = 92px, vừa vượt nút "Hiện hết đáp án" (đỉnh ở 85px). */
+  padding:11vh 8.5% 12vh 8.5%;
+}
+body.tpl-env .slide.has-reveal-all:not(.cover):not(.phase):not(.side){
+  padding-bottom:13.5vh;   /* chừa nút "Hiện hết đáp án" ở đúng chỗ mới */
+}
+
+/* ---- Slide "khoe hình": khung kem hẹp bên phải ---- */
+body.tpl-env .slide.side{
+  background:url(assets/tpl-env-side.webp) center/cover no-repeat;
+  color:#3A3128;
+  padding:12vh 7% 19vh 49.5%;            /* khung ở x 47.8–93.8% */
+}
+body.tpl-env .slide.side h1,
+body.tpl-env .slide.side h2{ color:#AA5305; }  /* #B35C0E chỉ đạt 4.03 trên kem */
+body.tpl-env .slide.side .kicker{ color:#7A5A2E; }
+body.tpl-env .slide.side .box,
+body.tpl-env .slide.side .card{ background:rgba(255,255,255,.62); color:#3A3128; }
+
+/* ---- Thành phần trên nền tối ---- */
+body.tpl-env .card,
+body.tpl-env .word,
+body.tpl-env .colloc li,
+body.tpl-env .tf li,
+body.tpl-env .box,
+body.tpl-env table{ background:var(--surface); color:var(--ink); }
+body.tpl-env .card{ border-color:var(--rule); border-top-color:var(--accent); }
+body.tpl-env .card.alt{ border-top-color:var(--accent-2); }
+body.tpl-env .card p{ color:var(--muted); }
+body.tpl-env .box{ border-color:var(--rule); border-left-color:var(--accent); }
+body.tpl-env .box h3{ color:var(--accent); }
+body.tpl-env .brief{
+  background:linear-gradient(135deg, var(--sunk), var(--surface));
+  border-color:var(--accent);
+}
+body.tpl-env .brief h3, body.tpl-env .brief .slogan{ color:var(--accent); }
+body.tpl-env .chips li, body.tpl-env .chip{
+  background:var(--surface); border-color:var(--rule); color:var(--ink);
+}
+body.tpl-env .chips li.hot, body.tpl-env .chip.hot{
+  background:var(--accent-fill); border-color:var(--accent-fill); color:#2A3033;
+}
+body.tpl-env .slide th{ color:var(--accent); }
+body.tpl-env .slide th, body.tpl-env .slide td{ border-bottom-color:var(--rule); }
+body.tpl-env .compare > div{ background:var(--surface); border-color:var(--rule); }
+body.tpl-env .compare > div:first-child{ border-color:var(--accent); }
+body.tpl-env .compare > div:last-child{ border-color:var(--accent-2); }
+body.tpl-env .compare .eg{ color:var(--muted); }
+body.tpl-env .bubble.l{ background:var(--surface); color:var(--ink); }
+body.tpl-env .bubble.r{ background:var(--accent-fill); color:#2A3033; }
+body.tpl-env .badge.soft{ background:var(--sunk); color:var(--accent-2); border-color:var(--rule); }
+body.tpl-env .badge.code{ background:#4A4258; color:#D9CBF2; border-color:#655C77; }
+body.tpl-env .word .ipa{ color:var(--accent-2); }
+body.tpl-env .word .w{ color:var(--accent); }
+body.tpl-env .colloc .v{ color:var(--accent); }
+body.tpl-env .colloc .n{ border-left-color:var(--rule); }
+body.tpl-env .tf li::before{ background:var(--accent-fill); color:#2A3033; }
+
+/* Nút lật và thanh điều hướng trên nền tối */
+body.tpl-env .reveal{ border-color:var(--accent-2); color:var(--accent-2); }
+body.tpl-env .reveal:hover{ background:var(--sunk); color:var(--accent); }
+body.tpl-env .reveal-all{ background:var(--sunk); color:var(--muted); border-color:var(--rule); }
+body.tpl-env .answer.is-open{ background:rgba(143,208,160,.16); }
+body.tpl-env .deck-nav{ background:var(--panel); border-top-color:var(--rule); }
+body.tpl-env .deck-nav button{ background:var(--sunk); color:var(--ink); border-color:var(--rule); }
+body.tpl-env .deck-nav .count{ color:var(--muted); }
+body.tpl-env .dots i{ background:var(--rule); }
+body.tpl-env .dots i.on{ background:var(--accent-fill); }
+
+/* Khung nội dung của template hẹp hơn slide tràn viền, nên lưới thẻ phải thu
+   lề lại. Thu LỀ chứ không thu chữ — hàng ghế cuối vẫn phải đọc được. */
+body.tpl-env .cards,
+body.tpl-env .words{ gap:clamp(8px,1vw,15px); }
+body.tpl-env .card,
+body.tpl-env .word{ padding:clamp(10px,1.1vw,17px); }
+body.tpl-env .card .ico{ font-size:1.4em; margin-bottom:.14em; }
+body.tpl-env .colloc{ gap:.28em; }
+body.tpl-env .colloc li{ padding:.32em .62em; }
+body.tpl-env .slide.denser .colloc{ gap:.22em; }
+body.tpl-env .slide.denser .colloc li{ padding:.24em .55em; }
+body.tpl-env .tf li{ padding:.4em .62em; margin-bottom:.32em; }
+
+/* In ra giấy: bỏ nền tối, đỡ tốn mực */
+@media print{
+  body.tpl-env .slide{ background:none !important; color:#1A1F35 !important; padding:0 0 24px !important; }
+  body.tpl-env .deck h1, body.tpl-env .deck h2{ color:#1A1F35 !important; }
+  body.tpl-env .card, body.tpl-env .box, body.tpl-env .word,
+  body.tpl-env .colloc li, body.tpl-env .tf li{ background:none !important; color:#1A1F35 !important; }
+}
+
+/* ==========================================================================
+   THEME "MUSIC" — dựng từ PPT Unit 3 của cô, thêm 2026-09-10
+   --------------------------------------------------------------------------
+   Bật bằng: <body data-unit="3" class="tpl-music">
+
+   Ba ảnh nền kết xuất thẳng từ PPT (PowerPoint COM, xoá hết hình mang chữ
+   rồi Export 1920×1080) nên giống hệt bản cô đang chiếu:
+     .slide.cover  tpl-music-cover    khung teal+coral, đĩa than, băng cassette
+     .slide.phase  tpl-music-phase    khung teal+coral, lá đen hai góc trên
+     .slide        tpl-music-content  dải cam trên đỉnh, hai vệt hồng nhạt
+
+   Khung đặt chữ đo từ chính ảnh:
+     cover/phase  khung teal x 5.6–94.3%, bàn cờ đáy bắt đầu y 81–83%
+     content      dải cam chiếm y 0–12.6% — chữ phải bắt đầu dưới đó
+
+   ⚠ MÀU: coral gốc #E0644A chỉ đạt 3.27 trên nền kem, teal gốc #6FBFB5 đạt 2.03
+   — đều dưới ngưỡng AA. Nên tách làm hai: --accent / --accent-2 đã hạ đủ
+   tối để viết CHỮ (4.85 và 4.62), --accent-fill giữ màu gốc để TÔ NỀN.
+   ========================================================================== */
+
+body.tpl-music{
+  --paper:#FFF8EC;          /* kem, đo từ chính ảnh nền */
+  --panel:#FFFDF6;
+  --surface:#FFFDF6;
+  --sunk:#FBF1E2;
+  --ink:#3A322C;            /* nâu than — 11.9 trên kem */
+  --muted:#7A6A5E;          /* 4.91, vừa qua AA */
+  --rule:#E7D9C4;
+  --accent:#C0442C;         /* coral cho CHỮ — 4.85 */
+  --accent-fill:#E0644A;    /* coral gốc — chỉ TÔ NỀN */
+  --accent-2:#2E7D75;       /* teal cho CHỮ — 4.62 */
+  --accent-soft:#FDEDE6;
+  --on-accent:#FFF8EC;
+  --font-display:"Arial Black", "Segoe UI Black", "Segoe UI", Impact, sans-serif;
+}
+
+body.tpl-music .deck{ background:var(--paper); }
+body.tpl-music .deck h1,
+body.tpl-music .deck h2{ font-family:var(--font-display); font-weight:800; }
+body.tpl-music .deck h2{ color:var(--accent); }
+body.tpl-music .kicker{ color:var(--accent-2); }
+body.tpl-music .bar{ background:var(--panel); border-bottom-color:var(--rule); }
+body.tpl-music .bar .brand{ color:var(--accent); font-family:var(--font-display); }
+
+/* ---- Bìa: khung teal+coral in sẵn, chữ nằm giữa khung ---- */
+body.tpl-music .slide.cover{
+  background:url(assets/tpl-music-cover.webp) center/100% 100% no-repeat;
+  color:var(--ink);
+  /* ĐẶT BẮNG vh: đệm tính theo % là CSS lấy theo chiều RỘNG, 14% ra 191px.
+     Khung teal ở y 10–90%, băng bàn cờ từ y 83% — chữ phải nằm giữa hai mốc. */
+  padding:13vh 13% 20vh 13%;
+}
+body.tpl-music .slide.cover h1{ color:var(--accent); }
+body.tpl-music .slide.cover .sub{ color:var(--muted); font-size:var(--t-body); }
+body.tpl-music .slide.cover .kicker{ color:var(--accent-2); }
+body.tpl-music .slide.cover .unit-no{ display:none; }   /* ảnh nền đã có đĩa than rồi */
+
+/* ---- Slide phân đoạn ---- */
+body.tpl-music .slide.phase{
+  background:url(assets/tpl-music-phase.webp) center/100% 100% no-repeat;
+  padding:12vh 13% 20vh 13%;
+}
+body.tpl-music .slide.phase h1{ color:var(--accent); }
+body.tpl-music .slide.phase .sub{ color:var(--muted); }
+body.tpl-music .slide.phase .step{ background:var(--accent-fill); color:#FFF8EC; }
+body.tpl-music .slide.phase .badge.time{ background:var(--accent-fill); color:#FFF8EC; }
+
+/* ---- Slide nội dung: dải cam chiếm 12,6% trên đỉnh ---- */
+body.tpl-music .slide:not(.cover):not(.phase):not(.side){
+  background:url(assets/tpl-music-content.webp) center/100% 100% no-repeat;
+  /* Dải cam trong ảnh đã được thu từ 12,6% xuống 7% chiều cao (xem
+     scratchpad/slim_bar.py) — 7% × 712px = 50px, đệm trên 7,6vh (58px) là vừa
+     vượt. Mỗi slide nội dung nhờ vậy được thêm ~40px cho chữ. */
+  padding:7.2vh 7% clamp(68px, 5.2vw, 90px) 7%;
+}
+body.tpl-music .slide.has-reveal-all:not(.cover):not(.phase):not(.side){
+  padding-bottom:clamp(100px, 7.8vw, 122px);
+}
+
+/* ---- Thành phần trên nền sáng ---- */
+body.tpl-music .card,
+body.tpl-music .word,
+body.tpl-music .colloc li,
+body.tpl-music .tf li,
+body.tpl-music .box,
+body.tpl-music table{ background:var(--surface); color:var(--ink); }
+body.tpl-music .card{ border-color:var(--rule); border-top-color:var(--accent-fill); }
+body.tpl-music .card.alt{ border-top-color:var(--accent-2); }
+body.tpl-music .box{ border-color:var(--rule); border-left-color:var(--accent-fill); }
+body.tpl-music .box h3{ color:var(--accent); }
+body.tpl-music .brief{
+  background:linear-gradient(135deg, var(--accent-soft), var(--surface));
+  border-color:var(--accent-fill);
+}
+body.tpl-music .brief h3, body.tpl-music .brief .slogan{ color:var(--accent); }
+body.tpl-music .chips li.hot, body.tpl-music .chip.hot{
+  background:var(--accent-fill); border-color:var(--accent-fill); color:#FFF8EC;
+}
+body.tpl-music .bubble.l{ background:var(--sunk); color:var(--ink); }
+body.tpl-music .bubble.r{ background:var(--accent-fill); color:#FFF8EC; }
+body.tpl-music .badge.time{ background:var(--accent-fill); color:#FFF8EC; }
+body.tpl-music .badge.soft{ background:var(--accent-soft); color:var(--accent); border-color:var(--rule); }
+body.tpl-music .slide th{ color:var(--accent); }
+body.tpl-music .colloc .v{ color:var(--accent); }
+body.tpl-music .word .w{ color:var(--accent); }
+body.tpl-music .word .ipa{ color:var(--accent-2); }
+body.tpl-music .tf li::before{ background:var(--accent-fill); color:#FFF8EC; }
+body.tpl-music .compare > div:first-child{ border-color:var(--accent-fill); }
+body.tpl-music .compare > div:last-child{ border-color:var(--accent-2); }
+
+/* In ra giấy: bỏ ảnh nền cho đỡ tốn mực */
+@media print{
+  body.tpl-music .slide{ background:none !important; padding:0 0 24px !important; }
+}
