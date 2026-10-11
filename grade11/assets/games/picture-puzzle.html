@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Picture puzzle</title>
+<!--
+  Trò ghép tranh dùng chung — chạy offline, không tải gì từ mạng.
+  Gọi:  picture-puzzle.html?img=../images/ten-anh.webp&title=Tên trò&cols=4&rows=3
+  Bấm một mảnh rồi bấm mảnh khác để đổi chỗ. Ghép xong hiện bảng "Give it a name!".
+  Nút: Shuffle (xáo lại) · Peek (giữ để xem tranh gốc) · Solve (ghép hộ).
+-->
+<style>
+  :root{ --ink:#1f2937; --accent:#1565C0; --accent2:#6A1B9A; --bg:#f4f7fb; --card:#fff; }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; margin:0; }
+  body{ font-family:"Segoe UI", system-ui, -apple-system, Arial, sans-serif; color:var(--ink);
+        background:var(--bg); display:flex; flex-direction:column; overflow:hidden; }
+  header{ display:flex; align-items:center; gap:clamp(8px,1.2vw,18px); flex-wrap:wrap;
+          padding:clamp(8px,1.2vh,14px) clamp(12px,1.6vw,24px); }
+  h1{ margin:0; font-size:clamp(22px,2.6vw,36px); color:var(--accent); flex:1 1 auto; }
+  .stat{ font-size:clamp(20px,2.2vw,30px); font-weight:700; font-variant-numeric:tabular-nums;
+         background:var(--card); border-radius:999px; padding:.15em .7em; box-shadow:0 1px 4px rgba(0,0,0,.12); }
+  button{ font:inherit; font-size:clamp(18px,2vw,28px); font-weight:600; cursor:pointer;
+          border:2px solid var(--accent); color:var(--accent); background:#fff; border-radius:999px;
+          padding:.2em .9em; }
+  button:hover{ background:var(--accent); color:#fff; }
+  main{ flex:1 1 auto; display:flex; align-items:center; justify-content:center; padding:0 12px 12px; min-height:0; }
+  .board{ position:relative; display:grid; gap:3px; background:#cfd8e3; padding:3px;
+          border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.18); }
+  .tile{ background-repeat:no-repeat; cursor:pointer; border-radius:4px; outline:0 solid transparent;
+         transition:transform .18s ease, outline-color .18s; }
+  .tile:hover{ transform:scale(.97); }
+  .tile.sel{ outline:5px solid #F59E0B; outline-offset:-5px; transform:scale(.94); }
+  .tile.ok{ cursor:default; }
+  .peek{ position:absolute; inset:3px; background-size:cover; border-radius:8px; display:none; }
+  .board.peeking .peek{ display:block; }
+  .done{ position:absolute; inset:0; display:none; align-items:flex-end; justify-content:center; padding:4%; }
+  .board.solved .done{ display:flex; }
+  .board.solved{ gap:0; }
+  .done div{ background:rgba(255,255,255,.95); border-radius:16px; padding:.5em 1em; text-align:center;
+             font-size:clamp(24px,3vw,40px); font-weight:700; color:var(--accent2);
+             box-shadow:0 4px 18px rgba(0,0,0,.25); }
+  .done small{ display:block; font-size:.7em; color:var(--ink); font-weight:600; }
+  .err{ font-size:28px; color:#b91c1c; padding:1em; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Picture puzzle</h1>
+  <span class="stat" id="time" title="Time">0:00</span>
+  <span class="stat" id="moves" title="Swaps">0 swaps</span>
+  <button type="button" id="shuffle">Shuffle</button>
+  <button type="button" id="peek">Peek</button>
+  <button type="button" id="solve">Solve</button>
+</header>
+<main><div class="board" id="board"></div></main>
+
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var src = q.get('img'), cols = +q.get('cols') || 4, rows = +q.get('rows') || 3;
+  if (q.get('title')) { document.getElementById('title').textContent = q.get('title'); document.title = q.get('title'); }
+  var board = document.getElementById('board'), timeEl = document.getElementById('time'),
+      movesEl = document.getElementById('moves');
+  if (!src) { board.outerHTML = '<p class="err">Missing ?img=…</p>'; return; }
+
+  var order = [], sel = null, moves = 0, t0 = 0, timer = null, ratio = 4/3, tiles = [];
+  var img = new Image();
+  img.onload = function(){ ratio = img.naturalWidth / img.naturalHeight; build(); shuffle(); fit(); };
+  img.onerror = function(){ board.outerHTML = '<p class="err">Cannot load the picture: ' + src + '</p>'; };
+  img.src = src;
+
+  function build(){
+    board.style.gridTemplateColumns = 'repeat(' + cols + ',1fr)';
+    board.style.gridTemplateRows = 'repeat(' + rows + ',1fr)';
+    for (var i = 0; i < cols * rows; i++) {
+      var d = document.createElement('div');
+      d.className = 'tile'; d.setAttribute('role','button'); d.tabIndex = 0;
+      d.style.backgroundImage = 'url("' + src + '")';
+      d.style.backgroundSize = (cols * 100) + '% ' + (rows * 100) + '%';
+      d.addEventListener('click', onTile);
+      d.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
+      tiles.push(d); board.appendChild(d);
+    }
+    var p = document.createElement('div'); p.className = 'peek'; p.style.backgroundImage = 'url("' + src + '")';
+    var done = document.createElement('div'); done.className = 'done';
+    done.innerHTML = '<div><span id="msg"></span><small>Now give the picture a name!</small></div>';
+    board.appendChild(p); board.appendChild(done);
+  }
+  function paint(){
+    tiles.forEach(function(d, pos){
+      var k = order[pos], x = k % cols, y = Math.floor(k / cols);
+      d.style.backgroundPosition = (cols > 1 ? x * 100 / (cols - 1) : 0) + '% ' + (rows > 1 ? y * 100 / (rows - 1) : 0) + '%';
+      d.classList.toggle('ok', board.classList.contains('solved'));
+      d.setAttribute('aria-label', 'Piece ' + (pos + 1));
+    });
+  }
+  function solved(){ return order.every(function(k, i){ return k === i; }); }
+  function shuffle(){
+    order = tiles.map(function(_, i){ return i; });
+    do { for (var i = order.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = order[i]; order[i] = order[j]; order[j] = t; } }
+    while (order.filter(function(k, i){ return k === i; }).length > 1);   // nhiều nhất 1 mảnh nằm sẵn đúng chỗ
+    board.classList.remove('solved'); moves = 0; movesEl.textContent = '0 swaps';
+    clearInterval(timer); timer = null; t0 = 0; timeEl.textContent = '0:00';
+    if (sel) { sel.classList.remove('sel'); sel = null; }
+    paint();
+  }
+  function tick(){ var s = Math.floor((Date.now() - t0) / 1000); timeEl.textContent = Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
+  function onTile(){
+    if (board.classList.contains('solved')) return;
+    if (!timer) { t0 = Date.now(); timer = setInterval(tick, 500); }
+    if (!sel) { sel = this; this.classList.add('sel'); return; }
+    if (sel === this) { sel.classList.remove('sel'); sel = null; return; }
+    var a = tiles.indexOf(sel), b = tiles.indexOf(this), t = order[a];
+    order[a] = order[b]; order[b] = t; sel.classList.remove('sel'); sel = null;
+    moves++; movesEl.textContent = moves + (moves === 1 ? ' swap' : ' swaps');
+    if (solved()) finish(true);
+    paint();
+  }
+  function finish(byPlayers){
+    clearInterval(timer); timer = null; if (t0) tick();
+    board.classList.add('solved');
+    document.getElementById('msg').textContent = byPlayers ? 'Solved in ' + timeEl.textContent + '!' : 'Here it is!';
+    paint();
+  }
+  function fit(){
+    var m = board.parentNode, w = m.clientWidth - 24, h = m.clientHeight - 12;
+    if (w / h > ratio) w = h * ratio; else h = w / ratio;
+    board.style.width = Math.floor(w) + 'px'; board.style.height = Math.floor(h) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  document.getElementById('shuffle').onclick = shuffle;
+  document.getElementById('solve').onclick = function(){ order = tiles.map(function(_, i){ return i; }); finish(false); };
+  var pk = document.getElementById('peek');
+  ['mousedown','touchstart'].forEach(function(e){ pk.addEventListener(e, function(){ board.classList.add('peeking'); }); });
+  ['mouseup','mouseleave','touchend'].forEach(function(e){ pk.addEventListener(e, function(){ board.classList.remove('peeking'); }); });
+})();
+</script>
+</body>
+</html>

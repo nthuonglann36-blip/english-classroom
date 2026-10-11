@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Future Smart City Challenge</title>
+<!-- Trò của cô: ~/Downloads/future_smart_city_spin_choose_answer_game.html (PPT ppt 11/unit 3/fix/…Lesson_3_Reading… slide 30 gọi tệp này).
+     Sửa khi chép: vòng quay không cao quá 82vh (khung slide thấp hơn cửa sổ trình duyệt), chữ tên địa điểm/đội/nhận xét to hơn cho máy chiếu.
+     Câu 1–4 = Task 3 sách tr. 32 (F T T F); câu 5–8 là câu thêm của cô. -->
+<style>
+:root{
+  --navy:#18265d; --navy2:#0d1645; --cream:#fff9ef; --pink:#ff7fa8;
+  --gold:#ffd34f; --sky:#7bd9ff; --green:#77dd93; --purple:#9d74ff;
+  --red:#ff6969; --text:#18305d; --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Nunito,Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#dff5ff;color:var(--text)}
+body{overflow-x:hidden}
+button{font:inherit}
+.game{min-height:100vh;position:relative;overflow:hidden}
+
+/* ---------- Shared ---------- */
+.topbar{
+  position:absolute;z-index:20;left:18px;right:18px;top:14px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px
+}
+.icon-btn,.pill-btn{
+  border:4px solid rgba(255,255,255,.9);box-shadow:0 5px 0 rgba(26,45,100,.18),0 10px 22px rgba(26,45,100,.16);
+  cursor:pointer;font-weight:1000
+}
+.icon-btn{
+  width:62px;height:62px;border-radius:50%;font-size:27px;background:linear-gradient(#ff9ab9,#ff678e);color:white
+}
+.pill-btn{
+  padding:12px 18px;border-radius:18px;background:linear-gradient(#7ce77d,#4fc866);color:#fff
+}
+.hidden{display:none!important}
+.screen{min-height:100vh;position:relative}
+
+/* ---------- TEAM BAR ---------- */
+.team-strip{
+  position:absolute;z-index:18;left:50%;transform:translateX(-50%);top:18px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:min(760px,58vw)
+}
+.team-card{
+  background:rgba(255,255,255,.91);border:3px solid white;border-radius:18px;padding:8px 10px;
+  box-shadow:0 6px 16px rgba(28,51,103,.18);text-align:center;cursor:pointer;transition:.2s
+}
+.team-card.active{transform:translateY(5px) scale(1.04);outline:4px solid var(--gold);background:#fff8c9}
+.team-name{font-weight:1000;font-size:18px;outline:none}
+.team-score{font-size:22px;font-weight:1000;color:#ff5e83}
+
+/* ---------- WHEEL SCREEN ---------- */
+#wheelScreen{
+  background:
+    radial-gradient(circle at 8% 10%,#fff 0 2%,transparent 2.4%),
+    radial-gradient(circle at 80% 9%,#fff 0 2%,transparent 2.4%),
+    linear-gradient(#63cef7 0 48%,#dff8ed 48% 100%);
+}
+.cloud{position:absolute;background:white;border-radius:999px;opacity:.95;filter:drop-shadow(0 5px 0 rgba(255,255,255,.25))}
+.cloud:before,.cloud:after{content:"";position:absolute;background:white;border-radius:50%}
+.c1{width:170px;height:52px;left:10%;top:70px}.c1:before{width:70px;height:70px;left:25px;top:-30px}.c1:after{width:85px;height:85px;right:15px;top:-40px}
+.c2{width:150px;height:46px;right:8%;top:100px}.c2:before{width:65px;height:65px;left:20px;top:-28px}.c2:after{width:75px;height:75px;right:12px;top:-34px}
+
+.fairground{position:absolute;left:0;right:0;bottom:0;height:46%;overflow:hidden}
+.grass{position:absolute;inset:auto 0 0 0;height:72%;background:linear-gradient(#92e18f,#5bc877)}
+.path{position:absolute;width:58%;height:120%;left:4%;top:25%;background:#ffe4b6;transform:rotate(-5deg);border-radius:50%}
+.tree{position:absolute;width:55px;height:55px;background:#4fc168;border-radius:50%;box-shadow:0 15px 0 #4fc168}
+.tree:after{content:"";position:absolute;width:12px;height:32px;background:#9b6c42;left:22px;top:42px}
+.t1{left:7%;bottom:55px}.t2{left:23%;bottom:95px}.t3{left:42%;bottom:58px}.t4{right:8%;bottom:80px}
+
+.title-board{
+  position:absolute;z-index:8;left:5%;top:17%;width:42%;min-width:420px;
+  background:linear-gradient(#ff7e91,#ff5d72);border:10px solid #ffd769;border-radius:38px;
+  box-shadow:0 10px 0 #db6b62,0 16px 30px rgba(50,61,109,.22);text-align:center;padding:24px 20px 30px
+}
+.title-board:before{
+  content:"★";position:absolute;top:-45px;left:50%;transform:translateX(-50%);
+  color:#ffd341;font-size:70px;text-shadow:0 6px 0 #e39b20
+}
+.title-board h1{
+  margin:4px 0 0;font-size:clamp(40px,5vw,76px);line-height:.95;color:#fff4a8;
+  text-shadow:0 5px 0 #dc4d4f,0 8px 10px rgba(103,44,59,.22)
+}
+.title-board .blue{display:block;color:#d8f3ff;text-shadow:0 5px 0 #2e78ce}
+.title-board p{
+  display:inline-block;margin:18px 0 0;background:#ffe96e;padding:8px 18px;border-radius:12px;
+  font-size:20px;font-weight:1000;color:#e75b7b;transform:rotate(-2deg)
+}
+.rabbit{
+  position:absolute;z-index:7;left:13%;bottom:4%;font-size:130px;filter:drop-shadow(0 8px 0 rgba(49,75,116,.12))
+}
+
+.wheel-area{position:absolute;z-index:8;right:4%;top:8%;width:min(48vw,640px,82vh);aspect-ratio:1}
+.pointer{
+  position:absolute;z-index:15;left:50%;bottom:6%;transform:translateX(-50%);
+  width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:64px solid #ff4f82;
+  filter:drop-shadow(0 4px 0 #c7426a)
+}
+.wheel-frame{
+  position:absolute;inset:0;border-radius:50%;padding:18px;background:#ffc52e;
+  box-shadow:0 0 0 7px #ffdf67,0 12px 0 #d9991c,0 20px 40px rgba(40,68,120,.28)
+}
+.bulbs{position:absolute;inset:0;border-radius:50%;pointer-events:none}
+.bulb{
+  position:absolute;width:14px;height:14px;border-radius:50%;background:#fff8bf;box-shadow:0 0 10px #fff
+}
+.wheel{
+  position:absolute;inset:24px;border-radius:50%;
+  background:conic-gradient(
+    #ff665d 0 12.5%, #3778df 12.5% 25%, #ffd13c 25% 37.5%, #66c737 37.5% 50%,
+    #ff758a 50% 62.5%, #8846d3 62.5% 75%, #4ec0ea 75% 87.5%, #1fb5a7 87.5% 100%);
+  border:8px solid #fff6cb;transition:transform 4.4s cubic-bezier(.13,.73,.18,1);
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.25)
+}
+.segment-label{
+  position:absolute;z-index:3;left:50%;top:50%;width:80px;text-align:center;
+  margin-left:-40px;margin-top:-18px;font-size:28px;font-weight:1000;color:white;
+  text-shadow:0 3px 0 rgba(33,60,115,.35);transform-origin:40px 18px
+}
+.hub{
+  position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:105px;height:105px;border-radius:50%;background:linear-gradient(#ffe67f,#ffc72f);
+  border:8px solid #ffd956;box-shadow:0 5px 0 #d79a20,inset 0 0 0 5px rgba(255,255,255,.4);
+  display:grid;place-items:center;font-size:50px
+}
+.spin-btn{
+  position:absolute;z-index:18;right:13%;bottom:4%;min-width:280px;padding:18px 30px;border-radius:28px;
+  border:6px solid #ffb14f;background:linear-gradient(#ff7ba6,#ff547e);color:#fff7c2;
+  font-size:30px;font-weight:1000;box-shadow:0 8px 0 #d94469,0 14px 26px rgba(78,44,90,.25);cursor:pointer
+}
+.spin-btn:disabled{opacity:.6;cursor:not-allowed}
+.wheel-status{
+  position:absolute;z-index:10;left:7%;bottom:2%;padding:10px 18px;border-radius:20px;
+  background:rgba(255,255,255,.92);font-weight:1000;color:#3c4e82;box-shadow:0 7px 20px rgba(44,68,116,.16)
+}
+
+/* ---------- CITY MAP ---------- */
+#cityScreen{
+  background:linear-gradient(#dff4ff,#cfefff 55%,#cfe8c0 55%);
+}
+.city-map{position:absolute;inset:0;overflow:hidden}
+.river{
+  position:absolute;left:-8%;top:-7%;width:46%;height:132%;background:#69cef5;
+  transform:rotate(20deg);border-left:12px solid #b1ebff;border-right:12px solid #b1ebff
+}
+.road.h{position:absolute;left:0;right:0;height:115px;background:#9098a7;border-top:8px solid #f4f1e4;border-bottom:8px solid #f4f1e4}
+.road.v{position:absolute;top:0;bottom:0;width:115px;background:#9098a7;border-left:8px solid #f4f1e4;border-right:8px solid #f4f1e4}
+.rh1{top:31%}.rh2{top:68%}.rv1{left:46%}.rv2{left:76%}
+.road:after{
+  content:"";position:absolute;inset:50% 0 auto 0;border-top:5px dashed rgba(255,255,255,.9)
+}
+.road.v:after{inset:0 auto 0 50%;border-top:0;border-left:5px dashed rgba(255,255,255,.9)}
+
+.park{
+  position:absolute;left:12%;bottom:5%;width:29%;height:27%;background:#7ed58f;border:8px solid #64bf76;border-radius:35px;
+  box-shadow:inset 0 0 0 10px rgba(255,255,255,.18)
+}
+.park:before{content:"🌳  🌳  🌲   🌳";position:absolute;left:12%;top:18%;font-size:42px;letter-spacing:16px}
+.park:after{content:"🛝  🚲";position:absolute;left:30%;bottom:12%;font-size:34px;letter-spacing:25px}
+
+.location{
+  position:absolute;z-index:5;width:165px;min-height:120px;border-radius:18px;
+  background:rgba(255,255,255,.96);border:5px solid #fff;box-shadow:0 9px 0 rgba(54,88,129,.15),0 14px 26px rgba(54,88,129,.22);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  cursor:pointer;transition:.18s transform,.18s filter,.18s opacity
+}
+.location:hover:not(.used){transform:translateY(-6px) scale(1.03);filter:brightness(1.03)}
+.location.used{opacity:.34;filter:grayscale(.5);cursor:default}
+.location .emoji{font-size:54px;line-height:1}
+.location .loc-name{font-size:19px;font-weight:1000;margin-top:5px;line-height:1.1}
+.location .num{
+  position:absolute;right:-10px;top:-13px;width:38px;height:38px;border-radius:50%;
+  background:#ff728f;color:#fff;border:4px solid #fff;display:grid;place-items:center;font-weight:1000
+}
+.l1{left:19%;top:13%}.l2{left:52%;top:10%}.l3{right:4%;top:16%}.l4{left:7%;top:45%}
+.l5{left:57%;top:45%}.l6{right:5%;top:48%}.l7{left:31%;bottom:5%}.l8{right:18%;bottom:4%}
+
+.question-panel{
+  position:absolute;z-index:12;left:50%;top:15%;transform:translateX(-50%);
+  width:min(720px,58vw);background:rgba(255,255,255,.96);border:7px solid #fff;border-radius:30px;
+  box-shadow:0 12px 0 rgba(57,89,130,.15),0 22px 40px rgba(57,89,130,.24);padding:24px 26px 26px;text-align:center
+}
+.question-panel .tag{font-weight:1000;color:#ff6d8e;letter-spacing:1.4px;font-size:18px;text-transform:uppercase}
+.question-panel h2{font-size:clamp(24px,3vw,39px);line-height:1.12;margin:10px 0 20px}
+.tf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tf{
+  padding:18px;border-radius:20px;border:5px solid white;color:white;font-size:24px;font-weight:1000;
+  box-shadow:0 7px 0 rgba(49,76,122,.16);cursor:pointer
+}
+.true{background:linear-gradient(#6ee58b,#43c967)}
+.false{background:linear-gradient(#ff8a9f,#ff617d)}
+.feedback{margin-top:16px;padding:13px 14px;border-radius:18px;background:#f4f6ff;font-weight:800;line-height:1.4;font-size:22px}
+.reward-pill{
+  display:inline-block;margin-top:10px;background:#fff0a4;padding:8px 14px;border-radius:999px;font-weight:1000;color:#d07124
+}
+.next-btn{
+  margin-top:13px;padding:12px 20px;border-radius:18px;border:0;background:#5e7be8;color:#fff;font-weight:1000;cursor:pointer
+}
+.city-instruction{
+  position:absolute;z-index:11;left:50%;bottom:2%;transform:translateX(-50%);
+  background:rgba(255,255,255,.94);padding:12px 18px;border-radius:18px;font-weight:1000;box-shadow:0 7px 20px rgba(44,68,116,.16)
+}
+.city-title{
+  position:absolute;z-index:10;left:50%;top:92px;transform:translateX(-50%);
+  background:#fff3a9;border:5px solid #fff;border-radius:22px;padding:10px 20px;font-size:25px;font-weight:1000;color:#d45f77;
+  box-shadow:0 8px 0 rgba(95,77,46,.12)
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti{position:fixed;z-index:9999;top:-20px;width:10px;height:16px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.95}}
+
+@media(max-width:1050px){
+  .title-board{width:44%;min-width:350px}.wheel-area{width:52vw;right:0}.team-strip{width:64vw}
+  .location{width:135px;min-height:105px}.location .emoji{font-size:44px}
+}
+@media(max-width:760px){
+  .team-strip{top:86px;width:94vw}.topbar{align-items:flex-start}.title-board{top:26%;left:3%;width:46%;min-width:0;padding:20px 10px}.title-board h1{font-size:40px}
+  .title-board p{font-size:15px}.wheel-area{top:28%;width:58vw}.spin-btn{right:4%;bottom:6%;min-width:210px;font-size:22px}
+  .rabbit{font-size:90px}.question-panel{width:92vw;top:23%}.city-title{top:150px}
+  .location{transform:scale(.82)}.location:hover:not(.used){transform:scale(.86)}
+}
+</style>
+</head>
+<body>
+<div class="game">
+
+  <section class="screen" id="wheelScreen">
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <div class="fairground">
+      <div class="grass"></div><div class="path"></div>
+      <div class="tree t1"></div><div class="tree t2"></div><div class="tree t3"></div><div class="tree t4"></div>
+    </div>
+
+    <div class="topbar">
+      <button class="icon-btn" id="homeBtn1">🏠</button>
+      <button class="pill-btn" id="soundBtn">🔊 SOUND ON</button>
+    </div>
+
+    <div class="team-strip" id="teamStrip1"></div>
+
+    <div class="title-board">
+      <h1>FUTURE CITY <span class="blue">CHALLENGE</span></h1>
+      <p>Spin • Choose • Answer!</p>
+    </div>
+    <div class="rabbit">🐰</div>
+
+    <div class="wheel-area">
+      <div class="wheel-frame">
+        <div class="bulbs" id="bulbs"></div>
+        <div class="wheel" id="wheel"></div>
+        <div class="hub">⭐</div>
+      </div>
+      <div class="pointer"></div>
+    </div>
+
+    <button class="spin-btn" id="spinBtn">⭐ SPIN NOW ⭐</button>
+    <div class="wheel-status" id="wheelStatus">TEAM 1: Spin the wheel to get your points!</div>
+  </section>
+
+  <section class="screen hidden" id="cityScreen">
+    <div class="city-map">
+      <div class="river"></div>
+      <div class="road h rh1"></div><div class="road h rh2"></div>
+      <div class="road v rv1"></div><div class="road v rv2"></div>
+      <div class="park"></div>
+    </div>
+
+    <div class="topbar">
+      <button class="icon-btn" id="homeBtn2">🏠</button>
+      <button class="pill-btn" id="completeBtn">✓ COMPLETE</button>
+    </div>
+    <div class="team-strip" id="teamStrip2"></div>
+    <div class="city-title">🏙️ CHOOSE A PLACE IN THE SMART CITY</div>
+
+    <div class="location l1" data-i="0"><span class="num">1</span><div class="emoji">🏢</div><div class="loc-name">Smart Tower</div></div>
+    <div class="location l2" data-i="1"><span class="num">2</span><div class="emoji">🚦</div><div class="loc-name">Traffic Hub</div></div>
+    <div class="location l3" data-i="2"><span class="num">3</span><div class="emoji">🌱</div><div class="loc-name">Rooftop Farm</div></div>
+    <div class="location l4" data-i="3"><span class="num">4</span><div class="emoji">🚲</div><div class="loc-name">Cycle Zone</div></div>
+    <div class="location l5" data-i="4"><span class="num">5</span><div class="emoji">💡</div><div class="loc-name">Smart Street</div></div>
+    <div class="location l6" data-i="5"><span class="num">6</span><div class="emoji">🗑️</div><div class="loc-name">Waste Center</div></div>
+    <div class="location l7" data-i="6"><span class="num">7</span><div class="emoji">⚡</div><div class="loc-name">Clean Energy Park</div></div>
+    <div class="location l8" data-i="7"><span class="num">8</span><div class="emoji">🚌</div><div class="loc-name">Eco Transport</div></div>
+
+    <div class="question-panel hidden" id="questionPanel">
+      <div class="tag" id="qTag">TRUE OR FALSE?</div>
+      <div class="reward-pill" id="rewardPill">Worth 40 points</div>
+      <h2 id="questionText"></h2>
+      <div class="tf-row" id="tfRow">
+        <button class="tf true" data-a="true">✓ TRUE</button>
+        <button class="tf false" data-a="false">✕ FALSE</button>
+      </div>
+      <div class="feedback hidden" id="feedback"></div>
+      <button class="next-btn hidden" id="nextBtn">NEXT TEAM ➜</button>
+    </div>
+
+    <div class="city-instruction" id="cityInstruction">Choose one location to open a True / False question.</div>
+  </section>
+
+</div>
+
+<script>
+const teams=[
+  {name:"TEAM 1",score:0,emoji:"🔥"},
+  {name:"TEAM 2",score:0,emoji:"⚡"},
+  {name:"TEAM 3",score:0,emoji:"🚀"},
+  {name:"TEAM 4",score:0,emoji:"🌟"}
+];
+
+const questions=[
+  {
+    text:"About 70 million people will live in cities by 2050.",
+    answer:false,
+    explain:"False. The article says nearly 70 per cent of the world's population will live in cities by 2050."
+  },
+  {
+    text:"Smart cities use modern technologies to save time and provide better services.",
+    answer:true,
+    explain:"True. Smart cities use technologies to provide services, solve problems, and support people better."
+  },
+  {
+    text:"City dwellers will be able to grow vegetables underground or in roof gardens.",
+    answer:true,
+    explain:"True. The article mentions underground farming, rooftop farming, green roofs, and roof gardens."
+  },
+  {
+    text:"Space for walking and cycling will be replaced with computer-controlled transport systems.",
+    answer:false,
+    explain:"False. Future cities will have more pedestrian zones and cycle paths."
+  },
+  {
+    text:"Street lights in smart cities can turn off when the streets are empty.",
+    answer:true,
+    explain:"True. This is one example of using technology to save energy."
+  },
+  {
+    text:"Sensors can tell waste collection teams when rubbish bins are full.",
+    answer:true,
+    explain:"True. The article gives this as an example of smart technology."
+  },
+  {
+    text:"Most future cities will depend mainly on non-renewable energy.",
+    answer:false,
+    explain:"False. The article says most cities will use renewable and clean energy."
+  },
+  {
+    text:"Electric buses and trains will produce less greenhouse gas emissions.",
+    answer:true,
+    explain:"True. They are presented as part of more eco-friendly infrastructure."
+  }
+];
+
+const wheelValues=[10,20,30,40,50,60,70,80];
+let activeTeam=0;
+let currentPoints=0;
+let currentRotation=0;
+let spinning=false;
+let used=new Set();
+let currentQuestion=null;
+let soundOn=true;
+
+const wheelScreen=document.getElementById("wheelScreen");
+const cityScreen=document.getElementById("cityScreen");
+const wheel=document.getElementById("wheel");
+const spinBtn=document.getElementById("spinBtn");
+const wheelStatus=document.getElementById("wheelStatus");
+const questionPanel=document.getElementById("questionPanel");
+const questionText=document.getElementById("questionText");
+const feedback=document.getElementById("feedback");
+const nextBtn=document.getElementById("nextBtn");
+const cityInstruction=document.getElementById("cityInstruction");
+const rewardPill=document.getElementById("rewardPill");
+
+function renderTeamStrip(targetId){
+  const el=document.getElementById(targetId);
+  el.innerHTML="";
+  teams.forEach((t,i)=>{
+    const card=document.createElement("div");
+    card.className="team-card"+(i===activeTeam?" active":"");
+    card.innerHTML=`<div class="team-name" contenteditable="true" data-i="${i}">${t.emoji} ${t.name}</div><div class="team-score">${t.score}</div>`;
+    el.appendChild(card);
+  });
+  el.querySelectorAll(".team-name").forEach(n=>{
+    n.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();e.currentTarget.blur()}});
+    n.addEventListener("blur",e=>{
+      const i=+e.currentTarget.dataset.i;
+      const txt=e.currentTarget.textContent.replace(teams[i].emoji,"").trim();
+      teams[i].name=txt||`TEAM ${i+1}`;
+      renderTeams();
+      updateLabels();
+    });
+  });
+}
+function renderTeams(){renderTeamStrip("teamStrip1");renderTeamStrip("teamStrip2")}
+
+function updateLabels(){
+  wheelStatus.textContent=`${teams[activeTeam].name}: Spin the wheel to get your points!`;
+}
+
+function setupWheel(){
+  const centers=[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5];
+  wheelValues.forEach((v,i)=>{
+    const lab=document.createElement("div");
+    lab.className="segment-label";
+    lab.textContent=v;
+    const a=centers[i];
+    lab.style.transform=`rotate(${a}deg) translateY(-205px) rotate(${-a}deg)`;
+    wheel.appendChild(lab);
+  });
+
+  const bulbs=document.getElementById("bulbs");
+  for(let i=0;i<24;i++){
+    const b=document.createElement("span");
+    b.className="bulb";
+    const a=i*15*Math.PI/180;
+    b.style.left=`calc(50% + ${Math.sin(a)*48}% - 7px)`;
+    b.style.top=`calc(50% - ${Math.cos(a)*48}% - 7px)`;
+    bulbs.appendChild(b);
+  }
+}
+
+function tone(freq=500,d=.12,type="sine",vol=.04){
+  if(!soundOn)return;
+  try{
+    const C=window.AudioContext||window.webkitAudioContext,ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();
+    o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(ctx.destination);
+    o.start();g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+d);o.stop(ctx.currentTime+d);
+  }catch(e){}
+}
+function successSound(){tone(650,.12,"sine",.06);setTimeout(()=>tone(880,.18,"sine",.055),110)}
+function wrongSound(){tone(180,.18,"sawtooth",.045);setTimeout(()=>tone(140,.22,"sawtooth",.04),120)}
+
+spinBtn.addEventListener("click",()=>{
+  if(spinning)return;
+  spinning=true;spinBtn.disabled=true;
+  const chosen=Math.floor(Math.random()*wheelValues.length);
+  currentPoints=wheelValues[chosen];
+
+  const centers=[22.5,67.5,112.5,157.5,202.5,247.5,292.5,337.5];
+  const target=(180-centers[chosen]+360)%360; // pointer at bottom
+  const cur=((currentRotation%360)+360)%360;
+  currentRotation+=((target-cur+360)%360)+360*6;
+  wheel.style.transform=`rotate(${currentRotation}deg)`;
+  wheelStatus.textContent="Spinning... ✨";
+
+  let ticks=0;const timer=setInterval(()=>{tone(430,.05,"square",.025);if(++ticks>22)clearInterval(timer)},105);
+
+  setTimeout(()=>{
+    clearInterval(timer);
+    spinning=false;
+    wheelStatus.innerHTML=`🎯 <b>${teams[activeTeam].name}</b> is playing for <b>${currentPoints} points!</b>`;
+    tone(760,.18,"sine",.06);
+    setTimeout(showCity,700);
+  },4450);
+});
+
+function showCity(){
+  wheelScreen.classList.add("hidden");
+  cityScreen.classList.remove("hidden");
+  questionPanel.classList.add("hidden");
+  feedback.classList.add("hidden");
+  nextBtn.classList.add("hidden");
+  cityInstruction.textContent=`${teams[activeTeam].name}: choose one unopened location.`;
+  renderTeams();
+}
+
+document.querySelectorAll(".location").forEach(loc=>{
+  loc.addEventListener("click",()=>{
+    const i=+loc.dataset.i;
+    if(used.has(i)||!questionPanel.classList.contains("hidden"))return;
+    currentQuestion=i;
+    questionText.textContent=questions[i].text;
+    rewardPill.textContent=`Worth ${currentPoints} points`;
+    questionPanel.classList.remove("hidden");
+    feedback.classList.add("hidden");
+    nextBtn.classList.add("hidden");
+    document.querySelectorAll(".tf").forEach(b=>b.disabled=false);
+    cityInstruction.textContent=`Question ${i+1} opened at ${loc.querySelector(".loc-name").textContent}.`;
+  });
+});
+
+document.querySelectorAll(".tf").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const choice=btn.dataset.a==="true";
+    const q=questions[currentQuestion];
+    const ok=choice===q.answer;
+    document.querySelectorAll(".tf").forEach(b=>b.disabled=true);
+
+    if(ok){
+      teams[activeTeam].score+=currentPoints;
+      feedback.innerHTML=`<b>🎉 CORRECT! +${currentPoints} points</b><br>${q.explain}`;
+      feedback.style.background="#e3faea";
+      successSound();confetti(currentPoints>=50?90:55);
+    }else{
+      feedback.innerHTML=`<b>😮 NOT QUITE! The answer is ${q.answer?"TRUE":"FALSE"}.</b><br>${q.explain}`;
+      feedback.style.background="#ffe7ec";
+      wrongSound();
+    }
+
+    used.add(currentQuestion);
+    document.querySelector(`.location[data-i="${currentQuestion}"]`).classList.add("used");
+    feedback.classList.remove("hidden");
+    nextBtn.classList.remove("hidden");
+    renderTeams();
+
+    if(used.size===questions.length){
+      nextBtn.textContent="🏆 SHOW RESULTS";
+    }else{
+      nextBtn.textContent="NEXT TEAM ➜";
+    }
+  });
+});
+
+nextBtn.addEventListener("click",()=>{
+  if(used.size===questions.length){showResults();return}
+  activeTeam=(activeTeam+1)%teams.length;
+  currentQuestion=null;currentPoints=0;
+  renderTeams();
+  wheelScreen.classList.remove("hidden");
+  cityScreen.classList.add("hidden");
+  spinBtn.disabled=false;
+  wheelStatus.textContent=`${teams[activeTeam].name}: Spin the wheel to get your points!`;
+});
+
+function showResults(){
+  const max=Math.max(...teams.map(t=>t.score));
+  const winners=teams.filter(t=>t.score===max).map(t=>t.name).join(" & ");
+  questionText.innerHTML=`🏆 ${winners}<br><span style="font-size:.62em">${max} points</span>`;
+  document.getElementById("qTag").textContent="FINAL RESULT";
+  rewardPill.textContent=teams.filter(t=>t.score===max).length>1?"It's a tie!":"Congratulations!";
+  document.getElementById("tfRow").classList.add("hidden");
+  feedback.innerHTML="All 8 smart-city locations have been completed!";
+  feedback.style.background="#fff6c5";
+  feedback.classList.remove("hidden");
+  nextBtn.classList.add("hidden");
+  confetti(180);successSound();
+}
+
+document.getElementById("completeBtn").addEventListener("click",()=>{
+  if(used.size===questions.length)showResults();
+  else alert(`${questions.length-used.size} location(s) still have questions.`);
+});
+
+function resetGame(){
+  teams.forEach(t=>t.score=0);
+  activeTeam=0;currentPoints=0;currentRotation=0;spinning=false;used=new Set();currentQuestion=null;
+  wheel.style.transition="none";wheel.style.transform="rotate(0deg)";void wheel.offsetWidth;wheel.style.transition="transform 4.4s cubic-bezier(.13,.73,.18,1)";
+  document.querySelectorAll(".location").forEach(l=>l.classList.remove("used"));
+  document.getElementById("tfRow").classList.remove("hidden");
+  document.getElementById("qTag").textContent="TRUE OR FALSE?";
+  wheelScreen.classList.remove("hidden");cityScreen.classList.add("hidden");
+  spinBtn.disabled=false;renderTeams();updateLabels();
+}
+
+document.getElementById("homeBtn1").addEventListener("click",()=>{if(confirm("Reset the game?"))resetGame()});
+document.getElementById("homeBtn2").addEventListener("click",()=>{if(confirm("Return home and reset the game?"))resetGame()});
+document.getElementById("soundBtn").addEventListener("click",e=>{
+  soundOn=!soundOn;e.currentTarget.textContent=soundOn?"🔊 SOUND ON":"🔇 SOUND OFF";if(soundOn)tone(520,.1)
+});
+
+function confetti(n){
+  const colors=["#ffeb66","#5cf0c9","#ff72aa","#6bc6ff","#ffffff","#b68cff"];
+  for(let i=0;i<n;i++){
+    const c=document.createElement("div");c.className="confetti";
+    c.style.left=Math.random()*100+"vw";c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.setProperty("--drift",(Math.random()*260-130)+"px");
+    c.style.animationDuration=(2.2+Math.random()*2.2)+"s";c.style.animationDelay=(Math.random()*.3)+"s";
+    document.body.appendChild(c);setTimeout(()=>c.remove(),5000);
+  }
+}
+
+setupWheel();
+renderTeams();
+updateLabels();
+</script>
+</body>
+</html>

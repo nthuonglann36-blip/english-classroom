@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucky number</title>
+<!--
+  Trò "Lucky number" dùng chung — chạy offline.
+  Gọi:  lucky-number.html?words=privacy|efficiently|pedestrian zone&lucky=2&title=Unit 3 words
+  - Số ô = số từ + số ô may mắn (mặc định 2). Ô may mắn đổi chỗ mỗi lần mở / bấm New game.
+  - Bấm ô: ô may mắn hiện 🍀 LUCKY (+1 không cần trả lời); ô thường hiện "Describe it!" —
+    từ bị che, cô bấm "Show the word" khi muốn (cho HS mô tả xem, hoặc lúc chốt đáp án).
+  - Hai đội, bấm +1 / −1 để cộng trừ điểm.
+-->
+<style>
+  :root{ --ink:#1f2937; --a:#1565C0; --b:#C2410C; --bg:#f4f7fb; }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; margin:0; }
+  body{ font-family:"Segoe UI", system-ui, -apple-system, Arial, sans-serif; color:var(--ink); background:var(--bg);
+        display:flex; flex-direction:column; overflow:hidden; }
+  header{ display:flex; align-items:center; gap:14px; padding:10px 18px; flex-wrap:wrap; }
+  h1{ margin:0; font-size:clamp(24px,2.6vw,36px); color:var(--a); flex:1 1 auto; }
+  .team{ display:flex; align-items:center; gap:8px; background:#fff; border-radius:999px; padding:4px 8px 4px 16px;
+         box-shadow:0 1px 4px rgba(0,0,0,.12); font-size:clamp(20px,2vw,28px); font-weight:700; }
+  .team b{ min-width:1.6em; text-align:center; font-variant-numeric:tabular-nums; }
+  .team.a{ color:var(--a); } .team.b{ color:var(--b); }
+  button{ font:inherit; cursor:pointer; }
+  .sc{ font-size:20px; font-weight:700; border:2px solid currentColor; color:inherit; background:#fff;
+       border-radius:999px; width:44px; height:44px; padding:0; }
+  .sc:hover{ background:currentColor; } .sc:hover span{ color:#fff; }
+  .new{ font-size:clamp(18px,1.8vw,24px); font-weight:600; border:2px solid var(--a); color:var(--a); background:#fff;
+        border-radius:999px; padding:.2em .9em; }
+  main{ flex:1 1 auto; display:grid; gap:14px; padding:6px 18px 18px; min-height:0;
+        grid-template-columns:repeat(var(--cols,4),1fr); grid-auto-rows:1fr; }
+  .tile{ position:relative; border:0; border-radius:20px; background:linear-gradient(160deg,#1E88E5,#1565C0); color:#fff;
+         font-size:clamp(48px,7vw,96px); font-weight:800; box-shadow:0 6px 0 #0D47A1, 0 10px 20px rgba(0,0,0,.15);
+         transition:transform .15s; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:8px; }
+  .tile:hover:not(.open){ transform:translateY(-3px); }
+  .tile.open{ cursor:default; box-shadow:none; }
+  .tile.lucky{ background:linear-gradient(160deg,#43A047,#2E7D32); }
+  .tile.word{ background:#fff; color:var(--ink); border:3px solid #1565C0; }
+  .tile.used{ opacity:.45; }
+  .tile .lbl{ font-size:clamp(24px,2.6vw,36px); font-weight:700; }
+  .tile .w{ font-size:clamp(26px,3vw,42px); font-weight:800; color:var(--b); text-align:center; line-height:1.1; }
+  .tile .show{ font-size:clamp(18px,1.7vw,24px); font-weight:600; border:2px dashed #64748b; color:#475569;
+               background:transparent; border-radius:999px; padding:.15em .8em; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Lucky number</h1>
+  <span class="team a">Team A <button class="sc" data-t="a" data-d="-1"><span>−</span></button><b id="sa">0</b><button class="sc" data-t="a" data-d="1"><span>+</span></button></span>
+  <span class="team b">Team B <button class="sc" data-t="b" data-d="-1"><span>−</span></button><b id="sb">0</b><button class="sc" data-t="b" data-d="1"><span>+</span></button></span>
+  <button class="new" id="new" type="button">New game</button>
+</header>
+<main id="grid"></main>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var words = (q.get('words') || 'word 1|word 2|word 3|word 4|word 5').split('|').map(function(s){ return s.trim(); }).filter(Boolean);
+  var lucky = Math.max(0, +q.get('lucky') || 2);
+  if (q.get('title')) { document.getElementById('title').textContent = q.get('title'); document.title = q.get('title'); }
+  var grid = document.getElementById('grid'), score = { a:0, b:0 };
+  function shuffle(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function build(){
+    var items = shuffle(words.slice()).map(function(w){ return { w:w }; });
+    for (var k = 0; k < lucky; k++) items.push({ lucky:true });
+    items = shuffle(items);
+    var n = items.length, cols = n <= 4 ? n : n <= 8 ? 4 : n <= 10 ? 5 : 6;
+    grid.style.setProperty('--cols', cols);
+    grid.innerHTML = '';
+    items.forEach(function(it, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'tile'; b.textContent = i + 1;
+      b.setAttribute('aria-label', 'Number ' + (i + 1));
+      b.addEventListener('click', function(){
+        if (b.classList.contains('open')) { b.classList.toggle('used'); return; }
+        b.classList.add('open'); b.innerHTML = '';
+        if (it.lucky) { b.classList.add('lucky'); b.innerHTML = '<span>🍀</span><span class="lbl">LUCKY! +1</span>'; return; }
+        b.classList.add('word');
+        b.innerHTML = '<span class="lbl">🗣️ Describe it!</span>';
+        var s = document.createElement('span'); s.className = 'show'; s.setAttribute('role','button'); s.textContent = 'Show the word';
+        s.addEventListener('click', function(e){ e.stopPropagation(); s.outerHTML = '<span class="w">' + it.w.replace(/</g,'&lt;') + '</span>'; });
+        b.appendChild(s);
+      });
+      grid.appendChild(b);
+    });
+  }
+  document.querySelectorAll('.sc').forEach(function(btn){
+    btn.addEventListener('click', function(){ var t = btn.dataset.t; score[t] = Math.max(0, score[t] + (+btn.dataset.d)); document.getElementById('s' + t).textContent = score[t]; });
+  });
+  document.getElementById('new').addEventListener('click', function(){ score = { a:0, b:0 }; document.getElementById('sa').textContent = 0; document.getElementById('sb').textContent = 0; build(); });
+  build();
+})();
+</script>
+</body>
+</html>

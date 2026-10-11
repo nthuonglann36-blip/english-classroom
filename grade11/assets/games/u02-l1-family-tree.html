@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree Mystery Game</title>
+    <style>
+        :root {
+            --team1: #ff7675;
+            --team2: #74b9ff;
+            --team3: #55efc4;
+            --team4: #fdcb6e;
+            --bg: #ffeaa7;
+            --text: #2d3436;
+        }
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 95vh;
+            background-image: radial-gradient(#ffeaa7 20%, #fdcb6e 100%);
+        }
+        h1 {
+            font-size: 3em;
+            color: #d35400;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Bảng điểm 4 đội */
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .team {
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: #2d3436;
+            font-weight: bold;
+            font-size: 1.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 3px solid rgba(255,255,255,0.5);
+        }
+        .team-1 { background-color: var(--team1); }
+        .team-2 { background-color: var(--team2); }
+        .team-3 { background-color: var(--team3); }
+        .team-4 { background-color: var(--team4); }
+        .score {
+            font-size: 2.5em;
+            margin-top: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 0 20px;
+        }
+        .add-btn {
+            background: #2d3436;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            padding: 8px 20px;
+            margin-top: 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .add-btn:hover { background: #636e72; transform: scale(1.1); }
+
+        /* Khu vực câu hỏi */
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 90%;
+        }
+        .hint-label {
+            font-size: 1.5em;
+            color: #e17055;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .question-box {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #2d3436;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hiển thị đáp án */
+        .answer-reveal {
+            font-size: 4em;
+            font-weight: bold;
+            color: #00b894;
+            margin-top: 20px;
+            display: none;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #e8f8f5;
+            padding: 10px 40px;
+            border-radius: 20px;
+            border: 4px dashed #00b894;
+        }
+
+        /* Nút điều khiển */
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        button.action-btn {
+            padding: 15px 40px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .reveal-btn { background: #0984e3; }
+        .reveal-btn:hover { background: #74b9ff; transform: translateY(-3px); }
+        .next-btn { background: #d63031; display: none; }
+        .next-btn:hover { background: #ff7675; transform: translateY(-3px); }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .game-over {
+            font-size: 3em;
+            color: #d63031;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .emoji-large {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>👨‍👩‍👧‍👦 Family Tree Mystery 🔍</h1>
+
+    <!-- Bảng điểm -->
+    <div class="scoreboard">
+        <div class="team team-1">
+            TEAM 1
+            <div class="score" id="score1">0</div>
+            <button class="add-btn" onclick="addScore(1)">+1 Point</button>
+        </div>
+        <div class="team team-2">
+            TEAM 2
+            <div class="score" id="score2">0</div>
+            <button class="add-btn" onclick="addScore(2)">+1 Point</button>
+        </div>
+        <div class="team team-3">
+            TEAM 3
+            <div class="score" id="score3">0</div>
+            <button class="add-btn" onclick="addScore(3)">+1 Point</button>
+        </div>
+        <div class="team team-4">
+            TEAM 4
+            <div class="score" id="score4">0</div>
+            <button class="add-btn" onclick="addScore(4)">+1 Point</button>
+        </div>
+    </div>
+
+    <!-- Sân khấu chính -->
+    <div class="game-area">
+        <div id="questionNumber" style="font-size: 1.2em; color: #b2bec3; margin-bottom: 5px; font-weight: bold;">Round 1 / 8</div>
+        <div class="hint-label">HINT:</div>
+        
+        <div class="question-box" id="questionText">
+            Loading...
+        </div>
+
+        <div class="answer-reveal" id="answerReveal"></div>
+
+        <div class="controls">
+            <button class="action-btn reveal-btn" id="revealBtn" onclick="revealAnswer()">Who is it?</button>
+            <button class="action-btn next-btn" id="nextBtn" onclick="nextQuestion()">Next Round ➔</button>
+        </div>
+
+        <div class="game-over" id="gameOverMsg">
+            🎉 GAME OVER! 🎉
+            <div class="emoji-large">🏆</div>
+            <span style="font-size: 0.5em; color: #2d3436; margin-top: 20px;">Great job! Look at the scoreboard to find the winner!</span>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu câu hỏi
+        const questions = [
+            { hint: "My uncle's son is my...", answer: "COUSIN" },
+            { hint: "My mother's sister is my...", answer: "AUNT" },
+            { hint: "My father's father is my...", answer: "GRANDFATHER" },
+            { hint: "My sister's daughter is my...", answer: "NIECE" },
+            { hint: "My brother's son is my...", answer: "NEPHEW" },
+            { hint: "My husband's mother is my...", answer: "MOTHER-IN-LAW" },
+            { hint: "My mother's brother is my...", answer: "UNCLE" },
+            { hint: "My parents' other daughter is my...", answer: "SISTER" }
+        ];
+
+        let currentIndex = 0;
+        let scores = [0, 0, 0, 0];
+
+        const questionText = document.getElementById("questionText");
+        const questionNumber = document.getElementById("questionNumber");
+        const answerReveal = document.getElementById("answerReveal");
+        const revealBtn = document.getElementById("revealBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const gameOverMsg = document.getElementById("gameOverMsg");
+        const hintLabel = document.querySelector(".hint-label");
+
+        function loadQuestion() {
+            questionText.innerText = `"${questions[currentIndex].hint}"`;
+            questionNumber.innerText = `Round ${currentIndex + 1} / ${questions.length}`;
+            answerReveal.style.display = "none";
+            revealBtn.style.display = "inline-block";
+            nextBtn.style.display = "none";
+        }
+
+        function revealAnswer() {
+            answerReveal.innerText = questions[currentIndex].answer;
+            answerReveal.style.display = "block";
+            revealBtn.style.display = "none";
+            nextBtn.style.display = "inline-block";
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < questions.length) {
+                loadQuestion();
+            } else {
+                // Game Over
+                questionText.style.display = "none";
+                questionNumber.style.display = "none";
+                answerReveal.style.display = "none";
+                hintLabel.style.display = "none";
+                nextBtn.style.display = "none";
+                gameOverMsg.style.display = "flex";
+            }
+        }
+
+        function addScore(team) {
+            scores[team-1]++;
+            const scoreElement = document.getElementById(`score${team}`);
+            scoreElement.innerText = scores[team-1];
+            
+            // Hiệu ứng nhảy số khi cộng điểm
+            scoreElement.style.transform = "scale(1.4)";
+            scoreElement.style.color = "#d63031";
+            setTimeout(() => {
+                scoreElement.style.transform = "scale(1)";
+                scoreElement.style.color = "#2d3436";
+            }, 300);
+        }
+
+        // Khởi động trò chơi
+        loadQuestion();
+    </script>
+</body>
+</html>

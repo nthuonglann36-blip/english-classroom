@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbe Battle</title>
+<style>
+:root{--blue:#25a1d5;--green:#3da669;--navy:#19365d;--light:#f4f9fc;--orange:#f49137;--red:#dc4a4a}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(135deg,#edf9ff,#f5fff7);color:#233}
+header{background:var(--navy);color:white;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+h1{margin:0;font-size:30px} .small{font-size:14px;opacity:.85}
+.scorebar{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 24px}
+.team{border-radius:18px;padding:14px 18px;color:white;font-size:24px;font-weight:800;display:flex;justify-content:space-between}
+.b{background:var(--blue)} .v{background:var(--green)} main{padding:10px 24px 30px;max-width:1200px;margin:auto}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+button{border:0;border-radius:12px;padding:12px 16px;font-size:17px;font-weight:700;cursor:pointer}
+.primary{background:var(--navy);color:#fff} .secondary{background:#fff;color:var(--navy);border:2px solid #dbe6ee}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{min-height:105px;background:white;border:2px solid #d8e7ef;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;cursor:pointer;box-shadow:0 5px 16px #0001;position:relative}
+.card.pred::after{content:"PREDICTION";position:absolute;top:8px;right:8px;font-size:10px;background:#fff0d8;color:#a85a00;padding:4px 7px;border-radius:8px}
+.card.used{opacity:.28;pointer-events:none}
+#modal{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:20px}
+.box{background:white;border-radius:22px;max-width:850px;width:100%;padding:26px;box-shadow:0 20px 60px #0005}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#eaf7ff;color:#12688c;font-weight:800;margin-bottom:8px}
+#q{font-size:30px;color:var(--navy);margin:6px 0 18px} .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:#f6fafc;border:2px solid #dbe7ee;text-align:left} .opt:hover{border-color:var(--blue)}
+.teamchoose{display:flex;gap:10px;margin:18px 0 6px} .hidden{display:none!important}
+#feedback{font-size:19px;margin-top:14px;padding:14px;border-radius:14px;background:#f7f7f7}
+.correct{background:#e7f7ed!important;color:#176b39} .wrong{background:#ffe8e8!important;color:#9a2020}
+.note{background:#fff6df;border-left:6px solid var(--orange);padding:12px 14px;border-radius:10px;margin:14px 0}
+footer{text-align:center;color:#657;padding:10px;font-size:13px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(3,1fr)}.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div><h1>🦠 MICROBE BATTLE 🧬</h1><div class="small">Vocabulary + Reading Predictions</div></div><div id="phase">PHASE 1: PLAY</div></header>
+<div class="scorebar">
+<div class="team b">TEAM BACTERIA <span id="sb">0</span></div>
+<div class="team v">TEAM VIRUS <span id="sv">0</span></div>
+</div>
+<main>
+<div class="note"><b>Teacher:</b> Vocabulary cards reveal answers immediately. Prediction cards can be kept secret until students finish reading.</div>
+<div class="controls">
+<button class="primary" onclick="setReveal(!revealPred)" id="revealBtn">🔒 Prediction answers hidden</button>
+<button class="secondary" onclick="resetGame()">↻ Reset game</button>
+<button class="secondary" onclick="toggleFull()">⛶ Full screen</button>
+</div>
+<div class="grid" id="grid"></div>
+</main>
+<div id="modal">
+<div class="box">
+<div class="badge" id="badge"></div>
+<div id="q"></div>
+<div class="opts" id="opts"></div>
+<div class="teamchoose hidden" id="teamchoose">
+<button class="b" style="color:white;flex:1" onclick="award('b')">+ Points to Bacteria</button>
+<button class="v" style="color:white;flex:1" onclick="award('v')">+ Points to Virus</button>
+</div>
+<div id="feedback" class="hidden"></div>
+<div style="display:flex;justify-content:flex-end;margin-top:18px"><button class="primary" onclick="closeModal()">Close</button></div>
+</div></div>
+<footer>Tip: after reading, click “Prediction answers hidden” to reveal and revisit prediction cards.</footer>
+<script>
+const Q=[{"q": "Which word means “a living thing”?", "opts": ["organism", "diameter", "infection", "antibiotic"], "a": 0, "pts": 10, "type": "vocab", "why": "An organism is a living thing."}, {"q": "Which word means “able to spread from one person to another”?", "opts": ["infectious", "tiny", "active", "helpful"], "a": 0, "pts": 10, "type": "vocab", "why": "Infectious diseases can spread between people."}, {"q": "Which word means “the distance across a circle”?", "opts": ["cell", "diameter", "germ", "spread"], "a": 1, "pts": 10, "type": "vocab", "why": "Diameter is the distance across a circle through its centre."}, {"q": "Which word means “medicine used to treat bacterial infections”?", "opts": ["vaccines", "antibiotics", "cells", "germs"], "a": 1, "pts": 10, "type": "vocab", "why": "Antibiotics are medicines used for bacterial infections."}, {"q": "Dirty hands can be a breeding ground for _____.", "opts": ["diameters", "germs", "cells", "metres"], "a": 1, "pts": 10, "type": "vocab", "why": "Germs are tiny organisms that can cause disease."}, {"q": "Complete: halt the _____ of the disease.", "opts": ["spread", "diameter", "organism", "cell"], "a": 0, "pts": 10, "type": "vocab", "why": "“The spread of a disease” is a common collocation."}, {"q": "PREDICTION: Are bacteria living organisms?", "opts": ["Yes", "No"], "a": 0, "pts": 20, "type": "prediction", "why": "The text says bacteria are living organisms."}, {"q": "PREDICTION: Are viruses living things?", "opts": ["Yes", "No"], "a": 1, "pts": 20, "type": "prediction", "why": "The text says viruses are not living things."}, {"q": "PREDICTION: Which is smaller?", "opts": ["Bacteria", "Viruses"], "a": 1, "pts": 20, "type": "prediction", "why": "Viruses are about 0.02–0.25 micron; the smallest bacteria are about 0.4 micron."}, {"q": "PREDICTION: Which can be treated with antibiotics?", "opts": ["Bacterial infections", "Viral diseases"], "a": 0, "pts": 20, "type": "prediction", "why": "Antibiotics are often used to treat infections caused by bacteria."}, {"q": "PREDICTION: Which is linked with vaccines in the text?", "opts": ["Bacteria", "Viruses"], "a": 1, "pts": 20, "type": "prediction", "why": "Vaccines are often used to prevent the spread of diseases caused by viruses."}, {"q": "PREDICTION: Tuberculosis is given as an example of a disease caused by…", "opts": ["bacteria", "viruses"], "a": 0, "pts": 20, "type": "prediction", "why": "The bacteria paragraph names tuberculosis and food poisoning."}]; let used=Array(Q.length).fill(false), current=-1, selected=-1, score={b:0,v:0}, revealPred=false;
+function render(){
+ let g=document.getElementById('grid'); g.innerHTML='';
+ Q.forEach((x,i)=>{let d=document.createElement('div');d.className='card '+(x.type==='prediction'?'pred ':'')+(used[i]?'used':'');d.innerHTML=(i+1)+'<br><span style="font-size:14px;color:#789">'+x.pts+' pts</span>';d.onclick=()=>openQ(i);g.appendChild(d)})
+ document.getElementById('sb').textContent=score.b;document.getElementById('sv').textContent=score.v;
+}
+function openQ(i){current=i;selected=-1;let x=Q[i];document.getElementById('modal').style.display='flex';document.getElementById('badge').textContent=(x.type==='prediction'?'🤔 PREDICTION':'📘 VOCABULARY')+' • '+x.pts+' points';document.getElementById('q').textContent=x.q;
+ let o=document.getElementById('opts');o.innerHTML='';x.opts.forEach((z,j)=>{let b=document.createElement('button');b.className='opt';b.textContent=String.fromCharCode(65+j)+'. '+z;b.onclick=()=>choose(j,b);o.appendChild(b)});
+ document.getElementById('feedback').className='hidden';document.getElementById('teamchoose').className='teamchoose hidden';
+}
+function choose(j,btn){selected=j;let x=Q[current], canReveal=x.type!=='prediction'||revealPred;document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+ let f=document.getElementById('feedback');f.className=''; if(canReveal){let ok=j===x.a;f.classList.add(ok?'correct':'wrong');f.innerHTML=(ok?'✅ Correct! ':'❌ Not quite. ')+'<b>'+x.why+'</b>'; if(ok)document.getElementById('teamchoose').className='teamchoose';}
+ else{f.innerHTML='🤔 <b>Prediction saved!</b> Keep this answer in mind. Read the text and check it later.';document.getElementById('teamchoose').className='teamchoose';}
+}
+function award(t){if(current<0)return;score[t]+=Q[current].pts;used[current]=true;render();closeModal()}
+function closeModal(){document.getElementById('modal').style.display='none'}
+function setReveal(v){revealPred=v;let b=document.getElementById('revealBtn');b.textContent=v?'🔓 Prediction answers ON':'🔒 Prediction answers hidden';document.getElementById('phase').textContent=v?'PHASE 2: READ & CHECK':'PHASE 1: PLAY'}
+function resetGame(){if(confirm('Reset all scores and cards?')){used=Array(Q.length).fill(false);score={b:0,v:0};setReveal(false);render()}}
+function toggleFull(){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}
+render();
+</script>
+</body></html>

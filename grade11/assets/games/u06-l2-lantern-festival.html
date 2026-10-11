@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#142b3e">
+<title>Light Up the Heritage Festival | Unit 6 Grammar</title>
+<style>
+:root{--navy:#142b3e;--dark:#0c2232;--ink:#1d3444;--muted:#667783;--paper:#fffaf0;--orange:#fc8c38;--gold:#ffc55c;--teal:#00b5a6;--white:#fff;--line:rgba(20,43,62,.13);--shadow:0 15px 38px rgba(43,60,64,.1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 0% 8%,#ffedcb 0%,transparent 36%),radial-gradient(ellipse at 100% 20%,#d8f3ed 0%,transparent 33%),linear-gradient(155deg,#fffaf3 0%,#f6f7ef 58%,#eef8f4 100%);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #0cafb4;outline-offset:3px}
+button:disabled{opacity:.42;cursor:not-allowed;transform:none!important}
+.app{width:min(1550px,100%);margin:0 auto;padding:16px 22px 32px}
+.hero{min-height:184px;position:relative;overflow:hidden;display:flex;align-items:center;background:linear-gradient(108deg,#19354b 0%,#25506a 53%,#36767b 100%);color:white;border-radius:25px;box-shadow:0 18px 40px rgba(13,48,62,.19);isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 75% 24%,rgba(252,197,92,.21),transparent 38%)}
+.hero-copy{padding:25px 32px;position:relative;z-index:2;max-width:750px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:850;letter-spacing:1.65px;text-transform:uppercase;color:#ffe4b3}
+.hero h1{font-weight:1000;font-size:clamp(30px,3.5vw,51px);line-height:1.03;letter-spacing:-1.8px;margin:10px 0 7px}
+.hero h1 span{color:#ffd380}
+.hero p{margin:0;font-size:clamp(13px,1.13vw,16px);line-height:1.54;color:#ecf5f2;max-width:600px}
+.hero-art{position:absolute;right:0;bottom:0;width:51%;height:100%;opacity:.99;pointer-events:none}
+.glow-dot{animation:glimmer 2.5s ease-in-out infinite alternate}
+@keyframes glimmer{from{opacity:.35}to{opacity:1}}
+.introbar{margin:13px 0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.rule-pills{display:flex;flex-wrap:wrap;gap:8px}
+.rule-pill{display:inline-flex;align-items:center;gap:7px;padding:10px 14px;border:1px solid #efdfc7;border-radius:100px;background:rgba(255,255,255,.85);color:#3f5c67;font-size:13px;font-weight:750}
+.rule-pill b{color:#dd7528}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.action{border:1px solid rgba(20,43,62,.14);border-radius:12px;background:#fff;color:#335064;padding:10px 13px;font-size:13px;font-weight:850;box-shadow:0 4px 14px rgba(12,34,50,.045);transition:transform .14s,background .14s}
+.action:hover{transform:translateY(-2px);background:#fafffd}
+.action.ghost-red:hover{background:#fff0ec;color:#ba3a25}
+.top-section{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:14px 0 12px}
+.heading{margin:0;font-size:clamp(19px,2vw,25px);letter-spacing:-.65px;color:#1a4052;font-weight:950}
+.heading span{color:#e77f30}
+.section-help{font-size:12px;font-weight:750;color:#6a7d81;text-align:right}
+.teams{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.team{--accent:#f6ac4a;--lightBg:#fff0d2;position:relative;overflow:hidden;background:linear-gradient(160deg,#fff 0%,var(--lightBg) 140%);border:1px solid rgba(20,43,62,.13);border-radius:21px;box-shadow:var(--shadow);padding:14px 14px 12px;transition:transform .2s,border-color .2s}
+.team.winner{border:3px solid #e4af35;box-shadow:0 0 0 4px rgba(255,206,89,.17),var(--shadow)}
+.team:nth-child(2){--accent:#ff6f88;--lightBg:#ffe4df}
+.team:nth-child(3){--accent:#48c5af;--lightBg:#daf6eb}
+.team:nth-child(4){--accent:#76a8fa;--lightBg:#e6efff}
+.team-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;min-height:48px}
+.team-kicker{font-size:10px;letter-spacing:1.4px;font-weight:850;color:#84909a;text-transform:uppercase;margin-bottom:2px}
+.team-name{font-size:clamp(17px,1.7vw,23px);font-weight:1000;letter-spacing:-.5px;color:#173c50;line-height:1.1}
+.team-description{font-size:11px;color:#758590;font-weight:700;margin-top:3px}
+.team-flag{width:29px;height:29px;display:grid;place-items:center;border-radius:10px;background:var(--lightBg);font-size:17px;flex-shrink:0}
+.stage{position:relative;overflow:hidden;height:156px;margin:9px 0 10px;border-radius:14px;background:linear-gradient(180deg,#1a344b 0%,#355a67 62%,#47676c 100%);isolation:isolate}
+.stage:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,var(--accent),transparent 62%);opacity:calc(var(--brightness,0) * .15);pointer-events:none;z-index:1;transition:opacity .45s}
+.scene-art{width:100%;height:100%;display:block;position:absolute;inset:0}
+.lantern-row{position:absolute;inset:0 6px auto;display:flex;justify-content:space-around;align-items:flex-start;z-index:2}
+.lantern{width:22%;height:89px;filter:grayscale(.95) brightness(.63);opacity:.63;transform-origin:50% 0%;transition:filter .5s,opacity .5s;animation:floatLantern 3.9s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -.9s)}
+.lantern.lit{filter:drop-shadow(0 0 9px var(--accent));opacity:1}
+.lantern-body{fill:#65717a;stroke:#b0a7a0;stroke-width:1.5;transition:fill .45s,stroke .45s}
+.lantern.lit .lantern-body{fill:var(--accent);stroke:#ffe8aa}
+.lantern-shape{fill:none;stroke:#4e5d66;stroke-width:1.5;opacity:.75}
+.lantern.lit .lantern-shape{stroke:#fff4d2;opacity:1}
+.lantern-knot{fill:#6b7a83}.lantern.lit .lantern-knot{fill:#ffe1a4}
+.lantern-highlight{fill:#fff5c7;opacity:0}.lantern.lit .lantern-highlight{opacity:.7}
+@keyframes floatLantern{from{transform:rotate(-3deg) translateY(0)}to{transform:rotate(3deg) translateY(3px)}}
+.stage-caption{position:absolute;bottom:7px;right:9px;z-index:3;border-radius:6px;padding:3px 7px;font-size:10px;font-weight:950;color:#e7f2f1;background:rgba(4,24,37,.44);backdrop-filter:blur(3px);letter-spacing:.4px}
+.stage-progress{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 9px}
+.progress-label{font-size:12px;font-weight:850;color:#5f747d}
+.progress-count{font-size:17px;font-weight:1000;color:#214654}
+.progress-count b{color:#df7931}
+.marks{display:flex;gap:5px;align-items:center}
+.mark{width:22px;height:7px;background:#e0e7e5;border-radius:99px;transition:background .25s,box-shadow .25s}
+.mark.on{background:var(--accent);box-shadow:0 0 9px var(--accent)}
+.team-controls{display:grid;grid-template-columns:1fr 54px;gap:7px}
+.give{border:0;color:#fff;background:linear-gradient(125deg,#257f78,#13a6a0);border-radius:11px;font-weight:900;padding:10px 7px;font-size:13px;box-shadow:0 7px 13px rgba(8,125,114,.2);transition:transform .15s,filter .15s}
+.give:hover{filter:brightness(1.06);transform:translateY(-2px)}
+.take{border:1px solid #f0c9bc;border-radius:11px;background:#fff2ee;color:#be5d45;font-weight:1000;font-size:19px}
+.take:hover{background:#ffe5de}
+.winner-strip{border-radius:17px;background:linear-gradient(100deg,#fff0b7,#ffe1c7);border:1px solid #eac46f;padding:13px 20px;margin-top:13px;font-weight:900;color:#74521d;display:none;justify-content:space-between;gap:10px;align-items:center}
+.winner-strip.visible{display:flex}
+.board{margin-top:16px;padding:16px 18px 18px;background:rgba(255,255,255,.94);border:1px solid rgba(20,43,62,.11);border-radius:22px;box-shadow:var(--shadow)}
+.board-top{margin-bottom:13px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.board-sub{font-size:12px;color:#718086;font-weight:780}
+.questions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.mystery{min-height:116px;border:2px solid #efe2cc;border-radius:17px;background:linear-gradient(148deg,#fffbf3 0%,#fff4dd 100%);box-shadow:inset 0 0 0 4px rgba(255,255,255,.65),0 6px 14px rgba(71,59,35,.055);color:#23485a;position:relative;transition:transform .16s,border-color .16s,box-shadow .16s;overflow:hidden}
+.mystery:before{content:"";position:absolute;top:-38px;right:-38px;width:100px;height:100px;border:2px solid rgba(240,169,80,.15);border-radius:50%}
+.mystery:hover{transform:translateY(-4px);border-color:#e4b26d;box-shadow:0 13px 25px rgba(71,59,35,.12)}
+.mystery-number{position:absolute;top:10px;left:12px;font-size:13px;font-weight:1000;letter-spacing:1px;color:#e0812d}
+.mystery-icon{display:block;font-size:41px;font-weight:1000;line-height:1;letter-spacing:-2px;transition:transform .2s}
+.mystery:hover .mystery-icon{transform:scale(1.16)}
+.mystery.done{background:linear-gradient(135deg,#eefaf0,#d7f2de);border-color:#a4d7b7}
+.mystery.done .mystery-number{color:#458c64}
+.mystery.done .mystery-icon{font-size:38px;color:#23845c}
+.mystery.done:after{content:"DONE";position:absolute;bottom:10px;left:0;right:0;text-align:center;font-weight:950;font-size:9px;letter-spacing:2px;color:#2d9066}
+.board-footer{margin-top:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px}
+.little-note{font-size:12px;line-height:1.45;color:#75858b}
+.pill-stats{background:#edf6f2;color:#287563;border:1px solid #d0eae0;border-radius:99px;padding:8px 12px;font-size:12px;font-weight:900}
+.screen-reader{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.modal-backdrop{position:fixed;inset:0;z-index:1000;display:none;justify-content:center;align-items:center;padding:22px;background:rgba(9,31,47,.7);backdrop-filter:blur(9px)}
+.modal-backdrop.open{display:flex}
+.modal{width:min(870px,100%);max-height:min(92vh,850px);overflow-y:auto;border-radius:23px;background:#fffdfa;box-shadow:0 36px 100px rgba(4,20,35,.34);border:1px solid #fff;animation:rise .25s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{transform:translateY(18px) scale(.98);opacity:.55}to{transform:translateY(0) scale(1);opacity:1}}
+.modal-header{background:linear-gradient(110deg,#183b50,#266c72);color:#fff;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal-header h2{font-size:23px;letter-spacing:-.4px;margin:0}
+.modal-header p{margin:4px 0 0;font-size:12px;letter-spacing:1.3px;color:#d5e8e6;text-transform:uppercase;font-weight:850}
+.close{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:19px;font-weight:900;width:39px;height:39px}
+.close:hover{background:rgba(255,255,255,.23)}
+.modal-main{padding:22px 25px 26px}
+.prompt-label{color:#d47629;font-weight:950;letter-spacing:1px;font-size:12px;text-transform:uppercase}
+.sentence{margin:13px 0;font-weight:850;letter-spacing:-.4px;font-size:clamp(22px,2.45vw,32px);line-height:1.55;color:#20394e}
+.gap{display:inline-block;min-width:150px;background:#fff0cc;border-bottom:3px dashed #ef9738;border-radius:5px;padding:0 9px;margin:0 2px;text-align:center;color:#e68e2b}
+.cue{font-weight:850;font-size:16px;color:#526b79;margin-bottom:18px}
+.cue strong{font-size:19px;color:#17656b}
+.answer-section{background:#f5f7f6;border:1px solid #e2eae6;border-radius:15px;padding:15px}
+.input-label{font-size:12px;color:#536e76;font-weight:900;display:block;margin-bottom:7px;letter-spacing:.3px}
+.input-line{display:flex;gap:9px}
+.answer-input{min-width:0;width:100%;border:2px solid #d5e1df;border-radius:10px;padding:12px 13px;font-size:17px;color:#194558;background:white;outline:none}
+.answer-input:focus{border-color:#1bb2a4;box-shadow:0 0 0 3px rgba(27,178,164,.11)}
+.btn-check{flex-shrink:0;background:#175e68;border:0;border-radius:10px;color:#fff;padding:0 18px;font-size:14px;font-weight:900}
+.btn-check:hover{background:#1c7e84}
+.feedback{font-size:13px;font-weight:850;margin-top:8px;min-height:0}
+.feedback.good{color:#168760}
+.feedback.bad{color:#c45a30}
+.modal-commands{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.btn-reveal{padding:11px 14px;background:linear-gradient(125deg,#f9ae4e,#f08836);border:0;color:#fff;border-radius:10px;font-weight:900;font-size:13px}
+.btn-hide{padding:10px 14px;background:#fff;border:1px solid #dce5e3;color:#395767;border-radius:10px;font-weight:850;font-size:13px}
+.solution{display:none;margin-top:13px;background:#ebf9ef;border:1px solid #b9e7c6;border-radius:13px;padding:15px 17px}
+.solution.open{display:block}
+.solution b{font-size:23px;color:#176842}
+.solution p{margin:7px 0 0;font-size:14px;line-height:1.5;color:#526e5b}
+.award{border-top:1px dashed #cfdbda;margin-top:18px;padding-top:16px}
+.award-head{font-size:12px;text-transform:uppercase;letter-spacing:1px;font-weight:950;color:#47616d;margin-bottom:10px}
+.award-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.award-button{border:1px solid #d4e7e2;background:#e8f7f1;color:#176f5a;border-radius:10px;padding:11px 6px;font-size:12px;font-weight:1000;line-height:1.24;transition:transform .14s,background .14s}
+.award-button:hover{background:#d5f2e7;transform:translateY(-2px)}
+.award-button:nth-child(2){background:#fff0f1;border-color:#ffdee3;color:#ae4e60}
+.award-button:nth-child(3){background:#e7f8f2;border-color:#c4eee0;color:#138772}
+.award-button:nth-child(4){background:#edf3ff;border-color:#d5e5ff;color:#486cae}
+.award-button:disabled{background:#edf0ef;color:#a3afb0;border-color:#e3e8e6}
+.skip-line{text-align:right;margin-top:10px}
+.skip{border:0;background:none;color:#6a8290;font-weight:800;font-size:12px;text-decoration:underline;text-underline-offset:3px;padding:7px 0}
+.answered-message{font-size:13px;color:#248b62;font-weight:900;margin-top:10px;display:none}
+.answered-message.visible{display:block}
+.winner-overlay{position:fixed;z-index:1100;inset:0;display:none;align-items:center;justify-content:center;background:rgba(9,28,42,.78);backdrop-filter:blur(8px);padding:20px;overflow:hidden}
+.winner-overlay.open{display:flex}
+.winner-card{background:linear-gradient(160deg,#fffdf4,#ffefc6);border-radius:25px;border:5px solid #ffe0a0;box-shadow:0 30px 100px rgba(0,0,0,.32);max-width:540px;width:100%;padding:28px 24px 30px;text-align:center;position:relative;z-index:2;animation:rise .25s ease}
+.trophy{font-size:72px;filter:drop-shadow(0 7px 7px #d69b46)}
+.winner-title{font-size:28px;font-weight:1000;color:#9b621e;margin:6px 0}
+.winner-name{font-size:clamp(29px,5vw,46px);font-weight:1000;line-height:1.12;color:#153d55;margin:10px 0 8px}
+.winner-card p{color:#796246;margin:0 0 20px;font-weight:750}
+.winner-button{padding:13px 25px;border:0;border-radius:12px;color:#fff;background:linear-gradient(110deg,#23937d,#167988);font-weight:900}
+.confetti{position:absolute;top:-10%;width:10px;height:16px;pointer-events:none;animation:fall 3.8s linear forwards;opacity:.95}
+@keyframes fall{to{transform:translate(var(--dx),120vh) rotate(var(--rot));opacity:.8}}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);padding:13px 18px;background:#173c4d;color:#fff;border-radius:15px;box-shadow:0 14px 35px rgba(0,0,0,.2);z-index:1500;font-size:14px;font-weight:850;transition:transform .24s ease;pointer-events:none;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.help-backdrop{position:fixed;inset:0;z-index:1300;background:rgba(5,30,44,.66);display:none;align-items:center;justify-content:center;padding:16px}
+.help-backdrop.open{display:flex}
+.help-panel{background:#fffdf8;border-radius:22px;max-width:840px;width:100%;padding:23px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 90px rgba(0,0,0,.28)}
+.help-panel h2{margin:0 0 6px;font-size:23px;color:#184658}
+.help-panel p{color:#687882;font-size:13px;margin:4px 0 14px}
+.key-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.key-entry{border:1px solid #e3eae4;border-radius:11px;background:#fbfbf7;padding:10px 12px;font-size:12px;color:#385263;line-height:1.4}
+.key-entry b{color:#137c6b;font-size:15px}
+.key-entry small{display:block;margin-top:4px;color:#77858c;font-size:11px}
+@media(min-width:1400px){.stage{height:162px}.team{padding:16px}.hero{min-height:193px}}
+@media(max-width:1120px){.hero-art{width:43%;opacity:.65}.teams{grid-template-columns:repeat(2,minmax(0,1fr))}.stage{height:172px}.questions{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:740px){.app{padding:12px 12px 24px}.hero{min-height:170px}.hero-copy{padding:23px}.hero-art{opacity:.25;width:72%}.hero h1{letter-spacing:-1px}.teams{gap:10px}.team{padding:11px}.team-name{font-size:18px}.stage{height:135px}.lantern{height:78px}.questions{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.mystery{min-height:94px}.section-help{display:none}.modal-main{padding:16px}.modal-header{padding:15px}.award-buttons{grid-template-columns:repeat(2,1fr)}.key-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.teams{grid-template-columns:1fr}.stage{height:145px}.introbar{align-items:flex-start}.rule-pill{font-size:12px;padding:8px 10px}.questions{grid-template-columns:repeat(3,1fr)}.mystery{min-height:84px}.mystery-icon{font-size:31px}.mystery-number{font-size:11px}.modal-backdrop{padding:8px}.sentence{font-size:22px}.input-line{flex-direction:column}.btn-check{padding:11px}.board{padding:13px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+/* Nhúng trong slide bài giảng (khung ~630px cao): gọn lại để không phải cuộn.
+   Mở riêng toàn màn hình (cao > 700px) thì giữ nguyên thiết kế gốc của cô. */
+@media (max-height:700px) and (min-width:1000px){
+.app{padding:8px 14px 8px}
+  .hero,.top-section{display:none}
+  .introbar{margin:0 0 8px}
+  .team{padding:10px}
+  .stage{height:112px;margin:6px 0}
+  .lantern{height:70px}
+  .board{margin-top:10px;padding:10px 14px}
+  .board-top{margin-bottom:8px}
+  .questions{grid-template-columns:repeat(12,minmax(0,1fr));gap:8px}
+  .mystery{min-height:64px}
+  .mystery-icon{font-size:26px}
+  .board-footer{margin-top:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">✦ UNIT 6 · PRESERVING HERITAGE · GRAMMAR</div>
+      <h1>LIGHT UP <span>HOI AN</span></h1>
+      <p>Lantern Festival Challenge · Complete each sentence using <strong>to + V</strong> or <strong>to be + V3/ed</strong>. Answer correctly to light up your heritage team's lanterns!</p>
+    </div>
+    <svg class="hero-art" viewBox="0 0 710 210" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d8392" stop-opacity=".25"/><stop offset="1" stop-color="#f4a55b" stop-opacity=".18"/></linearGradient>
+      </defs>
+      <rect x="0" y="0" width="710" height="210" fill="url(#heroSky)"/>
+      <circle cx="485" cy="44" r="32" fill="#ffd998" opacity=".88"/><circle cx="485" cy="44" r="46" fill="#ffe6b6" opacity=".12"/>
+      <g fill="#ffe5bd" opacity=".7" class="glow-dot"><circle cx="80" cy="31" r="2"/><circle cx="280" cy="59" r="1.7"/><circle cx="610" cy="29" r="1.7"/><circle cx="365" cy="19" r="2"/></g>
+      <path d="M0 144 L0 123 62 123 62 99 100 77 140 97 140 118 180 118 180 138 200 138 200 115 245 88 298 113 298 135 352 135 352 114 392 88 449 112 449 135 478 135 478 103 516 83 560 102 560 142 595 142 595 117 630 91 690 117 710 117 710 210 0 210Z" fill="#122d3e" opacity=".9"/>
+      <path d="M57 98 L101 65 146 98ZM202 115 L248 77 304 114ZM349 114 L394 76 453 115ZM473 101 L516 69 564 102ZM583 116 L628 78 696 117Z" fill="#ad6744" opacity=".9"/>
+      <g fill="#ffc976" opacity=".74"><rect x="86" y="112" width="13" height="19" rx="2"/><rect x="107" y="112" width="13" height="19" rx="2"/><rect x="229" y="121" width="11" height="18" rx="2"/><rect x="257" y="121" width="11" height="18" rx="2"/><rect x="385" y="119" width="11" height="17" rx="2"/><rect x="404" y="119" width="11" height="17" rx="2"/><rect x="505" y="111" width="12" height="16" rx="2"/><rect x="530" y="111" width="12" height="16" rx="2"/><rect x="632" y="125" width="14" height="16" rx="2"/></g>
+      <path d="M0 165 Q110 154 220 166 T443 167 T710 161V210H0Z" fill="#56a19e" opacity=".48"/>
+      <g fill="none" stroke="#ffd889" opacity=".35"><path d="M70 189q45 5 85 0"/><path d="M312 179q50 8 100 0"/><path d="M488 198q48 5 91 0"/></g>
+      <g transform="translate(360,-10)"><path d="M0 0V48" stroke="#edd0b4" stroke-width="2"/><path d="M-9 55Q-14 45 0 45Q14 45 9 55L11 70Q0 80 -11 70Z" fill="#ffc453" stroke="#fff2ce" stroke-width="2"/><path d="M0 47V77M-8 56H8" stroke="#fff2ce" opacity=".65"/><path d="M0 77V87" stroke="#ffdfb1"/></g>
+      <g transform="translate(607,10)"><path d="M0 0V33" stroke="#edd0b4" stroke-width="2"/><path d="M-10 42Q-13 33 0 33Q13 33 10 42L11 60Q0 70 -11 60Z" fill="#ff8180" stroke="#fff2ce" stroke-width="2"/><path d="M0 36V68M-8 43H8" stroke="#fff2ce" opacity=".6"/><path d="M0 68V80" stroke="#ffdfb1"/></g>
+    </svg>
+  </header>
+
+  <div class="introbar">
+    <div class="rule-pills">
+      <span class="rule-pill">🎁 <b>12</b> mystery boxes</span>
+      <span class="rule-pill">🏮 Correct answer → <b>+1 lantern</b></span>
+      <span class="rule-pill">🏆 First to light <b>4 lanterns</b> wins</span>
+    </div>
+    <div class="actions">
+      <button class="action" id="soundBtn" type="button" onclick="toggleSound()" title="Toggle sound">🔊 Sound on</button>
+      <button class="action" type="button" onclick="openKey()">🔑 Teacher key</button>
+      <button class="action" type="button" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+      <button class="action ghost-red" type="button" onclick="resetGame()">↺ Reset game</button>
+    </div>
+  </div>
+
+  <div class="top-section">
+    <h2 class="heading">01 / <span>Heritage teams</span></h2>
+    <div class="section-help">The teacher controls the lanterns · <strong>+ Add</strong> / <strong>− Undo</strong></div>
+  </div>
+  <div class="teams" id="teams"></div>
+  <div class="winner-strip" id="winnerStrip" aria-live="polite"></div>
+
+  <section class="board" aria-label="Mystery question board">
+    <div class="board-top">
+      <h2 class="heading">02 / <span>Choose a mystery box</span></h2>
+      <div class="pill-stats" id="statusCount">0 / 12 completed</div>
+    </div>
+    <div class="questions" id="questions"></div>
+    <div class="board-footer">
+      <div class="little-note">Only the box number is visible. Students fill the gap themselves; no multiple-choice options.</div>
+      <div class="actions"><button class="action" type="button" onclick="resetQuestions()">↺ Reopen all 12 boxes</button></div>
+    </div>
+  </section>
+</div>
+
+<div class="modal-backdrop" id="questionBackdrop" role="dialog" aria-modal="true" aria-labelledby="questionTitle" onclick="if(event.target===this)closeQuestion()">
+  <div class="modal">
+    <div class="modal-header">
+      <div><h2 id="questionTitle">Mystery Box 01</h2><p>Heritage Grammar Quest · Fill in the blank</p></div>
+      <button class="close" type="button" aria-label="Close question" onclick="closeQuestion()">×</button>
+    </div>
+    <div class="modal-main">
+      <div class="prompt-label">✦ Complete the sentence with the correct form of the verb</div>
+      <div class="sentence" id="sentence"></div>
+      <div class="cue" id="cue"></div>
+      <div class="answer-section">
+        <label class="input-label" for="studentAnswer">YOUR ANSWER</label>
+        <div class="input-line">
+          <input class="answer-input" id="studentAnswer" type="text" autocomplete="off" spellcheck="false" placeholder="Type the missing words...">
+          <button class="btn-check" type="button" onclick="checkAnswer()">CHECK ✓</button>
+        </div>
+        <div class="feedback" id="feedback" aria-live="polite"></div>
+      </div>
+      <div class="modal-commands">
+        <button class="btn-reveal" type="button" onclick="revealAnswer()">👁 Reveal answer</button>
+        <button class="btn-hide" type="button" onclick="hideAnswer()">Hide answer</button>
+      </div>
+      <div class="solution" id="solution">
+        <b id="correctAnswer"></b>
+        <p id="explanation"></p>
+      </div>
+      <div class="award">
+        <div class="award-head">🏮 Teacher: award one lantern to the correct team</div>
+        <div class="award-buttons" id="awardButtons"></div>
+        <div class="answered-message" id="completedMessage">✓ This question has been completed.</div>
+        <div class="skip-line"><button class="skip" id="markDone" type="button" onclick="markQuestionDone()">Mark as completed without awarding a lantern</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="winner-overlay" id="winnerOverlay" role="dialog" aria-modal="true" aria-labelledby="winnerName">
+  <div class="winner-card">
+    <div class="trophy">🏆</div>
+    <div class="winner-title">HERITAGE FESTIVAL CHAMPIONS</div>
+    <div class="winner-name" id="winnerName">Hoi An</div>
+    <p>All 4 lanterns are glowing. The heritage festival is shining!</p>
+    <button class="winner-button" onclick="hideWinnerOverlay()">Continue celebrating ✨</button>
+  </div>
+</div>
+
+<div class="help-backdrop" id="keyBackdrop" role="dialog" aria-modal="true" aria-label="Teacher answer key" onclick="if(event.target===this)closeKey()">
+  <div class="help-panel">
+    <div style="display:flex;justify-content:space-between;gap:14px;align-items:start">
+      <div><h2>🔑 Teacher answer key</h2><p>12 gap-fill questions • 6 active to-infinitives + 6 passive to-infinitives</p></div>
+      <button class="action" type="button" onclick="closeKey()">✕ Close</button>
+    </div>
+    <div class="key-grid" id="teacherKeyGrid"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+const QUESTIONS = [
+  { sentence:'Lan went to Hue <span class="gap">__________</span> the ancient monuments.', verb:'see', answer:'to see', explanation:'Active to-infinitive of purpose: Lan went there in order to see the monuments.', kind:'Purpose · active' },
+  { sentence:'The old wooden bridge needs <span class="gap">__________</span> before the rainy season.', verb:'repair', answer:'to be repaired', explanation:'Passive to-infinitive: the bridge receives the action of repairing.', kind:'Passive infinitive' },
+  { sentence:'Minh created a website <span class="gap">__________</span> information about local historical sites.', verb:'share', answer:'to share', explanation:'Active to-infinitive of purpose: the website was created in order to share information.', kind:'Purpose · active' },
+  { sentence:'Traditional folk songs deserve <span class="gap">__________</span> for future generations.', verb:'preserve', answer:'to be preserved', explanation:'Passive to-infinitive after deserve: the songs are preserved by people.', kind:'Passive infinitive' },
+  { sentence:'Peter took a boat trip around the floating market <span class="gap">__________</span> to don ca tai tu.', verb:'listen', answer:'to listen', explanation:'Active to-infinitive of purpose: Peter wanted to listen to traditional music.', kind:'Purpose · active' },
+  { sentence:'Our guide was the first person <span class="gap">__________</span> us about the history of Trang An.', verb:'tell', answer:'to tell', explanation:'Active to-infinitive after an ordinal expression: the first person to tell us.', kind:'Ordinal · active' },
+  { sentence:'The ancient stone gate is scheduled <span class="gap">__________</span> next month.', verb:'restore', answer:'to be restored', explanation:'Passive to-infinitive: the gate is scheduled for restoration by other people.', kind:'Passive infinitive' },
+  { sentence:'These valuable artifacts are expected <span class="gap">__________</span> in the museum soon.', verb:'display', answer:'to be displayed', explanation:'Passive to-infinitive: the artifacts will be displayed by the museum.', kind:'Passive infinitive' },
+  { sentence:'My sister opened a small shop behind the museum <span class="gap">__________</span> postcards and souvenirs.', verb:'sell', answer:'to sell', explanation:'Active to-infinitive of purpose: the shop was opened in order to sell souvenirs.', kind:'Purpose · active' },
+  { sentence:'These old manuscripts are too fragile <span class="gap">__________</span> by visitors.', verb:'handle', answer:'to be handled', explanation:'Passive to-infinitive after too + adjective: visitors should not handle these fragile manuscripts.', kind:'Passive infinitive' },
+  { sentence:'Volunteers travelled to Hoi An <span class="gap">__________</span> up litter around the ancient streets.', verb:'clean', answer:'to clean', explanation:'Active to-infinitive of purpose: to clean up means to remove litter.', kind:'Purpose · active' },
+  { sentence:'The ancient murals are ready <span class="gap">__________</span> by conservation experts.', verb:'examine', answer:'to be examined', explanation:'Passive to-infinitive: experts will examine the murals.', kind:'Passive infinitive' }
+];
+const TEAMS = [
+  {name:'Hoi An',desc:'Ancient Town • Quang Nam',emoji:'🏮'},
+  {name:'Hue',desc:'Imperial Heritage • Central Viet Nam',emoji:'🏯'},
+  {name:'Trang An',desc:'Landscape Heritage • Ninh Binh',emoji:'🚣'},
+  {name:'Mekong Delta',desc:'River Traditions • Southern Viet Nam',emoji:'🛶'}
+];
+const STORAGE_KEY='heritageFestivalUnit6L2.v1';
+const MAX_LIGHTS=4;
+let state={lights:[0,0,0,0],used:Array(12).fill(false),winner:null,sound:true};
+let selected=null;
+let toastTimer=null;
+let audioContext=null;
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    const saved=JSON.parse(raw);
+    if(!saved||!Array.isArray(saved.lights)||!Array.isArray(saved.used))return;
+    state.lights=TEAMS.map((_,i)=>Math.min(MAX_LIGHTS,Math.max(0,Number(saved.lights[i])||0)));
+    state.used=QUESTIONS.map((_,i)=>Boolean(saved.used[i]));
+    state.winner=Number.isInteger(saved.winner)&&saved.winner>=0&&saved.winner<4&&state.lights[saved.winner]===4?saved.winner:null;
+    state.sound=saved.sound!==false;
+  }catch(e){}
+}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
+function lanternIcon(index,lit){
+  return `<svg class="lantern ${lit?'lit':''}" style="--i:${index}" viewBox="0 0 68 96" aria-hidden="true">
+    <line x1="34" y1="0" x2="34" y2="19" stroke="#d9d8c9" stroke-width="2"/>
+    <path class="lantern-knot" d="M29 19H39V24H29Z"/>
+    <path class="lantern-body" d="M34 23C51 23 61 34 57 48C60 63 49 75 34 79C19 75 8 63 11 48C7 34 17 23 34 23Z"/>
+    <path class="lantern-shape" d="M34 23V79M20 27C17 40 17 62 23 74M48 27C51 40 51 62 45 74M11 48H57"/>
+    <ellipse class="lantern-highlight" cx="27" cy="43" rx="6" ry="13"/>
+    <path class="lantern-knot" d="M29 78H39L37 82H31Z"/>
+    <line x1="34" y1="82" x2="34" y2="91" stroke="#d39c74" stroke-width="2"/>
+    <path d="M31 87L34 94L37 87" fill="none" stroke="#cdaa84" stroke-width="2"/>
+  </svg>`;
+}
+const SCENE=`<svg class="scene-art" viewBox="0 0 340 156" preserveAspectRatio="none" aria-hidden="true">
+  <circle cx="292" cy="26" r="12" fill="#ffe5ad" opacity=".73"/>
+  <g fill="#d3efe5" opacity=".5"><circle cx="25" cy="16" r="1.4"/><circle cx="160" cy="19" r="1.1"/><circle cx="232" cy="15" r="1"/><circle cx="318" cy="54" r="1.1"/></g>
+  <path d="M0 126V101H35V86L70 62L105 86V120H128V100L166 72L199 101V126H223V94L258 65L302 94V112H340V156H0Z" fill="#203e50"/>
+  <path d="M29 86L69 55L110 86L104 88L69 66L36 88Z M121 100L165 65L205 100L197 102L166 76L129 103Z M215 94L259 58L311 94L301 95L258 71L223 97Z" fill="#995e51"/>
+  <g fill="#ffcf74" opacity=".72"><rect x="56" y="94" width="12" height="18" rx="2"/><rect x="76" y="94" width="12" height="18" rx="2"/><rect x="156" y="103" width="13" height="19" rx="2"/><rect x="179" y="103" width="11" height="19" rx="2"/><rect x="245" y="103" width="13" height="19" rx="2"/><rect x="272" y="103" width="13" height="19" rx="2"/></g>
+  <path d="M0 128Q95 119 176 128T340 127V156H0Z" fill="#2b727e" opacity=".66"/>
+  <g stroke="#c5bc8d" stroke-width="1.5" opacity=".42"><path d="M28 141H85M140 147H197M250 138H311"/></g>
+  <path d="M16 140Q31 133 52 140L47 145H22Z" fill="#563e39"/><path d="M26 136V119M26 121L45 129L26 129" stroke="#e8c087" stroke-width="2" fill="none"/>
+</svg>`;
+function renderTeams(){
+  const root=document.getElementById('teams');
+  root.innerHTML=TEAMS.map((team,i)=>{
+    const count=state.lights[i],win=state.winner===i;
+    return `<article class="team ${win?'winner':''}" aria-label="${team.name}: ${count} of 4 lanterns lit">
+      <div class="team-top"><div><div class="team-kicker">HERITAGE CREW ${String(i+1).padStart(2,'0')}</div><div class="team-name">${team.name}${win?' 👑':''}</div><div class="team-description">${team.desc}</div></div><div class="team-flag">${team.emoji}</div></div>
+      <div class="stage" style="--brightness:${count}">${SCENE}<div class="lantern-row">${Array.from({length:4},(_,n)=>lanternIcon(n,n<count)).join('')}</div><div class="stage-caption">${win?'FESTIVAL CHAMPION ✨':count===4?'ALL LANTERNS LIT ✨':'FESTIVAL LIGHTS'}</div></div>
+      <div class="stage-progress"><div class="progress-label">LANTERNS LIT <span class="progress-count"><b>${count}</b> / 4</span></div><div class="marks">${Array.from({length:4},(_,n)=>`<i class="mark ${n<count?'on':''}"></i>`).join('')}</div></div>
+      <div class="team-controls"><button class="give" onclick="changeLight(${i},1)" ${count===4?'disabled':''} aria-label="Give ${team.name} one lantern">🏮 + ADD LANTERN</button><button class="take" onclick="changeLight(${i},-1)" ${count===0?'disabled':''} aria-label="Remove one lantern from ${team.name}">−</button></div>
+    </article>`;
+  }).join('');
+  const banner=document.getElementById('winnerStrip');
+  if(state.winner!==null){banner.classList.add('visible');banner.innerHTML=`<span>🏆 ${TEAMS[state.winner].name} is the first team to light all 4 lanterns!</span><span>✨ Festival champions</span>`;}
+  else{banner.classList.remove('visible');banner.textContent='';}
+}
+function renderQuestions(){
+  const root=document.getElementById('questions');
+  root.innerHTML=QUESTIONS.map((q,i)=>`<button class="mystery ${state.used[i]?'done':''}" onclick="openQuestion(${i})" type="button" aria-label="Open mystery box ${i+1}${state.used[i]?', completed':''}">
+    <span class="mystery-number">${String(i+1).padStart(2,'0')}</span><span class="mystery-icon">${state.used[i]?'✓':'?'}</span>
+  </button>`).join('');
+  document.getElementById('statusCount').textContent=state.used.filter(Boolean).length+' / 12 completed';
+}
+function changeLight(teamIndex,delta,fromQuestion=false){
+  const before=state.lights[teamIndex];
+  const next=Math.max(0,Math.min(MAX_LIGHTS,before+delta));
+  if(next===before)return;
+  state.lights[teamIndex]=next;
+  if(state.winner===teamIndex&&next<MAX_LIGHTS)state.winner=null;
+  if(state.winner===null){const already=state.lights.findIndex(x=>x===MAX_LIGHTS);if(already!==-1)state.winner=already;}
+  const isNewWin=delta>0&&next===MAX_LIGHTS&&state.winner===teamIndex;
+  if(fromQuestion&&selected!==null){state.used[selected]=true;}
+  saveState();renderTeams();renderQuestions();
+  if(delta>0){playTone('lantern');showToast('🏮 '+TEAMS[teamIndex].name+' lit lantern '+next+' / 4!');}
+  else{showToast('Lantern removed from '+TEAMS[teamIndex].name+'.');}
+  if(fromQuestion)closeQuestion();
+  if(isNewWin){playTone('win');showWinnerOverlay(teamIndex);}
+}
+function openQuestion(index){
+  selected=index;
+  const q=QUESTIONS[index];
+  document.getElementById('questionTitle').textContent='Mystery Box '+String(index+1).padStart(2,'0');
+  document.getElementById('sentence').innerHTML=q.sentence;
+  document.getElementById('cue').innerHTML='Verb given: <strong>('+q.verb+')</strong>';
+  document.getElementById('studentAnswer').value='';
+  document.getElementById('feedback').textContent='';
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('correctAnswer').textContent=q.answer;
+  document.getElementById('explanation').textContent=q.explanation;
+  hideAnswer();
+  document.getElementById('questionBackdrop').classList.add('open');
+  document.body.style.overflow='hidden';
+  updateAwardButtons();
+  setTimeout(()=>document.getElementById('studentAnswer').focus(),90);
+}
+function closeQuestion(){document.getElementById('questionBackdrop').classList.remove('open');selected=null;document.body.style.overflow='';}
+function updateAwardButtons(){
+  const done=selected===null?true:state.used[selected];
+  document.getElementById('awardButtons').innerHTML=TEAMS.map((t,i)=>`<button class="award-button" onclick="awardToTeam(${i})" ${done?'disabled':''}>🏮 ${t.name}</button>`).join('');
+  document.getElementById('completedMessage').classList.toggle('visible',done);
+  document.getElementById('markDone').disabled=done;
+}
+function normalize(text){return String(text).trim().toLowerCase().replace(/[.,!?]+$/g,'').replace(/\s+/g,' ');}
+function checkAnswer(){
+  if(selected===null)return;
+  const input=document.getElementById('studentAnswer');
+  const value=normalize(input.value);
+  const feedback=document.getElementById('feedback');
+  if(!value){feedback.className='feedback bad';feedback.textContent='Please type your answer first.';return;}
+  if(value===normalize(QUESTIONS[selected].answer)){
+    feedback.className='feedback good';feedback.textContent='✓ Correct! The teacher can award one lantern to your team.';playTone('correct');
+  }else{feedback.className='feedback bad';feedback.textContent='Not quite. Check the subject: is it doing the action or receiving it?';playTone('wrong');}
+}
+function revealAnswer(){if(selected===null)return;document.getElementById('solution').classList.add('open');}
+function hideAnswer(){document.getElementById('solution').classList.remove('open');}
+function awardToTeam(teamIndex){
+  if(selected===null||state.used[selected])return;
+  if(state.lights[teamIndex]===MAX_LIGHTS){showToast('This team already has all 4 lanterns.');return;}
+  changeLight(teamIndex,1,true);
+}
+function markQuestionDone(){if(selected===null||state.used[selected])return;state.used[selected]=true;saveState();renderQuestions();showToast('Question marked as completed.');closeQuestion();}
+function resetQuestions(){if(!confirm('Reopen all 12 mystery boxes? Lantern progress will stay the same.'))return;state.used=QUESTIONS.map(()=>false);saveState();renderQuestions();showToast('All mystery boxes reopened.');}
+function resetGame(){if(!confirm('Reset all lanterns, question boxes, and the winner?'))return;state.lights=[0,0,0,0];state.used=QUESTIONS.map(()=>false);state.winner=null;saveState();renderTeams();renderQuestions();hideWinnerOverlay();closeQuestion();showToast('The festival has restarted!');}
+function toggleSound(){state.sound=!state.sound;saveState();renderSoundButton();}
+function renderSoundButton(){document.getElementById('soundBtn').textContent=state.sound?'🔊 Sound on':'🔇 Sound off';}
+function playTone(kind){
+  if(!state.sound)return;
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    if(!audioContext)audioContext=new AC();
+    if(audioContext.state==='suspended')audioContext.resume();
+    const now=audioContext.currentTime;
+    const notes=kind==='win'?[523.25,659.25,783.99,1046.5]:kind==='correct'?[523.25,784]:kind==='wrong'?[240]:[587.3,783.99];
+    notes.forEach((freq,i)=>{
+      const osc=audioContext.createOscillator(),gain=audioContext.createGain(),start=now+i*.11;
+      osc.type=kind==='wrong'?'triangle':'sine';osc.frequency.setValueAtTime(freq,start);
+      gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(kind==='win'?.12:.072,start+.015);gain.gain.exponentialRampToValueAtTime(.0001,start+.24);
+      osc.connect(gain);gain.connect(audioContext.destination);osc.start(start);osc.stop(start+.25);
+    });
+  }catch(e){}
+}
+function showToast(message){
+  const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+}
+function showWinnerOverlay(teamIndex){
+  document.getElementById('winnerName').textContent=TEAMS[teamIndex].name;
+  const overlay=document.getElementById('winnerOverlay');overlay.classList.add('open');
+  overlay.querySelectorAll('.confetti').forEach(el=>el.remove());
+  const colors=['#ffd578','#ff827d','#43cab4','#77a9ec','#ffefb5'];
+  for(let i=0;i<55;i++){
+    const bit=document.createElement('div');bit.className='confetti';
+    bit.style.left=(Math.random()*100)+'%';bit.style.background=colors[i%colors.length];
+    bit.style.animationDelay=(Math.random()*1.2)+'s';bit.style.animationDuration=(2.7+Math.random()*1.8)+'s';
+    bit.style.setProperty('--dx',(Math.random()*250-125)+'px');bit.style.setProperty('--rot',(Math.random()*1300-650)+'deg');
+    bit.style.borderRadius=i%4===0?'50%':'2px';overlay.appendChild(bit);
+  }
+}
+function hideWinnerOverlay(){document.getElementById('winnerOverlay').classList.remove('open');document.getElementById('winnerOverlay').querySelectorAll('.confetti').forEach(el=>el.remove());}
+function toggleFullscreen(){
+  try{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.();}else{document.exitFullscreen?.();}}
+  catch(e){showToast('Fullscreen is not supported in this browser.');}
+}
+function openKey(){document.getElementById('keyBackdrop').classList.add('open');}
+function closeKey(){document.getElementById('keyBackdrop').classList.remove('open');}
+function renderKey(){document.getElementById('teacherKeyGrid').innerHTML=QUESTIONS.map((q,i)=>`<div class="key-entry"><span style="color:#d57c34;font-weight:900">${String(i+1).padStart(2,'0')}.</span> <b>${q.answer}</b><small>${q.kind} · (${q.verb})</small></div>`).join('');}
+document.getElementById('studentAnswer').addEventListener('keydown',(event)=>{if(event.key==='Enter'){event.preventDefault();checkAnswer();}});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(document.getElementById('keyBackdrop').classList.contains('open'))closeKey();else if(document.getElementById('winnerOverlay').classList.contains('open'))hideWinnerOverlay();else if(document.getElementById('questionBackdrop').classList.contains('open'))closeQuestion();}});
+loadState();renderTeams();renderQuestions();renderSoundButton();renderKey();
+</script>
+</body>
+</html>

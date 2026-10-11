@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ecf7fb" />
+<title>Race to Your Future | Unit 7 Getting Started</title>
+<style>
+:root{--ink:#21344b;--muted:#64778b;--sky:#eaf7fe;--white:#fff;--navy:#253b66;--orange:#ff9b41;--gold:#ffca5e;--shadow:0 14px 35px rgba(40,77,115,.12);--radius:24px}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 2% 6%,#fff1d2 0 9%,transparent 27%),radial-gradient(circle at 96% 1%,#d3f9f7 0 11%,transparent 28%),linear-gradient(145deg,#f1faff 0%,#f8fbff 48%,#fef9f0 100%);color:var(--ink);font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;min-height:100vh;position:relative;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.38;background-image:radial-gradient(#76acc4 1.15px,transparent 1.15px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 67%)}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid #f8aa2d;outline-offset:3px}
+button:disabled{opacity:.42;cursor:not-allowed;filter:grayscale(.2)}
+.shell{max-width:1500px;padding:18px 26px 26px;margin:auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{height:46px;width:46px;border-radius:16px;background:linear-gradient(135deg,#3eb7bb,#3163bf);display:grid;place-items:center;box-shadow:0 8px 20px #4b9cbd55;font-size:25px;transform:rotate(-5deg)}
+.brand-label{font-size:12px;letter-spacing:2.1px;color:#51708d;font-weight:900}
+.brand-sub{font-size:13px;color:#8795a4;margin-top:2px;font-weight:700}
+.top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.top-btn{border:1.5px solid #d9e7f2;box-shadow:0 3px 7px #95b9d019;background:#fff;border-radius:12px;padding:10px 12px;color:#334d68;font-size:12px;font-weight:900;display:flex;align-items:center;gap:7px;transition:transform .2s,background .2s}
+.top-btn:hover{transform:translateY(-2px);background:#f9fcff}
+.top-btn.on{background:#fff4d5;border-color:#ffcd63;color:#865816}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:17px 0 18px}
+.hero h1{font-family:"Trebuchet MS",Arial,sans-serif;font-size:clamp(28px,3.3vw,49px);line-height:1.09;letter-spacing:-1.8px;margin:0;color:#233b61;font-weight:1000}
+.hero h1 span{color:#fb8d44}
+.hero p{margin:8px 0 0;color:#647d94;font-size:14px;font-weight:750}
+.hero-pills{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:45%}
+.pill{border-radius:30px;padding:9px 13px;background:#fff;border:1.5px solid #dfebf2;font-size:11px;font-weight:900;letter-spacing:.35px;white-space:nowrap;color:#4b6680}
+.pill.yellow{background:#fff4d9;border-color:#f7dfa7;color:#976a23}
+.main-grid{display:grid;grid-template-columns:minmax(0,1.51fr) minmax(345px,.89fr);gap:20px;align-items:start}
+.left-stack{min-width:0;display:flex;flex-direction:column;gap:18px}
+.panel{background:rgba(255,255,255,.96);border:1px solid #e1edf4;box-shadow:var(--shadow);border-radius:var(--radius);overflow:hidden;min-width:0}
+.panel-pad{padding:20px 22px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hd-kicker{font-size:10px;color:#8aa0ad;letter-spacing:2px;font-weight:900}
+.section-title{font-size:22px;font-weight:1000;color:#284669;letter-spacing:-.6px;margin:3px 0}
+.track-tag{border:1px solid #cbe7d9;background:#e7fcf4;color:#168b76;padding:8px 11px;border-radius:20px;font-size:12px;font-weight:900;white-space:nowrap}
+.track-header{padding:19px 21px 7px;position:relative}
+.track-art{position:absolute;right:38%;top:-38px;width:87px;height:87px;background:#fdf4da;border-radius:24px;transform:rotate(25deg);opacity:.65;pointer-events:none}
+.lanes{display:flex;flex-direction:column;gap:10px;padding:12px 18px 15px}
+.lane{height:65px;border-radius:15px;display:grid;grid-template-columns:162px minmax(0,1fr);align-items:center;gap:9px;background:var(--tint);border:1.5px solid var(--borderTint);padding:5px 8px 5px 13px}
+.lane-label{display:flex;align-items:center;gap:9px;min-width:0}
+.lane-icon{width:30px;height:30px;border-radius:10px;background:#fff;display:grid;place-items:center;font-size:16px;box-shadow:0 3px 8px #0000000c;flex-shrink:0}
+.lane-name{font-size:12px;font-weight:1000;line-height:1.1;color:#355069}
+.lane-points{font-size:11px;color:#718aa0;font-weight:900;margin-top:4px;font-variant-numeric:tabular-nums}
+.lane-road{height:53px;border:1px solid #dfeaf2;border-radius:11px;position:relative;background:linear-gradient(to bottom,#ffffff 0 47%,#e8f3f9 47% 53%,#fff 53% 100%);overflow:hidden}
+.lane-road:before{content:"";border-top:2px dashed #cfdae3;position:absolute;left:0;right:0;top:50%;transform:translateY(-50%)}
+.road-dash{position:absolute;top:0;bottom:0;border-left:1px dotted #e3e3e3}
+.road-dash.d1{left:33%}.road-dash.d2{left:66%}
+.start-line,.finish-line{position:absolute;top:0;bottom:0;width:7px;opacity:.65}
+.start-line{left:8%;background:repeating-linear-gradient(to bottom,#87d6b8 0 7px,transparent 7px 14px)}
+.finish-line{right:8%;background:conic-gradient(#4e6a7f 25%,#fff 0 50%,#4e6a7f 0 75%,#fff 0) 0 0/8px 8px;border:1px solid #7893a3;opacity:.85}
+.finish-flag{position:absolute;right:1.5%;top:13px;font-size:20px;z-index:1;filter:drop-shadow(0 2px 1px #fff)}
+.runner{position:absolute;top:49%;left:8%;transform:translate(-50%,-50%);transition:left .76s cubic-bezier(.22,.9,.2,1);z-index:3;filter:drop-shadow(0 3px 2px #748ba544)}
+.runner svg{display:block;width:67px;height:44px}
+.runner.boost svg{animation:busboost .7s ease both}
+@keyframes busboost{0%,100%{transform:rotate(0) translateY(0)}30%{transform:rotate(-8deg) translateY(-7px)}75%{transform:rotate(4deg) translateY(-2px)}}
+.race-footer{border-top:1px solid #e9f0f5;padding:10px 20px 13px;display:flex;align-items:center;justify-content:space-between;gap:8px;color:#7691a3;font-size:11px;font-weight:800}
+.race-footer strong{color:#2f7195}
+.question-panel{padding:18px 22px 20px;min-height:300px;position:relative;background:linear-gradient(150deg,#fff 65%,#f4fbff 100%)}
+.question-panel.lucky-active{border-color:#f4d681;box-shadow:0 14px 36px rgba(218,158,59,.25)}
+.question-panel:after{content:"?";position:absolute;right:3%;top:35%;font-size:155px;line-height:1;font-weight:1000;color:#e3f1f7;pointer-events:none;z-index:0;transform:rotate(13deg)}
+.question-content{position:relative;z-index:1}
+.question-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.q-number{display:flex;gap:8px;align-items:center;font-weight:1000;font-size:13px;color:#397fa2;letter-spacing:.5px}
+.q-count{background:#e7f5fd;border:1px solid #cce9fa;border-radius:8px;padding:6px 9px;font-weight:1000;color:#337b9b}
+.round-meter{display:flex;gap:4px;align-items:center}
+.meter-dot{width:12px;height:9px;border-radius:6px;background:#e3edf3;transition:background .2s}
+.meter-dot.done{background:#56c39c}.meter-dot.current{background:#fea65d;width:21px}
+.question-text{margin:16px 0 10px;font-size:clamp(19px,2.2vw,28px);font-weight:1000;letter-spacing:-.5px;line-height:1.3;min-height:70px;max-width:740px}
+.prompt-line{display:flex;gap:10px;align-items:center;justify-content:space-between;min-height:39px}
+.truth-badge{border-radius:11px;background:#eaf9f5;color:#1b9274;border:1px solid #b1e8d7;font-weight:1000;padding:7px 13px;font-size:12px}
+.false-badge{border-radius:11px;background:#fff1f0;color:#df6b5c;border:1px solid #ffd9d3;font-weight:1000;padding:7px 13px;font-size:12px}
+.q-help{color:#879bac;font-weight:700;font-size:11px}
+.lucky-bar{background:linear-gradient(120deg,#fff4cb,#fffaf0);border:1px solid #f9d87e;color:#a36a1a;border-radius:12px;padding:10px 13px;margin:8px 0;font-size:12px;font-weight:900;display:flex;gap:8px;align-items:center}
+.answer-box{margin-top:10px;border-radius:13px;border:1px solid #dceaf3;background:#f5fbff;padding:10px 12px;display:flex;gap:12px;align-items:center;animation:popin .26s ease both}
+.answer-box.true{background:#effaf5;border-color:#bbe6d2}.answer-box.false{background:#fff5f0;border-color:#f5d5c9}
+.answer-symbol{font-size:24px;font-weight:1000;border-radius:11px;padding:9px 13px;flex-shrink:0;background:#fff;color:#287e65}
+.answer-box.false .answer-symbol{color:#d65c4b}
+.answer-details{font-size:12px;line-height:1.42;color:#557083;min-width:0}
+.answer-details strong{display:block;font-size:12px;margin-bottom:3px;color:#244760}
+.answer-details em{font-style:normal}
+@keyframes popin{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.controls-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:13px}
+.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:1000;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:transform .15s,box-shadow .15s;background:#edf3f8;color:#3f5872}
+.btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 5px 12px #35638b22}
+.btn-primary{background:linear-gradient(120deg,#ffad59,#f67e4e);color:#fff;box-shadow:0 7px 15px #f4a26144}
+.btn-blue{background:linear-gradient(120deg,#408ddb,#4063c6);color:#fff;box-shadow:0 7px 15px #7495d044}
+.btn-outline{background:#fff;border:1px solid #d8e7f0;color:#52728d}
+.btn-quiet{background:transparent;color:#7991a4;padding-left:6px;padding-right:6px}
+.clock{display:flex;gap:8px;align-items:center;margin-left:auto;background:#f1f8fe;border-radius:12px;padding:7px 10px;border:1px solid #dcecf7}
+.clock-number{font-size:22px;font-weight:1000;font-variant-numeric:tabular-nums;color:#32678f;min-width:27px;text-align:center;line-height:1}
+.clock-number.urgent{color:#e05254;animation:pulse .7s infinite alternate}
+@keyframes pulse{from{opacity:1}to{opacity:.52}}
+.clock-button{border:0;background:#dceffc;color:#337b9e;padding:7px 9px;border-radius:8px;font-size:11px;font-weight:1000}
+.start-screen{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:12px 0 8px}
+.start-caption{font-size:12px;font-weight:1000;color:#3b9f9b;letter-spacing:2px}
+.start-message{font-size:27px;font-weight:1000;max-width:420px;line-height:1.2;letter-spacing:-.5px;color:#284365}
+.start-desc{font-size:13px;color:#75899a;max-width:580px;line-height:1.6;font-weight:700}
+.start-button{font-size:15px;padding:13px 22px}
+.score-panel{padding:20px 20px 16px}
+.scorehead{display:flex;justify-content:space-between;align-items:start;gap:10px;margin-bottom:13px}
+.score-title{font-size:22px;font-weight:1000;letter-spacing:-.8px;margin:3px 0 2px;color:#294669}
+.score-sub{font-size:12px;font-weight:700;color:#8399aa}
+.trophy-icon{font-size:33px;line-height:1;background:#fff4d5;border-radius:15px;padding:9px}
+.score-list{display:flex;flex-direction:column;gap:10px}
+.team-score-card{background:linear-gradient(115deg,var(--soft) 0%,#fff 78%);border:1.5px solid var(--edge);border-radius:15px;padding:11px 12px}
+.team-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
+.team-info{display:flex;align-items:center;gap:9px;min-width:0}
+.team-emblem{background:#fff;width:35px;height:35px;display:grid;place-items:center;border-radius:12px;font-size:20px;box-shadow:0 3px 10px #15384c12;flex-shrink:0}
+.team-name{font-size:13px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px;color:#34506e}
+.rank{font-size:10px;color:#8391a3;font-weight:900;margin-top:2px}
+.team-total{font-weight:1000;font-size:25px;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-.8px;line-height:1;text-align:right}
+.team-total small{display:block;font-size:9px;letter-spacing:1px;color:#97a7ad;margin-top:5px}
+.score-actions{display:grid;grid-template-columns:1.25fr 1.05fr .75fr .75fr;gap:5px}
+.score-actions button{padding:8px 2px;font-size:11px;font-weight:1000;border-radius:8px;border:1px solid #e3eaf1;background:#fff;color:#71889f;min-width:0}
+.score-actions button.add10{background:var(--accent);color:#fff;border-color:var(--accent)}
+.score-actions button.add5{border-color:var(--edge);color:var(--accent);background:#fff}
+.score-actions button:not(:disabled):active{transform:scale(.95)}
+.score-foot{padding-top:13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.score-foot small{font-size:10px;color:#8c9ca9;font-weight:800;line-height:1.4}
+.secondary-panel{background:linear-gradient(120deg,#f9fdff,#f2fbf5);border:1px solid #deedf2;border-radius:18px;padding:13px 16px;margin-top:12px;box-shadow:0 8px 23px #0d527d0a}
+.teacher-tips{font-size:12px;color:#547084;line-height:1.52;font-weight:750;margin:6px 0 0}
+.teacher-tips b{color:#28496f}
+.live-status{margin-top:8px;min-height:22px;color:#48957e;font-size:12px;font-weight:900;text-align:center}
+.footer{text-align:center;color:#86a1b0;font-size:10px;font-weight:750;margin:19px 0 2px;letter-spacing:.4px}
+.modal{position:fixed;inset:0;z-index:50;background:rgba(23,46,78,.58);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}
+.modal[hidden]{display:none}
+.modal-card{width:min(620px,100%);background:#fff;border-radius:28px;border:4px solid #fff2c3;box-shadow:0 35px 90px #15396477;padding:25px 28px 27px;text-align:center;position:relative;overflow:hidden}
+.modal-close{position:absolute;right:15px;top:14px;background:#f1f6fb;border:0;border-radius:11px;font-size:22px;color:#708498;width:34px;height:34px;display:grid;place-items:center}
+.modal-trophy{font-size:77px;filter:drop-shadow(0 7px 4px #f9d77a)}
+.modal-title{font-size:35px;letter-spacing:-1.2px;font-weight:1000;color:#28466d;margin:5px 0}
+.modal-subtitle{font-size:14px;color:#7f91a0;font-weight:750;margin:8px auto 18px}
+.winner-name{background:linear-gradient(120deg,#fff6d2,#fffdf5);border:2px solid #f4d886;border-radius:14px;padding:15px;font-size:25px;font-weight:1000;color:#8c6113}
+.podium{display:flex;gap:8px;align-items:stretch;justify-content:center;margin:16px 0}
+.podium-item{display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;flex:1;padding:10px 4px;border-radius:13px;background:#f4f8fd;font-size:11px;font-weight:900;color:#547089}
+.podium-item .podium-icon{font-size:20px}.podium-item strong{font-size:15px;color:#324d66}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
+.confetti-piece{position:absolute;top:-20px;width:11px;height:19px;border-radius:2px;animation:confettiFall var(--dur) linear forwards;animation-delay:var(--delay)}
+@keyframes confettiFall{0%{transform:translate3d(0,-4vh,0) rotate(0)}100%{transform:translate3d(var(--side),112vh,0) rotate(800deg)}}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(110px);background:#203d64;color:#fff;padding:10px 17px;border-radius:30px;box-shadow:0 15px 30px #16426733;font-size:12px;font-weight:1000;z-index:60;transition:transform .25s;pointer-events:none;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(min-width:1101px) and (max-height:950px){
+ .shell{padding-top:8px;padding-bottom:10px}
+ .brand-mark{height:40px;width:40px;font-size:21px}
+ .hero{margin:8px 0 10px}
+ .hero h1{font-size:clamp(28px,3vw,40px);line-height:1}
+ .hero p{margin-top:4px;font-size:12px}
+ .pill{padding:7px 10px;font-size:10px}
+ .top-btn{padding:8px 10px}
+ .left-stack{gap:10px}
+ .track-header{padding:11px 17px 3px}
+ .section-title,.score-title{font-size:19px}
+ .lanes{gap:5px;padding:7px 13px 8px}
+ .lane{height:49px;grid-template-columns:150px minmax(0,1fr)}
+ .lane-road{height:42px}
+ .runner svg{height:37px;width:57px}
+ .finish-flag{top:8px;font-size:17px}
+ .race-footer{padding:7px 16px 8px}
+ .question-panel{padding:12px 17px;min-height:255px}
+ .question-text{font-size:clamp(19px,2vw,23px);margin:10px 0 7px;min-height:52px}
+ .controls-row{margin-top:9px}
+ .answer-box{margin-top:7px;padding:7px 11px}
+ .btn{padding:9px 13px}
+ .score-panel{padding:12px 14px}
+ .scorehead{margin-bottom:8px}
+ .score-list{gap:6px}
+ .team-score-card{padding:7px 10px}
+ .team-top{margin-bottom:4px}
+ .team-emblem{height:28px;width:28px;font-size:17px}
+ .team-total{font-size:21px}
+ .score-actions button{padding:6px 2px}
+ .score-foot{padding-top:8px}
+ .secondary-panel{margin-top:7px;padding:9px 13px}
+ .teacher-tips{font-size:11px;margin-top:4px}
+ .footer{margin:8px 0 0}
+}
+@media(max-width:1100px){.main-grid{grid-template-columns:1fr}.score-list{display:grid;grid-template-columns:1fr 1fr}.panel{overflow:hidden}.question-panel{min-height:280px}.score-panel{padding:19px}.score-actions{grid-template-columns:repeat(4,minmax(0,1fr))}.secondary-panel{margin-bottom:0}}
+@media(max-width:650px){.shell{padding:13px 10px 20px}.hero{align-items:flex-start;flex-direction:column;margin-top:12px}.hero h1{font-size:31px}.hero-pills{max-width:none;justify-content:flex-start}.main-grid{gap:13px}.left-stack{gap:13px}.top-actions{justify-content:flex-start}.brand-sub{font-size:11px}.top-btn{font-size:11px;padding:8px}.lane{grid-template-columns:111px minmax(0,1fr);gap:4px;padding-left:7px}.lane-label{gap:5px}.lane-name{font-size:10px}.lane-points{font-size:10px}.lane-icon{display:none}.runner svg{width:55px;height:40px}.score-list{grid-template-columns:1fr}.section-title,.score-title{font-size:19px}.lanes{padding-left:9px;padding-right:9px}.question-panel{padding:16px}.question-text{font-size:22px}.round-meter{gap:2px}.meter-dot{width:8px}.meter-dot.current{width:13px}.clock{margin-left:0}.score-actions button{font-size:11px;padding:10px 3px}.modal-title{font-size:27px}.podium{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Nhúng trong slide bài giảng (khung ~630px cao): gọn lại để không phải cuộn.
+   Mở riêng toàn màn hình (cao > 700px) thì giữ nguyên thiết kế gốc của cô. */
+@media (max-height:700px){
+  .shell{padding:8px 16px 6px}
+  .hero,.secondary-panel,.race-footer,.footer{display:none}
+  .main-grid{margin-top:8px;gap:14px}
+  .left-stack{gap:10px}
+  .track-header{padding:10px 16px 2px}
+  .lanes{gap:6px;padding:6px 14px 8px}
+  .lane{height:43px}
+  .lane-road{height:35px}
+  .runner svg{width:48px;height:31px}
+  .question-panel{min-height:0;padding:12px 18px 12px}
+  .question-text{margin:8px 0 6px;min-height:0}
+  .lucky-bar{margin:4px 0;padding:6px 12px}
+  .answer-box{margin-top:6px;padding:8px 12px}
+  .controls-row{margin-top:8px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">🎓</div>
+      <div><div class="brand-label">UNIT 7 · GETTING STARTED</div><div class="brand-sub">EDUCATION OPTIONS · GLOBAL SUCCESS 11</div></div>
+    </div>
+    <div class="top-actions">
+      <button id="luckyToggle" class="top-btn on" type="button" aria-pressed="true" title="Turn the two Lucky Sprint rounds on or off">⚡ Lucky: ON</button>
+      <button id="soundToggle" class="top-btn" type="button" aria-pressed="false" title="Sound effects are off by default">🔇 Sound: OFF</button>
+      <button id="fullscreenBtn" class="top-btn" type="button" title="Fill the projector screen">⛶ Full screen</button>
+      <button id="restartBtn" class="top-btn" type="button" title="Restart game and clear all points">↻ Restart</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div><h1>RACE TO YOUR <span>FUTURE!</span> 🏁</h1><p>Choose your path. Read the clues. Race for the win!</p></div>
+    <div class="hero-pills"><span class="pill">✅ 12 TRUE / FALSE</span><span class="pill">🚌 4 TEAMS</span><span class="pill yellow">⚡ 2 LUCKY SPRINTS</span></div>
+  </div>
+
+  <main class="main-grid">
+    <section class="left-stack">
+      <section class="panel" aria-label="Team race tracks">
+        <div class="track-header section-head">
+          <div><div class="hd-kicker">THE EDUCATION HIGHWAY</div><div class="section-title">🏎️ Race track</div></div>
+          <div id="leaderTag" class="track-tag">🏁 Ready to race</div>
+          <span class="track-art" aria-hidden="true"></span>
+        </div>
+        <div class="lanes" id="lanes"></div>
+        <div class="race-footer"><span>🟢 START <strong>→</strong> YOUR FUTURE</span><span>AFTER ROUND 12 <strong>HIGHEST SCORE WINS</strong> 🏁</span></div>
+      </section>
+
+      <section class="panel question-panel" aria-label="True or false question">
+        <div id="startScreen" class="question-content start-screen">
+          <span class="start-caption">WELCOME TO THE EDUCATION RACE!</span>
+          <div class="start-message">Four teams. Twelve clues. One exciting future.</div>
+          <div class="start-desc">Read each statement, decide <b>TRUE or FALSE</b>, and race ahead. The teacher awards points to the teams — no team selection needed before the question!</div>
+          <button id="startBtn" class="btn btn-primary start-button" type="button">🚀 START THE RACE</button>
+        </div>
+        <div id="questionScreen" class="question-content" hidden>
+          <div class="question-header">
+            <div class="q-number"><span id="questionCount" class="q-count">01 / 12</span><span>TRUE OR FALSE?</span></div>
+            <div id="roundMeter" class="round-meter" aria-label="Round progress"></div>
+          </div>
+          <div id="luckyBar" class="lucky-bar" hidden>⚡ LUCKY SPRINT! Correct answer <b>+10</b> · Quote evidence for <b>+5 BONUS</b>.</div>
+          <div class="question-text" id="questionText"></div>
+          <div class="prompt-line"><div style="display:flex;gap:7px"><span class="truth-badge">T · TRUE</span><span class="false-badge">F · FALSE</span></div><span id="topicTag" class="q-help"></span></div>
+          <div id="answerBox" class="answer-box" hidden>
+            <div id="answerSymbol" class="answer-symbol">T</div>
+            <div class="answer-details"><strong id="answerLabel">THE CORRECT ANSWER</strong><em id="answerEvidence"></em></div>
+          </div>
+          <div class="controls-row">
+            <button id="revealBtn" class="btn btn-primary" type="button">👀 Reveal answer</button>
+            <button id="nextBtn" class="btn btn-blue" type="button" disabled>Next question →</button>
+            <button id="prevBtn" class="btn btn-quiet" type="button" disabled>← Back</button>
+            <div class="clock" title="Optional 15-second countdown">
+              <span aria-hidden="true">⏱️</span><span id="clockNumber" class="clock-number" aria-live="off">15</span>
+              <button id="clockBtn" class="clock-button" type="button">▶ Timer</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside>
+      <section class="panel score-panel" aria-label="Teacher-controlled scoreboard">
+        <div class="scorehead"><div><div class="hd-kicker">THE CLASSROOM SCOREBOARD</div><div class="score-title">⭐ Team scores</div><div class="score-sub">Teacher controls every point</div></div><span class="trophy-icon" aria-hidden="true">🏆</span></div>
+        <div class="score-list" id="scoreList"></div>
+        <div class="score-foot"><small>+10 correct · +5 evidence in Lucky Sprint<br/>Use −5 / −10 to correct a score.</small><button id="undoBtn" class="btn btn-outline" type="button" disabled>↶ Undo</button></div>
+        <div id="liveStatus" class="live-status" role="status" aria-live="polite">Teams are waiting at the starting line!</div>
+      </section>
+      <div class="secondary-panel"><div class="hd-kicker">💡 HOW TO PLAY</div><p class="teacher-tips"><b>1.</b> All teams raise T/F cards or buzz in. <b>2.</b> Ask teams to justify from the dialogue <b>before</b> clicking <b>Reveal answer</b>. <b>3.</b> Award points manually. <b>4.</b> Highest score after 12 rounds wins!</p></div>
+    </aside>
+  </main>
+  <div class="footer">G11 · UNIT 7 · PLANNING OUR EDUCATION · OFFLINE CLASSROOM GAME</div>
+</div>
+
+<div id="winnerModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close results">×</button>
+    <div class="modal-trophy">🏆</div>
+    <div class="hd-kicker">THE FINAL DESTINATION</div>
+    <div id="modalTitle" class="modal-title">CONGRATULATIONS!</div>
+    <div id="modalSubtitle" class="modal-subtitle">Your future starts here.</div>
+    <div id="winnerName" class="winner-name"></div>
+    <div id="podium" class="podium"></div>
+    <button id="modalReplayBtn" class="btn btn-blue" type="button">🔁 Play again</button>
+    <button id="modalKeepBtn" class="btn btn-outline" type="button">← Back to scoreboard</button>
+  </div>
+</div>
+<div id="confetti" class="confetti" aria-hidden="true"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const questions = [
+ {text:'School-leavers only have the option of academic education.',answer:false,topic:'Two education options',evidence:'"The other option is going to a vocational school where we can learn skills for particular jobs."',note:'Students can choose academic education or vocational education.'},
+ {text:'Good grades at school can help students get into university.',answer:true,topic:'University admission',evidence:'"We can get into university if we earn high grades or pass the university entrance exam."',note:'High grades are one possible route to university.'},
+ {text:'Vocational schools are for those who want to develop job skills.',answer:true,topic:'Vocational education',evidence:'"A vocational school where we can learn skills for particular jobs."',note:'Vocational education provides practical job skills.'},
+ {text:'Nam wants to work at his father\'s car repair shop after leaving school.',answer:false,topic:'Nam’s next step',evidence:'"I want to go to a vocational school because I want to become a car mechanic."',note:'Nam plans to attend a vocational school first, not go straight to work.'},
+ {text:'Mai has won several biology competitions and wants to become a scientist.',answer:true,topic:'Mai’s dream',evidence:'"Having won several biology competitions, I want to study biology and become a scientist."',note:'Mai has a clear academic goal.'},
+ {text:'Mai\'s mother graduated from university.',answer:false,topic:'Family influence',evidence:'"My mum still regrets not having gone to university."',note:'Mai’s mother did not attend university.'},
+ {text:'Nam wants to learn skills to become a car mechanic.',answer:true,topic:'Career ambitions',evidence:'"I want to go to a vocational school because I want to become a car mechanic."',note:'He wants technical skills for a particular job.'},
+ {text:'Watching his father work had no influence on Nam\'s decision.',answer:false,topic:'Influences on decisions',evidence:'"Having watched him work very hard for many years helped me make my decision."',note:'His father’s hard work influenced his choice.'},
+ {text:'The education fair took place last weekend.',answer:true,topic:'The education fair',evidence:'"There was an education fair last weekend."',note:'Ms Hoa refers to the fair at the start of the conversation.'},
+ {text:'Mai intends to study biology at a vocational school.',answer:false,topic:'Mai’s education plan',evidence:'"I’m hoping to go to university." / "I want to study biology and become a scientist."',note:'Mai wants to study biology at university.'},
+ {text:'Ms Hoa thinks Nam\'s plan to attend a vocational school is a bad idea.',answer:false,topic:'Ms Hoa’s reaction',evidence:'"That’s very sensible, Nam! I hope you can help him grow his business."',note:'Ms Hoa supports Nam’s decision.'},
+ {text:'Mai\'s and Nam\'s future plans are different, but both involve further education.',answer:true,topic:'Comparing options',evidence:'Mai wants to attend university; Nam wants to attend a vocational school.',note:'Both continue learning through different pathways.'}
+];
+const luckyQuestions = new Set([4,9]);
+const teams = [
+ {name:'Dream Chasers',icon:'🚀',color:'#f47760',soft:'#fff1ec',edge:'#f8d9cf'},
+ {name:'Future Leaders',icon:'🎓',color:'#21a99f',soft:'#e9faf4',edge:'#c9eee2'},
+ {name:'Bright Minds',icon:'💡',color:'#5a89dd',soft:'#edf3ff',edge:'#d0ddf9'},
+ {name:'Pathfinders',icon:'🧭',color:'#a474dc',soft:'#f5eeff',edge:'#e5d5f7'}
+];
+const state={started:false,index:0,revealed:new Set(),scores:[0,0,0,0],history:[],lucky:true,sound:false,time:15,timer:null,finished:false,finishing:false};
+const $=id=>document.getElementById(id);
+const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const busSvg=(color)=>`<svg viewBox="0 0 110 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="52" cy="61" rx="42" ry="5" fill="#23486d" opacity=".14"/><rect x="9" y="19" width="92" height="38" rx="11" fill="${color}" stroke="#ffffff" stroke-width="2"/><path d="M20 13 H79 Q88 13 92 20 L96 27 H14 L16 19 Q17 13 20 13Z" fill="${color}" stroke="#ffffff" stroke-width="2"/><rect x="22" y="23" width="19" height="17" rx="4" fill="#ddf9ff"/><rect x="44" y="23" width="19" height="17" rx="4" fill="#ddf9ff"/><rect x="66" y="23" width="17" height="17" rx="4" fill="#ddf9ff"/><path d="M18 45 H93" stroke="#ffffff" stroke-width="3" opacity=".65"/><path d="M34 23 L25 40" stroke="#fff" opacity=".55" stroke-width="3"/><rect x="87" y="34" width="15" height="9" rx="3" fill="#ffe7a6"/><circle cx="29" cy="55" r="10" fill="#2a3e58"/><circle cx="29" cy="55" r="4.5" fill="#f5fbff"/><circle cx="80" cy="55" r="10" fill="#2a3e58"/><circle cx="80" cy="55" r="4.5" fill="#f5fbff"/><path d="M46 10 H64" stroke="#f5b655" stroke-width="3" stroke-linecap="round"/><path d="M53 8 l3 -7 l3 7 Z" fill="#f5b655"/></svg>`;
+let soundContext=null;let toastTimer=null;let finishTimeout=null;
+function playSound(type){
+ if(!state.sound)return;
+ try{
+  const Context=window.AudioContext||window.webkitAudioContext;
+  if(!Context)return;
+  soundContext=soundContext||new Context(); if(soundContext.state==='suspended')soundContext.resume();
+  const now=soundContext.currentTime;
+  const notes=type==='score'?[523,659,784]:type==='win'?[523,659,784,1047]:type==='reveal'?[440,660]:[450];
+  notes.forEach((freq,i)=>{
+   const o=soundContext.createOscillator(),gain=soundContext.createGain();
+   o.type='sine';o.frequency.value=freq;gain.gain.setValueAtTime(.0001,now+i*.105);gain.gain.exponentialRampToValueAtTime(.065,now+i*.105+.015);gain.gain.exponentialRampToValueAtTime(.0001,now+i*.105+.19);o.connect(gain);gain.connect(soundContext.destination);o.start(now+i*.105);o.stop(now+i*.105+.21);
+  });
+ }catch(_e){}
+}
+function showToast(message){
+ const toast=$('toast');toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200);
+}
+function createLayout(){
+ $('lanes').innerHTML=teams.map((team,i)=>`<div class="lane" style="--tint:${team.soft};--borderTint:${team.edge}"><div class="lane-label"><span class="lane-icon">${team.icon}</span><div><div class="lane-name">${team.name}</div><div class="lane-points" id="lanePts${i}">0 POINTS</div></div></div><div class="lane-road"><span class="road-dash d1"></span><span class="road-dash d2"></span><span class="start-line"></span><span class="finish-line"></span><span class="finish-flag">🏁</span><div class="runner" id="runner${i}" aria-label="${escapeHtml(team.name)} racer">${busSvg(team.color)}</div></div></div>`).join('');
+ $('scoreList').innerHTML=teams.map((team,i)=>`<div class="team-score-card" style="--accent:${team.color};--soft:${team.soft};--edge:${team.edge}"><div class="team-top"><div class="team-info"><span class="team-emblem">${team.icon}</span><div style="min-width:0"><div class="team-name">${team.name}</div><div class="rank" id="rank${i}">Ready to compete</div></div></div><div id="score${i}" class="team-total">0<small>POINTS</small></div></div><div class="score-actions"><button class="add10" data-team="${i}" data-delta="10" type="button" title="Correct answer: +10">+10 ✓</button><button class="add5" data-team="${i}" data-delta="5" type="button" title="Evidence bonus: +5">+5 ⚡</button><button data-team="${i}" data-delta="-5" type="button" title="Correct a +5 bonus">−5</button><button data-team="${i}" data-delta="-10" type="button" title="Correct a +10 award">−10</button></div></div>`).join('');
+ $('scoreList').addEventListener('click',event=>{
+  const button=event.target.closest('button[data-team]');if(!button || button.disabled)return;
+  changeScore(Number(button.dataset.team),Number(button.dataset.delta));
+ });
+ updateScores();
+}
+function updateScores(){
+ const maximum=Math.max(...state.scores);
+ const shared=state.scores.filter(n=>n===maximum).length;
+ const rankMap=state.scores.map(v=>1+state.scores.filter(x=>x>v).length);
+ teams.forEach((team,i)=>{
+  $('score'+i).innerHTML=`${state.scores[i]}<small>POINTS</small>`;
+  $('lanePts'+i).textContent=`${state.scores[i]} POINTS`;
+  const pct=state.finished && maximum>0 && state.scores[i]===maximum ? 92 : 8+84*Math.min(state.scores[i]/70,1);
+  $('runner'+i).style.left=pct+'%';
+  $('rank'+i).textContent=!state.started?'Ready to compete':state.scores.every(n=>n===0)?'At the starting line':rankMap[i]===1?(shared>1?'🏅 Joint leader':'🥇 In the lead'):`#${rankMap[i]} in the race`;
+ });
+ $('leaderTag').textContent=!state.started?'🏁 Ready to race':state.scores.every(n=>n===0)?'🏁 All racers at START':shared>1?'🤝 Teams tied for first':`🏆 ${teams[state.scores.indexOf(maximum)].name} leads`;
+ const enabled=state.started;
+ const luckyBonusReady=state.lucky&&luckyQuestions.has(state.index+1)&&state.revealed.has(state.index);
+ document.querySelectorAll('.score-actions button').forEach(b=>b.disabled=!enabled||(Number(b.dataset.delta)===5&&!luckyBonusReady));
+ $('undoBtn').disabled=state.history.length===0;
+}
+function changeScore(teamIdx,delta){
+ if(!state.started)return;
+ const before=state.scores[teamIdx]; const after=Math.max(0,before+delta);
+ if(before===after){showToast('Score cannot go below zero.');return;}
+ state.history.push({teamIdx,before});state.scores[teamIdx]=after;
+ updateScores();
+ const runner=$('runner'+teamIdx);runner.classList.remove('boost');void runner.offsetWidth;runner.classList.add('boost');
+ $('liveStatus').textContent=`${teams[teamIdx].name}: ${delta>0?'+':''}${after-before} points!`;
+ showToast(`${teams[teamIdx].icon} ${teams[teamIdx].name} ${delta>0?'+':''}${after-before} points`);
+ playSound(delta>0?'score':'click');
+}
+function undoScore(){
+ const last=state.history.pop();if(!last)return;
+ state.scores[last.teamIdx]=last.before;updateScores();
+ $('liveStatus').textContent=`Undid the last score change for ${teams[last.teamIdx].name}.`;
+ showToast('↶ Last score change undone');
+}
+function stopTimer(){if(state.timer!==null){clearInterval(state.timer);state.timer=null;}renderTimer()}
+function renderTimer(){
+ $('clockNumber').textContent=state.time;
+ $('clockNumber').classList.toggle('urgent',state.time<=5);
+ $('clockBtn').textContent=state.timer!==null?'Ⅱ Pause':state.time===0?'↺ Reset':'▶ Timer';
+}
+function resetTimer(){stopTimer();state.time=15;renderTimer()}
+function toggleTimer(){
+ if(!state.started)return;
+ if(state.timer!==null){stopTimer();return;}
+ if(state.time===0)state.time=15;
+ state.timer=setInterval(()=>{
+  state.time=Math.max(0,state.time-1);
+  renderTimer();
+  if(state.time===0){stopTimer();playSound('reveal');showToast('⏰ Time is up!');}
+ },1000);
+ renderTimer();
+}
+function refreshMeter(){
+ $('roundMeter').innerHTML=questions.map((_,i)=>`<span class="meter-dot ${state.revealed.has(i)?'done':''} ${i===state.index?'current':''}" title="Round ${i+1}${state.revealed.has(i)?' completed':''}"></span>`).join('');
+}
+function renderQuestion(){
+ $('startScreen').hidden=state.started;$('questionScreen').hidden=!state.started;
+ if(!state.started)return;
+ const q=questions[state.index];const revealed=state.revealed.has(state.index);
+ $('questionCount').textContent=`${String(state.index+1).padStart(2,'0')} / ${questions.length}`;
+ $('questionText').textContent=q.text;
+ $('topicTag').textContent=q.topic;
+ $('luckyBar').hidden=!(state.lucky&&luckyQuestions.has(state.index+1));
+ document.querySelector('.question-panel').classList.toggle('lucky-active',state.lucky&&luckyQuestions.has(state.index+1));
+ $('answerBox').hidden=!revealed;
+ if(revealed){
+  $('answerBox').className=`answer-box ${q.answer?'true':'false'}`;
+  $('answerSymbol').textContent=q.answer?'TRUE':'FALSE';
+  $('answerLabel').textContent=q.note;
+  $('answerEvidence').textContent=q.evidence;
+ }
+ $('revealBtn').disabled=revealed;
+ $('revealBtn').textContent=revealed?'✓ Answer revealed':'👀 Reveal answer';
+ $('nextBtn').disabled=!revealed;
+ $('nextBtn').textContent=state.index===questions.length-1?'🏆 Finish race':'Next question →';
+ $('prevBtn').disabled=state.index===0;
+ refreshMeter();updateScores();
+}
+function startGame(){
+ state.started=true;state.index=0;resetTimer();renderQuestion();updateScores();
+ $('liveStatus').textContent='Race started! Listen, read, and answer.';
+ playSound('score');
+}
+function revealAnswer(){
+ if(!state.started||state.revealed.has(state.index))return;
+ state.revealed.add(state.index);stopTimer();renderQuestion();playSound('reveal');
+ $('liveStatus').textContent=state.lucky&&luckyQuestions.has(state.index+1)?'LUCKY SPRINT! Correct +10 · Evidence bonus +5.':'Award +10 for a correct answer.';
+}
+function nextQuestion(){
+ if(!state.started || !state.revealed.has(state.index))return;
+ if(state.index===questions.length-1){finishRace();return;}
+ state.index++;resetTimer();renderQuestion();playSound('click');
+}
+function prevQuestion(){if(!state.started||state.index===0)return;state.index--;state.finished=false;resetTimer();renderQuestion();updateScores()}
+function toggleLucky(){
+ state.lucky=!state.lucky;
+ $('luckyToggle').classList.toggle('on',state.lucky);
+ $('luckyToggle').setAttribute('aria-pressed',String(state.lucky));
+ $('luckyToggle').textContent=`⚡ Lucky: ${state.lucky?'ON':'OFF'}`;
+ renderQuestion();showToast(state.lucky?'2 Lucky Sprint rounds enabled':'Lucky Sprint rounds disabled');
+}
+function toggleSound(){state.sound=!state.sound;$('soundToggle').classList.toggle('on',state.sound);$('soundToggle').setAttribute('aria-pressed',String(state.sound));$('soundToggle').textContent=state.sound?'🔊 Sound: ON':'🔇 Sound: OFF';if(state.sound)playSound('click')}
+async function toggleFullscreen(){
+ try{
+  if(!document.fullscreenElement){await document.documentElement.requestFullscreen();}
+  else{await document.exitFullscreen();}
+ }catch(_e){showToast('Full screen is unavailable in this browser.');}
+}
+function clearConfetti(){$('confetti').innerHTML=''}
+function makeConfetti(){
+ clearConfetti();const colors=['#ff9c62','#7ccef1','#ab87e9','#f8cf62','#62d9b4','#fa7294'];
+ const container=$('confetti');
+ for(let i=0;i<75;i++){
+  const piece=document.createElement('i');piece.className='confetti-piece';
+  piece.style.left=(Math.random()*100)+'%';piece.style.background=colors[i%colors.length];
+  piece.style.setProperty('--dur',(2+Math.random()*2.3)+'s');
+  piece.style.setProperty('--delay',(Math.random()*.9)+'s');
+  piece.style.setProperty('--side',((Math.random()-.5)*190)+'px');
+  piece.style.transform=`rotate(${Math.random()*360}deg)`;
+  container.appendChild(piece);
+ }
+ setTimeout(clearConfetti,5400);
+}
+function finishRace(){
+ if(state.finishing)return;
+ stopTimer();state.finished=true;state.finishing=true;updateScores();$('nextBtn').disabled=true;
+ const highest=Math.max(...state.scores);
+ const winners=teams.filter((_,i)=>state.scores[i]===highest);
+ const zero=highest===0;
+ $('modalTitle').textContent=zero?'RACE COMPLETE!':winners.length>1?'IT’S A TIE!':'WE HAVE A WINNER!';
+ $('modalSubtitle').textContent=zero?'Award some points, then view the results again.':`After 12 challenges · Winning score: ${highest} points`;
+ $('winnerName').textContent=zero?'Every journey begins with a first step 🌱':winners.map(t=>t.icon+' '+t.name).join('  •  ');
+ const ranks=teams.map((t,i)=>({...t,score:state.scores[i]})).sort((a,b)=>b.score-a.score);
+ $('podium').innerHTML=ranks.map((team,i)=>`<div class="podium-item"><span class="podium-icon">${i===0?'🥇':i===1?'🥈':i===2?'🥉':'🎓'}</span><span>${escapeHtml(team.name)}</span><strong>${team.score} pts</strong></div>`).join('');
+ finishTimeout=setTimeout(()=>{
+  state.finishing=false;$('nextBtn').disabled=false;
+  $('winnerModal').hidden=false;
+  if(!zero){makeConfetti();playSound('win');}
+ },zero?0:850);
+}
+function closeModal(){$('winnerModal').hidden=true;clearConfetti()}
+function restart(){
+ if(state.started && !window.confirm('Restart the race? All points and revealed answers will be cleared.'))return;
+ clearTimeout(finishTimeout);finishTimeout=null;closeModal();stopTimer();state.started=false;state.finished=false;state.finishing=false;state.index=0;state.revealed.clear();state.scores=[0,0,0,0];state.history=[];state.time=15;renderTimer();renderQuestion();updateScores();
+ $('liveStatus').textContent='Teams are waiting at the starting line!';showToast('New race ready!');
+}
+$('startBtn').addEventListener('click',startGame);
+$('revealBtn').addEventListener('click',revealAnswer);
+$('nextBtn').addEventListener('click',nextQuestion);
+$('prevBtn').addEventListener('click',prevQuestion);
+$('clockBtn').addEventListener('click',toggleTimer);
+$('undoBtn').addEventListener('click',undoScore);
+$('luckyToggle').addEventListener('click',toggleLucky);
+$('soundToggle').addEventListener('click',toggleSound);
+$('fullscreenBtn').addEventListener('click',toggleFullscreen);
+$('restartBtn').addEventListener('click',restart);
+$('closeModalBtn').addEventListener('click',closeModal);
+$('modalKeepBtn').addEventListener('click',closeModal);
+$('modalReplayBtn').addEventListener('click',restart);
+$('winnerModal').addEventListener('click',e=>{if(e.target===$('winnerModal'))closeModal()});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!$('winnerModal').hidden)closeModal();
+ if(e.target instanceof HTMLElement && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+ if(!state.started || !$('winnerModal').hidden)return;
+ if(e.key.toLowerCase()==='r'&&!state.revealed.has(state.index))revealAnswer();
+ else if(e.key==='ArrowRight' && state.revealed.has(state.index))nextQuestion();
+ else if(e.key==='ArrowLeft' && state.index>0)prevQuestion();
+});
+createLayout();renderQuestion();renderTimer();
+</script>
+</body>
+</html>

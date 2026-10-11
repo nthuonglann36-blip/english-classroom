@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Build the Future City – Unit 3 Listening</title>
+<!-- Trò của cô: ~/Downloads/unit3_listening_build_future_city_game.html (26/08). Nâng cỡ chữ nhỏ (11–13px) cho máy chiếu + khối CSS "thu gọn" cuối <style> để vừa khung slide (ẩn dòng luật chơi — luật ghi ở slide trước). -->
+<style>
+  :root{
+    --bg:#07111f;
+    --panel:#0d1b2d;
+    --panel2:#11243b;
+    --text:#eef7ff;
+    --muted:#9eb8cc;
+    --cyan:#36e6ff;
+    --green:#59f29c;
+    --yellow:#ffd85a;
+    --red:#ff6b7a;
+    --purple:#bd7bff;
+    --line:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+      radial-gradient(circle at 18% 10%, rgba(54,230,255,.14), transparent 26%),
+      radial-gradient(circle at 80% 0%, rgba(189,123,255,.12), transparent 30%),
+      linear-gradient(180deg,#07111f 0%,#081827 55%,#06111c 100%);
+      color:var(--text);overflow-x:hidden}
+  body:before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;
+    background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:40px 40px;
+    mask-image:linear-gradient(to bottom,transparent,black 18%,black 82%,transparent);
+  }
+  button,input{font:inherit}
+  button{cursor:pointer}
+  .app{max-width:1500px;margin:auto;padding:20px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px}
+  .title-wrap{display:flex;gap:14px;align-items:center}
+  .logo{
+    width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:31px;
+    background:linear-gradient(135deg,rgba(54,230,255,.22),rgba(89,242,156,.15));
+    border:1px solid rgba(54,230,255,.4);box-shadow:0 0 30px rgba(54,230,255,.15)
+  }
+  h1{margin:0;font-size:clamp(24px,2.7vw,42px);letter-spacing:-.03em}
+  .subtitle{color:var(--muted);font-weight:700;margin-top:3px}
+  .top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{
+    color:var(--text);background:rgba(255,255,255,.07);border:1px solid var(--line);
+    padding:10px 14px;border-radius:12px;font-weight:800;transition:.2s
+  }
+  .btn:hover{transform:translateY(-1px);border-color:rgba(54,230,255,.55)}
+  .btn.primary{background:linear-gradient(135deg,#0d7187,#146b5f);border-color:rgba(89,242,156,.45)}
+  .rules{
+    padding:12px 16px;border:1px solid rgba(54,230,255,.25);border-radius:16px;
+    background:linear-gradient(90deg,rgba(54,230,255,.08),rgba(89,242,156,.05));
+    color:#dff9ff;margin-bottom:16px;font-weight:650;line-height:1.45
+  }
+  .rules b{color:var(--yellow)}
+  .teams{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .team{
+    --accent:#36e6ff;
+    position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(17,36,59,.97),rgba(9,24,40,.97));
+    border:2px solid rgba(255,255,255,.10);border-radius:20px;padding:14px;min-height:250px;
+    box-shadow:0 12px 35px rgba(0,0,0,.2);transition:.22s
+  }
+  .team.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent),0 0 35px color-mix(in srgb,var(--accent) 20%,transparent);transform:translateY(-2px)}
+  .team:after{content:"";position:absolute;inset:auto -40px -60px auto;width:150px;height:150px;border-radius:50%;background:var(--accent);filter:blur(60px);opacity:.12}
+  .team-head{display:flex;justify-content:space-between;align-items:start;gap:8px;position:relative;z-index:2}
+  .team-name{font-weight:950;font-size:18px;display:flex;gap:8px;align-items:center}
+  .team-name span{font-size:23px}
+  .score{font-size:28px;font-weight:1000;color:var(--accent);line-height:1}
+  .score small{display:block;color:var(--muted);font-size:10px;text-align:right;margin-top:3px;letter-spacing:.12em}
+  .progress-row{margin-top:8px;display:flex;align-items:center;gap:9px;color:var(--muted);font-size:15px;font-weight:800}
+  .progress{height:7px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;flex:1}
+  .progress > div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#fff);transition:.5s ease}
+  .city{
+    position:relative;height:145px;margin-top:9px;border-radius:14px;overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 20%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 35%),
+      linear-gradient(180deg,#091522 0%,#0c2235 68%,#0a1723 68%,#06101b 100%);
+    border:1px solid rgba(255,255,255,.08)
+  }
+  .city .stars{position:absolute;inset:0;background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:33px 29px;opacity:.16}
+  .part{position:absolute;opacity:.08;filter:grayscale(1);transform:translateY(4px);transition:.45s ease}
+  .part.built{opacity:1;filter:none;transform:none;filter:drop-shadow(0 0 9px color-mix(in srgb,var(--accent) 35%,transparent))}
+  .road{bottom:0;left:0;right:0;height:33px;background:#263746;border-top:2px solid #536b7e}
+  .road:after{content:"";position:absolute;top:15px;left:6%;right:6%;height:3px;background:repeating-linear-gradient(90deg,var(--yellow) 0 22px,transparent 22px 42px)}
+  .house1{left:11%;bottom:31px;font-size:45px}
+  .metro{left:32%;bottom:28px;font-size:38px}
+  .tower1{left:47%;bottom:30px;font-size:61px}
+  .solar{right:18%;bottom:28px;font-size:38px}
+  .ai{right:4%;bottom:30px;font-size:55px}
+  .build-label{
+    position:absolute;left:8px;bottom:7px;background:rgba(0,0,0,.42);padding:5px 8px;border-radius:8px;
+    font-size:10px;font-weight:900;letter-spacing:.08em;color:#fff;z-index:5
+  }
+  .board-wrap{display:grid;grid-template-columns:1fr 270px;gap:16px}
+  .board{
+    background:rgba(9,24,40,.78);border:1px solid var(--line);border-radius:22px;padding:16px
+  }
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .section-title h2{margin:0;font-size:24px}
+  .turn-pill{
+    display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:99px;
+    background:rgba(54,230,255,.1);border:1px solid rgba(54,230,255,.25);font-weight:900
+  }
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+  .tile{
+    position:relative;min-height:125px;border:1px solid rgba(255,255,255,.11);border-radius:17px;
+    background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+    color:var(--text);padding:12px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;
+    transition:.2s;overflow:hidden
+  }
+  .tile:hover:not(.used){transform:translateY(-2px);border-color:rgba(54,230,255,.58);box-shadow:0 10px 25px rgba(0,0,0,.25)}
+  .tile:before{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-30px;top:-30px;background:rgba(54,230,255,.08)}
+  .tile .num{font-size:15px;font-weight:1000;color:var(--cyan);letter-spacing:.1em}
+  .tile .icon{font-size:34px}
+  .tile .label{font-weight:900;font-size:18px;color:#d8e9f5}
+  .tile.used{opacity:.36;cursor:not-allowed;filter:saturate(.4)}
+  .tile.used:after{content:"COMPLETED";position:absolute;inset:0;display:grid;place-items:center;background:rgba(3,10,18,.58);font-weight:1000;letter-spacing:.12em;font-size:11px}
+  .side{
+    background:rgba(9,24,40,.78);border:1px solid var(--line);border-radius:22px;padding:15px;height:max-content
+  }
+  .side h3{margin:0 0 10px}
+  .event-list{display:flex;flex-direction:column;gap:8px}
+  .event-chip{
+    display:flex;gap:8px;align-items:center;padding:9px;border-radius:12px;background:rgba(255,255,255,.045);
+    color:var(--muted);font-size:12px;font-weight:750
+  }
+  .event-chip b{color:#fff}
+  .small-note{font-size:11px;line-height:1.45;color:#7894aa;margin-top:12px}
+  .modal{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,6,12,.76);
+    backdrop-filter:blur(10px);z-index:50
+  }
+  .modal.show{display:flex}
+  .dialog{
+    width:min(850px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(180deg,#10253a,#091724);
+    border:1px solid rgba(54,230,255,.32);border-radius:24px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.55)
+  }
+  .dialog-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .q-kicker{color:var(--cyan);font-weight:1000;font-size:16px;letter-spacing:.14em;text-transform:uppercase}
+  .q-title{font-size:clamp(22px,3vw,34px);font-weight:950;line-height:1.2;margin:8px 0 18px}
+  .close{border:0;background:rgba(255,255,255,.07);color:white;border-radius:10px;width:38px;height:38px;font-size:18px}
+  .choices{display:grid;gap:10px}
+  .choice{
+    width:100%;text-align:left;padding:13px 15px;border-radius:14px;border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.045);color:#fff;font-weight:760;transition:.18s
+  }
+  .choice:hover{border-color:rgba(54,230,255,.55)}
+  .choice.selected{border-color:var(--cyan);background:rgba(54,230,255,.11)}
+  .choice.correct{border-color:var(--green);background:rgba(89,242,156,.12)}
+  .choice.wrong{border-color:var(--red);background:rgba(255,107,122,.10)}
+  .fill-row{display:flex;gap:10px}
+  .fill-row input{
+    flex:1;min-width:0;padding:14px 15px;border-radius:14px;border:1px solid rgba(255,255,255,.15);
+    background:#081522;color:#fff;font-size:18px;outline:none
+  }
+  .fill-row input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(54,230,255,.08)}
+  .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .feedback{
+    margin-top:15px;padding:14px 16px;border-radius:15px;font-weight:800;line-height:1.45;display:none
+  }
+  .feedback.good{display:block;background:rgba(89,242,156,.10);border:1px solid rgba(89,242,156,.35);color:#dfffea}
+  .feedback.bad{display:block;background:rgba(255,107,122,.09);border:1px solid rgba(255,107,122,.30);color:#ffe1e4}
+  .event-reveal{
+    display:none;margin-top:13px;padding:15px;border-radius:16px;background:linear-gradient(135deg,rgba(255,216,90,.13),rgba(189,123,255,.10));
+    border:1px solid rgba(255,216,90,.28)
+  }
+  .event-reveal.show{display:block;animation:pop .35s ease}
+  .event-name{font-size:20px;font-weight:1000;color:var(--yellow)}
+  .event-desc{color:#f5f6ff;margin-top:3px;font-weight:780}
+  .answer-key{color:var(--green);font-weight:900}
+  .winner{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,7,12,.82);z-index:70;
+    backdrop-filter:blur(12px)
+  }
+  .winner.show{display:flex}
+  .winner-card{
+    width:min(620px,92vw);text-align:center;padding:34px;border-radius:26px;background:linear-gradient(180deg,#112940,#091724);
+    border:1px solid rgba(89,242,156,.45);box-shadow:0 25px 90px rgba(0,0,0,.6)
+  }
+  .winner-city{font-size:76px;filter:drop-shadow(0 0 24px rgba(54,230,255,.3))}
+  .winner h2{font-size:40px;margin:10px 0 6px}
+  .winner p{color:var(--muted);font-weight:800}
+  .confetti{position:fixed;width:9px;height:14px;top:-20px;z-index:80;animation:fall 2.8s linear forwards}
+  .toast{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);
+    background:#10263a;border:1px solid rgba(255,255,255,.18);padding:10px 15px;border-radius:12px;
+    opacity:0;pointer-events:none;transition:.25s;z-index:90;font-weight:850
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+  @media (max-width:1100px){
+    .teams{grid-template-columns:repeat(2,1fr)}
+    .board-wrap{grid-template-columns:1fr}
+    .side{display:none}
+  }
+  @media (max-width:720px){
+    .app{padding:12px}.topbar{align-items:flex-start;flex-direction:column}.top-actions{width:100%}
+    .teams{grid-template-columns:1fr 1fr}.team{min-height:220px}.city{height:120px}
+    .tiles{grid-template-columns:repeat(2,1fr)}.tile{min-height:105px}
+    .fill-row{flex-direction:column}
+  }
+
+  /* ── Thu gọn để cả bảng vừa khung slide 1366×768 (thêm khi chép vào Global_Success_11) ── */
+  .app{padding:8px 14px}
+  .topbar{margin-bottom:6px}
+  .subtitle{display:none}
+  .logo{width:44px;height:44px;font-size:24px}
+  .rules{display:none}
+  .teams{margin-bottom:8px;gap:10px}
+  .team{min-height:0;padding:8px 10px}
+  .city{height:70px;margin-top:6px}
+  .road{height:16px}.road:after{top:6px}
+  .house1{bottom:15px;font-size:24px}.metro{bottom:14px;font-size:20px}.tower1{bottom:15px;font-size:32px}
+  .solar{bottom:14px;font-size:20px}.ai{bottom:15px;font-size:28px}
+  .build-label{display:none}
+  .board{padding:10px 12px}
+  .section-title{margin-bottom:6px}
+  .tiles{gap:8px}
+  .tile{min-height:82px;padding:8px 10px}
+  .tile .icon{font-size:26px}
+  .side{padding:10px 12px}
+  .event-chip{font-size:15px;padding:5px 8px}
+  .event-list{gap:5px}
+  .small-note{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="title-wrap">
+      <div class="logo">🏙️</div>
+      <div>
+        <h1>BUILD THE FUTURE CITY</h1>
+        <div class="subtitle">Unit 3 – Cities of the Future • Listening Challenge</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="fullscreenBtn">⛶ Full Screen</button>
+      <button class="btn" id="soundBtn">🔊 Sound On</button>
+      <button class="btn primary" id="newGameBtn">↻ New Game</button>
+    </div>
+  </div>
+
+  <div class="rules">
+    <b>How to play:</b> Select a team → choose a Smart City item → answer the listening question.
+    A correct answer builds <b>1 city part</b> and unlocks a random Future Event.
+    Lucky events may give bonus points or an extra build; unlucky events may reduce points.
+    <b>First team to complete 6 parts wins!</b>
+  </div>
+
+  <section class="teams" id="teams"></section>
+
+  <div class="board-wrap">
+    <main class="board">
+      <div class="section-title">
+        <h2>Smart City Grid</h2>
+        <div class="turn-pill">⚡ Current team: <span id="currentTeamLabel">Skyline Squad</span></div>
+      </div>
+      <div class="tiles" id="tiles"></div>
+    </main>
+
+    <aside class="side">
+      <h3>🎲 Future Events</h3>
+      <div class="event-list">
+        <div class="event-chip">🌱 <span><b>Green Grant</b><br>Bonus points</span></div>
+        <div class="event-chip">🚀 <span><b>Smart Upgrade</b><br>Extra city part</span></div>
+        <div class="event-chip">🎯 <span><b>Lucky Signal</b><br>Extra turn</span></div>
+        <div class="event-chip">🛡️ <span><b>Cyber Shield</b><br>Big points</span></div>
+        <div class="event-chip">🚦 <span><b>Traffic Jam</b><br>Small penalty</span></div>
+        <div class="event-chip">⚠️ <span><b>Data Leak</b><br>Unlucky penalty</span></div>
+      </div>
+      <div class="small-note">
+        Events are shuffled every time you start a new game, so the same Smart City item can be lucky in one lesson and unlucky in another.
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="modal" id="questionModal">
+  <div class="dialog">
+    <div class="dialog-top">
+      <div>
+        <div class="q-kicker" id="qKicker">Listening Question</div>
+        <div class="q-title" id="qTitle"></div>
+      </div>
+      <button class="close" id="closeModal">✕</button>
+    </div>
+
+    <div id="answerArea"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="event-reveal" id="eventReveal">
+      <div class="event-name" id="eventName"></div>
+      <div class="event-desc" id="eventDesc"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="showAnswerBtn">👁 Show Answer</button>
+      <button class="btn primary" id="checkBtn">Check Answer</button>
+      <button class="btn primary" id="nextBtn" style="display:none">Next Turn →</button>
+    </div>
+  </div>
+</div>
+
+<div class="winner" id="winner">
+  <div class="winner-card">
+    <div class="winner-city">🌆✨</div>
+    <h2 id="winnerTitle">CITY COMPLETE!</h2>
+    <p id="winnerText"></p>
+    <div class="actions" style="justify-content:center">
+      <button class="btn" id="continueBtn">Continue Game</button>
+      <button class="btn primary" id="winnerNewBtn">Start New Game</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const questions = [
+  {
+    icon:"🚦", label:"Smart Traffic", task:"Task 2 • Q1", type:"mc",
+    q:"What is the interview mainly about?",
+    options:["Advantages of living in a smart city.","Problems of living in a smart city.","Attractions of urban lifestyles."],
+    answer:1
+  },
+  {
+    icon:"📹", label:"Smart Cameras", task:"Task 2 • Q2", type:"mc",
+    q:"How are cameras and sensors used in a smart city?",
+    options:[
+      "To collect information about city dwellers and their activities.",
+      "To collect information about the government and some companies.",
+      "To improve city dwellers’ safety and security."
+    ],
+    answer:0
+  },
+  {
+    icon:"📡", label:"City Sensors", task:"Task 2 • Q3", type:"mc",
+    q:"Why does Ms Stevens feel lonely?",
+    options:[
+      "Because she doesn’t interact with many people.",
+      "Because she can’t use the smart devices.",
+      "Because she doesn’t like her neighbourhood."
+    ],
+    answer:0
+  },
+  {
+    icon:"🛡️", label:"Privacy Shield", task:"Task 3 • Gap 1", type:"fill",
+    q:"City dwellers may lose their ______ in public areas.",
+    answers:["right to privacy"], display:"right to privacy"
+  },
+  {
+    icon:"🏠", label:"Smart Home", task:"Task 3 • Gap 2", type:"fill",
+    q:"People use ______ to help them with household chores.",
+    answers:["smart technologies","smart technology"], display:"smart technologies"
+  },
+  {
+    icon:"👥", label:"Community Hub", task:"Task 3 • Gap 3", type:"fill",
+    q:"City dwellers don’t ______ with many people face to face.",
+    answers:["interact"], display:"interact"
+  },
+  {
+    icon:"🌳", label:"Future Neighbourhood", task:"Task 3 • Gap 4", type:"fill",
+    q:"There is no ______ in the neighbourhood.",
+    answers:["sense of community"], display:"sense of community"
+  },
+  {
+    icon:"🏙️", label:"City Dwellers", task:"Challenge Round", type:"mc",
+    q:"Who are “city dwellers”?",
+    options:["People who work for the government.","People who live in a city.","People who design smart devices."],
+    answer:1
+  },
+  {
+    icon:"🔐", label:"Data Privacy", task:"Challenge Round", type:"mc",
+    q:"Which problem is most closely connected with cameras and sensors everywhere?",
+    options:["Loss of privacy.","Lack of public transport.","High energy bills."],
+    answer:0
+  },
+  {
+    icon:"🤝", label:"Human Connection", task:"Challenge Round", type:"mc",
+    q:"What does “interact” mean in the interview?",
+    options:["Communicate or spend time with other people.","Install a new device.","Travel around the city."],
+    answer:0
+  },
+  {
+    icon:"🤖", label:"Home Assistant", task:"Challenge Round", type:"mc",
+    q:"What can smart technologies help people with?",
+    options:["Household chores.","Building new neighbourhoods.","Learning to drive."],
+    answer:0
+  },
+  {
+    icon:"💚", label:"Community Network", task:"Challenge Round", type:"mc",
+    q:"A “sense of community” is best described as…",
+    options:["a feeling of belonging and connection with neighbours.","a system of cameras around the city.","a type of smart household device."],
+    answer:0
+  }
+];
+
+const teamTemplates = [
+  {name:"Skyline Squad", icon:"🌌", accent:"#36e6ff"},
+  {name:"Eco Grid", icon:"🌿", accent:"#59f29c"},
+  {name:"Neon Navigators", icon:"🚇", accent:"#bd7bff"},
+  {name:"Future Force", icon:"🚀", accent:"#ffd85a"}
+];
+
+const eventTemplates = [
+  {name:"🌱 Green Energy Grant", desc:"+150 points for sustainable design!", points:150, build:0},
+  {name:"🛡️ Cyber Shield", desc:"+200 points. Your data network is protected!", points:200, build:0},
+  {name:"🚀 Smart Upgrade", desc:"+100 points and +1 EXTRA city part!", points:100, build:1},
+  {name:"🎯 Lucky Signal", desc:"+120 points and your team gets an EXTRA TURN!", points:120, build:0, extraTurn:true},
+  {name:"🤖 AI Efficiency Boost", desc:"+180 points for smart city efficiency!", points:180, build:0},
+  {name:"☀️ Solar Power Bonus", desc:"+130 points for clean energy!", points:130, build:0},
+  {name:"🚦 Traffic Jam", desc:"Unlucky! Only +30 points this round.", points:30, build:0},
+  {name:"⚠️ Data Leak", desc:"Unlucky! -70 points after the correct answer.", points:-70, build:0},
+  {name:"🔧 Maintenance Cost", desc:"Small setback: -30 points.", points:-30, build:0},
+  {name:"💎 Innovation Award", desc:"+250 points! Brilliant future-city idea.", points:250, build:0},
+  {name:"🏗️ Double Build Permit", desc:"+80 points and +1 EXTRA city part!", points:80, build:1},
+  {name:"📶 6G Network Boost", desc:"+160 points for ultra-fast connectivity!", points:160, build:0}
+];
+
+let state = {
+  teams: teamTemplates.map(t=>({...t,score:0,build:0})),
+  activeTeam:0,
+  used:Array(questions.length).fill(false),
+  events:[],
+  currentQuestion:null,
+  selectedChoice:null,
+  answered:false,
+  sound:true,
+  keepTurn:false
+};
+
+const $ = s => document.querySelector(s);
+const teamsEl = $("#teams");
+const tilesEl = $("#tiles");
+const qModal = $("#questionModal");
+const feedbackEl = $("#feedback");
+const eventReveal = $("#eventReveal");
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function freshEvents(){
+  let pool=[];
+  while(pool.length<questions.length) pool.push(...shuffle(eventTemplates));
+  state.events=shuffle(pool).slice(0,questions.length);
+}
+function save(){
+  localStorage.setItem("futureCityListeningGameV3",JSON.stringify({
+    teams:state.teams,activeTeam:state.activeTeam,used:state.used,events:state.events,sound:state.sound
+  }));
+}
+function load(){
+  try{
+    const raw=localStorage.getItem("futureCityListeningGameV3");
+    if(!raw){freshEvents();return;}
+    const s=JSON.parse(raw);
+    if(!s.events || s.events.length!==questions.length){freshEvents();}
+    else state.events=s.events;
+    state.teams=s.teams?.length===4?s.teams:state.teams;
+    state.activeTeam=Number.isInteger(s.activeTeam)?s.activeTeam:0;
+    state.used=s.used?.length===questions.length?s.used:state.used;
+    state.sound=s.sound!==false;
+  }catch(e){freshEvents();}
+}
+function beep(freq=660,duration=.08){
+  if(!state.sound) return;
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.value=freq;o.type="sine";
+    g.gain.setValueAtTime(.08,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);
+    o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+duration);
+  }catch(e){}
+}
+function toast(msg){
+  const t=$("#toast");t.textContent=msg;t.classList.add("show");
+  clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),1700);
+}
+function renderTeams(){
+  teamsEl.innerHTML="";
+  state.teams.forEach((t,i)=>{
+    const card=document.createElement("div");
+    card.className="team"+(i===state.activeTeam?" active":"");
+    card.style.setProperty("--accent",t.accent);
+    card.innerHTML=`
+      <div class="team-head">
+        <div>
+          <div class="team-name"><span>${t.icon}</span>${t.name}</div>
+          <div class="progress-row">
+            <div class="progress"><div style="width:${Math.min(100,t.build/6*100)}%"></div></div>
+            <span>${t.build}/6</span>
+          </div>
+        </div>
+        <div class="score">${t.score}<small>POINTS</small></div>
+      </div>
+      <div class="city">
+        <div class="stars"></div>
+        <div class="part road ${t.build>=1?"built":""}"></div>
+        <div class="part house1 ${t.build>=2?"built":""}">🏘️</div>
+        <div class="part metro ${t.build>=3?"built":""}">🚇</div>
+        <div class="part tower1 ${t.build>=4?"built":""}">🏢</div>
+        <div class="part solar ${t.build>=5?"built":""}">☀️</div>
+        <div class="part ai ${t.build>=6?"built":""}">🗼</div>
+        <div class="build-label">${t.build>=6?"CITY COMPLETE!":"BUILD PROGRESS"}</div>
+      </div>`;
+    card.addEventListener("click",()=>{
+      state.activeTeam=i;save();render();
+      toast(`${t.name} is now active`);
+      beep(520,.06);
+    });
+    teamsEl.appendChild(card);
+  });
+  $("#currentTeamLabel").textContent=state.teams[state.activeTeam].name;
+}
+function renderTiles(){
+  tilesEl.innerHTML="";
+  questions.forEach((q,i)=>{
+    const b=document.createElement("button");
+    b.className="tile"+(state.used[i]?" used":"");
+    b.disabled=state.used[i];
+    b.innerHTML=`<span class="num">ITEM ${String(i+1).padStart(2,"0")}</span><span class="icon">${q.icon}</span><span class="label">${q.label}</span>`;
+    b.addEventListener("click",()=>openQuestion(i));
+    tilesEl.appendChild(b);
+  });
+}
+function render(){renderTeams();renderTiles();$("#soundBtn").textContent=state.sound?"🔊 Sound On":"🔇 Sound Off"}
+
+function normalize(s){
+  return s.toLowerCase().trim().replace(/[’']/g,"'").replace(/[.,!?]/g,"").replace(/\s+/g," ");
+}
+function openQuestion(i){
+  if(state.used[i]) return;
+  state.currentQuestion=i;state.selectedChoice=null;state.answered=false;state.keepTurn=false;
+  const q=questions[i];
+  $("#qKicker").textContent=q.task+" • "+q.label;
+  $("#qTitle").textContent=q.q;
+  feedbackEl.className="feedback";feedbackEl.textContent="";
+  eventReveal.classList.remove("show");
+  $("#checkBtn").style.display="";
+  $("#nextBtn").style.display="none";
+  $("#showAnswerBtn").style.display="";
+  const area=$("#answerArea");area.innerHTML="";
+  if(q.type==="mc"){
+    const wrap=document.createElement("div");wrap.className="choices";
+    q.options.forEach((opt,idx)=>{
+      const c=document.createElement("button");c.className="choice";
+      c.innerHTML=`<b>${String.fromCharCode(65+idx)}.</b> ${opt}`;
+      c.onclick=()=>{
+        if(state.answered)return;
+        state.selectedChoice=idx;
+        [...wrap.children].forEach(x=>x.classList.remove("selected"));
+        c.classList.add("selected");beep(460,.04);
+      };
+      wrap.appendChild(c);
+    });area.appendChild(wrap);
+  }else{
+    area.innerHTML=`<div class="fill-row"><input id="fillInput" autocomplete="off" placeholder="Type no more than THREE words..." /><button class="btn" id="fillCheckQuick">Submit</button></div>`;
+    $("#fillInput").addEventListener("keydown",e=>{if(e.key==="Enter")checkAnswer()});
+    $("#fillCheckQuick").onclick=checkAnswer;
+    setTimeout(()=>$("#fillInput").focus(),120);
+  }
+  qModal.classList.add("show");
+}
+function correctAnswerText(q){
+  return q.type==="mc"?q.options[q.answer]:q.display;
+}
+function showAnswer(){
+  const q=questions[state.currentQuestion];
+  feedbackEl.className="feedback good";
+  feedbackEl.innerHTML=`💡 Answer: <span class="answer-key">${correctAnswerText(q)}</span>`;
+}
+function checkAnswer(){
+  if(state.answered || state.currentQuestion===null)return;
+  const q=questions[state.currentQuestion];
+  let correct=false;
+  if(q.type==="mc"){
+    if(state.selectedChoice===null){toast("Choose A, B, or C first.");return;}
+    correct=state.selectedChoice===q.answer;
+    const choices=[...document.querySelectorAll(".choice")];
+    choices[q.answer]?.classList.add("correct");
+    if(!correct) choices[state.selectedChoice]?.classList.add("wrong");
+  }else{
+    const inp=$("#fillInput");
+    const val=normalize(inp.value);
+    if(!val){toast("Type an answer first.");return;}
+    correct=q.answers.some(a=>normalize(a)===val);
+    inp.style.borderColor=correct?"var(--green)":"var(--red)";
+  }
+  state.answered=true;
+  state.used[state.currentQuestion]=true;
+
+  if(correct){
+    beep(880,.14);
+    const t=state.teams[state.activeTeam];
+    const ev=state.events[state.currentQuestion];
+    t.build=Math.min(6,t.build+1+ev.build);
+    t.score=Math.max(0,t.score+100+ev.points);
+    state.keepTurn=!!ev.extraTurn;
+    feedbackEl.className="feedback good";
+    feedbackEl.innerHTML=`✅ <b>Correct!</b> Base reward: +100 points. Your team built a new city part.`;
+    $("#eventName").textContent=ev.name;
+    $("#eventDesc").textContent=ev.desc + (ev.build?` You built ${1+ev.build} parts this round.`:"");
+    eventReveal.classList.add("show");
+    if(t.build>=6) setTimeout(()=>showWinner(state.activeTeam),850);
+  }else{
+    beep(180,.18);
+    const t=state.teams[state.activeTeam];
+    t.score=Math.max(0,t.score-50);
+    feedbackEl.className="feedback bad";
+    feedbackEl.innerHTML=`❌ <b>Not this time.</b> Correct answer: <span class="answer-key">${correctAnswerText(q)}</span><br>Penalty: -50 points. No city part is built.`;
+  }
+  $("#checkBtn").style.display="none";
+  $("#showAnswerBtn").style.display="none";
+  $("#nextBtn").style.display="";
+  save();render();
+}
+function nextTurn(){
+  qModal.classList.remove("show");
+  if(!state.keepTurn) state.activeTeam=(state.activeTeam+1)%4;
+  else toast(`${state.teams[state.activeTeam].name} gets an extra turn!`);
+  state.currentQuestion=null;state.answered=false;state.selectedChoice=null;
+  save();render();
+  if(state.used.every(Boolean)){
+    setTimeout(showFinalByScore,350);
+  }
+}
+function showWinner(idx){
+  confetti();
+  const t=state.teams[idx];
+  $("#winnerTitle").textContent=`${t.name.toUpperCase()} WINS!`;
+  $("#winnerText").textContent=`Future City completed with ${t.score} points.`;
+  $("#winner").classList.add("show");
+  beep(1040,.35);
+}
+function showFinalByScore(){
+  if(state.teams.some(t=>t.build>=6)) return;
+  const sorted=state.teams.map((t,i)=>({...t,i})).sort((a,b)=>b.build-a.build || b.score-a.score);
+  const t=sorted[0];
+  $("#winnerTitle").textContent=`${t.name.toUpperCase()} LEADS THE CITY!`;
+  $("#winnerText").textContent=`All items are complete. ${t.name} wins with ${t.build}/6 city parts and ${t.score} points.`;
+  $("#winner").classList.add("show");
+  confetti();
+}
+function confetti(){
+  const symbols=["#36e6ff","#59f29c","#ffd85a","#bd7bff","#ff6b7a","#ffffff"];
+  for(let i=0;i<85;i++){
+    const d=document.createElement("div");d.className="confetti";
+    d.style.left=Math.random()*100+"vw";
+    d.style.background=symbols[Math.floor(Math.random()*symbols.length)];
+    d.style.animationDelay=(Math.random()*.7)+"s";
+    d.style.animationDuration=(2+Math.random()*1.8)+"s";
+    d.style.transform=`rotate(${Math.random()*180}deg)`;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),4500);
+  }
+}
+function newGame(){
+  state.teams=teamTemplates.map(t=>({...t,score:0,build:0}));
+  state.activeTeam=0;state.used=Array(questions.length).fill(false);
+  state.currentQuestion=null;state.selectedChoice=null;state.answered=false;state.keepTurn=false;
+  freshEvents();save();render();$("#winner").classList.remove("show");qModal.classList.remove("show");
+  toast("New city challenge ready!");
+}
+
+$("#closeModal").onclick=()=>{if(!state.answered) qModal.classList.remove("show"); else nextTurn()};
+$("#checkBtn").onclick=checkAnswer;
+$("#nextBtn").onclick=nextTurn;
+$("#showAnswerBtn").onclick=showAnswer;
+$("#newGameBtn").onclick=()=>{if(confirm("Start a new game? All scores and buildings will reset.")) newGame()};
+$("#winnerNewBtn").onclick=newGame;
+$("#continueBtn").onclick=()=>$("#winner").classList.remove("show");
+$("#soundBtn").onclick=()=>{state.sound=!state.sound;save();render();toast(state.sound?"Sound on":"Sound off")};
+$("#fullscreenBtn").onclick=()=>{
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+};
+document.addEventListener("keydown",e=>{
+  if(qModal.classList.contains("show"))return;
+  if(["1","2","3","4"].includes(e.key)){
+    state.activeTeam=Number(e.key)-1;save();render();toast(`${state.teams[state.activeTeam].name} is now active`);
+  }
+});
+load();
+render();
+</script>
+</body>
+</html>

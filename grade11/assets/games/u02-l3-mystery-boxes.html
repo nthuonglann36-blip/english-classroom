@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generation X, Y & Z - Mystery Boxes</title>
+<style>
+:root{
+  --bg1:#08143d; --bg2:#19266b; --panel:rgba(255,255,255,.1);
+  --text:#fff; --muted:#d9e2ff; --accent:#ffe76a; --ok:#34df8b; --bad:#ff6380;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+body{
+  min-height:100vh;overflow-x:hidden;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(77,255,211,.22),transparent 28%),
+    radial-gradient(circle at 90% 8%,rgba(255,77,181,.18),transparent 30%),
+    radial-gradient(circle at 55% 95%,rgba(255,228,94,.13),transparent 30%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+}
+.bg-stars{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:5px;height:5px;background:#fff;border-radius:50%;opacity:.4;animation:twinkle 2.6s ease-in-out infinite}
+@keyframes twinkle{0%,100%{transform:scale(.5);opacity:.2}50%{transform:scale(1.7);opacity:.9}}
+
+.app{position:relative;z-index:2;max-width:1450px;margin:auto;padding:16px 18px 28px}
+header{
+  display:flex;justify-content:space-between;align-items:center;gap:15px;
+  padding:13px 16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.16);
+  border-radius:22px;background:rgba(0,0,0,.12);backdrop-filter:blur(10px)
+}
+h1{margin:0;font-size:clamp(25px,3vw,44px)}
+.subtitle{margin:3px 0 0;color:var(--muted);font-weight:750}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:13px;padding:11px 15px;font-weight:900;cursor:pointer;transition:.18s transform,.18s filter,.18s opacity}
+button:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.05)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.17)}
+
+.scoreboard{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+.team{
+  position:relative;overflow:hidden;padding:11px 13px;border-radius:17px;background:var(--panel);
+  border:2px solid transparent;box-shadow:0 10px 25px rgba(0,0,0,.18);cursor:pointer
+}
+.team.active{border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,231,106,.12),0 14px 32px rgba(0,0,0,.25);transform:translateY(-2px)}
+.team::before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,.13),transparent 50%);pointer-events:none}
+.team-name{position:relative;font-size:17px;font-weight:1000;border-bottom:1px dashed rgba(255,255,255,.33);display:inline-block;outline:none}
+.turn{position:absolute;right:9px;top:9px;padding:4px 7px;border-radius:999px;background:var(--accent);color:#132054;font-size:10px;font-weight:1000;display:none}
+.team.active .turn{display:block}
+.scoreline{position:relative;display:flex;justify-content:space-between;align-items:end;margin-top:8px}
+.score{font-size:32px;font-weight:1000}
+.score-tools{display:flex;gap:4px}
+.score-tools button{padding:4px 7px;font-size:11px;background:rgba(255,255,255,.15);color:#fff}
+
+.main{display:grid;grid-template-columns:minmax(420px,1.05fr) minmax(440px,1fr);gap:14px}
+.panel{background:var(--panel);border:1px solid rgba(255,255,255,.17);border-radius:25px;box-shadow:0 16px 45px rgba(0,0,0,.22);backdrop-filter:blur(11px)}
+.left{padding:18px}
+.right{padding:18px;display:flex;flex-direction:column;min-height:610px}
+
+.section-title{font-size:22px;font-weight:1000;margin:0 0 4px}
+.help{color:var(--muted);font-weight:750;margin:0 0 14px}
+
+.box-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.box{
+  min-height:120px;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:linear-gradient(145deg,#ff4d8a,#ff8f5f);border:3px solid rgba(255,255,255,.72);
+  box-shadow:0 11px 23px rgba(0,0,0,.2),inset 0 0 25px rgba(255,255,255,.12);
+  transition:.2s transform,.2s filter,.2s opacity
+}
+.box:nth-child(4n+2){background:linear-gradient(145deg,#3d7dff,#54d3ff)}
+.box:nth-child(4n+3){background:linear-gradient(145deg,#24c98a,#65e788)}
+.box:nth-child(4n){background:linear-gradient(145deg,#9a62ff,#ef77dc)}
+.box:hover:not(.used){transform:translateY(-4px) rotate(-1deg);filter:brightness(1.08)}
+.box::before{
+  content:"";position:absolute;left:0;right:0;top:47%;height:15%;background:rgba(255,230,88,.9);
+  box-shadow:0 0 10px rgba(255,230,88,.35)
+}
+.box::after{
+  content:"";position:absolute;top:0;bottom:0;left:44%;width:12%;background:rgba(255,230,88,.9)
+}
+.box-num{z-index:2;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#132054;font-size:23px;font-weight:1000;box-shadow:0 5px 15px rgba(0,0,0,.3)}
+.box.used{cursor:default;opacity:.3;filter:grayscale(.5)}
+.box.used::before,.box.used::after{opacity:.45}
+.box.opening{animation:boxPop .6s ease}
+@keyframes boxPop{0%{transform:scale(1)}40%{transform:scale(1.18) rotate(3deg)}100%{transform:scale(1)}}
+
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.badge{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.13);font-weight:950}
+.counter{color:var(--muted);font-weight:850}
+
+.stage{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 4px}
+.placeholder{font-size:23px;line-height:1.5;font-weight:800;color:#dce4ff;max-width:730px}
+.category{font-size:13px;letter-spacing:1.5px;color:#bdc9ff;font-weight:1000;text-transform:uppercase}
+.question{font-size:clamp(26px,3.2vw,43px);line-height:1.16;font-weight:1000;max-width:780px;margin:12px auto 18px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(720px,100%);margin:auto}
+.option{padding:15px 14px;background:rgba(255,255,255,.13);color:#fff;border:2px solid rgba(255,255,255,.17);font-size:18px}
+.option:hover:not(:disabled){border-color:var(--accent)}
+.option.correct{background:rgba(52,223,139,.24);border-color:var(--ok)}
+.option.wrong{background:rgba(255,99,128,.24);border-color:var(--bad)}
+.feedback{display:none;margin:15px auto 0;padding:13px 15px;border-radius:17px;background:rgba(255,255,255,.09);width:min(760px,100%)}
+.feedback.show{display:block;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.feedback strong{font-size:21px}
+.feedback p{margin:5px 0 0;line-height:1.4;font-weight:700;color:#eef2ff}
+
+.reveal-btn{margin-top:13px;background:linear-gradient(135deg,#fff36d,#ffb85a);color:#152253;font-size:18px;display:none}
+.reveal-btn.show{display:inline-block;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(255,231,106,0)}0%,100%{box-shadow:0 0 0 0 rgba(255,231,106,.28)}}
+
+.reward-card{
+  display:none;margin:15px auto 0;width:min(500px,100%);padding:18px;border-radius:21px;
+  background:linear-gradient(135deg,#fff36d,#ffb358);color:#152253;box-shadow:0 12px 30px rgba(255,192,78,.24)
+}
+.reward-card.show{display:block;animation:rewardPop .55s cubic-bezier(.2,.9,.25,1.25)}
+@keyframes rewardPop{0%{transform:scale(.55) rotate(-8deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.reward-label{font-size:14px;font-weight:1000;letter-spacing:1.4px}
+.reward{font-size:46px;font-weight:1000;margin-top:3px}
+.next-btn{display:none;align-self:center;margin-top:12px;background:#fff;color:#14204f;min-width:210px}
+.next-btn.show{display:block}
+
+.winner{font-size:clamp(36px,5vw,65px);font-weight:1000;margin:10px 0;background:linear-gradient(90deg,#fff06e,#61f0c9,#ff81d3,#fff06e);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 2s linear infinite}
+@keyframes shine{to{background-position:300% 0}}
+.confetti{position:fixed;z-index:999;width:10px;height:15px;top:-20px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.95}}
+.footer{text-align:center;color:#b9c5f5;font-size:12px;font-weight:700;margin-top:10px}
+
+@media(max-width:1000px){.main{grid-template-columns:1fr}.right{min-height:520px}.scoreboard{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.app{padding:9px}.box-grid{grid-template-columns:repeat(3,1fr)}.box{min-height:95px}header{align-items:flex-start;flex-direction:column}.options{grid-template-columns:1fr}.question{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="bg-stars" id="stars"></div>
+<div class="app">
+<header>
+  <div>
+    <h1>🎁 GENERATIONS: MYSTERY BOX CHALLENGE</h1>
+    <div class="subtitle">Generation X • Millennials • Generation Z</div>
+  </div>
+  <div class="top-actions">
+    <button class="ghost" id="soundBtn">🔊 Sound: ON</button>
+    <button class="ghost" id="fullBtn">⛶ Full Screen</button>
+    <button class="ghost" id="resetBtn">↻ Reset Game</button>
+  </div>
+</header>
+
+<section class="scoreboard" id="scoreboard"></section>
+
+<main class="main">
+  <section class="panel left">
+    <div class="section-title">🎁 Choose a Mystery Box</div>
+    <p class="help">The active team chooses a box, answers the question, then reveals the hidden points.</p>
+    <div class="box-grid" id="boxGrid"></div>
+  </section>
+
+  <section class="panel right" id="quizPanel">
+    <div class="topline">
+      <div class="badge" id="turnBadge">🔥 TEAM 1'S TURN</div>
+      <div class="counter" id="counter">0 / 12 boxes opened</div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="placeholder">Choose any mystery box to start. The reward stays hidden until the question is answered. 👈</div>
+    </div>
+
+    <button class="next-btn" id="nextBtn">Next Team ➜</button>
+  </section>
+</main>
+
+<div class="footer">Tip: Click a team card to choose the active team manually. Click the team name to rename it.</div>
+</div>
+
+<script>
+const teams=[
+ {name:"TEAM 1",score:0,emoji:"🔥"},
+ {name:"TEAM 2",score:0,emoji:"⚡"},
+ {name:"TEAM 3",score:0,emoji:"🚀"},
+ {name:"TEAM 4",score:0,emoji:"🌟"}
+];
+
+const questions=[
+ {
+  type:"Multiple Choice",
+  q:"What is the best title for the article?",
+  options:["The study of different generations","Generational differences in different societies","Characteristics of different generations","The history of social media"],
+  answer:2,
+  explain:"The article mainly describes the common characteristics of Generations X, Y, and Z."
+ },
+ {
+  type:"Generation Check",
+  q:"Which generation was born between 1965 and 1980?",
+  options:["Generation X","Generation Y","Generation Z","Generation Alpha"],
+  answer:0,
+  explain:"Generation X refers to people born between 1965 and 1980."
+ },
+ {
+  type:"Generation Check",
+  q:"Generation Y is also known as...",
+  options:["Digital natives","Millennials","Baby Boomers","Gen Alpha"],
+  answer:1,
+  explain:"Generation Y is also known as Millennials."
+ },
+ {
+  type:"Who is it?",
+  q:"Which generation is known for valuing teamwork and welcoming different points of view?",
+  options:["Generation X","Generation Y","Generation Z","All three"],
+  answer:1,
+  explain:"Millennials value teamwork and welcome different ideas from others."
+ },
+ {
+  type:"Who is it?",
+  q:"Which generation is known as critical thinkers because they achieved higher levels of education than previous generations?",
+  options:["Generation X","Generation Y","Generation Z","Generation Alpha"],
+  answer:0,
+  explain:"The article describes Gen Xers as critical thinkers."
+ },
+ {
+  type:"Who is it?",
+  q:"Which generation grew up online and never knew the world before digital and social media?",
+  options:["Generation X","Generation Y","Generation Z","All generations"],
+  answer:2,
+  explain:"Generation Z grew up online and are therefore called digital natives."
+ },
+ {
+  type:"True or False",
+  q:"Generation X experienced many social changes and developments while growing up.",
+  options:["TRUE","FALSE"],
+  answer:0,
+  explain:"True. This experience made Gen Xers ready and prepared to work through changes."
+ },
+ {
+  type:"True or False",
+  q:"Millennials are described as curious and ready to accept changes.",
+  options:["TRUE","FALSE"],
+  answer:0,
+  explain:"True. They like trying faster and better ways of doing things."
+ },
+ {
+  type:"True or False",
+  q:"The article says that Generation Z was born between the late 1990s and early 2010s.",
+  options:["TRUE","FALSE"],
+  answer:0,
+  explain:"True. That is the birth period given for Generation Z in the article."
+ },
+ {
+  type:"Who is it?",
+  q:"Which generation can experiment creatively with digital platforms to suit their needs?",
+  options:["Generation X","Generation Y","Generation Z","Generation Alpha"],
+  answer:2,
+  explain:"The article says Gen Zers are creative and able to experiment with platforms."
+ },
+ {
+  type:"Reading Detail",
+  q:"Why do many Gen Zers think it is safer to be their own boss?",
+  options:["They dislike teamwork","They saw many people lose their jobs","They do not use technology","They prefer traditional jobs"],
+  answer:1,
+  explain:"They saw many people lose their jobs, so they feel being their own boss can be safer."
+ },
+ {
+  type:"Vocabulary in Context",
+  q:"In the article, what does “digital natives” refer to?",
+  options:["People who avoid social media","People who grew up with digital technology","People who only work online","People born before computers"],
+  answer:1,
+  explain:"Digital natives are people who grew up with digital technology and online media."
+ }
+];
+
+// Hidden rewards are shuffled every reset.
+const rewardPool=[10,20,20,30,30,30,40,40,50,50,60,70];
+
+let rewards=[];
+let activeTeam=0;
+let usedBoxes=new Set();
+let currentBox=null;
+let currentQuestion=null;
+let answered=false;
+let correct=false;
+let rewardRevealed=false;
+let soundOn=true;
+
+const scoreboard=document.getElementById("scoreboard");
+const boxGrid=document.getElementById("boxGrid");
+const stage=document.getElementById("stage");
+const turnBadge=document.getElementById("turnBadge");
+const counter=document.getElementById("counter");
+const nextBtn=document.getElementById("nextBtn");
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function renderTeams(){
+  scoreboard.innerHTML="";
+  teams.forEach((t,i)=>{
+    const el=document.createElement("div");
+    el.className="team"+(activeTeam===i?" active":"");
+    el.innerHTML=`
+      <div class="turn">ACTIVE</div>
+      <div class="team-name" contenteditable="true" spellcheck="false" data-i="${i}">${t.emoji} ${t.name}</div>
+      <div class="scoreline">
+        <div class="score">${t.score}</div>
+        <div class="score-tools">
+          <button data-act="minus" data-i="${i}">−10</button>
+          <button data-act="plus" data-i="${i}">+10</button>
+        </div>
+      </div>`;
+    el.addEventListener("click",e=>{
+      if(e.target.closest("button")||e.target.classList.contains("team-name")) return;
+      if(currentBox!==null && !rewardRevealed) return;
+      activeTeam=i; updateTurn(); renderTeams();
+    });
+    scoreboard.appendChild(el);
+  });
+
+  document.querySelectorAll(".team-name").forEach(el=>{
+    el.addEventListener("click",e=>e.stopPropagation());
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();e.currentTarget.blur()}});
+    el.addEventListener("blur",e=>{
+      const i=+e.currentTarget.dataset.i;
+      const txt=e.currentTarget.textContent.replace(teams[i].emoji,"").trim();
+      teams[i].name=txt||`TEAM ${i+1}`;
+      renderTeams(); updateTurn();
+    });
+  });
+
+  document.querySelectorAll(".score-tools button").forEach(b=>{
+    b.addEventListener("click",e=>{
+      e.stopPropagation();
+      const i=+b.dataset.i;
+      teams[i].score=Math.max(0,teams[i].score+(b.dataset.act==="plus"?10:-10));
+      renderTeams();
+    });
+  });
+}
+
+function renderBoxes(){
+  boxGrid.innerHTML="";
+  questions.forEach((_,i)=>{
+    const b=document.createElement("div");
+    b.className="box"+(usedBoxes.has(i)?" used":"");
+    b.innerHTML=`<div class="box-num">${i+1}</div>`;
+    if(!usedBoxes.has(i)) b.addEventListener("click",()=>openBox(i,b));
+    boxGrid.appendChild(b);
+  });
+  counter.textContent=`${usedBoxes.size} / ${questions.length} boxes opened`;
+}
+
+function updateTurn(){
+  turnBadge.textContent=`${teams[activeTeam].emoji} ${teams[activeTeam].name}'S TURN`;
+}
+
+function openBox(i,boxEl){
+  if(currentBox!==null || usedBoxes.has(i)) return;
+  currentBox=i;
+  currentQuestion=questions[i];
+  answered=false; correct=false; rewardRevealed=false;
+  boxEl.classList.add("opening");
+  tone(520,.08,"square",.035);
+  setTimeout(()=>showQuestion(),450);
+}
+
+function showQuestion(){
+  const q=currentQuestion;
+  stage.innerHTML=`
+    <div style="width:100%">
+      <div class="category">${q.type} • Mystery Box ${currentBox+1}</div>
+      <div class="question">${q.q}</div>
+      <div class="options" id="options">
+        ${q.options.map((o,i)=>`<button class="option" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}
+      </div>
+      <div class="feedback" id="feedback"></div>
+      <button class="reveal-btn" id="revealBtn">🎁 REVEAL THE MYSTERY REWARD</button>
+      <div class="reward-card" id="rewardCard"></div>
+    </div>`;
+
+  document.querySelectorAll(".option").forEach(btn=>{
+    btn.addEventListener("click",()=>answerQuestion(+btn.dataset.i));
+  });
+}
+
+function answerQuestion(choice){
+  if(answered) return;
+  answered=true;
+  correct=choice===currentQuestion.answer;
+
+  const opts=[...document.querySelectorAll(".option")];
+  opts.forEach((b,i)=>{
+    b.disabled=true;
+    if(i===currentQuestion.answer)b.classList.add("correct");
+    if(i===choice && !correct)b.classList.add("wrong");
+  });
+
+  const fb=document.getElementById("feedback");
+  if(correct){
+    fb.innerHTML=`<strong>🎉 CORRECT!</strong><p>${currentQuestion.explain}</p>`;
+    fb.style.border="1px solid rgba(52,223,139,.55)";
+    successSound();
+    confetti(55);
+  }else{
+    fb.innerHTML=`<strong>😮 NOT QUITE!</strong><p>${currentQuestion.explain}</p>`;
+    fb.style.border="1px solid rgba(255,99,128,.55)";
+    wrongSound();
+  }
+  fb.classList.add("show");
+
+  const reveal=document.getElementById("revealBtn");
+  reveal.classList.add("show");
+  reveal.addEventListener("click",revealReward,{once:true});
+}
+
+function revealReward(){
+  if(rewardRevealed) return;
+  rewardRevealed=true;
+  document.getElementById("revealBtn").disabled=true;
+  document.getElementById("revealBtn").classList.remove("show");
+
+  const reward=rewards[currentBox];
+  const card=document.getElementById("rewardCard");
+
+  if(correct){
+    teams[activeTeam].score+=reward;
+    card.innerHTML=`<div class="reward-label">MYSTERY REWARD</div><div class="reward">+${reward} POINTS!</div><div><b>${teams[activeTeam].name}</b> wins the reward.</div>`;
+    rewardSound();
+    confetti(reward>=50?90:45);
+  }else{
+    card.innerHTML=`<div class="reward-label">THE HIDDEN REWARD WAS</div><div class="reward">${reward} POINTS</div><div>No points this time because the answer was incorrect.</div>`;
+    tone(300,.18,"sine",.04);
+  }
+
+  card.classList.add("show");
+  usedBoxes.add(currentBox);
+  renderTeams();
+  renderBoxes();
+  nextBtn.textContent=usedBoxes.size===questions.length?"🏆 Show Final Results":"Next Team ➜";
+  nextBtn.classList.add("show");
+}
+
+nextBtn.addEventListener("click",()=>{
+  if(usedBoxes.size===questions.length){endGame();return}
+  activeTeam=(activeTeam+1)%teams.length;
+  currentBox=null; currentQuestion=null; answered=false; rewardRevealed=false;
+  updateTurn(); renderTeams();
+  stage.innerHTML=`<div class="placeholder">🎁 <b>${teams[activeTeam].name}</b>, choose any unopened mystery box!</div>`;
+  nextBtn.classList.remove("show");
+});
+
+function endGame(){
+  nextBtn.classList.remove("show");
+  const max=Math.max(...teams.map(t=>t.score));
+  const winners=teams.filter(t=>t.score===max);
+  const names=winners.map(t=>t.name).join(" & ");
+  turnBadge.textContent="🏁 GAME OVER";
+  stage.innerHTML=`
+    <div>
+      <div class="category">FINAL RESULT</div>
+      <div class="winner">🏆 ${names}</div>
+      <div class="question" style="font-size:clamp(25px,3vw,40px);margin-top:3px">
+        ${winners.length>1?"It's a tie!":"Congratulations!"} — ${max} points
+      </div>
+      <div class="placeholder" style="font-size:18px">Click <b>Reset Game</b> to shuffle the rewards and play again.</div>
+    </div>`;
+  confetti(170); successSound();
+}
+
+function resetGame(){
+  teams.forEach(t=>t.score=0);
+  rewards=shuffle(rewardPool);
+  activeTeam=0;usedBoxes=new Set();currentBox=null;currentQuestion=null;answered=false;correct=false;rewardRevealed=false;
+  renderTeams();renderBoxes();updateTurn();
+  stage.innerHTML=`<div class="placeholder">Choose any mystery box to start. The reward stays hidden until the question is answered. 👈</div>`;
+  nextBtn.classList.remove("show");
+}
+
+function tone(freq=500,duration=.12,type="sine",volume=.05){
+  if(!soundOn)return;
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;
+    const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();
+    o.type=type;o.frequency.value=freq;g.gain.value=volume;o.connect(g);g.connect(ctx.destination);
+    o.start();g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+duration);o.stop(ctx.currentTime+duration);
+  }catch(e){}
+}
+function successSound(){tone(650,.12,"sine",.065);setTimeout(()=>tone(850,.17,"sine",.06),100)}
+function wrongSound(){tone(185,.17,"sawtooth",.045);setTimeout(()=>tone(145,.22,"sawtooth",.04),120)}
+function rewardSound(){tone(600,.1,"triangle",.06);setTimeout(()=>tone(760,.1,"triangle",.06),90);setTimeout(()=>tone(980,.18,"triangle",.06),180)}
+
+function confetti(n){
+  const colors=["#ffeb66","#5cf0c9","#ff72aa","#6cc9ff","#fff","#b889ff"];
+  for(let i=0;i<n;i++){
+    const c=document.createElement("div");c.className="confetti";
+    c.style.left=Math.random()*100+"vw";c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.setProperty("--drift",(Math.random()*260-130)+"px");
+    c.style.animationDuration=(2.2+Math.random()*2.1)+"s";c.style.animationDelay=(Math.random()*.3)+"s";
+    document.body.appendChild(c);setTimeout(()=>c.remove(),5000);
+  }
+}
+
+document.getElementById("soundBtn").addEventListener("click",e=>{
+  soundOn=!soundOn;e.currentTarget.textContent=soundOn?"🔊 Sound: ON":"🔇 Sound: OFF";
+  if(soundOn)tone(520,.1);
+});
+document.getElementById("fullBtn").addEventListener("click",()=>{
+  if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();
+});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(confirm("Reset all scores and shuffle the rewards?"))resetGame()});
+
+(function stars(){
+  const s=document.getElementById("stars");
+  for(let i=0;i<46;i++){
+    const e=document.createElement("i");e.className="star";
+    e.style.left=Math.random()*100+"%";e.style.top=Math.random()*100+"%";
+    e.style.animationDelay=(Math.random()*2.5)+"s";e.style.animationDuration=(1.7+Math.random()*2.4)+"s";
+    s.appendChild(e);
+  }
+})();
+
+resetGame();
+</script>
+</body>
+</html>

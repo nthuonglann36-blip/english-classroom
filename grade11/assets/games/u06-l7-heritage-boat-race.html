@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#083d55" />
+<title>Heritage Boat Race | Unit 6 – Preserving Heritage</title>
+<style>
+  :root {
+    --navy:#073c55;
+    --deep:#063348;
+    --teal:#008c95;
+    --sea:#0b9daf;
+    --aqua:#d8f6f0;
+    --ivory:#fffaf0;
+    --paper:#fffefa;
+    --orange:#fb934f;
+    --gold:#ffd778;
+    --muted:#5e7885;
+    --shadow:0 16px 42px rgba(12,66,80,.14);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--navy);font-family:Trebuchet MS,Segoe UI,Arial,sans-serif;background:
+    radial-gradient(ellipse at 5% 5%,rgba(255,210,140,.30),transparent 34%),
+    radial-gradient(ellipse at 97% 30%,rgba(18,183,182,.14),transparent 35%),
+    linear-gradient(165deg,#fffcf5,#eaf8f4 58%,#f6fbf7);min-height:100vh}
+  button,select{font:inherit}
+  button{cursor:pointer}
+  button:focus-visible,select:focus-visible{outline:3px solid #f2b84d;outline-offset:3px}
+  button:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+  .app{max-width:1480px;margin:auto;padding:20px clamp(12px,2.5vw,34px) 40px}
+  .hero{position:relative;isolation:isolate;min-height:210px;border-radius:28px;overflow:hidden;background:linear-gradient(112deg,#073d54 7%,#057a84 100%);box-shadow:var(--shadow);color:#fff;display:flex;align-items:center;padding:25px clamp(20px,3.3vw,46px)}
+  .hero:before{content:"";position:absolute;z-index:-1;width:390px;height:390px;border-radius:50%;top:-250px;left:43%;border:70px solid rgba(255,255,255,.045)}
+  .hero-copy{position:relative;z-index:2;width:65%;min-width:470px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:900;letter-spacing:.16em;color:#fbe8ac;text-transform:uppercase}
+  h1{font-size:clamp(33px,3.6vw,56px);line-height:1.03;letter-spacing:-.045em;margin:15px 0 8px;font-weight:950;text-transform:uppercase;text-shadow:0 3px 0 rgba(0,0,0,.11)}
+  h1 .gold{color:#ffcc75}
+  .hero-sub{color:#d8f2f1;font-size:17px;font-weight:700;margin:0 0 10px}
+  .hero-description{color:#daf2f0;font-size:14px;line-height:1.5;max-width:730px;margin:0}
+  .hero-art{position:absolute;height:103%;width:47%;right:-10px;bottom:-4px;opacity:.96}
+  .top-actions{margin:16px 0;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .status-pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #d8e9e6;border-radius:999px;padding:9px 14px;color:#245969;font-weight:800;font-size:13px;box-shadow:0 5px 15px rgba(18,70,83,.06)}
+  .status-pill b{color:#d75c2b}
+  .grow{flex:1}
+  .tool-btn{background:#fff;border:1px solid #cfe5e0;color:#1d6472;font-size:13px;border-radius:13px;padding:10px 14px;font-weight:900;box-shadow:0 4px 14px rgba(12,66,80,.06);transition:transform .18s}
+  .tool-btn:hover{transform:translateY(-2px)}
+  .panel{background:rgba(255,255,255,.94);border:1px solid rgba(176,218,211,.8);border-radius:26px;padding:20px;box-shadow:var(--shadow)}
+  .section-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+  .section-kicker{font-size:12px;color:#c67b3b;text-transform:uppercase;letter-spacing:.16em;font-weight:900;margin:0 0 4px}
+  h2{font-size:26px;letter-spacing:-.03em;margin:0;color:#0a4b60;font-weight:950}
+  .section-description{font-size:13px;line-height:1.5;color:var(--muted);margin:6px 0 0;max-width:740px}
+  .race-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .race-tools label{font-size:13px;font-weight:900;color:#496976}
+  #stageSelect{background:#f5faf8;color:#164e5c;border:1px solid #c6dfda;border-radius:12px;padding:9px 11px;font-weight:900;cursor:pointer}
+  .races{display:grid;gap:12px}
+  .lane{--boat-color:#fba85f;--team-tint:#fff1df;display:grid;grid-template-columns:180px minmax(280px,1fr) 145px;align-items:center;gap:15px;padding:12px 14px;border:1px solid #daebe6;background:linear-gradient(115deg,var(--team-tint),#ffffff 46%);border-radius:19px;position:relative;transition:border-color .3s,box-shadow .3s}
+  .lane.winner-lane{border:2px solid #f7b738;box-shadow:0 0 0 4px #fff0b9}
+  .lane.burst{animation:lanePulse .55s ease}
+  @keyframes lanePulse{0%,100%{filter:brightness(1)}45%{filter:brightness(1.11)}}
+  .team-label{display:flex;align-items:flex-start;gap:11px;min-width:0}
+  .team-medal{flex:0 0 38px;height:38px;display:grid;place-items:center;border-radius:13px;background:var(--boat-color);color:#123344;font-weight:950;font-size:19px;border:2px solid rgba(255,255,255,.7);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+  .team-name{font-weight:950;font-size:17px;color:#124b61;line-height:1.13;margin-top:2px}
+  .team-small{color:#597682;font-size:11px;font-weight:800;margin-top:5px}
+  .river-track{position:relative;height:80px;min-width:220px;overflow:hidden;border-radius:15px;background:
+      radial-gradient(ellipse at 60% 35%,rgba(196,255,250,.20),transparent 47%),
+      linear-gradient(180deg,#00798f,#088da3 48%,#09677e);box-shadow:inset 0 3px 12px rgba(0,40,65,.18),0 3px 0 rgba(255,255,255,.7)}
+  .river-track:before{content:"";position:absolute;inset:0;opacity:.23;background:repeating-linear-gradient(105deg,transparent 0 28px,rgba(255,255,255,.27) 30px 32px,transparent 33px 63px);animation:riverFlow 9s linear infinite}
+  @keyframes riverFlow{from{background-position:0 0}to{background-position:270px 0}}
+  .start-line,.finish-line{position:absolute;top:0;bottom:0;width:3px;background:rgba(255,255,255,.8);z-index:1}
+  .start-line{left:7%;opacity:.45}
+  .finish-line{left:91%;background:repeating-linear-gradient(180deg,white 0 8px,#093d4c 8px 16px);width:8px;border-radius:3px}
+  .milestone{position:absolute;top:5px;z-index:1;color:rgba(255,255,255,.82);font-size:10px;font-weight:950;text-shadow:0 1px 2px #054c67;letter-spacing:.06em;pointer-events:none;white-space:nowrap}
+  .milestone.start{left:8%}
+  .milestone.end{right:1%;top:5px}
+  .dots{position:absolute;left:7%;right:9%;top:50%;height:2px;border-top:2px dashed rgba(236,254,250,.35);z-index:0}
+  .checkpoint{position:absolute;z-index:1;top:53%;width:8px;height:8px;border-radius:50%;background:#b6f9ef;box-shadow:0 0 0 4px rgba(255,255,255,.12);transform:translate(-50%,-50%)}
+  .boat-wrapper{position:absolute;top:50%;left:7%;width:106px;height:67px;transform:translate(-50%,-50%);z-index:3;transition:left .85s cubic-bezier(.2,.8,.22,1)}
+  .boat-floating{width:100%;height:100%;animation:float 2.2s ease-in-out infinite}
+  .boat-floating svg{width:100%;height:100%;filter:drop-shadow(0 4px 2px rgba(0,36,54,.20));overflow:visible}
+  @keyframes float{0%,100%{transform:translateY(1px) rotate(-1deg)}50%{transform:translateY(-3px) rotate(1deg)}}
+  .boat-wrapper:before{content:"";position:absolute;right:65%;top:63%;width:36px;height:8px;border-radius:50%;border-top:2px dashed rgba(255,255,255,.68);opacity:.65}
+  .lane-controls{display:flex;align-items:center;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+  .move-btn{border:0;border-radius:13px;padding:11px 13px;font-size:14px;font-weight:950;box-shadow:0 5px 10px rgba(3,77,83,.12);transition:transform .17s}
+  .move-btn:hover{transform:translateY(-2px)}
+  .forward{background:#12a88e;color:#fff}
+  .back{background:#ffe6df;color:#a9482c}
+  .progress{width:100%;color:#517481;font-size:12px;font-weight:950;text-align:right;letter-spacing:.03em}
+  .champion{margin-top:15px;display:none;align-items:center;justify-content:center;gap:12px;background:linear-gradient(100deg,#fff3c8,#fff9e8);border:2px solid #f7d176;border-radius:17px;padding:13px 20px;color:#885713;font-size:18px;font-weight:950;text-align:center}
+  .champion.show{display:flex}
+  .board-panel{margin-top:20px}
+  .question-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .mystery{position:relative;overflow:hidden;min-height:144px;border:2px solid #c3e5d9;border-radius:19px;background:
+    radial-gradient(circle at 80% 14%,rgba(255,255,255,.68),transparent 30%),
+    linear-gradient(150deg,#fffaf2,#e4f4ed);box-shadow:0 9px 17px rgba(15,73,72,.09);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .18s,border-color .18s,box-shadow .18s;color:#0c5065}
+  .mystery:hover{transform:translateY(-4px);box-shadow:0 15px 25px rgba(15,73,72,.13);border-color:#f9ba6a}
+  .mystery:before,.mystery:after{content:"";position:absolute;width:94px;height:94px;border:2px solid rgba(4,148,151,.08);transform:rotate(42deg);border-radius:20px;pointer-events:none}
+  .mystery:before{top:-70px;left:-40px}
+  .mystery:after{bottom:-75px;right:-30px}
+  .mystery-number{display:grid;place-items:center;background:linear-gradient(135deg,#ea9756,#ffce83);color:#fff;font-size:21px;font-weight:950;width:46px;height:46px;border-radius:50%;box-shadow:0 5px 12px rgba(216,123,54,.23)}
+  .question-mark{font-size:53px;font-weight:950;color:#078b96;line-height:1.06;text-shadow:0 5px 0 rgba(0,143,151,.07)}
+  .mystery.done{background:linear-gradient(145deg,#edf9f2,#f6fbef);border-color:#71c9a7}
+  .mystery.done .question-mark{color:#31a77b}
+  .box-done{position:absolute;top:11px;right:12px;color:#228866;font-weight:900;font-size:11px;text-transform:uppercase}
+  .board-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .board-count{font-size:13px;font-weight:800;color:#537683}
+  .foot-actions{display:flex;gap:9px;flex-wrap:wrap}
+  .footer{margin-top:16px;color:#65808a;text-align:center;font-weight:700;font-size:12px}
+  .modal{position:fixed;inset:0;background:rgba(0,29,46,.73);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+  .modal.show{display:flex}
+  .question-dialog{background:#fffef8;border:2px solid #fff;border-radius:26px;width:min(880px,96vw);max-height:95vh;overflow:auto;box-shadow:0 35px 80px rgba(0,0,0,.3);animation:popIn .2s ease}
+  @keyframes popIn{from{opacity:.5;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .dialog-head{background:linear-gradient(115deg,#084c63,#078b95);padding:17px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:#fff}
+  .dialog-head-tag{letter-spacing:.16em;text-transform:uppercase;color:#ffda8d;font-size:12px;font-weight:950}
+  .dialog-head-name{font-weight:950;font-size:24px;margin:4px 0 0}
+  .x-btn{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.35);width:40px;height:40px;border-radius:12px;font-weight:900;font-size:22px}
+  .dialog-body{padding:clamp(19px,3vw,30px)}
+  .source-label{display:inline-block;font-size:12px;font-weight:950;background:#eaf7f2;color:#12776b;border-radius:99px;padding:8px 12px;letter-spacing:.05em}
+  .big-question{font-size:clamp(23px,3.4vw,36px);line-height:1.28;font-weight:950;color:#103f58;letter-spacing:-.025em;margin:16px 0 24px}
+  .answer{display:none;background:#eef8ec;border:2px solid #acd9b5;border-radius:16px;padding:16px 18px;margin:0 0 15px}
+  .answer.show{display:block;animation:popIn .2s ease}
+  .answer-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#2c8260;font-weight:950}
+  .answer-main{font-size:clamp(23px,3vw,31px);font-weight:950;color:#14533b;margin-top:6px}
+  .answer-explain{font-size:15px;line-height:1.55;color:#447162;margin-top:8px}
+  .dialog-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .action-btn{border:0;border-radius:13px;padding:12px 15px;font-weight:950;font-size:14px;transition:transform .17s;box-shadow:0 4px 10px rgba(13,63,79,.08)}
+  .action-btn:hover{transform:translateY(-2px)}
+  .show-answer{background:#ffc576;color:#623a0c}
+  .hide-answer{background:#e8f3f6;color:#315a67}
+  .mark-used{background:#d9f6e8;color:#226848}
+  .award-title{font-size:13px;font-weight:950;color:#446875;border-top:1px solid #dcece8;margin:21px 0 11px;padding-top:18px}
+  .award-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .award-btn{background:var(--team-tint);border:2px solid var(--boat-color);color:#17465b;border-radius:14px;min-height:58px;padding:9px 8px;font-size:13px;font-weight:950;line-height:1.3}
+  .award-btn:hover{filter:brightness(.96);transform:translateY(-2px)}
+  .toast{position:fixed;z-index:50;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#074a5d;color:#fff;padding:13px 21px;border-radius:16px;font-size:15px;font-weight:950;box-shadow:0 14px 35px rgba(0,0,0,.24);transition:opacity .25s,transform .25s;text-align:center;max-width:90vw}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .confetti{pointer-events:none;position:fixed;z-index:60;top:-20px;border-radius:2px;animation:fall var(--time,2.7s) linear forwards}
+  @keyframes fall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(950deg);opacity:0}}
+  @media(max-width:1060px){.lane{grid-template-columns:160px minmax(220px,1fr) 115px;gap:9px}.team-name{font-size:15px}.hero-copy{min-width:400px}}
+  @media(max-width:790px){.hero-copy{min-width:0;width:100%}.hero-art{opacity:.25;width:75%}.hero{min-height:220px}.lane{grid-template-columns:1fr auto;gap:10px}.river-track{grid-column:1/-1;grid-row:2;height:76px}.lane-controls{grid-column:2;grid-row:1}.team-small{font-size:11px}.question-board{grid-template-columns:repeat(4,1fr);gap:9px}.mystery{min-height:120px}.award-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:540px){h1{font-size:35px}.panel{padding:14px}.hero{padding:22px 18px}.question-board{grid-template-columns:repeat(2,1fr)}.mystery{min-height:130px}.lane{padding:10px}.team-medal{height:33px;flex-basis:33px;font-size:16px}.team-name{font-size:15px}.lane-controls{gap:4px}.move-btn{padding:9px}.progress{font-size:11px}.award-grid{grid-template-columns:repeat(2,1fr)}.big-question{font-size:24px}.dialog-head-name{font-size:21px}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Nhúng trong slide bài giảng (khung ~630px cao): gọn lại để không phải cuộn.
+   Mở riêng toàn màn hình (cao > 700px) thì giữ nguyên thiết kế gốc của cô. */
+@media (max-height:700px) and (min-width:1000px){
+.app{display:grid !important;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:8px 12px;align-items:start;padding:8px 14px 6px !important;max-width:none !important}
+  .hero{display:none !important}
+  .top-actions{grid-column:1/-1;margin:0 !important}
+  .app>.panel{margin:0 !important;padding:10px 14px !important}
+  .section-top{margin-bottom:8px !important;gap:8px !important}
+  .section-top p{display:none}
+  .races{gap:8px !important}
+  .lane{min-height:0 !important;height:auto !important;padding:6px 10px !important}
+  .question-board{grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:8px !important}
+  .mystery{height:auto !important;min-height:0 !important;padding:8px 4px !important;gap:4px !important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">⛵ Unit 6 · Culture · Game 03</div>
+      <h1>Heritage<br><span class="gold">Boat Race</span></h1>
+      <p class="hero-sub">Preserving Heritage Around the World</p>
+      <p class="hero-description">8 mystery questions · 4 heritage boats · Answer correctly and sail towards the finish line!</p>
+    </div>
+    <svg class="hero-art" aria-hidden="true" viewBox="0 0 590 260" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="heroWater" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#47b8b7"/><stop offset="1" stop-color="#0a6578"/></linearGradient>
+        <linearGradient id="heroHill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8cd4b4"/><stop offset="1" stop-color="#196f73"/></linearGradient>
+      </defs>
+      <circle cx="410" cy="64" r="38" fill="#ffce78" opacity=".95"/>
+      <path d="M0 191 L68 100 Q84 85 105 99 L170 188 L198 141 Q227 94 253 126 L297 197Z" fill="#4aa395" opacity=".6"/>
+      <path d="M180 205 L263 73 Q290 41 313 83 L360 167 L395 96 Q414 55 438 104 L498 196 L565 127 L590 154 L590 260 L0 260Z" fill="url(#heroHill)"/>
+      <path d="M225 180 L267 108 Q289 83 310 112 L341 177 Q290 164 225 180M405 175 L429 115 Q450 86 462 117 L505 183Z" fill="#c8edd0" opacity=".5"/>
+      <path d="M0 194 Q80 170 153 197 Q222 220 305 192 Q401 168 484 199 Q530 217 590 196V260H0Z" fill="url(#heroWater)"/>
+      <path d="M10 224 Q86 213 150 227 T305 224 T493 225 T610 225" fill="none" stroke="#cbffed" opacity=".5" stroke-width="4"/>
+      <path d="M30 243 Q101 229 172 242 T329 239 T493 242" fill="none" stroke="#f0ffdf" opacity=".25" stroke-width="2"/>
+      <g transform="translate(302 180)">
+        <path d="M0 13 L128 13 L103 43 L24 43Z" fill="#ffa35b"/>
+        <path d="M12 14H118" stroke="#fff0cb" stroke-width="4"/>
+        <path d="M64 13 V-74" stroke="#f5ead1" stroke-width="5" stroke-linecap="round"/>
+        <path d="M61 -70 L61 8 L10 8Z" fill="#fff2c7"/>
+        <path d="M68 -58 L112 7 L68 7Z" fill="#ffd172"/>
+        <path d="M39 34H94" stroke="#8b4b27" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </header>
+
+  <div class="top-actions">
+    <span class="status-pill">📘 In the book: <b>3</b> questions</span>
+    <span class="status-pill">✨ Extra practice: <b>5</b> questions</span>
+    <span class="status-pill">🎯 Goal: <b id="goalPill">2</b> correct answers to finish</span>
+    <div class="grow"></div>
+    <button type="button" class="tool-btn" id="soundToggle">🔊 Sound on</button>
+    <button type="button" class="tool-btn" id="fullscreenBtn">⛶ Full screen</button>
+  </div>
+
+  <section class="panel" aria-labelledby="arenaHeading">
+    <div class="section-top">
+      <div>
+        <div class="section-kicker">The race arena</div>
+        <h2 id="arenaHeading">🌊 Race Across Trang An</h2>
+        <p class="section-description">Teacher controls the boats. Correct answer → <strong>+ Sail</strong>. To undo → <strong>− Back</strong>. First boat to reach the finish line wins!</p>
+      </div>
+      <div class="race-tools">
+        <label for="stageSelect">Race length:</label>
+        <select id="stageSelect" aria-label="Race length">
+          <option value="2">2 steps (8 questions)</option>
+          <option value="3">3 steps (challenge)</option>
+        </select>
+        <button type="button" class="tool-btn" id="resetRace">↺ Reset race</button>
+      </div>
+    </div>
+    <div class="races" id="races"></div>
+    <div class="champion" id="champion" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="panel board-panel" aria-labelledby="boardHeading">
+    <div class="section-top">
+      <div>
+        <div class="section-kicker">Open the mystery</div>
+        <h2 id="boardHeading">🎁 Hidden Question Boxes</h2>
+        <p class="section-description">Click any box to show its question. No clues or answers appear before opening it.</p>
+      </div>
+      <button type="button" class="tool-btn" id="randomBtn">🎲 Random Box</button>
+    </div>
+    <div class="question-board" id="questionBoard"></div>
+    <div class="board-footer">
+      <span class="board-count" id="boardCount" aria-live="polite">0 / 8 opened and completed</span>
+      <div class="foot-actions">
+        <button type="button" class="tool-btn" id="showLeader">🏆 Show leader</button>
+        <button type="button" class="tool-btn" id="resetQuestions">↺ Reset boxes</button>
+      </div>
+    </div>
+  </section>
+  <p class="footer">Unit 6 · Preserving Heritage · Culture · Offline HTML classroom game</p>
+</div>
+
+<div class="modal" id="questionModal" role="dialog" aria-modal="true" aria-labelledby="dialogName" aria-hidden="true">
+  <div class="question-dialog">
+    <div class="dialog-head">
+      <div>
+        <div class="dialog-head-tag">Preserving Heritage · Culture</div>
+        <div id="dialogName" class="dialog-head-name">Question 01 / 08</div>
+      </div>
+      <button type="button" class="x-btn" id="closeDialog" aria-label="Close question">×</button>
+    </div>
+    <div class="dialog-body">
+      <span class="source-label" id="questionSource">IN THE BOOK</span>
+      <p class="big-question" id="questionText"></p>
+      <div class="answer" id="answerPanel" aria-live="polite">
+        <div class="answer-label">✅ Correct answer</div>
+        <div class="answer-main" id="answerText"></div>
+        <div class="answer-explain" id="answerExplain"></div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="action-btn show-answer" id="showAnswer">👀 Show Answer</button>
+        <button type="button" class="action-btn hide-answer" id="hideAnswer">🙈 Hide Answer</button>
+        <button type="button" class="action-btn mark-used" id="completeQuestion">✓ Mark completed</button>
+      </div>
+      <div class="award-title">⛵ Teacher: award +1 sailing step to the team that answered correctly</div>
+      <div class="award-grid" id="modalAwardButtons"></div>
+    </div>
+  </div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+// Reading-based questions: three from the textbook and five new, directly grounded in the passage.
+const questions = [
+  {
+    q: 'Which country raises money from the public for restoring its heritage?',
+    answer: 'Italy',
+    explain: 'Italy uses crowdfunding to collect donations for heritage projects.',
+    source: 'In the book'
+  },
+  {
+    q: 'Which country organises successful festivals that attract visitors from around the world?',
+    answer: 'Spain',
+    explain: 'Festivals such as La Tomatina and Las Fallas attract local and foreign tourists.',
+    source: 'In the book'
+  },
+  {
+    q: 'Which country fines people heavily if they damage its heritage?',
+    answer: 'Australia',
+    explain: 'Australia uses strict heritage laws and fines to protect cultural sites and objects.',
+    source: 'In the book'
+  },
+  {
+    q: 'What is the name of the non-profit organisation that collects donations to preserve Italian heritage?',
+    answer: 'loveitaly (LoveItaly)',
+    explain: 'LoveItaly uses a website to reach supporters and collect donations from around the world.',
+    source: 'Extra question'
+  },
+  {
+    q: 'In which ancient Italian city did crowdfunding help restore a heritage site?',
+    answer: 'Pompeii',
+    explain: 'One of LoveItaly’s first success stories was raising enough money to restore an ancient site in Pompeii.',
+    source: 'Extra question'
+  },
+  {
+    q: 'According to the text, what is the usual range of fines for damaging heritage sites or objects in Australia?',
+    answer: 'AU$1,000 – AU$5,000',
+    explain: 'The text mentions fines from AU$1,000 to AU$5,000, and even heavier penalties in some cases.',
+    source: 'Extra question'
+  },
+  {
+    q: 'At which Spanish festival do people throw tomatoes at each other?',
+    answer: 'La Tomatina',
+    explain: 'La Tomatina is the Spanish festival where people throw tomatoes at one another.',
+    source: 'Extra question'
+  },
+  {
+    q: 'What is the name of the five-day festival in Valencia that features fireworks and light shows?',
+    answer: 'Las Fallas',
+    explain: 'The passage describes Las Fallas in Valencia as a five-day festival featuring fireworks and light shows.',
+    source: 'Extra question'
+  }
+];
+
+const teams = [
+  {name:'Hoi An',short:'The Lantern Crew',icon:'🏮',color:'#ffc06b',tint:'#fff3df'},
+  {name:'Trang An',short:'The Mountain Crew',icon:'⛰',color:'#79d8cc',tint:'#e7f8f3'},
+  {name:'Mekong Delta',short:'The River Crew',icon:'🌾',color:'#9cc9ff',tint:'#edf5ff'},
+  {name:'Hue Citadel',short:'The Imperial Crew',icon:'🏯',color:'#d9b6ff',tint:'#f5edff'}
+];
+const state = {
+  steps:[0,0,0,0],
+  used:Array(8).fill(false),
+  target:2,
+  winner:null,
+  sound:true
+};
+let activeQuestion = -1;
+let toastTimer = null;
+let audioContext = null;
+
+function save(){
+  try{localStorage.setItem('heritage-boat-race-u6-culture-v1',JSON.stringify(state));}catch(e){}
+}
+function restore(){
+  try{
+    const s=JSON.parse(localStorage.getItem('heritage-boat-race-u6-culture-v1')||'null');
+    if(!s) return;
+    if(Array.isArray(s.steps)&&s.steps.length===4){state.steps=s.steps.map(v=>Number.isFinite(v)?Math.min(3,Math.max(0,Math.floor(v))):0);}
+    if(Array.isArray(s.used)&&s.used.length===questions.length){state.used=s.used.map(Boolean);}
+    if(s.target===2||s.target===3)state.target=s.target;
+    if(s.winner===null||(Number.isInteger(s.winner)&&s.winner>=0&&s.winner<4))state.winner=s.winner;
+    if(typeof s.sound==='boolean')state.sound=s.sound;
+    if(state.winner!==null && state.steps[state.winner]<state.target) state.winner=null;
+    state.steps=state.steps.map(v=>Math.min(state.target,v));
+  }catch(e){}
+}
+function boatSvg(color){
+  return `<svg viewBox="0 0 116 72" role="img" aria-label="Sailing boat">
+  <ellipse cx="59" cy="61" rx="37" ry="4" fill="rgba(2,42,54,.14)" />
+  <path d="M16 47 L106 47 L90 63 Q54 70 33 63 Z" fill="#96563a" stroke="#fcd99e" stroke-width="2.3"/>
+  <path d="M28 54 Q59 60 95 53" fill="none" stroke="#e6ae71" stroke-width="3"/>
+  <path d="M57 47 L57 5" stroke="#fff3d7" stroke-linecap="round" stroke-width="4"/>
+  <path d="M54 8 L54 44 L14 44 Q29 17 54 8Z" fill="${color}" stroke="white" stroke-opacity=".8" stroke-width="1.5"/>
+  <path d="M62 14 L62 43 L97 43 Z" fill="#fff8d7" stroke="white" stroke-opacity=".7" stroke-width="1.5"/>
+  <path d="M58 4 L71 10 L58 14Z" fill="#ffdf81"/>
+  </svg>`;
+}
+function progressPips(n){return Array.from({length:state.target},(_,i)=>i<n?'◆':'◇').join(' ');}
+function renderRaces(){
+  const root=document.getElementById('races');
+  root.innerHTML='';
+  teams.forEach((team,i)=>{
+    const lane=document.createElement('div');
+    lane.className='lane'+(state.winner===i?' winner-lane':'');
+    lane.style.setProperty('--boat-color',team.color);
+    lane.style.setProperty('--team-tint',team.tint);
+    const percent=7+(state.steps[i]/state.target)*84;
+    const milestones=Array.from({length:state.target-1},(_,j)=>
+      `<span class="checkpoint" style="left:${7+((j+1)/state.target)*84}%"></span>`).join('');
+    lane.innerHTML=`
+      <div class="team-label"><div class="team-medal">${team.icon}</div>
+        <div><div class="team-name">${team.name}</div><div class="team-small">${team.short}</div></div>
+      </div>
+      <div class="river-track" aria-label="${team.name}, ${state.steps[i]} of ${state.target} steps completed">
+        <div class="dots"></div><div class="start-line"></div><div class="finish-line"></div>
+        ${milestones}
+        <span class="milestone start">START</span><span class="milestone end">🏁 FINISH</span>
+        <div class="boat-wrapper" style="left:${percent}%"><div class="boat-floating">${boatSvg(team.color)}</div></div>
+      </div>
+      <div class="lane-controls">
+        <button type="button" class="move-btn back" data-team="${i}" data-delta="-1" aria-label="Move ${team.name} back one step" ${state.steps[i]===0?'disabled':''}>− Back</button>
+        <button type="button" class="move-btn forward" data-team="${i}" data-delta="1" aria-label="Move ${team.name} forward one step" ${state.steps[i]===state.target?'disabled':''}>+ Sail</button>
+        <div class="progress">${progressPips(state.steps[i])}&nbsp; ${state.steps[i]}/${state.target}</div>
+      </div>`;
+    root.appendChild(lane);
+  });
+  const champion=document.getElementById('champion');
+  if(state.winner!==null){
+    champion.textContent=`🏆 ${teams[state.winner].name} has reached the finish line first! Congratulations! 🎉`;
+    champion.classList.add('show');
+  }else{champion.classList.remove('show');champion.textContent='';}
+  document.getElementById('stageSelect').value=String(state.target);
+  document.getElementById('goalPill').textContent=String(state.target);
+}
+function award(index,delta){
+  if(!Number.isInteger(index)||index<0||index>3)return;
+  const old=state.steps[index];
+  const next=Math.max(0,Math.min(state.target,old+delta));
+  if(old===next) return;
+  state.steps[index]=next;
+  if(state.winner===index && next<state.target){
+    state.winner=null;
+  }
+  if(state.winner===null){
+    const another=state.steps.findIndex(v=>v===state.target);
+    if(another!==-1) state.winner=another;
+  }
+  const firstWin=state.winner===index && old<state.target && next===state.target;
+  // Move the current boat smoothly rather than replacing the lane mid-animation.
+  const lanes=document.querySelectorAll('.lane');
+  const currentLane=lanes[index];
+  const wrapper=currentLane?.querySelector('.boat-wrapper');
+  if(wrapper){
+    wrapper.style.left=(7+(next/state.target)*84)+'%';
+    currentLane.querySelector('.progress').textContent=progressPips(next)+'  '+next+'/'+state.target;
+    currentLane.querySelector('.river-track').setAttribute('aria-label',`${teams[index].name}, ${next} of ${state.target} steps completed`);
+    currentLane.querySelector('.back').disabled=next===0;
+    currentLane.querySelector('.forward').disabled=next===state.target;
+    currentLane.classList.remove('burst');void currentLane.offsetWidth;currentLane.classList.add('burst');
+  }
+  const champion=document.getElementById('champion');
+  if(state.winner!==null){
+    champion.textContent=`🏆 ${teams[state.winner].name} has reached the finish line first! Congratulations! 🎉`;
+    champion.classList.add('show');
+    lanes[state.winner]?.classList.add('winner-lane');
+  } else {
+    champion.classList.remove('show');champion.textContent='';
+    lanes.forEach(l=>l.classList.remove('winner-lane'));
+  }
+  playSound(delta>0?'forward':'back');
+  if(firstWin){confetti();showToast(`🏆 ${teams[index].name} WINS THE HERITAGE BOAT RACE!`);}
+  else {showToast(`${teams[index].icon} ${teams[index].name}: ${delta>0?'+1 sailing step':'−1 sailing step'} (${next}/${state.target})`);}
+  save();
+}
+function renderBoxes(){
+  const board=document.getElementById('questionBoard');board.innerHTML='';
+  questions.forEach((_,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='mystery'+(state.used[i]?' done':'');
+    b.setAttribute('aria-label',`Open mystery question ${i+1}${state.used[i]?', completed':''}`);
+    b.innerHTML=`<span class="mystery-number">${String(i+1).padStart(2,'0')}</span><span class="question-mark">${state.used[i]?'✓':'?'}</span>${state.used[i]?'<span class="box-done">DONE</span>':''}`;
+    b.addEventListener('click',()=>openQuestion(i));board.appendChild(b);
+  });
+  document.getElementById('boardCount').textContent=`${state.used.filter(Boolean).length} / 8 completed`;
+}
+function openQuestion(index){
+  activeQuestion=index;
+  const q=questions[index];
+  document.getElementById('dialogName').textContent=`Question ${String(index+1).padStart(2,'0')} / 08`;
+  document.getElementById('questionSource').textContent=q.source.toUpperCase();
+  document.getElementById('questionText').textContent=q.q;
+  document.getElementById('answerText').textContent=q.answer;
+  document.getElementById('answerExplain').textContent=q.explain;
+  document.getElementById('answerPanel').classList.remove('show');
+  document.getElementById('questionModal').classList.add('show');
+  document.getElementById('questionModal').setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  document.getElementById('showAnswer').focus();
+}
+function closeQuestion(){
+  document.getElementById('questionModal').classList.remove('show');
+  document.getElementById('questionModal').setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  activeQuestion=-1;
+}
+function completeQuestion(){
+  if(activeQuestion<0)return;
+  state.used[activeQuestion]=true;save();renderBoxes();closeQuestion();
+  showToast('✓ Question completed');
+}
+function openRandom(){
+  const unused=questions.map((_,i)=>i).filter(i=>!state.used[i]);
+  if(!unused.length){showToast('All 8 questions have been completed!');return;}
+  openQuestion(unused[Math.floor(Math.random()*unused.length)]);
+}
+function showLeader(){
+  if(state.winner!==null){showToast(`🏆 The winner is ${teams[state.winner].name}!`);return;}
+  const best=Math.max(...state.steps);
+  const leaders=teams.filter((_,i)=>state.steps[i]===best);
+  if(best===0){showToast('The race has not started yet!');return;}
+  showToast(`⛵ Leading: ${leaders.map(t=>t.name).join(' & ')} (${best}/${state.target} steps)`);
+}
+function showToast(message){
+  const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3600);
+}
+function confetti(){
+  const colors=['#ffce71','#2fd2c0','#ff8f71','#a9b8ff','#ffffff'];
+  for(let i=0;i<70;i++){
+    const piece=document.createElement('div');piece.className='confetti';
+    piece.style.left=Math.random()*100+'vw';piece.style.width=(6+Math.random()*7)+'px';
+    piece.style.height=(8+Math.random()*10)+'px';piece.style.background=colors[i%colors.length];
+    piece.style.setProperty('--time',(1.8+Math.random()*1.7)+'s');piece.style.animationDelay=(Math.random()*.4)+'s';
+    document.body.appendChild(piece);setTimeout(()=>piece.remove(),3900);
+  }
+  playSound('win');
+}
+function playSound(type){
+  if(!state.sound)return;
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext;
+    if(!Ctx)return;
+    audioContext=audioContext||new Ctx();
+    if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+    const now=audioContext.currentTime;
+    const notes=type==='win'?[523,659,784,1047]:type==='back'?[330,275]:[523,659];
+    notes.forEach((freq,i)=>{
+      const osc=audioContext.createOscillator();const gain=audioContext.createGain();
+      osc.type='sine';osc.frequency.value=freq;
+      const t=now+i*.14;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.095,t+.02);gain.gain.exponentialRampToValueAtTime(.0001,t+.2);
+      osc.connect(gain);gain.connect(audioContext.destination);osc.start(t);osc.stop(t+.21);
+    });
+  }catch(e){}
+}
+function resetRace(){
+  if(state.steps.some(v=>v>0)&&!window.confirm('Reset all four boats to the starting line?'))return;
+  state.steps=[0,0,0,0];state.winner=null;renderRaces();save();showToast('⛵ All boats returned to START');
+}
+function resetQuestions(){
+  if(state.used.some(Boolean)&&!window.confirm('Reset all eight mystery question boxes?'))return;
+  state.used=Array(8).fill(false);renderBoxes();save();showToast('🎁 All question boxes reset');
+}
+function changeTarget(value){
+  const target=Number(value);
+  if(target!==2&&target!==3)return;
+  if(target===state.target)return;
+  if(state.steps.some(n=>n>0) && !window.confirm('Changing the race length will restart all boats. Continue?')){
+    document.getElementById('stageSelect').value=String(state.target);return;
+  }
+  state.target=target;state.steps=[0,0,0,0];state.winner=null;renderRaces();save();
+  showToast(`🏁 ${target}-step race is ready!`);
+}
+function init(){
+  restore();renderRaces();renderBoxes();
+  const awardGrid=document.getElementById('modalAwardButtons');
+  teams.forEach((team,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='award-btn';
+    b.style.setProperty('--team-tint',team.tint);b.style.setProperty('--boat-color',team.color);
+    b.textContent=`${team.icon} +1 ${team.name}`;
+    b.addEventListener('click',()=>{
+      if(activeQuestion<0)return;
+      const q=activeQuestion;
+      award(i,1);state.used[q]=true;save();renderBoxes();closeQuestion();
+    });
+    awardGrid.appendChild(b);
+  });
+  document.getElementById('races').addEventListener('click',ev=>{
+    const b=ev.target.closest('[data-team][data-delta]');
+    if(b&&!b.disabled)award(Number(b.dataset.team),Number(b.dataset.delta));
+  });
+  document.getElementById('showAnswer').addEventListener('click',()=>document.getElementById('answerPanel').classList.add('show'));
+  document.getElementById('hideAnswer').addEventListener('click',()=>document.getElementById('answerPanel').classList.remove('show'));
+  document.getElementById('completeQuestion').addEventListener('click',completeQuestion);
+  document.getElementById('closeDialog').addEventListener('click',closeQuestion);
+  document.getElementById('questionModal').addEventListener('click',ev=>{if(ev.target.id==='questionModal')closeQuestion();});
+  window.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&activeQuestion>=0)closeQuestion();});
+  document.getElementById('randomBtn').addEventListener('click',openRandom);
+  document.getElementById('showLeader').addEventListener('click',showLeader);
+  document.getElementById('resetRace').addEventListener('click',resetRace);
+  document.getElementById('resetQuestions').addEventListener('click',resetQuestions);
+  document.getElementById('stageSelect').addEventListener('change',ev=>changeTarget(ev.target.value));
+  document.getElementById('soundToggle').textContent=state.sound?'🔊 Sound on':'🔇 Sound off';
+  document.getElementById('soundToggle').addEventListener('click',ev=>{
+    state.sound=!state.sound;ev.currentTarget.textContent=state.sound?'🔊 Sound on':'🔇 Sound off';save();
+  });
+  document.getElementById('fullscreenBtn').addEventListener('click',async()=>{
+    try{if(document.fullscreenElement){await document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen();}
+      else{showToast('Fullscreen is not supported in this browser.');}}
+    catch(e){showToast('Fullscreen is not available in this browser.');}
+  });
+}
+init();
+</script>
+</body>
+</html>

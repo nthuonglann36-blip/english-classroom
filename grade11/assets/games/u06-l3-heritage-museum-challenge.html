@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123c50">
+<title>Heritage Museum Challenge | Unit 6</title>
+<style>
+:root{--ink:#19364a;--muted:#667a88;--cream:#fffaf0;--gold:#e9b650;--teal:#0f9c91;--orange:#ef803b;--navy:#17384c;--line:#dbe9e7;--white:#fff;--shadow:0 14px 35px rgba(13,58,64,.11)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 5% 10%,#fff0d9 0,transparent 32%),radial-gradient(ellipse at 95% 40%,#d5f8ec 0,transparent 40%),#f8faf5;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible{outline:4px solid #f3bf55;outline-offset:3px}
+.wrap{max-width:1600px;padding:18px 20px 28px;margin:auto}
+.masthead{position:relative;isolation:isolate;overflow:hidden;border-radius:28px;background:linear-gradient(105deg,#174c59,#117e79 58%,#e58e42 135%);color:white;padding:24px 29px 21px;box-shadow:var(--shadow);min-height:160px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.masthead:before{content:"";position:absolute;z-index:-1;width:340px;height:340px;right:130px;top:-250px;border:50px solid rgba(255,255,255,.07);border-radius:50%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);font-size:12px;font-weight:900;letter-spacing:.14em;padding:8px 12px;border-radius:99px;text-transform:uppercase}
+h1{font-family:Georgia,serif;font-size:clamp(27px,2.8vw,44px);line-height:1.05;letter-spacing:.03em;margin:10px 0 8px;color:#fff4dc}
+.hero-sub{margin:0;font-size:15px;font-weight:750;line-height:1.5;max-width:840px;color:#e7fffa}
+.hero-art{width:170px;min-width:170px;opacity:.9;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}
+.control-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:16px 1px}
+.instructions{display:flex;gap:10px;align-items:center;font-size:14px;color:#305c61;font-weight:760}
+.instructions span.bullet{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:#ebf9f4;color:#148075;display:grid;place-items:center;font-weight:900;border:1px solid #bce3d9}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tool-btn{border:1px solid #bfdad5;border-radius:12px;background:#fff;color:#235367;padding:10px 12px;font-size:13px;font-weight:850;box-shadow:0 5px 12px rgba(10,54,63,.06)}
+.tool-btn:hover{background:#edfaf4}
+.tool-btn.danger{border-color:#f1d1ca;color:#975047}
+.main-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(350px,.96fr);gap:16px;align-items:start}
+.section{background:rgba(255,255,255,.93);border-radius:25px;border:1px solid #ecf0e6;box-shadow:var(--shadow);padding:17px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+h2{font-size:23px;line-height:1.2;margin:0;color:#194356}
+.subtitle{font-size:12px;color:#70858a;margin-top:4px;line-height:1.45}
+.section-note{border-radius:99px;background:#fff4d9;color:#926b17;font-size:11px;font-weight:900;padding:7px 10px;white-space:nowrap}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gallery{--accent:#e4a548;--tint:#fdf0d2;background:linear-gradient(165deg,var(--tint),#fff 70%);border:1px solid var(--accent);border-radius:19px;overflow:hidden;position:relative;min-width:0}
+.gallery[data-gallery="1"]{--accent:#36b3ac;--tint:#e0f9f4}
+.gallery[data-gallery="2"]{--accent:#879edc;--tint:#e9edfc}
+.gallery[data-gallery="3"]{--accent:#cf91b0;--tint:#fae8f2}
+.gallery-top{display:flex;justify-content:space-between;align-items:center;padding:12px 13px 4px;gap:5px}
+.gallery-name{font-size:17px;line-height:1.15;font-weight:950;color:#1d4351}
+.gallery-count{font-size:11px;font-weight:900;color:#546b70;background:rgba(255,255,255,.75);border-radius:99px;padding:6px 9px;white-space:nowrap}
+.gallery-tag{font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:900;color:#567578;margin:1px 14px 5px}
+.exhibits{margin:4px 10px 8px;background:linear-gradient(#fffcf3,#f5f2e5);border:5px solid #dfd6bc;border-bottom:8px solid #d6c9a7;border-radius:15px 15px 8px 8px;box-shadow:inset 0 6px 18px #bba98635;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:7px 6px 5px;min-height:132px}
+.exhibit{min-width:0;text-align:center;background:linear-gradient(125deg,rgba(255,255,255,.8),rgba(248,237,213,.5));border-radius:9px;border:1px solid rgba(188,158,110,.29);padding:5px 1px 4px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:end;overflow:hidden}
+.exhibit:after{content:"";position:absolute;inset:0;border-radius:9px;box-shadow:inset 7px 0 12px rgba(255,255,255,.28);pointer-events:none}
+.art-svg{width:min(80px,92%);height:77px;transition:filter .25s ease,opacity .25s ease,transform .25s ease}
+.exhibit.locked .art-svg{filter:grayscale(1);opacity:.18;transform:scale(.92)}
+.exhibit:not(.locked) .art-svg{filter:drop-shadow(0 5px 5px rgba(0,0,0,.17))}
+.art-name{max-width:100%;font-size:10px;line-height:1.17;font-weight:850;color:#46616a;min-height:23px;display:grid;place-items:center;padding:0 2px}
+.exhibit.locked .art-name{color:#9fa7aa}
+.exhibit.locked .art-name:before{content:"?";font-size:21px;color:#b6bebc;position:absolute;top:26px;left:50%;transform:translateX(-50%);font-weight:900}
+.progress-track{height:6px;margin:0 12px 9px;background:#dce8e2;border-radius:15px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);width:0;transition:width .3s ease}
+.gallery-controls{display:flex;gap:6px;padding:0 11px 12px;align-items:center}
+.gallery-controls button{border:none;border-radius:9px;padding:8px 5px;font-size:12px;font-weight:900;min-width:0}
+.plus-one{background:#138776;color:white;flex:1}
+.plus-two{background:#f8d985;color:#614419;flex:1}
+.undo{background:#fff;border:1px solid #d4e4dd!important;color:#576e71;flex:.7}
+.gallery.won{box-shadow:0 0 0 3px #ffce63,0 10px 24px #ffce6385}
+.winner-tag{position:absolute;top:42px;right:10px;border-radius:99px;background:#f6ca51;color:#5a410e;padding:5px 10px;font-size:10px;font-weight:1000;display:none;z-index:2}
+.gallery.won .winner-tag{display:block}
+
+.question-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.mystery{height:124px;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;border:none;border-radius:15px;background:linear-gradient(148deg,#fff9e9,#fcebd1);color:#23485a;box-shadow:inset 0 0 0 2px #e4c786,0 6px 12px #e5d9bc55;transition:transform .16s ease,background .16s ease}
+.mystery:hover{transform:translateY(-3px);background:linear-gradient(148deg,#fffbea,#f4dcad)}
+.mystery:before,.mystery:after{content:"";position:absolute;left:10px;right:10px;height:1px;background:#debd79;opacity:.7}
+.mystery:before{top:11px}.mystery:after{bottom:11px}
+.mystery .number{font-size:14px;letter-spacing:.12em;font-weight:900;color:#977036}
+.mystery .qm{font-family:Georgia,serif;font-weight:900;font-size:48px;line-height:1;color:#c47a30;text-shadow:0 4px 0 #fff9eb}
+.mystery.used{background:linear-gradient(140deg,#dff5e9,#eefdf4);box-shadow:inset 0 0 0 2px #a1d7be}
+.mystery.used .qm{color:#27977e}
+.mystery.used:before,.mystery.used:after{background:#a1d7be}
+.board-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px;color:#657b81;font-size:12px}
+.box-counter{font-weight:900;color:#315e62}
+.tip-panel{display:flex;align-items:flex-start;gap:12px;margin-top:13px;background:linear-gradient(100deg,#f7faf4,#e8f8f2);border:1px solid #d5e9dd;border-radius:14px;padding:13px;color:#507477;font-size:13px;line-height:1.5}
+.tip-badge{font-weight:900;color:#11867e;white-space:nowrap}
+
+.modal-backdrop{position:fixed;inset:0;background:rgba(11,30,39,.66);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.modal-backdrop.open{display:flex}
+.modal{background:#fffdfa;border-radius:25px;width:min(820px,100%);max-height:min(91vh,860px);overflow:auto;box-shadow:0 25px 70px rgba(0,0,0,.3);border:1px solid #fff6de}
+.modal-head{background:linear-gradient(120deg,#145f6a,#16968c);color:#fff;padding:17px 22px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal-num{font-size:13px;font-weight:850;letter-spacing:.13em;color:#ccfff2;text-transform:uppercase}
+.modal-title{font-size:24px;font-family:Georgia,serif;font-weight:900;margin-top:3px}
+.modal-close{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:10px;padding:9px 13px;font-weight:900}
+.modal-body{padding:22px}
+.type-label{display:inline-flex;align-items:center;background:#e8f5f1;color:#187f78;border-radius:99px;padding:7px 11px;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:11px}
+.question-text{font-size:clamp(21px,2.4vw,30px);font-weight:900;line-height:1.3;color:#174254;margin:0 0 9px}
+.question-context{font-size:15px;line-height:1.4;color:#61727a;margin:0 0 14px}
+.answer-reveal{display:none;background:#eef9ec;border:2px dashed #9ed2ac;border-radius:17px;padding:15px 16px;margin-top:13px}
+.answer-reveal.open{display:block}
+.answer-caption{font-weight:900;color:#44824d;letter-spacing:.09em;font-size:11px;text-transform:uppercase}
+.answer-text{font-size:25px;line-height:1.35;font-weight:900;color:#205e39;margin-top:4px}
+.answer-explain{color:#426c54;font-size:14px;line-height:1.5;margin-top:7px}
+.lucky-panel{text-align:center;margin:0 0 13px;background:linear-gradient(140deg,#fff8d8,#fff0a5);border:2px solid #f2d27b;border-radius:18px;padding:20px}
+.lucky-star{font-size:54px;line-height:1.2;color:#d6a630}
+.lucky-title{font-family:Georgia,serif;color:#9a6814;font-size:32px;font-weight:950;margin-top:6px}
+.lucky-text{font-size:17px;line-height:1.48;color:#6d5525;margin-top:8px}
+.lucky-panel .minor{font-size:13px;color:#9b742d;margin-top:8px}
+.modal-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.action{border:none;border-radius:11px;padding:11px 14px;font-weight:900;font-size:14px}
+.action.show{background:#ee9349;color:#fff}
+.action.used{background:#e0f5eb;color:#176b4c}
+.action.next{background:#e8f3ff;color:#276083}
+.action.close{background:#ecf1f3;color:#49616c}
+.award-area{border-top:1px dashed #d9e5dc;margin-top:20px;padding-top:14px}
+.award-header{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;color:#244d57;margin-bottom:10px}
+.award-hint{font-size:12px;color:#829192;font-weight:650}
+.award-buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.award-btn{border:1px solid #bddfd2;border-radius:11px;background:#e9f8f1;color:#206b57;padding:10px 5px;font-size:12px;font-weight:900;line-height:1.35}
+.award-btn:hover{background:#caeedb}
+.award-btn.lucky{background:#fff2c8;border-color:#f2d37c;color:#87621d}
+.reading-modal .modal{width:min(980px,100%)}
+.reading-scroll{font-size:14px;line-height:1.7;color:#42555c}
+.reading-scroll h3{font-family:Georgia,serif;color:#227b77;margin:14px 0 5px;font-size:20px}
+.reading-scroll p{margin:0 0 10px}
+.reading-scroll .intro{background:#fff5e4;padding:12px;border-radius:12px;margin-bottom:10px}
+.key-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}
+.key-item{border:1px solid #e3ebe5;border-radius:10px;background:#f6fbf8;padding:10px;font-size:13px;line-height:1.5}
+.key-item b{color:#157e75}
+.winner-toast{position:fixed;top:24px;left:50%;transform:translate(-50%,-170%);width:min(650px,90vw);background:linear-gradient(110deg,#ffda76,#fff1bc);border:3px solid #e8b044;box-shadow:0 20px 50px #0004;color:#70500e;padding:17px 22px;text-align:center;border-radius:22px;z-index:100;transition:transform .45s cubic-bezier(.2,.8,.2,1);font-size:22px;font-weight:900}
+.winner-toast.show{transform:translate(-50%,0)}
+.winner-toast small{display:block;font-size:13px;font-weight:700;margin-top:5px}
+.winner-dismiss{border:none;background:#8c6421;color:#fff;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:900;margin-top:11px}
+.legend{font-size:12px;color:#637b7c;margin:14px 3px 2px;text-align:center;line-height:1.4}
+@media(min-width:1350px){.mystery{height:131px}.exhibits{min-height:142px}.art-svg{height:86px}.gallery{min-height:265px}}
+@media(max-width:1180px){.main-layout{grid-template-columns:1fr}.mystery{height:125px}.question-board{grid-template-columns:repeat(4,1fr)}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.wrap{padding:10px}.masthead{padding:17px 18px;min-height:initial}.hero-art{display:none}.instructions{font-size:12px}.section{padding:13px}.gallery-grid{grid-template-columns:1fr}.gallery-name{font-size:18px}.exhibits{min-height:137px}.question-board{grid-template-columns:repeat(3,1fr)}.mystery{height:110px}.award-buttons{grid-template-columns:repeat(2,1fr)}.modal-body{padding:16px}.modal-head{padding:15px}.modal-title{font-size:21px}.section-head{align-items:start}.section-note{white-space:normal}.winner-toast{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+/* Nhúng trong slide bài giảng (khung ~630px cao): gọn lại để không phải cuộn.
+   Mở riêng toàn màn hình (cao > 700px) thì giữ nguyên thiết kế gốc của cô. */
+@media (max-height:700px) and (min-width:1000px){
+.wrap{padding:8px 14px 6px}
+  .masthead,.tip-panel,.legend{display:none}
+  .control-strip{margin:0 0 8px}
+  .section{padding:10px 12px}
+  .section-head{margin-bottom:6px}
+  .section-head h2{font-size:20px}
+  .gallery-grid{gap:8px}
+  .gallery-top{padding:6px 10px 2px}
+  .gallery-tag{display:none}
+  .exhibits{margin:2px 8px 6px}
+  .exhibit{padding-top:4px !important;padding-bottom:4px !important}
+  .gallery-controls{padding:0 8px 8px}
+  .question-board{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .mystery{height:74px;gap:2px}
+  .mystery .qm{font-size:30px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+  <div>
+    <span class="eyebrow">Unit 6 | Preserving Heritage | Reading</span>
+    <h1>THE HERITAGE MUSEUM CHALLENGE</h1>
+    <p class="hero-sub">Become a museum curator! Answer reading questions, uncover the lucky discovery, and collect 4 exhibits to complete your heritage gallery.</p>
+  </div>
+  <svg class="hero-art" viewBox="0 0 180 132" aria-hidden="true"><path fill="#f9d691" d="M16 45 90 7l74 38v11H16z"/><path fill="#fff2bf" d="M25 57h130v10H25zM13 117h154v10H13z"/><g fill="#ffe5a6"><path d="M31 69h18v47H31zM64 69h18v47H64zM98 69h18v47H98zM131 69h18v47h-18z"/></g><g fill="#ab7540"><rect x="35" y="67" width="10" height="4"/><rect x="68" y="67" width="10" height="4"/><rect x="102" y="67" width="10" height="4"/><rect x="135" y="67" width="10" height="4"/></g><circle cx="90" cy="36" r="11" fill="#0e817c"/><path d="M90 27v18m-9-9h18" stroke="#ffe8b5" stroke-width="3"/></svg>
+</header>
+<div class="control-strip">
+  <div class="instructions"><span class="bullet">1</span> Open a mystery box <span class="bullet">2</span> Reveal the answer <span class="bullet">3</span> Teacher awards exhibits</div>
+  <div class="tools">
+    <button class="tool-btn" id="readingBtn">Reading A / B / C</button>
+    <button class="tool-btn" id="teacherKeyBtn">Teacher Key</button>
+    <button class="tool-btn" id="fullscreenBtn">Full Screen</button>
+    <button class="tool-btn danger" id="resetBtn">Reset Game</button>
+  </div>
+</div>
+<main class="main-layout">
+  <section class="section" aria-label="Team museum galleries">
+    <div class="section-head">
+      <div><h2>Explore the Four Museums</h2><div class="subtitle">Each answer earns an artifact when the teacher clicks +1.</div></div>
+      <span class="section-note">First to 4 / 4 wins</span>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+    <div class="tip-panel"><span class="tip-badge">CURATOR'S TIP</span> Every museum has four locked exhibits. The team earns a display by answering correctly. No automatic turns or assigned teams: the teacher chooses who receives each artifact.</div>
+  </section>
+  <section class="section" aria-label="Mystery question board">
+    <div class="section-head"><div><h2>Mystery Exhibit Vaults</h2><div class="subtitle">5 textbook tasks + 6 extra questions + 1 lucky vault</div></div><span class="section-note">12 vaults</span></div>
+    <div class="question-board" id="board"></div>
+    <div class="board-footer"><span>All vaults are identical until opened.</span><span class="box-counter" id="boxCounter">0 / 12 opened</span></div>
+    <div class="tool-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="tool-btn" id="resetBoxesBtn">Reset Question Boxes</button><button class="tool-btn" id="firstUnusedBtn">Open Next Unused</button></div>
+  </section>
+</main>
+<div class="legend">Heritage Museum | Unit 6 | Reading: Cultural heritage projects and student ideas | Offline classroom game</div>
+</div>
+<div class="modal-backdrop" id="qaOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="qaModal">
+    <div class="modal-head"><div><div class="modal-num" id="modalNum">VAULT 01</div><div class="modal-title" id="modalTitle">Museum Mystery</div></div><button class="modal-close" id="closeQaBtn">Close X</button></div>
+    <div class="modal-body">
+      <div id="questionBody"></div>
+      <div class="answer-reveal" id="answerReveal"><div class="answer-caption">Correct answer</div><div class="answer-text" id="answerText"></div><div class="answer-explain" id="answerExplain"></div></div>
+      <div class="modal-actions"><button class="action show" id="revealBtn">Reveal Answer</button><button class="action used" id="markBtn">Mark as Done</button><button class="action next" id="nextBtn">Next Unused Vault</button><button class="action close" id="closeQa2Btn">Close</button></div>
+      <div class="award-area"><div class="award-header"><span>Teacher's exhibit awards</span><span class="award-hint" id="awardHint">Manual: +1 per correct answer</span></div><div class="award-buttons" id="awardButtons"></div></div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop reading-modal" id="readingOverlay" role="dialog" aria-modal="true" aria-labelledby="readingTitle">
+  <div class="modal"><div class="modal-head"><div class="modal-title" id="readingTitle">Read the Winning Ideas</div><button class="modal-close" data-close="readingOverlay">Close X</button></div><div class="modal-body reading-scroll">
+    <div class="intro">To encourage young people to learn about and appreciate our cultural heritage, we organised an ideas competition. We invited students from across the country to send us their ideas for protecting and promoting our heritage. We have received many interesting entries. Below are the winners.</div>
+    <h3>Paragraph A - Social media</h3>
+    <p>The idea of promoting heritage sites through social media came from a group of 11th grade students. They suggested using social media activities, such as photo competitions, to encourage young people to learn about our heritage sites and local traditions on important festivals. They also suggested creating trending topics or challenges on social media. For example, a postcard challenge will invite people to create and share unusual and exciting postcards about the heritage sites that they have visited.</p>
+    <h3>Paragraph B - Historical societies</h3>
+    <p>Two 10th grade students suggested forming historical societies or local groups who have a keen interest in their history and heritage. These groups will provide information about local heritage sites, organise special events to celebrate local festivals, and invite young people to discuss issues related to preserving the heritage. This way, they will be able to give voice to suggestions and solutions to problems they care about. They will feel that their voices are heard, and they can contribute to society.</p>
+    <h3>Paragraph C - Folk clubs</h3>
+    <p>To preserve heritage, such as traditional music and stories, a group of secondary school students proposed setting up folk clubs. The clubs will hold events for young people to experience and learn about traditional performing arts. The artists will not only perform, but also introduce their arts and talk about how students can help promote folk culture. The clubs will organise training for students who want to learn folk songs, a traditional musical instrument, or folk dancing.</p>
+  </div></div>
+</div>
+<div class="modal-backdrop reading-modal" id="keyOverlay" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
+  <div class="modal"><div class="modal-head"><div class="modal-title" id="keyTitle">Teacher Answer Key</div><button class="modal-close" data-close="keyOverlay">Close X</button></div><div class="modal-body"><p class="subtitle" style="font-size:14px">For teacher use. Close before showing the game to students.</p><div class="key-grid" id="keyGrid"></div></div></div>
+</div>
+<div class="winner-toast" id="winnerToast" role="status"><div id="winnerText">Museum Master!</div><small>The gallery is now complete!</small><button class="winner-dismiss" id="dismissWinnerBtn">Keep Playing</button></div>
+<script>
+'use strict';
+// The 12 boxes are intentionally identical before they are opened.
+// The prize in the lucky box is also assigned manually by the teacher.
+const items=[
+ {id:1,kind:'textbook',type:'Find the paragraph',q:'Creating popular topics on the Internet, such as sharing postcards.',note:'Which paragraph includes this information: A, B, or C?',answer:'Paragraph A',explain:'Paragraph A describes trending topics and a postcard challenge on social media.'},
+ {id:2,kind:'extra',type:'Reading Detective',q:'Which students suggested promoting heritage through social media?',note:'Give the students\' grade.',answer:'A group of 11th-grade students',explain:'Paragraph A says the social-media idea came from a group of 11th-grade students.'},
+ {id:3,kind:'textbook',type:'Find the paragraph',q:'Raising awareness of preserving our heritage through discussions.',note:'Which paragraph includes this information: A, B, or C?',answer:'Paragraph B',explain:'Paragraph B encourages young people to discuss issues related to heritage preservation.'},
+ {id:4,kind:'extra',type:'Reading Detective',q:'In the postcard challenge, what are people invited to create and share?',note:'Answer with the type of item and what it is about.',answer:'Unusual and exciting postcards about heritage sites they have visited',explain:'This activity is proposed by the Grade 11 students in paragraph A.'},
+ {id:5,kind:'textbook',type:'Find the paragraph',q:'Organising photo competitions on social media.',note:'Which paragraph includes this information: A, B, or C?',answer:'Paragraph A',explain:'Paragraph A suggests photo competitions as a social-media activity.'},
+ {id:6,kind:'extra',type:'Reading Detective',q:'Which students suggested forming historical societies or local groups?',note:'Identify the grade and number of students.',answer:'Two 10th-grade students',explain:'Paragraph B opens with this detail.'},
+ {id:7,kind:'lucky',type:'Lucky Vault',q:'LUCKY DISCOVERY!',note:'An unexpected treasure has arrived at the museum.',answer:'+2 exhibits for ONE museum',explain:'The teacher chooses any team to receive two exhibits. No team is assigned automatically.'},
+ {id:8,kind:'textbook',type:'Find the paragraph',q:'Setting up local historical societies to organise festivals and other events.',note:'Which paragraph includes this information: A, B, or C?',answer:'Paragraph B',explain:'Paragraph B proposes historical societies that organise events to celebrate local festivals.'},
+ {id:9,kind:'extra',type:'Think & Answer',q:'How can historical societies help young people make their voices heard?',note:'Give one way mentioned in the text.',answer:'By inviting them to discuss heritage issues and share suggestions or solutions',explain:'Paragraph B says young people can give voice to solutions, feel heard, and contribute to society.'},
+ {id:10,kind:'textbook',type:'Find the paragraph',q:'Inviting artists to perform and teach folk singing, dancing, and music.',note:'Which paragraph includes this information: A, B, or C?',answer:'Paragraph C',explain:'Paragraph C says folk clubs invite artists to perform and teach traditional performing arts.'},
+ {id:11,kind:'extra',type:'Reading Detective',q:'Which students proposed setting up folk clubs?',note:'Name the group of students.',answer:'A group of secondary school students',explain:'Paragraph C says that secondary school students proposed the folk clubs.'},
+ {id:12,kind:'extra',type:'Think & Answer',q:'Name TWO traditional art skills students can learn through folk-club training.',note:'Any two examples from paragraph C are accepted.',answer:'Any two: folk singing, playing a traditional musical instrument, folk dancing',explain:'These are the three kinds of training named in the final sentence of paragraph C.'}
+];
+const artifactIcons={
+ lantern:'<path d="M47 11v11" stroke="#674b2a" stroke-width="5"/><path d="M37 20h20M37 76h20M47 76v12" stroke="#724628" stroke-width="4"/><path d="M36 26Q20 50 36 70Q47 81 58 70Q74 50 58 26Q47 19 36 26Z" fill="#ed6d38" stroke="#9e3f24" stroke-width="3"/><path d="M42 26q-9 22 0 44M52 26q9 22 0 44M34 43h27M34 55h27" stroke="#ffdca2" stroke-width="2.5"/>',
+ house:'<path d="M13 40 47 18l34 22-4 10H17Z" fill="#af603d" stroke="#7d4336" stroke-width="3"/><rect x="19" y="50" width="56" height="31" fill="#f7d56e" stroke="#ac7950" stroke-width="3"/><rect x="39" y="58" width="16" height="23" fill="#795a45"/><path d="M27 59h7v10h-7zM60 59h7v10h-7z" fill="#419896"/><path d="M12 81h72" stroke="#9b8060" stroke-width="5"/>',
+ pottery:'<path d="M37 16h22v10l-3 7Q81 65 62 79Q48 87 34 79Q15 65 40 33l-3-7Z" fill="#c87548" stroke="#8e4b31" stroke-width="3"/><path d="M40 31h15M29 49q17 11 34 0M27 61q20 10 40 0" stroke="#f5da9b" stroke-width="4"/><path d="M38 21h20" stroke="#f2ce82" stroke-width="4"/>',
+ fan:'<path d="M48 80 13 49Q46 8 80 49Z" fill="#f2be76" stroke="#b97848" stroke-width="3"/><path d="M48 80 17 48M48 80 32 35M48 80 48 28M48 80 64 35M48 80 78 48" stroke="#b97848" stroke-width="2.5"/><path d="M28 46Q48 28 68 46" fill="none" stroke="#df7e74" stroke-width="3"/><circle cx="48" cy="81" r="5" fill="#925d39"/>',
+ boat:'<path d="M13 63h71l-14 18H27Z" fill="#ab6545" stroke="#744a31" stroke-width="3"/><path d="M46 60V19" stroke="#85633d" stroke-width="3"/><path d="M49 22 70 57H49Z" fill="#f7dfab" stroke="#c6a96d" stroke-width="3"/><path d="M14 86q10-6 20 0t20 0t20 0t20 0" fill="none" stroke="#56ada5" stroke-width="4"/>',
+ temple:'<path d="M16 36 48 16l33 20-6 9H21Z" fill="#b86a51" stroke="#8e4b3a" stroke-width="3"/><path d="M26 46h44v31H26Z" fill="#f7cf87" stroke="#b58b60" stroke-width="3"/><path d="M18 77h60v8H18Z" fill="#a98169"/><path d="M38 55h19v22H38Z" fill="#8f6e50"/><path d="M31 53h6m23 0h6" stroke="#a25b47" stroke-width="3"/>',
+ mountain:'<circle cx="72" cy="26" r="11" fill="#f9c75f"/><path d="M7 77 32 29l23 48Z" fill="#4a9c91"/><path d="M29 37 32 29l10 21-9-6-7 7" fill="#e2f0dc"/><path d="M37 77 64 39l25 38Z" fill="#327b77"/><path d="M5 80q17-8 35 0t35 0t18 0" fill="none" stroke="#49a3b4" stroke-width="5"/>',
+ stone:'<path d="M24 78q-2-17 6-35l10-25 22 6 7 26 5 28Z" fill="#acb1a2" stroke="#777c71" stroke-width="3"/><path d="M30 69q16-8 38 0M39 29l8 12-7 9M58 38l-9 22" fill="none" stroke="#747e70" stroke-width="3"/><path d="M19 82h61" stroke="#6c8f75" stroke-width="5"/>',
+ gate:'<path d="M13 41 48 19l35 22-5 10H18Z" fill="#d18a57" stroke="#9b593a" stroke-width="3"/><rect x="20" y="51" width="56" height="29" fill="#f2cf96" stroke="#bb8557" stroke-width="3"/><path d="M38 80V60q10-12 20 0v20Z" fill="#6a5b58"/><path d="M17 80h64v7H17Z" fill="#b48a60"/><path d="M29 57h6M64 57h6" stroke="#996744" stroke-width="4"/>',
+ bell:'<path d="M42 18h12l4 8Q76 34 72 68H24Q20 34 38 26Z" fill="#d9a447" stroke="#956f2a" stroke-width="3"/><path d="M22 68h52M36 77h24" stroke="#916b2c" stroke-width="5"/><circle cx="48" cy="24" r="5" fill="#fff0b1"/><path d="M34 47q13 8 28 0" stroke="#ffdc85" stroke-width="3"/>',
+ drum:'<ellipse cx="48" cy="30" rx="31" ry="13" fill="#c58c53" stroke="#926038" stroke-width="3"/><path d="M19 30 27 77Q48 86 69 77l8-47" fill="#b77842" stroke="#926038" stroke-width="3"/><ellipse cx="48" cy="30" rx="21" ry="7" fill="none" stroke="#f3d19d" stroke-width="3"/><circle cx="48" cy="30" r="4" fill="#ffe3a9"/><path d="M24 47q24 12 48 0M27 66q21 12 43 0" stroke="#e6bb7c" stroke-width="3"/>',
+ scroll:'<path d="M24 24h46v55H24Z" fill="#efd296" stroke="#b58c5a" stroke-width="3"/><path d="M19 23q7-6 13 0v56q-7 6-13 0Z" fill="#dfad65" stroke="#9c713f" stroke-width="2"/><path d="M65 23q7-6 13 0v56q-7 6-13 0Z" fill="#dfad65" stroke="#9c713f" stroke-width="2"/><path d="M38 36h22M38 45h22M38 54h22M38 63h14" stroke="#ba915e" stroke-width="3"/>',
+ lute:'<path d="M46 29v-19" stroke="#a36e42" stroke-width="8"/><path d="M37 32q-20 13-14 36 5 19 25 17 20 2 25-17 6-23-14-36Z" fill="#be8d59" stroke="#855b3c" stroke-width="3"/><circle cx="48" cy="57" r="13" fill="#f3d29c" stroke="#865c3d" stroke-width="3"/><path d="M45 10v67M49 10v67M53 10v67" stroke="#f9ebcd" stroke-width="1.5"/>',
+ market:'<path d="M8 66h79L73 82H25Z" fill="#ac6b45" stroke="#7c4d31" stroke-width="3"/><path d="M25 55V39h46v16" stroke="#94643e" stroke-width="3" fill="none"/><path d="M19 40 47 21l31 19Z" fill="#f09c59" stroke="#a56140" stroke-width="3"/><circle cx="36" cy="56" r="7" fill="#f2bd41"/><circle cx="49" cy="56" r="8" fill="#72b96a"/><circle cx="61" cy="56" r="7" fill="#f38d5c"/><path d="M8 88q12-5 22 0t22 0t22 0t16 0" fill="none" stroke="#4cb0ac" stroke-width="4"/>',
+ basket:'<path d="M22 42h53l-6 33Q48 87 28 75Z" fill="#d6a971" stroke="#997046" stroke-width="3"/><path d="M24 52h47M26 64h43M33 44l5 37M48 44v39M63 44l-5 37" stroke="#ac794f" stroke-width="3"/><path d="M32 41q3-26 16-26 13 0 17 26" fill="none" stroke="#b08252" stroke-width="5"/>',
+ mask:'<path d="M26 21Q48 8 70 21L72 62Q62 84 48 85Q34 84 24 62Z" fill="#e7a65c" stroke="#985e42" stroke-width="3"/><path d="M31 41q9-11 16 0M50 41q9-11 16 0" stroke="#804d39" stroke-width="4" fill="none"/><path d="M42 62h13" stroke="#874b3d" stroke-width="4"/><path d="M48 44v12" stroke="#bd744e" stroke-width="3"/><path d="M25 28q-16-10-12-18m59 18q16-10 12-18" stroke="#986f45" stroke-width="4"/>',
+};
+const galleries=[
+ {name:'Hoi An Archive',tag:'Lantern Town',artifacts:[['Lantern','lantern'],['Old House','house'],['Pottery','pottery'],['Silk Fan','fan']]},
+ {name:'Trang An Discovery',tag:'Natural & Cultural Heritage',artifacts:[['River Boat','boat'],['Ancient Temple','temple'],['Landscape','mountain'],['Stone Relic','stone']]},
+ {name:'Hue Royal Gallery',tag:'Imperial Traditions',artifacts:[['Royal Gate','gate'],['Bronze Bell','bell'],['Bronze Drum','drum'],['Old Scroll','scroll']]},
+ {name:'Mekong Folk Hall',tag:'Southern Traditions',artifacts:[['Folk Instrument','lute'],['Floating Market','market'],['Woven Basket','basket'],['Folk Mask','mask']]}
+];
+const storageKey='heritage_museum_game5_unit6_v1';
+let state={counts:[0,0,0,0],used:[],winner:null};
+try{const s=JSON.parse(localStorage.getItem(storageKey)||'null');if(s&&Array.isArray(s.counts)&&s.counts.length===4&&Array.isArray(s.used)){state.counts=s.counts.map(n=>Math.max(0,Math.min(4,Number(n)||0)));state.used=s.used.filter(n=>Number.isInteger(n)&&n>=1&&n<=12);state.winner=Number.isInteger(s.winner)&&s.winner>=0&&s.winner<4?s.winner:null;}}catch(e){}
+let currentId=null;let winnerDismissed=false;
+const $=id=>document.getElementById(id);
+function persist(){try{localStorage.setItem(storageKey,JSON.stringify(state));}catch(e){}}
+function svgArtifact(kind){return `<svg class="art-svg" viewBox="0 0 96 96" role="img" aria-label="${kind}" xmlns="http://www.w3.org/2000/svg">${artifactIcons[kind]||''}</svg>`;}
+function renderGalleries(){
+ $('galleryGrid').innerHTML=galleries.map((g,i)=>{
+  let count=state.counts[i];
+  const exhibits=g.artifacts.map((a,j)=>`<div class="exhibit ${j<count?'':'locked'}" title="${a[0]}">${svgArtifact(a[1])}<span class="art-name">${j<count?a[0]:'Locked'}</span></div>`).join('');
+  return `<article class="gallery ${state.winner===i&&count===4?'won':''}" data-gallery="${i}"><div class="winner-tag">MUSEUM MASTER</div><div class="gallery-top"><div class="gallery-name">${g.name}</div><div class="gallery-count">${count} / 4 exhibits</div></div><div class="gallery-tag">${g.tag}</div><div class="exhibits">${exhibits}</div><div class="progress-track"><div class="progress-fill" style="width:${count*25}%"></div></div><div class="gallery-controls"><button class="plus-one" data-award="${i}" data-amount="1" aria-label="Add one exhibit to ${g.name}">+1 Exhibit</button><button class="plus-two" data-award="${i}" data-amount="2" aria-label="Add two lucky exhibits to ${g.name}">+2 Lucky</button><button class="undo" data-award="${i}" data-amount="-1" aria-label="Remove one exhibit from ${g.name}">Undo -1</button></div></article>`;
+ }).join('');
+}
+function renderBoard(){
+ $('board').innerHTML=items.map(item=>`<button class="mystery ${state.used.includes(item.id)?'used':''}" data-open="${item.id}" aria-label="Open mystery vault ${item.id}"><span class="number">${String(item.id).padStart(2,'0')}</span><span class="qm">${state.used.includes(item.id)?'&#10003;':'?'}</span></button>`).join('');
+ $('boxCounter').textContent=`${state.used.length} / 12 finished`;
+}
+function award(index,amount){
+ const previous=state.counts[index];const next=Math.max(0,Math.min(4,previous+amount));
+ if(previous===next)return;
+ state.counts[index]=next;
+ if(state.winner!==null&&state.counts[state.winner]<4)state.winner=null;
+ if(state.winner===null&&next===4) {state.winner=index;winnerDismissed=false;}
+ persist();renderGalleries();updateWinner();
+}
+function updateWinner(){
+ const w=state.winner;
+ if(w!==null&&state.counts[w]===4&&!winnerDismissed){$('winnerText').textContent=`Congratulations, ${galleries[w].name}!`;$('winnerToast').classList.add('show');}
+ else $('winnerToast').classList.remove('show');
+}
+function closeOverlay(id){$(id).classList.remove('open');document.body.style.overflow='';}
+function openOverlay(id){$(id).classList.add('open');document.body.style.overflow='hidden';}
+function openVault(id){
+ const item=items.find(q=>q.id===id);if(!item)return;currentId=id;
+ $('modalNum').textContent=`MYSTERY VAULT ${String(id).padStart(2,'0')}`;
+ $('modalTitle').textContent=item.kind==='lucky'?'A Golden Discovery!':'Heritage Reading Mission';
+ $('answerReveal').classList.remove('open');
+ if(item.kind==='lucky'){
+  $('questionBody').innerHTML=`<div class="lucky-panel"><div class="lucky-star">&#10022; &#9733; &#10022;</div><div class="lucky-title">LUCKY ARTIFACT!</div><div class="lucky-text">A priceless treasure has been discovered! The teacher may award <b>TWO exhibits</b> to any ONE museum.</div><div class="minor">No answer needed. Teacher chooses the receiving team.</div></div>`;
+  $('answerReveal').classList.add('open');
+  $('revealBtn').style.display='none';
+  $('awardHint').textContent='Lucky reward: choose one museum for +2';
+ } else {
+  $('questionBody').innerHTML=`<div class="type-label">${item.kind==='textbook'?'Textbook Exercise 4':'Extra Reading Question'}</div><p class="question-text" id="questionCopy"></p><p class="question-context" id="questionNote"></p>`;
+  $('questionCopy').textContent=item.q;$('questionNote').textContent=item.note;
+  $('revealBtn').style.display='';
+  $('awardHint').textContent='Manual: +1 per correct answer';
+ }
+ $('answerText').textContent=item.answer;
+ $('answerExplain').textContent=item.explain;
+ $('awardButtons').innerHTML=galleries.map((g,i)=>`<button class="award-btn ${item.kind==='lucky'?'lucky':''}" data-award="${i}" data-amount="${item.kind==='lucky'?2:1}">${item.kind==='lucky'?'+2':'+1'} ${g.name}</button>`).join('');
+ $('markBtn').textContent=state.used.includes(id)?'Mark as Unused':'Mark as Done';
+ openOverlay('qaOverlay');
+}
+function markCurrent(){if(currentId===null)return;const index=state.used.indexOf(currentId);if(index<0)state.used.push(currentId);else state.used.splice(index,1);state.used.sort((a,b)=>a-b);persist();renderBoard();$('markBtn').textContent=state.used.includes(currentId)?'Mark as Unused':'Mark as Done';}
+function nextUnused(){const unplayed=items.find(q=>!state.used.includes(q.id)&&q.id!==currentId);if(unplayed){openVault(unplayed.id);}else{closeOverlay('qaOverlay');}}
+function resetAll(){if(!window.confirm('Reset ALL museum exhibits, winner, and mystery boxes?'))return;state={counts:[0,0,0,0],used:[],winner:null};winnerDismissed=false;persist();renderGalleries();renderBoard();updateWinner();closeOverlay('qaOverlay');}
+function resetBoxes(){if(!window.confirm('Reset question boxes only? Museum exhibits will remain.'))return;state.used=[];persist();renderBoard();}
+function renderTeacherKey(){$('keyGrid').innerHTML=items.map(q=>`<div class="key-item"><b>Vault ${String(q.id).padStart(2,'0')}${q.kind==='lucky'?' (Lucky)':''}: </b>${q.q}<br><b>Answer: </b>${q.answer}</div>`).join('');}
+// Event delegation preserves controls after re-rendering.
+document.addEventListener('click',e=>{
+ const a=e.target.closest('[data-award]');if(a){award(Number(a.dataset.award),Number(a.dataset.amount));return;}
+ const b=e.target.closest('[data-open]');if(b){openVault(Number(b.dataset.open));return;}
+ const c=e.target.closest('[data-close]');if(c){closeOverlay(c.dataset.close);return;}
+});
+$('closeQaBtn').onclick=() => closeOverlay('qaOverlay');
+$('closeQa2Btn').onclick=() => closeOverlay('qaOverlay');
+$('revealBtn').onclick=()=>$('answerReveal').classList.add('open');
+$('markBtn').onclick=markCurrent;
+$('nextBtn').onclick=nextUnused;
+$('resetBtn').onclick=resetAll;
+$('resetBoxesBtn').onclick=resetBoxes;
+$('firstUnusedBtn').onclick=()=>{const q=items.find(item=>!state.used.includes(item.id));if(q)openVault(q.id);};
+$('readingBtn').onclick=()=>openOverlay('readingOverlay');
+$('teacherKeyBtn').onclick=()=>{renderTeacherKey();openOverlay('keyOverlay');};
+$('dismissWinnerBtn').onclick=()=>{winnerDismissed=true;updateWinner();};
+$('fullscreenBtn').onclick=()=>{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.();}else document.exitFullscreen?.();};
+for(const id of ['qaOverlay','readingOverlay','keyOverlay'])$(id).addEventListener('click',e=>{if(e.target===$(id))closeOverlay(id);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){['qaOverlay','readingOverlay','keyOverlay'].forEach(id=>closeOverlay(id));}});
+renderGalleries();renderBoard();updateWinner();
+</script>
+</body>
+</html>

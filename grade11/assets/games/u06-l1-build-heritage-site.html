@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build the Heritage Site - Unit 6 Lesson 1</title>
+  <!-- Trò của cô: ppt 11/heritage_game_unit6_lesson1_build_site.html (10/10 11:12 — bản mới nhất trong 5 bản trò U6 L1).
+       Chỉ thêm khối CSS "thu gọn" cuối <style> để cả bảng vừa khung slide; ẩn ô hướng dẫn bên phải (luật chơi ghi ở slide trước). -->
+  <style>
+    :root{
+      --bg1:#fff7ef;
+      --bg2:#f4fff8;
+      --orange:#f47c20;
+      --teal:#0f9d94;
+      --gold:#ffca45;
+      --blue:#1f6ed4;
+      --pink:#f45f93;
+      --ink:#1f2d3d;
+      --light:#ffffff;
+      --shadow:0 12px 30px rgba(0,0,0,.12);
+      --green:#2faa60;
+      --red:#e74c3c;
+      --soft:#f9fbff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(255,202,69,.35), transparent 25%),
+        radial-gradient(circle at 84% 18%, rgba(244,95,147,.16), transparent 24%),
+        radial-gradient(circle at 80% 82%, rgba(15,157,148,.16), transparent 22%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{max-width:1450px;margin:0 auto;padding:18px 22px 28px}
+    .hero{
+      background:linear-gradient(135deg, rgba(244,124,32,.95), rgba(15,157,148,.92));
+      color:#fff;border-radius:28px;padding:22px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden
+    }
+    .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+    .hero::before{width:180px;height:180px;right:-35px;top:-40px}
+    .hero::after{width:120px;height:120px;left:-20px;bottom:-35px}
+    h1{margin:0;font-size:38px;letter-spacing:.5px}
+    .subtitle{margin-top:8px;font-size:18px;font-weight:800}
+    .desc{margin-top:10px;max-width:980px;font-size:15px;line-height:1.55;opacity:.96}
+
+    .panel{
+      background:rgba(255,255,255,.92);
+      border:2px solid rgba(255,255,255,.65);
+      border-radius:26px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .progress-section{margin-top:18px}
+    .section-title{margin:0 0 12px;font-size:26px;color:#184869}
+    .section-note{font-size:14px;color:#526473;line-height:1.5;margin-bottom:14px}
+
+    .site-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(320px,1fr));
+      gap:16px;
+    }
+    .site-card{
+      border-radius:24px;padding:16px;position:relative;overflow:hidden;color:#173042;
+      background:linear-gradient(135deg,#fffef8,#ffffff);
+      border:2px solid rgba(31,110,212,.1);
+      box-shadow:var(--shadow);
+    }
+    .site-card::after{
+      content:"";position:absolute;right:-18px;top:-18px;width:92px;height:92px;border-radius:50%;background:rgba(255,255,255,.42)
+    }
+    .site1{background:linear-gradient(135deg,#fff5dc,#ffffff)}
+    .site2{background:linear-gradient(135deg,#ecfbf9,#ffffff)}
+    .site3{background:linear-gradient(135deg,#eef6ff,#ffffff)}
+    .site4{background:linear-gradient(135deg,#f6f0ff,#ffffff)}
+
+    .site-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;position:relative;z-index:2}
+    .site-name{font-size:24px;font-weight:900;color:#17405d}
+    .site-tag{font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;background:#ffffffaa;padding:6px 10px;border-radius:999px;color:#476072}
+    .site-sub{margin-top:4px;font-size:14px;color:#5e7080;line-height:1.45}
+
+    .build-zone{margin-top:14px;position:relative;z-index:2}
+    .piece-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    }
+    .piece{
+      min-height:72px;border-radius:16px;border:2px dashed rgba(23,64,93,.18);background:repeating-linear-gradient(135deg,#f2f6f8,#f2f6f8 10px,#eef2f4 10px,#eef2f4 20px);
+      display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;font-weight:900;color:#b0b7c0;font-size:13px;line-height:1.25;
+      transition:all .25s ease;
+    }
+    .piece.filled{color:#173042;border-style:solid;transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+    .site1 .piece.filled{background:linear-gradient(135deg,#ffd38a,#ffefc8)}
+    .site2 .piece.filled{background:linear-gradient(135deg,#80e3d8,#d9fffb)}
+    .site3 .piece.filled{background:linear-gradient(135deg,#8bc6ff,#e3f1ff)}
+    .site4 .piece.filled{background:linear-gradient(135deg,#ceb2ff,#efe6ff)}
+
+    .build-status{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px}
+    .count-pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.86);font-weight:900;color:#194b6a;box-shadow:0 6px 12px rgba(0,0,0,.05)}
+    .control-row{display:flex;flex-wrap:wrap;gap:8px}
+    .btn{
+      border:none;border-radius:14px;padding:10px 14px;font-weight:900;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;
+      box-shadow:0 6px 14px rgba(0,0,0,.12)
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn:active{transform:translateY(0)}
+    .btn.add{background:#2faa60;color:#fff}
+    .btn.remove{background:#f7d7d4;color:#922d22}
+    .btn.reset{background:#eef3f7;color:#35516a}
+
+    .winner-banner{
+      margin-top:16px;padding:16px 18px;border-radius:20px;background:linear-gradient(135deg,#fff1bf,#fff9e2);border:2px solid rgba(255,202,69,.5);
+      font-size:22px;font-weight:900;color:#7a5b00;display:none;box-shadow:var(--shadow)
+    }
+    .winner-banner.show{display:block}
+
+    .board-wrap{margin-top:18px;display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+    .question-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .q-card{
+      min-height:140px;border:none;border-radius:22px;padding:14px;cursor:pointer;color:#173042;
+      background:linear-gradient(135deg,#fffdf5,#fff);
+      border:2px solid rgba(31,110,212,.08);box-shadow:var(--shadow);position:relative;transition:transform .18s ease, box-shadow .18s ease, opacity .18s ease
+    }
+    .q-card:hover{transform:translateY(-4px)}
+    .q-card.done{background:linear-gradient(135deg,#e6f7ee,#f9fff9);border-color:rgba(47,170,96,.35)}
+    .mystery-no{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--orange),#ffb44f);color:white;font-size:20px;font-weight:900;box-shadow:0 8px 16px rgba(244,124,32,.28)}
+    .mystery-mark{font-size:46px;font-weight:900;line-height:1;color:#1f6ed4;margin-top:12px;opacity:.95}
+    .mystery-text{margin-top:8px;font-size:15px;font-weight:800;color:#587084;letter-spacing:.3px}
+    .done-mark{position:absolute;right:14px;bottom:12px;font-size:28px;font-weight:900;color:#2faa60}
+
+    .side-panel .mini-info{display:grid;grid-template-columns:1fr;gap:12px}
+    .info-box{padding:14px;border-radius:18px;background:linear-gradient(135deg, rgba(244,124,32,.1), rgba(15,157,148,.1));border:1px solid rgba(22,77,103,.12)}
+    .info-title{font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:#35536b}
+    .info-box p{margin:8px 0 0;font-size:14px;line-height:1.5;color:#4b5c6c}
+    .tool-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .tool-btn{background:#fff;border:2px solid rgba(31,110,212,.12);padding:10px 14px;border-radius:14px;font-weight:800;cursor:pointer;box-shadow:var(--shadow);color:#184869}
+
+    .modal{position:fixed;inset:0;background:rgba(16,31,52,.58);display:none;align-items:center;justify-content:center;padding:24px;z-index:999}
+    .modal.show{display:flex}
+    .modal-box{width:min(920px,96vw);background:linear-gradient(135deg,#fffdfa,#fff);border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,.22);overflow:hidden;border:2px solid rgba(255,255,255,.85);animation:pop .22s ease}
+    @keyframes pop{from{transform:scale(.96);opacity:.4}to{transform:scale(1);opacity:1}}
+    .modal-head{padding:20px 24px;background:linear-gradient(135deg, rgba(244,124,32,.95), rgba(31,110,212,.92));color:white;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .modal-title{font-size:28px;font-weight:900}
+    .close-btn{background:#ffffff22;color:white;border:1px solid #ffffff44;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:900}
+    .modal-body{padding:24px}
+    .type-line{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(15,157,148,.13);color:#0a6a63;font-weight:900;margin-bottom:14px}
+    .question-text{font-size:28px;line-height:1.38;font-weight:900;color:#153a58}
+    .question-note{margin-top:12px;font-size:18px;line-height:1.55;color:#55677a}
+    .answer-box{margin-top:18px;padding:18px 20px;border-radius:20px;background:#eefaf5;border:2px dashed rgba(47,170,96,.4);display:none}
+    .answer-box.show{display:block}
+    .answer-label{font-weight:900;font-size:14px;letter-spacing:.5px;text-transform:uppercase;color:#288251}
+    .answer-text{margin-top:8px;font-size:24px;line-height:1.45;color:#184d35;font-weight:900}
+    .explain{margin-top:8px;font-size:17px;line-height:1.5;color:#31564c}
+    .modal-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .primary{background:linear-gradient(135deg,var(--orange),#ffb44f);color:white}
+    .secondary{background:#eaf6ff;color:#13517b}
+    .success{background:#eaf9ef;color:#1f7a43}
+
+    @media (max-width:1180px){
+      .board-wrap{grid-template-columns:1fr}
+    }
+    @media (max-width:1000px){
+      .site-grid{grid-template-columns:1fr}
+      .question-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:760px){
+      h1{font-size:30px}
+      .question-grid{grid-template-columns:repeat(2,1fr)}
+      .question-text{font-size:23px}
+      .answer-text{font-size:21px}
+      .build-status{flex-direction:column;align-items:flex-start}
+    }
+    @media (max-width:520px){
+      .wrap{padding:14px}
+      .question-grid{grid-template-columns:1fr}
+      .piece-grid{grid-template-columns:repeat(2,1fr)}
+      .hero{padding:18px}
+    }
+  
+    /* ── Thu gọn để vừa khung slide 1366×768 (thêm khi chép vào Global_Success_11) ── */
+    .wrap{padding:8px 12px}
+    .hero{padding:8px 16px;border-radius:18px}
+    .hero::before,.hero::after{display:none}
+    h1{font-size:30px}
+    .subtitle,.desc,.section-note{display:none}
+    .panel{padding:8px 10px;border-radius:18px}
+    .progress-section{margin-top:8px}
+    .section-title{font-size:22px;margin:0 0 6px}
+    .site-grid{grid-template-columns:repeat(4,1fr);gap:8px}
+    .site-card{padding:8px 10px;border-radius:16px}
+    .site-name{font-size:22px}
+    .site-sub,.site-tag{display:none}
+    .build-zone{margin-top:6px}
+    .piece-grid{gap:5px}
+    .piece{min-height:52px;font-size:15px;padding:4px;border-radius:10px}
+    .build-status{margin-top:6px;flex-wrap:wrap}
+    .count-pill{padding:4px 8px;font-size:15px}
+    .btn{padding:6px 9px;font-size:15px;border-radius:10px}
+    .btn.reset{display:none}
+    .winner-banner{margin-top:6px;padding:8px 12px;font-size:20px}
+    .board-wrap{margin-top:8px;grid-template-columns:1fr;gap:8px}
+    .side-panel{display:none}
+    .question-grid{grid-template-columns:repeat(12,1fr);gap:8px}
+    .q-card{min-height:0;padding:12px 6px;border-radius:14px}
+    .mystery-no{width:44px;height:44px;font-size:19px;margin:0 auto}
+    .mystery-mark{font-size:40px;margin-top:4px}
+    .mystery-text{display:none}
+    .done-mark{right:6px;bottom:4px;font-size:20px}
+    .question-text{font-size:30px}
+    .question-note{font-size:20px}
+    .answer-text{font-size:28px}
+    .explain{font-size:20px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🏛️ Build the Heritage Site</h1>
+      <div class="subtitle">Unit 6 – Preserving Heritage • Lesson 1: Getting Started</div>
+      <div class="desc">
+        Each team becomes a heritage place. When a team answers correctly, it earns <strong>one building piece</strong>.
+        The first team to complete all <strong>6 pieces</strong> of its site wins. The question board keeps the <strong>mystery box</strong> style with 12 hidden questions.
+      </div>
+    </section>
+
+    <section class="panel progress-section">
+      <h2 class="section-title">🧩 Heritage Construction Race</h2>
+      <div class="section-note">
+        Suggested rule: after a correct answer, click <strong>+ Add Piece</strong> for that team. If you want, you can also remove a piece for a wrong answer or accidental click.
+      </div>
+      <div class="site-grid" id="siteGrid"></div>
+      <div class="winner-banner" id="winnerBanner"></div>
+    </section>
+
+    <section class="board-wrap">
+      <div class="panel">
+        <h2 class="section-title">🎁 Mystery Question Boxes</h2>
+        <div class="question-grid" id="questionGrid"></div>
+      </div>
+
+      <div class="panel side-panel">
+        <h2 class="section-title">📚 Teaching Support</h2>
+        <div class="mini-info">
+          <div class="info-box">
+            <div class="info-title">Question Source</div>
+            <p>The 12 questions are based on Exercise 2 and Exercise 3, plus extra comprehension / phrase questions from the reading.</p>
+          </div>
+          <div class="info-box">
+            <div class="info-title">Suggested Teams</div>
+            <p>Hoi An • Trang An • Mekong River Delta • Hue Citadel</p>
+          </div>
+          <div class="info-box">
+            <div class="info-title">How to Win</div>
+            <p>The first team to complete all 6 construction pieces becomes the winner. A winner banner will appear automatically.</p>
+          </div>
+          <div class="info-box">
+            <div class="info-title">Teacher Controls</div>
+            <p>Open a mystery box → let students answer → show the answer → add one piece to the winning team.</p>
+          </div>
+        </div>
+        <div class="tool-row">
+          <button class="tool-btn" onclick="markAllUnused()">♻️ Reset Question Boxes</button>
+          <button class="tool-btn" onclick="resetBuilds()">🏗️ Reset All Sites</button>
+          <button class="tool-btn" onclick="hideAnswer()">🙈 Hide Answer</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Question</div>
+        <button class="close-btn" onclick="closeModal()">✕ Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="type-line" id="modalType"></div>
+        <div class="question-text" id="modalQuestion"></div>
+        <div class="question-note" id="modalNote"></div>
+        <div class="answer-box" id="answerBox">
+          <div class="answer-label">Answer</div>
+          <div class="answer-text" id="modalAnswer"></div>
+          <div class="explain" id="modalExplain"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn primary" onclick="showAnswer()">✅ Show Answer</button>
+          <button class="btn secondary" onclick="hideAnswer()">🙈 Hide Answer</button>
+          <button class="btn success" onclick="markUsed(currentQuestionIndex)">✔ Mark as Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sites = [
+      {
+        name:'Hoi An',
+        tag:'Lantern Heritage',
+        sub:'Build the ancient town with lanterns, old houses, and original architecture.',
+        className:'site1',
+        pieces:0,
+        labels:['Lantern Street','Old House','Yellow Wall','Ancient Roof','Riverside Corner','Hoi An Complete!']
+      },
+      {
+        name:'Trang An',
+        tag:'Mixed Heritage Site',
+        sub:'Build the scenic landscape with mountains, river routes, and temples.',
+        className:'site2',
+        pieces:0,
+        labels:['River Route','Boat Tour','Limestone Peak','Temple Gate','Green Valley','Trang An Complete!']
+      },
+      {
+        name:'Mekong River Delta',
+        tag:'Southern Culture',
+        sub:'Build the floating market and celebrate don ca tai tu cultural heritage.',
+        className:'site3',
+        pieces:0,
+        labels:['Floating Boat','Fruit Garden','River Market','Folk Singing','Southern Culture','Mekong Complete!']
+      },
+      {
+        name:'Hue Citadel',
+        tag:'Imperial Heritage',
+        sub:'Build the historic citadel with royal walls, gates, and cultural pride.',
+        className:'site4',
+        pieces:0,
+        labels:['Royal Gate','Ancient Wall','Imperial Court','Purple Roof','Historic Corner','Hue Complete!']
+      }
+    ];
+
+    const questions = [
+      {type:'Place Match', title:'Question 1', question:'Where can we go on a tour by boat? Write T, H, or M.', note:'T = Trang An • H = Hoi An • M = Mekong River Delta', answer:'T', explain:'Trang An is famous for boat trips through a beautiful natural landscape.'},
+      {type:'Place Match', title:'Question 2', question:'Where can we see areas of natural beauty? Write T, H, or M.', note:'Choose the correct heritage site.', answer:'T', explain:'The reading says visitors go to Trang An to enjoy the beautiful landscape.'},
+      {type:'Place Match', title:'Question 3', question:'Where can we see ancient houses kept in their original style of architecture? Write T, H, or M.', note:'Think about the place that preserves old buildings.', answer:'H', explain:'Hoi An Ancient Town is known for its original architecture and old buildings.'},
+      {type:'Place Match', title:'Question 4', question:'Where can we listen to don ca tai tu at floating markets? Write T, H, or M.', note:'Choose the place in southern Viet Nam.', answer:'M', explain:'The reading says local artists perform don ca tai tu, even on floating market boats in the Mekong River Delta.'},
+      {type:'Phrase Match', title:'Question 5', question:'Match the words to make a phrase used in the reading: folk + ?', note:'Options: architecture / landscape / singing / heritage', answer:'folk singing', explain:'In the passage, don ca tai tu is described as a form of traditional folk singing.'},
+      {type:'Phrase Match', title:'Question 6', question:'Match the words to make a phrase used in the reading: cultural + ?', note:'Options: architecture / landscape / singing / heritage', answer:'cultural heritage', explain:'The lesson focuses on preserving cultural heritage in Viet Nam.'},
+      {type:'Phrase Match', title:'Question 7', question:'Match the words to make a phrase used in the reading: beautiful + ?', note:'Choose the natural phrase.', answer:'beautiful landscape', explain:'Visitors can enjoy the beautiful landscape at Trang An.'},
+      {type:'Phrase Match', title:'Question 8', question:'Match the words to make a phrase used in the reading: ancient + ?', note:'It relates to Hoi An.', answer:'ancient architecture', explain:'Hoi An has many examples of ancient architecture.'},
+      {type:'Comprehension', title:'Question 9', question:'Which place is recognised by UNESCO as a mixed heritage site?', note:'Answer with the full name if possible.', answer:'Trang An Scenic Landscape Complex', explain:'Ms Hoa recommends Trang An because it is a mixed heritage site recognised by UNESCO.'},
+      {type:'Definition', title:'Question 10', question:'What is a mixed heritage site?', note:'Give a short definition.', answer:'A site that has both natural and cultural importance.', explain:'This is Ms Hoa’s definition in the reading.'},
+      {type:'Comprehension', title:'Question 11', question:'What can visitors learn about in Hoi An Ancient Town?', note:'Name one or two ideas from the reading.', answer:'Urban lifestyles and traditions from the 15th to the 19th century.', explain:'The reading says visitors learn about old urban lifestyles and traditions there.'},
+      {type:'True / False', title:'Question 12', question:'True or False: Listening to don ca tai tu is a way to promote the cultural heritage of southern Viet Nam.', note:'Decide whether Peter’s idea is correct.', answer:'True', explain:'Peter says it is a great way to promote this kind of cultural heritage of southern Viet Nam.'}
+    ];
+
+    let currentQuestionIndex = null;
+
+    function renderSites(){
+      const grid = document.getElementById('siteGrid');
+      grid.innerHTML = '';
+      sites.forEach((site, index) => {
+        const piecesHtml = site.labels.map((label, i) => `<div class="piece ${i < site.pieces ? 'filled' : ''}">${i < site.pieces ? label : 'Piece ' + (i+1)}</div>`).join('');
+        const card = document.createElement('div');
+        card.className = `site-card ${site.className}`;
+        card.innerHTML = `
+          <div class="site-head">
+            <div>
+              <div class="site-name">${site.name}</div>
+              <div class="site-sub">${site.sub}</div>
+            </div>
+            <div class="site-tag">${site.tag}</div>
+          </div>
+          <div class="build-zone">
+            <div class="piece-grid">${piecesHtml}</div>
+            <div class="build-status">
+              <div class="count-pill">Built: ${site.pieces} / 6 pieces</div>
+              <div class="control-row">
+                <button class="btn add" onclick="addPiece(${index})">+ Add Piece</button>
+                <button class="btn remove" onclick="removePiece(${index})">− Remove</button>
+                <button class="btn reset" onclick="setPieces(${index},0)">Reset</button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      updateWinnerBanner();
+    }
+
+    function addPiece(index){
+      if(sites[index].pieces < 6){
+        sites[index].pieces += 1;
+        renderSites();
+      }
+    }
+
+    function removePiece(index){
+      if(sites[index].pieces > 0){
+        sites[index].pieces -= 1;
+        renderSites();
+      }
+    }
+
+    function setPieces(index, value){
+      sites[index].pieces = Math.max(0, Math.min(6, value));
+      renderSites();
+    }
+
+    function resetBuilds(){
+      sites.forEach(site => site.pieces = 0);
+      renderSites();
+    }
+
+    function updateWinnerBanner(){
+      const banner = document.getElementById('winnerBanner');
+      const winners = sites.filter(site => site.pieces >= 6);
+      if(winners.length > 0){
+        banner.classList.add('show');
+        banner.textContent = '🏆 Winner: ' + winners.map(w => w.name).join(' & ') + ' completed the heritage site!';
+      } else {
+        banner.classList.remove('show');
+        banner.textContent = '';
+      }
+    }
+
+    function renderQuestions(){
+      const grid = document.getElementById('questionGrid');
+      grid.innerHTML = '';
+      questions.forEach((q,index) => {
+        const btn = document.createElement('button');
+        btn.className = 'q-card' + (q.used ? ' done' : '');
+        btn.setAttribute('onclick', `openQuestion(${index})`);
+        btn.innerHTML = `
+          <div class="mystery-no">${String(index+1).padStart(2,'0')}</div>
+          <div class="mystery-mark">?</div>
+          <div class="mystery-text">Mystery Box</div>
+          ${q.used ? '<div class="done-mark">✓</div>' : ''}
+        `;
+        grid.appendChild(btn);
+      });
+    }
+
+    function openQuestion(index){
+      currentQuestionIndex = index;
+      const q = questions[index];
+      document.getElementById('modalTitle').textContent = q.title;
+      document.getElementById('modalType').textContent = q.type;
+      document.getElementById('modalQuestion').textContent = q.question;
+      document.getElementById('modalNote').textContent = q.note || '';
+      document.getElementById('modalAnswer').textContent = q.answer;
+      document.getElementById('modalExplain').textContent = q.explain || '';
+      hideAnswer();
+      document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal(){
+      document.getElementById('modal').classList.remove('show');
+    }
+    function showAnswer(){document.getElementById('answerBox').classList.add('show');}
+    function hideAnswer(){document.getElementById('answerBox').classList.remove('show');}
+
+    function markUsed(index){
+      if(index === null) return;
+      questions[index].used = true;
+      renderQuestions();
+    }
+
+    function markAllUnused(){
+      questions.forEach(q => q.used = false);
+      renderQuestions();
+    }
+
+    window.addEventListener('click', function(e){
+      const modal = document.getElementById('modal');
+      if(e.target === modal) closeModal();
+    });
+
+    renderSites();
+    renderQuestions();
+  </script>
+</body>
+</html>

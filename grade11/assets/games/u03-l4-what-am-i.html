@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cities of the Future - Warm-up Game</title>
+<!-- Trò của cô: ~/Downloads/unit3_cities_of_future_warmup_game.html (05/10). Chép nguyên nội dung;
+     chỉ thêm khối CSS "thu gọn" cuối <style> để cả bảng vừa khung slide. -->
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(46,229,157,.18), transparent 30%),
+      radial-gradient(circle at 80% 15%, rgba(83,142,255,.20), transparent 28%),
+      linear-gradient(135deg,#07111f,#0a1f36 55%,#101a2f);
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .city-bg{
+    position:fixed; inset:auto 0 0 0; height:28vh; opacity:.20; pointer-events:none;
+    background:
+      linear-gradient(to top,rgba(0,0,0,.6),transparent),
+      repeating-linear-gradient(90deg,
+        transparent 0 28px,#6ef5d2 29px 31px,transparent 32px 70px);
+    clip-path:polygon(0 60%,4% 60%,4% 35%,8% 35%,8% 55%,13% 55%,13% 20%,18% 20%,18% 65%,23% 65%,23% 42%,28% 42%,28% 62%,34% 62%,34% 28%,39% 28%,39% 54%,45% 54%,45% 12%,51% 12%,51% 58%,57% 58%,57% 38%,62% 38%,62% 64%,68% 64%,68% 22%,73% 22%,73% 50%,79% 50%,79% 31%,85% 31%,85% 61%,91% 61%,91% 18%,96% 18%,96% 55%,100% 55%,100% 100%,0 100%);
+  }
+  header{
+    padding:20px 28px 12px;
+    text-align:center;
+  }
+  h1{
+    margin:0;
+    font-size:clamp(28px,4vw,52px);
+    letter-spacing:1px;
+    text-shadow:0 0 18px rgba(77,238,213,.55);
+  }
+  .subtitle{
+    color:#b8d6ff;
+    margin-top:7px;
+    font-size:clamp(14px,1.6vw,20px);
+  }
+  .wrap{
+    width:min(1180px,94vw);
+    margin:auto;
+    position:relative;
+    z-index:2;
+  }
+  .teams{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:14px 0 18px;
+  }
+  .team{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(135,244,224,.25);
+    border-radius:18px;
+    padding:12px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.22);
+    backdrop-filter:blur(8px);
+  }
+  .team-name{
+    font-weight:800;
+    font-size:clamp(14px,1.7vw,20px);
+    margin-bottom:6px;
+  }
+  .score{
+    font-size:clamp(28px,3vw,44px);
+    font-weight:900;
+    color:#8ef8df;
+  }
+  .score-controls{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:7px;
+    flex-wrap:wrap;
+  }
+  .score-controls button{
+    border:none;
+    border-radius:9px;
+    padding:6px 9px;
+    font-weight:800;
+    cursor:pointer;
+    background:#163a56;
+    color:#dffcff;
+  }
+  .score-controls button:hover{filter:brightness(1.2)}
+  .panel{
+    background:rgba(5,16,31,.80);
+    border:1px solid rgba(112,242,218,.28);
+    border-radius:24px;
+    padding:20px;
+    box-shadow:0 18px 50px rgba(0,0,0,.30);
+  }
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .badge{
+    background:#103149;
+    border:1px solid #236987;
+    padding:8px 12px;
+    border-radius:999px;
+    font-weight:800;
+    color:#d8fbff;
+  }
+  .points-badge{
+    font-size:24px;
+    font-weight:900;
+    color:#ffe07a;
+  }
+  .question-title{
+    text-align:center;
+    font-size:clamp(26px,3vw,40px);
+    font-weight:900;
+    margin:10px 0 18px;
+  }
+  .clues{
+    display:grid;
+    gap:12px;
+  }
+  .clue{
+    min-height:76px;
+    border-radius:16px;
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:linear-gradient(90deg,rgba(15,52,78,.92),rgba(15,36,62,.92));
+    border:1px solid rgba(100,238,214,.16);
+    font-size:clamp(17px,2vw,24px);
+    opacity:.35;
+    filter:blur(3px);
+    transition:.3s ease;
+  }
+  .clue.revealed{
+    opacity:1;
+    filter:none;
+    transform:translateY(-1px);
+    border-color:rgba(115,255,224,.52);
+    box-shadow:0 0 20px rgba(87,242,210,.10);
+  }
+  .num{
+    width:42px;height:42px;flex:0 0 42px;
+    border-radius:50%;
+    display:grid;place-items:center;
+    background:#163a56;
+    font-weight:900;
+    color:#8ef8df;
+  }
+  .answer-box{
+    margin-top:14px;
+    padding:16px;
+    border-radius:16px;
+    background:rgba(52,94,70,.18);
+    border:1px dashed rgba(132,255,200,.45);
+    text-align:center;
+    font-size:clamp(24px,3vw,38px);
+    font-weight:900;
+    color:#8df7c9;
+    display:none;
+  }
+  .controls{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:18px 0 4px;
+  }
+  .controls button{
+    cursor:pointer;
+    border:none;
+    border-radius:12px;
+    padding:12px 16px;
+    font-size:16px;
+    font-weight:900;
+  }
+  .primary{background:#5af0cf;color:#05201a}
+  .secondary{background:#245379;color:white}
+  .warn{background:#ffcc5c;color:#241c00}
+  .danger{background:#ad3e5d;color:white}
+  .grid-title{
+    margin:22px 0 10px;
+    font-size:20px;
+    font-weight:900;
+    color:#c7f8ff;
+  }
+  .qgrid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:10px;
+    padding-bottom:28px;
+  }
+  .qbtn{
+    border:none;
+    border-radius:13px;
+    padding:14px 6px;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    color:#eaffff;
+    background:linear-gradient(180deg,#1b5678,#10324d);
+    box-shadow:0 8px 18px rgba(0,0,0,.22);
+  }
+  .qbtn.active{outline:3px solid #73f3d8}
+  .qbtn.done{background:#233344;color:#7e99aa;text-decoration:line-through}
+  .footer-note{
+    text-align:center;
+    color:#8caabe;
+    font-size:13px;
+    padding:0 0 18px;
+  }
+  @media (max-width:800px){
+    .teams{grid-template-columns:repeat(2,1fr)}
+    .qgrid{grid-template-columns:repeat(4,1fr)}
+  }
+
+  /* ── Thu gọn để vừa khung slide 1366×768 (thêm khi chép vào Global_Success_11) ── */
+  header{ padding:6px 20px 2px; }
+  h1{ font-size:clamp(24px,2.8vw,38px); }
+  .subtitle{ display:none; }
+  .teams{ margin:6px 0 8px; gap:8px; }
+  .team{ padding:6px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px; flex-wrap:wrap; }
+  .team-name{ margin:0; font-size:18px; }
+  .score{ font-size:30px; }
+  .score-controls{ margin:0; }
+  .score-controls button{ font-size:16px; padding:4px 7px; }
+  .panel{ padding:10px 16px; }
+  .topbar{ margin-bottom:4px; }
+  .badge{ font-size:18px; }
+  .question-title{ margin:0 0 4px; font-size:clamp(26px,2.6vw,36px); }
+  .clues{ gap:8px; }
+  .clue{ min-height:46px; padding:6px 14px; font-size:clamp(20px,2.1vw,28px); }
+  .answer-box{ margin-top:6px; padding:4px 8px; font-size:clamp(22px,2.4vw,32px); }
+  .controls{ margin:6px 0 0; }
+  .controls button{ font-size:20px; padding:8px 14px; }
+  .grid-title{ display:none; }
+  .wrap{ margin-top:0; }
+  .qgrid{ grid-template-columns:repeat(12,1fr); gap:8px; padding-bottom:8px; }
+  .qbtn{ padding:8px 4px; font-size:20px; }
+  .footer-note{ font-size:16px; padding:0 0 8px; }
+</style>
+</head>
+<body>
+<div class="city-bg"></div>
+
+<header>
+  <h1>🌆 CITIES OF THE FUTURE</h1>
+  <div class="subtitle">Warm-up Game • Guess the Future Technology</div>
+</header>
+
+<div class="wrap">
+  <section class="teams">
+    <div class="team">
+      <div class="team-name">🌱 Eco Warriors</div>
+      <div class="score" id="s0">0</div>
+      <div class="score-controls">
+        <button onclick="addScore(0,10)">+10</button>
+        <button onclick="addScore(0,20)">+20</button>
+        <button onclick="addScore(0,30)">+30</button>
+        <button onclick="addScore(0,-10)">−10</button>
+      </div>
+    </div>
+    <div class="team">
+      <div class="team-name">🤖 Smart Citizens</div>
+      <div class="score" id="s1">0</div>
+      <div class="score-controls">
+        <button onclick="addScore(1,10)">+10</button>
+        <button onclick="addScore(1,20)">+20</button>
+        <button onclick="addScore(1,30)">+30</button>
+        <button onclick="addScore(1,-10)">−10</button>
+      </div>
+    </div>
+    <div class="team">
+      <div class="team-name">🏙️ Future Builders</div>
+      <div class="score" id="s2">0</div>
+      <div class="score-controls">
+        <button onclick="addScore(2,10)">+10</button>
+        <button onclick="addScore(2,20)">+20</button>
+        <button onclick="addScore(2,30)">+30</button>
+        <button onclick="addScore(2,-10)">−10</button>
+      </div>
+    </div>
+    <div class="team">
+      <div class="team-name">⚡ Green Innovators</div>
+      <div class="score" id="s3">0</div>
+      <div class="score-controls">
+        <button onclick="addScore(3,10)">+10</button>
+        <button onclick="addScore(3,20)">+20</button>
+        <button onclick="addScore(3,30)">+30</button>
+        <button onclick="addScore(3,-10)">−10</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="topbar">
+      <div class="badge" id="counter">Question 1 / 12</div>
+      <div class="points-badge" id="points">30 POINTS</div>
+      <button class="badge" onclick="toggleFullScreen()">⛶ Full Screen</button>
+    </div>
+
+    <div class="question-title">What am I?</div>
+
+    <div class="clues">
+      <div class="clue" id="clue1"><div class="num">1</div><div id="c1"></div></div>
+      <div class="clue" id="clue2"><div class="num">2</div><div id="c2"></div></div>
+      <div class="clue" id="clue3"><div class="num">3</div><div id="c3"></div></div>
+    </div>
+
+    <div class="answer-box" id="answer"></div>
+
+    <div class="controls">
+      <button class="primary" onclick="revealNext()">🔍 Reveal Next Clue</button>
+      <button class="warn" onclick="showAnswer()">✅ Show Answer</button>
+      <button class="secondary" onclick="markDone()">✔ Mark Done</button>
+      <button class="danger" onclick="resetAll()">↻ Reset Game</button>
+    </div>
+  </section>
+
+  <div class="grid-title">Choose a question</div>
+  <div class="qgrid" id="qgrid"></div>
+  <div class="footer-note">Tip: Correct after Clue 1 = 30 points • Clue 2 = 20 points • Clue 3 = 10 points</div>
+</div>
+
+<script>
+const questions = [
+  {
+    clues:[
+      "I can travel on roads without a human controlling me.",
+      "I use cameras, sensors and artificial intelligence.",
+      "I may reduce accidents and make transport smarter."
+    ],
+    answer:"Driverless car"
+  },
+  {
+    clues:[
+      "I am a building with plants growing on many floors.",
+      "I can help cities produce food in small spaces.",
+      "I reduce the distance food travels from farms to people."
+    ],
+    answer:"Vertical farm"
+  },
+  {
+    clues:[
+      "I can carry people above busy streets.",
+      "I am small, electric and can take off vertically.",
+      "People hope I will reduce traffic jams in future cities."
+    ],
+    answer:"Flying taxi"
+  },
+  {
+    clues:[
+      "I collect energy from sunlight.",
+      "I can be installed on roofs and buildings.",
+      "I help cities use clean, renewable energy."
+    ],
+    answer:"Solar panel"
+  },
+  {
+    clues:[
+      "I am a home connected to the Internet.",
+      "Lights, doors and appliances can be controlled automatically.",
+      "People can manage me with a phone or voice commands."
+    ],
+    answer:"Smart home"
+  },
+  {
+    clues:[
+      "I watch traffic in real time.",
+      "I can change signals depending on the number of vehicles.",
+      "I help reduce congestion at intersections."
+    ],
+    answer:"Smart traffic lights"
+  },
+  {
+    clues:[
+      "I carry small packages through the air.",
+      "I do not need a road.",
+      "Companies may use me to deliver food and goods quickly."
+    ],
+    answer:"Delivery drone"
+  },
+  {
+    clues:[
+      "I am a public vehicle that can travel without a driver.",
+      "I may use electricity instead of fossil fuels.",
+      "I can move many passengers around a smart city."
+    ],
+    answer:"Autonomous bus"
+  },
+  {
+    clues:[
+      "I collect information about air, traffic or temperature.",
+      "I am small and can be placed around a city.",
+      "Smart cities use my data to make better decisions."
+    ],
+    answer:"Smart sensor"
+  },
+  {
+    clues:[
+      "I grow plants on the top or side of buildings.",
+      "I can cool buildings and improve air quality.",
+      "I bring more nature into crowded urban areas."
+    ],
+    answer:"Green roof / green wall"
+  },
+  {
+    clues:[
+      "I allow vehicles to get power without using petrol.",
+      "I may be built into special parking spaces or roads.",
+      "I help electric vehicles travel more easily."
+    ],
+    answer:"Electric charging system"
+  },
+  {
+    clues:[
+      "I am a city built to use technology and data efficiently.",
+      "I can manage transport, energy and public services intelligently.",
+      "My goal is to improve people's quality of life."
+    ],
+    answer:"Smart city"
+  }
+];
+
+let current = 0;
+let revealed = 0;
+let scores = [0,0,0,0];
+let done = Array(questions.length).fill(false);
+
+function renderGrid(){
+  const grid = document.getElementById('qgrid');
+  grid.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.className = 'qbtn' + (i===current ? ' active' : '') + (done[i] ? ' done' : '');
+    b.textContent = i+1;
+    b.onclick = ()=>loadQuestion(i);
+    grid.appendChild(b);
+  });
+}
+
+function loadQuestion(i){
+  current = i;
+  revealed = 0;
+  document.getElementById('counter').textContent = `Question ${i+1} / ${questions.length}`;
+  document.getElementById('c1').textContent = questions[i].clues[0];
+  document.getElementById('c2').textContent = questions[i].clues[1];
+  document.getElementById('c3').textContent = questions[i].clues[2];
+  ['clue1','clue2','clue3'].forEach(id=>document.getElementById(id).classList.remove('revealed'));
+  document.getElementById('answer').style.display = 'none';
+  document.getElementById('answer').textContent = 'Answer: ' + questions[i].answer;
+  document.getElementById('points').textContent = '30 POINTS';
+  renderGrid();
+}
+
+function revealNext(){
+  if(revealed < 3){
+    revealed++;
+    document.getElementById('clue'+revealed).classList.add('revealed');
+    const pts = revealed===1 ? 30 : revealed===2 ? 20 : 10;
+    document.getElementById('points').textContent = pts + ' POINTS';
+  }
+}
+
+function showAnswer(){
+  document.getElementById('answer').style.display = 'block';
+}
+
+function markDone(){
+  done[current] = true;
+  renderGrid();
+  const next = done.findIndex((x,i)=>!x && i>current);
+  if(next !== -1) loadQuestion(next);
+}
+
+function addScore(team, amount){
+  scores[team] = Math.max(0, scores[team] + amount);
+  document.getElementById('s'+team).textContent = scores[team];
+}
+
+function resetAll(){
+  if(!confirm('Reset all scores and questions?')) return;
+  scores = [0,0,0,0];
+  done = Array(questions.length).fill(false);
+  for(let i=0;i<4;i++) document.getElementById('s'+i).textContent = '0';
+  loadQuestion(0);
+}
+
+function toggleFullScreen(){
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen?.();
+  }else{
+    document.exitFullscreen?.();
+  }
+}
+
+loadQuestion(0);
+</script>
+</body>
+</html>

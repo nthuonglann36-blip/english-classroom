@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASEAN Map Quiz</title>
+<!--
+  U4 L1 khởi động "Map quiz" (giáo án): 10 hình bóng nước ASEAN — bấm thẻ để lật ra
+  hình lá cờ + tên nước. 4 đội, bấm +1 / −1. Hình lấy từ LỚP 11/…/Unit 4 - Lesson 1.pptx
+  (slide 5–14), đã tách nền: assets/images/u04-map/<nước>-shape.webp / -flag.webp.
+  Chạy offline.
+-->
+<style>
+  :root{ --ink:#1f2937; --a:#0D47A1; --b:#B71C1C; --bg:#FBF6EC; }
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; margin:0; }
+  body{ font-family:"Segoe UI", system-ui, -apple-system, Arial, sans-serif; color:var(--ink); background:var(--bg);
+        display:flex; flex-direction:column; overflow:hidden; }
+  header{ display:flex; align-items:center; gap:8px; padding:8px 14px; flex-wrap:wrap; }
+  h1{ margin:0; font-size:clamp(22px,2.4vw,34px); color:var(--a); flex:1 1 auto; }
+  .team{ display:flex; align-items:center; gap:6px; background:#fff; border-radius:999px; padding:3px 6px 3px 12px;
+         box-shadow:0 1px 4px rgba(0,0,0,.12); font-size:clamp(16px,1.4vw,20px); font-weight:700; }
+  .team b{ min-width:1.4em; text-align:center; font-variant-numeric:tabular-nums; color:var(--b); }
+  button{ font:inherit; cursor:pointer; }
+  .sc{ font-size:17px; font-weight:700; border:2px solid var(--a); color:var(--a); background:#fff; border-radius:999px; width:30px; height:30px; padding:0; }
+  .ctl{ font-size:clamp(16px,1.4vw,19px); font-weight:600; border:2px solid var(--a); color:var(--a); background:#fff; border-radius:999px; padding:.2em .8em; }
+  main{ flex:1 1 auto; display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(2,1fr); gap:12px; padding:4px 14px 14px; min-height:0; }
+  .card{ position:relative; border:0; padding:0; background:transparent; perspective:900px; min-height:0; }
+  .in{ position:absolute; inset:0; transition:transform .5s; transform-style:preserve-3d; }
+  .card.open .in{ transform:rotateY(180deg); }
+  .face{ position:absolute; inset:0; backface-visibility:hidden; border-radius:16px; background:#fff;
+         box-shadow:0 3px 10px rgba(0,0,0,.12); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 8px 8px; gap:6px; }
+  .back{ transform:rotateY(180deg); border:3px solid var(--a); }
+  .face img{ flex:1 1 auto; min-height:0; max-width:100%; object-fit:contain; filter:drop-shadow(0 0 1px rgba(30,41,59,.7)); }
+  .num{ position:absolute; top:6px; left:10px; font-size:22px; font-weight:800; color:var(--a); }
+  .name{ font-size:clamp(20px,2vw,28px); font-weight:800; color:var(--b); }
+  .hint{ font-size:clamp(16px,1.4vw,19px); color:#64748b; font-weight:600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🗺️ What country is it?</h1>
+  <span class="team">Team 1 <button class="sc" data-t="0" data-d="-1">−</button><b>0</b><button class="sc" data-t="0" data-d="1">+</button></span>
+  <span class="team">Team 2 <button class="sc" data-t="1" data-d="-1">−</button><b>0</b><button class="sc" data-t="1" data-d="1">+</button></span>
+  <span class="team">Team 3 <button class="sc" data-t="2" data-d="-1">−</button><b>0</b><button class="sc" data-t="2" data-d="1">+</button></span>
+  <span class="team">Team 4 <button class="sc" data-t="3" data-d="-1">−</button><b>0</b><button class="sc" data-t="3" data-d="1">+</button></span>
+  <button class="ctl" id="all" type="button">Show all</button>
+  <button class="ctl" id="reset" type="button">Reset</button>
+</header>
+<main id="grid"></main>
+<script>
+(function(){
+  var C = [['vietnam','Viet Nam'],['brunei','Brunei'],['cambodia','Cambodia'],['thailand','Thailand'],['laos','Laos'],
+           ['malaysia','Malaysia'],['philippines','the Philippines'],['singapore','Singapore'],['myanmar','Myanmar'],['indonesia','Indonesia']];
+  var grid = document.getElementById('grid'), score = [0,0,0,0];
+  C.forEach(function(c, i){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'card';
+    b.setAttribute('aria-label', 'Country ' + (i + 1));
+    b.innerHTML = '<span class="in"><span class="face"><span class="num">' + (i + 1) + '</span>' +
+      '<img src="../images/u04-map/' + c[0] + '-shape.webp" alt="Map shape of country ' + (i + 1) + '"><span class="hint">Click to check</span></span>' +
+      '<span class="face back"><img src="../images/u04-map/' + c[0] + '-flag.webp" alt="Map of ' + c[1] + ' filled with its flag">' +
+      '<span class="name">' + c[1] + '</span></span></span>';
+    b.addEventListener('click', function(){ b.classList.toggle('open'); });
+    grid.appendChild(b);
+  });
+  document.getElementById('all').onclick = function(){ grid.querySelectorAll('.card').forEach(function(c){ c.classList.add('open'); }); };
+  document.getElementById('reset').onclick = function(){
+    grid.querySelectorAll('.card').forEach(function(c){ c.classList.remove('open'); });
+    score = [0,0,0,0]; document.querySelectorAll('.team b').forEach(function(b){ b.textContent = 0; });
+  };
+  document.querySelectorAll('.sc').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = +btn.dataset.t; score[t] = Math.max(0, score[t] + (+btn.dataset.d));
+      btn.parentNode.querySelector('b').textContent = score[t];
+    });
+  });
+})();
+</script>
+</body>
+</html>

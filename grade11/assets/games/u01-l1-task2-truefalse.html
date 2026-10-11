@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Healthy Lifestyle – 4-Team True/False Challenge</title>
+<style>
+  :root{
+    --bg1:#f6fbff;
+    --bg2:#fff8e8;
+    --ink:#183153;
+    --muted:#5c6f82;
+    --card:#ffffff;
+    --accent:#11a8a0;
+    --accent2:#ff9f43;
+    --true:#20bf6b;
+    --false:#eb3b5a;
+    --shadow:0 14px 40px rgba(38, 73, 98, .14);
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 10% 10%, rgba(72,219,251,.22), transparent 24%),
+      radial-gradient(circle at 90% 15%, rgba(255,159,67,.20), transparent 24%),
+      radial-gradient(circle at 70% 90%, rgba(32,191,107,.14), transparent 30%),
+      linear-gradient(135deg,var(--bg1),var(--bg2));
+    overflow-x:hidden;
+  }
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  .app{max-width:1280px;margin:auto;padding:18px}
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-bottom:14px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:48px;height:48px;border-radius:16px;display:grid;place-items:center;
+    background:linear-gradient(135deg,#27c3bb,#65dca5);
+    color:#fff;font-size:28px;box-shadow:var(--shadow);
+  }
+  h1{font-size:clamp(24px,3vw,42px);margin:0;line-height:1}
+  .subtitle{color:var(--muted);font-weight:700;margin-top:6px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+  .mini-btn{
+    border:0;border-radius:14px;padding:10px 14px;font-weight:800;
+    background:#fff;color:var(--ink);box-shadow:0 6px 18px rgba(0,0,0,.08)
+  }
+  .mini-btn:hover{transform:translateY(-1px)}
+  .scoreboard{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px
+  }
+  .team{
+    background:var(--card);border-radius:20px;padding:12px;
+    box-shadow:var(--shadow);border:3px solid transparent;transition:.2s;
+    position:relative;overflow:hidden;
+  }
+  .team::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--team)}
+  .team.active{transform:translateY(-3px);border-color:var(--team)}
+  .team-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .team-name{
+    width:70%;border:0;background:#f4f7fb;border-radius:12px;padding:8px 10px;
+    font-weight:900;color:var(--ink)
+  }
+  .points{font-size:28px;font-weight:1000}
+  .streak{font-size:12px;color:var(--muted);font-weight:800;margin-top:5px}
+  .main-grid{display:grid;grid-template-columns:1fr 310px;gap:16px}
+  .game-card,.side-card{
+    background:rgba(255,255,255,.94);border-radius:var(--radius);box-shadow:var(--shadow)
+  }
+  .game-card{padding:clamp(18px,3vw,34px);min-height:520px;position:relative;overflow:hidden}
+  .progress-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 13px;
+    background:#eef8ff;font-weight:900;color:#25628a
+  }
+  .timer{
+    width:72px;height:72px;border-radius:50%;display:grid;place-items:center;
+    font-size:27px;font-weight:1000;background:#fff3dd;border:6px solid #ffbe76;
+  }
+  .timer.danger{animation:pulse .55s infinite alternate;background:#ffe9ef;border-color:#eb3b5a}
+  @keyframes pulse{to{transform:scale(1.07)}}
+  .statement{
+    margin:30px auto 22px;max-width:900px;text-align:center;
+    font-size:clamp(28px,4vw,52px);font-weight:1000;line-height:1.16;
+  }
+  .instruction{text-align:center;color:var(--muted);font-weight:800;margin-bottom:18px}
+  .answers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .team-answer{
+    border:2px solid #e8eef5;border-radius:18px;padding:13px;background:#fbfdff;
+  }
+  .team-answer h3{margin:0 0 10px;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .choice{
+    border:0;border-radius:14px;padding:13px 8px;font-weight:1000;font-size:18px;
+    color:#fff;opacity:.62;transition:.16s;
+  }
+  .choice.true{background:var(--true)}
+  .choice.false{background:var(--false)}
+  .choice:hover,.choice.selected{opacity:1;transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.15)}
+  .choice.correct{outline:5px solid rgba(32,191,107,.23)}
+  .choice.wrong{filter:grayscale(.45);opacity:.42}
+  .result{
+    margin:22px auto 0;max-width:900px;text-align:center;border-radius:18px;padding:16px;
+    background:#f8fbff;display:none
+  }
+  .result.show{display:block;animation:pop .28s ease-out}
+  @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+  .result-title{font-size:28px;font-weight:1000;margin-bottom:6px}
+  .explanation{font-size:17px;color:#50657b;font-weight:700}
+  .action-row{display:flex;justify-content:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .big-btn{
+    border:0;border-radius:16px;padding:14px 24px;font-size:18px;font-weight:1000;color:#fff;
+    box-shadow:0 10px 24px rgba(0,0,0,.14)
+  }
+  .reveal{background:linear-gradient(135deg,#8854d0,#a55eea)}
+  .next{background:linear-gradient(135deg,#0fb9b1,#20bf6b)}
+  .skip{background:#95a5a6}
+  .side-card{padding:18px}
+  .side-card h2{margin:0 0 12px;font-size:21px}
+  .rule{
+    display:flex;gap:10px;align-items:flex-start;background:#f7fafc;border-radius:14px;padding:11px;margin:9px 0;
+    font-weight:750;color:#4a6074
+  }
+  .rule b{color:var(--ink)}
+  .status-list{margin-top:16px}
+  .status-item{
+    display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px dashed #dfe6ee;font-weight:800
+  }
+  .start-overlay{
+    position:fixed;inset:0;background:rgba(18,43,63,.72);backdrop-filter:blur(8px);
+    z-index:50;display:grid;place-items:center;padding:18px
+  }
+  .start-box{
+    width:min(780px,96vw);background:white;border-radius:28px;padding:30px;box-shadow:0 24px 70px rgba(0,0,0,.25)
+  }
+  .start-box h2{font-size:36px;margin:0 0 8px}
+  .start-box p{color:var(--muted);font-weight:700}
+  .settings{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+  .setting{background:#f6f9fc;padding:13px;border-radius:16px}
+  .setting label{font-weight:900;display:block;margin-bottom:6px}
+  .setting select{width:100%;padding:10px;border:1px solid #dfe7ef;border-radius:12px;background:#fff}
+  .start-btn{
+    width:100%;border:0;border-radius:18px;padding:16px;color:white;font-size:22px;font-weight:1000;
+    background:linear-gradient(135deg,#1dd1a1,#10ac84);box-shadow:0 10px 26px rgba(16,172,132,.3)
+  }
+  .winner{
+    display:none;position:fixed;inset:0;z-index:70;background:rgba(12,30,45,.82);
+    place-items:center;padding:18px
+  }
+  .winner.show{display:grid}
+  .winner-box{
+    width:min(700px,95vw);background:white;border-radius:30px;padding:34px;text-align:center;
+    box-shadow:0 30px 80px rgba(0,0,0,.3)
+  }
+  .winner-emoji{font-size:80px}
+  .winner-box h2{font-size:40px;margin:8px}
+  .winner-names{font-size:28px;font-weight:1000;color:#10ac84;margin:10px}
+  .confetti{position:fixed;top:-20px;width:10px;height:16px;z-index:90;pointer-events:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(110vh) rotate(900deg)}}
+  .kbd{display:inline-block;background:#eef1f4;border:1px solid #cfd6dd;border-bottom-width:3px;border-radius:6px;padding:1px 6px;font-size:12px}
+  @media (max-width:980px){
+    .main-grid{grid-template-columns:1fr}
+    .side-card{display:none}
+    .answers-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:620px){
+    .scoreboard{grid-template-columns:repeat(2,1fr)}
+    .answers-grid{grid-template-columns:1fr 1fr}
+    .statement{font-size:30px}
+    .game-card{padding:16px}
+    .settings{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">💚</div>
+      <div>
+        <h1>Healthy Lifestyle Challenge</h1>
+        <div class="subtitle">4-Team True / False Battle</div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="mini-btn" id="soundBtn">🔊 Sound: ON</button>
+      <button class="mini-btn" id="fullscreenBtn">⛶ Fullscreen</button>
+      <button class="mini-btn" id="resetBtn">↻ Restart</button>
+    </div>
+  </div>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="main-grid">
+    <section class="game-card">
+      <div class="progress-row">
+        <div class="pill" id="progress">Question 1 / 6</div>
+        <div class="pill" id="answered">0 / 4 teams answered</div>
+        <div class="timer" id="timer">20</div>
+      </div>
+
+      <div class="statement" id="statement">Ready?</div>
+      <div class="instruction">Teacher records each team's answer. Then reveal the correct answer!</div>
+
+      <div class="answers-grid" id="answersGrid"></div>
+
+      <div class="result" id="result">
+        <div class="result-title" id="resultTitle"></div>
+        <div class="explanation" id="explanation"></div>
+      </div>
+
+      <div class="action-row">
+        <button class="big-btn reveal" id="revealBtn">✨ Reveal Answer</button>
+        <button class="big-btn next" id="nextBtn" style="display:none">Next Question ➜</button>
+      </div>
+    </section>
+
+    <aside class="side-card">
+      <h2>🎤 Quick classroom rules</h2>
+      <div class="rule"><span>1️⃣</span><span>All 4 teams discuss at the same time.</span></div>
+      <div class="rule"><span>2️⃣</span><span>Teacher taps <b>TRUE</b> or <b>FALSE</b> for each team.</span></div>
+      <div class="rule"><span>3️⃣</span><span>Correct answer = <b>+10 points</b>. A 3-answer streak gives <b>+5 bonus</b>.</span></div>
+      <div class="rule"><span>🔥</span><span>Encourage teams to shout: <b>“True!”</b> / <b>“False!”</b> together.</span></div>
+      <div class="status-list" id="statusList"></div>
+      <div style="margin-top:14px;color:#708090;font-size:13px;font-weight:700">
+        Shortcuts: <span class="kbd">Space</span> reveal / next · <span class="kbd">F</span> fullscreen
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="start-overlay" id="startOverlay">
+  <div class="start-box">
+    <div style="font-size:52px">🥦🏃‍♂️🍎</div>
+    <h2>Ready for a Healthy Battle?</h2>
+    <p>Six True/False statements based on Mark and Nam's conversation. All four teams answer every question, so everyone stays involved.</p>
+    <div class="settings">
+      <div class="setting">
+        <label for="timeSelect">⏱ Time per question</label>
+        <select id="timeSelect">
+          <option value="15">15 seconds</option>
+          <option value="20" selected>20 seconds</option>
+          <option value="30">30 seconds</option>
+          <option value="0">No timer</option>
+        </select>
+      </div>
+      <div class="setting">
+        <label for="shuffleSelect">🔀 Question order</label>
+        <select id="shuffleSelect">
+          <option value="yes" selected>Shuffle questions</option>
+          <option value="no">Keep textbook order</option>
+        </select>
+      </div>
+    </div>
+    <button class="start-btn" id="startBtn">🚀 Start Game</button>
+  </div>
+</div>
+
+<div class="winner" id="winner">
+  <div class="winner-box">
+    <div class="winner-emoji">🏆</div>
+    <h2>Game Over!</h2>
+    <div class="winner-names" id="winnerNames"></div>
+    <div id="finalScores" style="font-size:18px;font-weight:800;color:#526678"></div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+      <button class="big-btn next" id="playAgainBtn">Play Again 🔁</button>
+      <button class="big-btn reveal" id="closeWinnerBtn">View Scores</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const originalQuestions = [
+  {
+    text: "Nam has always had healthy habits.",
+    answer: false,
+    explain: "False. Nam says he used to eat a lot of fast food and stay up late."
+  },
+  {
+    text: "Nam has learnt the importance of exercise and healthy food.",
+    answer: true,
+    explain: "True. He learnt that regular exercise and a balanced diet are the key to a long and healthy life."
+  },
+  {
+    text: "Nam’s grandfather goes to sleep early, exercises every day, and eats healthily.",
+    answer: true,
+    explain: "True. He exercises every morning, goes to bed early, and eats a lot of vegetables."
+  },
+  {
+    text: "Nam started changing his habits after learning from his grandfather during the last summer holiday.",
+    answer: true,
+    explain: "True. Nam visited his grandfather during his last summer holiday and learnt many important life lessons from him."
+  },
+  {
+    text: "Nam’s grandfather has just celebrated his 80th birthday.",
+    answer: false,
+    explain: "False. He has just had his 90th birthday."
+  },
+  {
+    text: "Nam and his grandfather spend time cooking, working in the garden, and walking in the parks.",
+    answer: true,
+    explain: "True. Nam says they spent a lot of time together doing all three activities."
+  }
+];
+
+const teamColors = ["#2d98da","#eb3b5a","#20bf6b","#f7b731"];
+const teamEmojis = ["🦈","🚀","🐯","⭐"];
+let teams = [
+  {name:"Team 1", score:0, streak:0, choice:null},
+  {name:"Team 2", score:0, streak:0, choice:null},
+  {name:"Team 3", score:0, streak:0, choice:null},
+  {name:"Team 4", score:0, streak:0, choice:null}
+];
+
+let questions = [...originalQuestions];
+let qIndex = 0;
+let revealed = false;
+let scored = false;
+let timerMax = 20;
+let timeLeft = 20;
+let timerId = null;
+let soundOn = true;
+
+const scoreboard = document.getElementById("scoreboard");
+const answersGrid = document.getElementById("answersGrid");
+const statement = document.getElementById("statement");
+const progress = document.getElementById("progress");
+const answered = document.getElementById("answered");
+const timerEl = document.getElementById("timer");
+const result = document.getElementById("result");
+const resultTitle = document.getElementById("resultTitle");
+const explanation = document.getElementById("explanation");
+const revealBtn = document.getElementById("revealBtn");
+const nextBtn = document.getElementById("nextBtn");
+const statusList = document.getElementById("statusList");
+
+function renderTeams(){
+  scoreboard.innerHTML = "";
+  teams.forEach((t,i)=>{
+    const card = document.createElement("div");
+    card.className = "team";
+    card.style.setProperty("--team",teamColors[i]);
+    card.innerHTML = `
+      <div class="team-head">
+        <input class="team-name" value="${escapeHtml(t.name)}" aria-label="Team ${i+1} name">
+        <div class="points">${t.score}</div>
+      </div>
+      <div class="streak">${teamEmojis[i]} Streak: ${t.streak} ${t.streak>=2 ? "🔥":""}</div>
+    `;
+    const input = card.querySelector("input");
+    input.addEventListener("change",()=>{
+      t.name = input.value.trim() || `Team ${i+1}`;
+      renderAnswers();
+      renderStatus();
+    });
+    scoreboard.appendChild(card);
+  });
+}
+
+function renderAnswers(){
+  answersGrid.innerHTML = "";
+  teams.forEach((t,i)=>{
+    const box = document.createElement("div");
+    box.className="team-answer";
+    box.innerHTML = `
+      <h3>${teamEmojis[i]} ${escapeHtml(t.name)}</h3>
+      <div class="choice-row">
+        <button class="choice true ${t.choice===true?"selected":""}" data-team="${i}" data-value="true">TRUE</button>
+        <button class="choice false ${t.choice===false?"selected":""}" data-team="${i}" data-value="false">FALSE</button>
+      </div>`;
+    answersGrid.appendChild(box);
+  });
+
+  answersGrid.querySelectorAll(".choice").forEach(btn=>{
+    const i = Number(btn.dataset.team);
+    const val = btn.dataset.value==="true";
+    if(revealed){
+      btn.disabled = true;
+      if(val===questions[qIndex].answer) btn.classList.add("correct");
+      if(teams[i].choice===val && val!==questions[qIndex].answer) btn.classList.add("wrong");
+    } else {
+      btn.addEventListener("click",()=>{
+        teams[i].choice = val;
+        beep(val ? 560 : 330, .06);
+        renderAnswers();
+        updateAnswered();
+        renderStatus();
+      });
+    }
+  });
+}
+
+function renderStatus(){
+  statusList.innerHTML = "<h2 style='margin-top:18px'>📣 Team status</h2>";
+  teams.forEach((t,i)=>{
+    const div=document.createElement("div");
+    div.className="status-item";
+    const choice = t.choice===null ? "Thinking…" : (t.choice ? "TRUE" : "FALSE");
+    div.innerHTML=`<span>${teamEmojis[i]} ${escapeHtml(t.name)}</span><span>${revealed ? (t.choice===questions[qIndex].answer ? "✅" : "❌") : choice}</span>`;
+    statusList.appendChild(div);
+  });
+}
+
+function updateAnswered(){
+  const n = teams.filter(t=>t.choice!==null).length;
+  answered.textContent = `${n} / 4 teams answered`;
+}
+
+function showQuestion(){
+  clearInterval(timerId);
+  revealed=false;
+  scored=false;
+  teams.forEach(t=>t.choice=null);
+  const q=questions[qIndex];
+  progress.textContent=`Question ${qIndex+1} / ${questions.length}`;
+  statement.textContent=q.text;
+  result.classList.remove("show");
+  revealBtn.style.display="";
+  nextBtn.style.display="none";
+  renderAnswers();
+  updateAnswered();
+  renderStatus();
+  startTimer();
+}
+
+function startTimer(){
+  clearInterval(timerId);
+  timerEl.classList.remove("danger");
+  if(timerMax===0){
+    timerEl.textContent="∞";
+    return;
+  }
+  timeLeft=timerMax;
+  timerEl.textContent=timeLeft;
+  timerId=setInterval(()=>{
+    timeLeft--;
+    timerEl.textContent=timeLeft;
+    if(timeLeft<=5) timerEl.classList.add("danger");
+    if(timeLeft<=0){
+      clearInterval(timerId);
+      buzz();
+      revealAnswer();
+    }
+  },1000);
+}
+
+function revealAnswer(){
+  if(revealed) return;
+  clearInterval(timerId);
+  revealed=true;
+  const q=questions[qIndex];
+
+  if(!scored){
+    teams.forEach(t=>{
+      if(t.choice===q.answer){
+        t.score += 10;
+        t.streak++;
+        if(t.streak>0 && t.streak%3===0) t.score += 5;
+      } else {
+        t.streak=0;
+      }
+    });
+    scored=true;
+  }
+
+  resultTitle.textContent = q.answer ? "✅ TRUE!" : "❌ FALSE!";
+  resultTitle.style.color = q.answer ? "var(--true)" : "var(--false)";
+  explanation.textContent=q.explain;
+  result.classList.add("show");
+  revealBtn.style.display="none";
+  nextBtn.style.display="";
+  renderTeams();
+  renderAnswers();
+  renderStatus();
+
+  const correct = teams.filter(t=>t.choice===q.answer).length;
+  if(correct===4){ celebrationSound(); confetti(38); }
+  else beep(700,.12);
+}
+
+function nextQuestion(){
+  if(!revealed){ revealAnswer(); return; }
+  qIndex++;
+  if(qIndex>=questions.length){ endGame(); return; }
+  showQuestion();
+}
+
+function endGame(){
+  clearInterval(timerId);
+  const max=Math.max(...teams.map(t=>t.score));
+  const winners=teams.filter(t=>t.score===max).map(t=>t.name);
+  document.getElementById("winnerNames").textContent =
+    winners.length===1 ? `${winners[0]} wins!` : `${winners.join(" & ")} tie for 1st!`;
+  document.getElementById("finalScores").textContent =
+    teams.map(t=>`${t.name}: ${t.score}`).join("  •  ");
+  document.getElementById("winner").classList.add("show");
+  celebrationSound();
+  confetti(100);
+}
+
+function resetGame(showStart=true){
+  clearInterval(timerId);
+  qIndex=0; revealed=false; scored=false;
+  teams.forEach((t,i)=>{t.score=0;t.streak=0;t.choice=null;if(!t.name)t.name=`Team ${i+1}`});
+  renderTeams();
+  if(showStart) document.getElementById("startOverlay").style.display="grid";
+  document.getElementById("winner").classList.remove("show");
+}
+
+function startGame(){
+  timerMax=Number(document.getElementById("timeSelect").value);
+  questions=[...originalQuestions];
+  if(document.getElementById("shuffleSelect").value==="yes"){
+    questions.sort(()=>Math.random()-.5);
+  }
+  qIndex=0;
+  teams.forEach(t=>{t.score=0;t.streak=0;t.choice=null});
+  document.getElementById("startOverlay").style.display="none";
+  renderTeams();
+  showQuestion();
+  beep(520,.08); setTimeout(()=>beep(760,.12),90);
+}
+
+function confetti(n=50){
+  const colors=["#ff6b6b","#feca57","#48dbfb","#1dd1a1","#5f27cd","#ff9ff3"];
+  for(let i=0;i<n;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(1.8+Math.random()*2.2)+"s";
+    c.style.animationDelay=(Math.random()*.35)+"s";
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4500);
+  }
+}
+
+function beep(freq=440,dur=.08){
+  if(!soundOn) return;
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.value=freq;o.type="sine";
+    g.gain.setValueAtTime(.05,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);
+    o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+dur);
+  }catch(e){}
+}
+function buzz(){ beep(180,.14);setTimeout(()=>beep(140,.16),150); }
+function celebrationSound(){ if(!soundOn)return; [523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.12),i*95)); }
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+document.getElementById("startBtn").addEventListener("click",startGame);
+revealBtn.addEventListener("click",revealAnswer);
+nextBtn.addEventListener("click",nextQuestion);
+document.getElementById("resetBtn").addEventListener("click",()=>resetGame(true));
+document.getElementById("playAgainBtn").addEventListener("click",()=>{document.getElementById("winner").classList.remove("show");resetGame(false);startGame()});
+document.getElementById("closeWinnerBtn").addEventListener("click",()=>document.getElementById("winner").classList.remove("show"));
+document.getElementById("fullscreenBtn").addEventListener("click",()=>{
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+});
+document.getElementById("soundBtn").addEventListener("click",(e)=>{
+  soundOn=!soundOn;e.currentTarget.textContent=soundOn?"🔊 Sound: ON":"🔇 Sound: OFF";
+  if(soundOn) beep(650,.08);
+});
+document.addEventListener("keydown",(e)=>{
+  if(e.target.tagName==="INPUT"||e.target.tagName==="SELECT")return;
+  if(e.code==="Space"){e.preventDefault(); revealed?nextQuestion():revealAnswer();}
+  if(e.key.toLowerCase()==="f") document.getElementById("fullscreenBtn").click();
+});
+
+renderTeams();
+renderAnswers();
+renderStatus();
+</script>
+</body>
+</html>

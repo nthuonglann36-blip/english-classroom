@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Generation Gap Challenge - 4 Teams</title>
+<style>
+  :root{
+    --bg1:#fff4e6;
+    --bg2:#e7f5ff;
+    --ink:#24324a;
+    --card:#ffffffee;
+    --shadow:0 14px 35px rgba(30,55,90,.16);
+    --team1:#ff6b6b;
+    --team2:#4dabf7;
+    --team3:#51cf66;
+    --team4:#845ef7;
+    --gold:#ffd43b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 10% 15%, #ffe8cc 0 12%, transparent 13%),
+      radial-gradient(circle at 90% 10%, #d0ebff 0 11%, transparent 12%),
+      linear-gradient(135deg,var(--bg1),var(--bg2));
+    min-height:100vh;
+  }
+  header{
+    padding:22px 20px 12px;
+    text-align:center;
+  }
+  h1{
+    margin:0;
+    font-size:clamp(28px,4vw,48px);
+    letter-spacing:.5px;
+  }
+  .subtitle{
+    margin:8px auto 0;
+    font-size:clamp(14px,2vw,20px);
+    max-width:900px;
+  }
+  .wrap{
+    width:min(1400px,96vw);
+    margin:0 auto 30px;
+  }
+  .topbar{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:14px 0;
+  }
+  .team{
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:12px;
+    border:3px solid transparent;
+  }
+  .team:nth-child(1){border-color:var(--team1)}
+  .team:nth-child(2){border-color:var(--team2)}
+  .team:nth-child(3){border-color:var(--team3)}
+  .team:nth-child(4){border-color:var(--team4)}
+  .team input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    text-align:center;
+    font-weight:800;
+    font-size:18px;
+    color:var(--ink);
+  }
+  .scoreRow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-top:8px;
+  }
+  .score{
+    min-width:64px;
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+  }
+  .smallBtn{
+    border:0;
+    width:36px;height:36px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:21px;
+    font-weight:900;
+    background:#edf2ff;
+    color:#364fc7;
+  }
+  .toolbar{
+    background:var(--card);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    padding:12px 14px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .toolbar .left,.toolbar .right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .btn{
+    border:0;
+    border-radius:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:15px;
+    background:#364fc7;
+    color:#fff;
+  }
+  .btn.alt{background:#f1f3f5;color:#343a40}
+  .btn.warn{background:#fa5252}
+  .timer{
+    font-weight:900;
+    font-size:22px;
+    min-width:72px;
+    text-align:center;
+  }
+  .legend{font-size:13px;opacity:.8}
+  .board{
+    margin-top:15px;
+    background:var(--card);
+    box-shadow:var(--shadow);
+    border-radius:22px;
+    padding:18px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:10px;
+  }
+  .qcell{
+    aspect-ratio:1.2/1;
+    border:0;
+    border-radius:16px;
+    background:linear-gradient(145deg,#ffffff,#edf2ff);
+    box-shadow:0 6px 14px rgba(0,0,0,.08);
+    cursor:pointer;
+    font-weight:900;
+    font-size:22px;
+    color:#364fc7;
+    transition:.18s;
+    position:relative;
+    overflow:hidden;
+  }
+  .qcell:hover{transform:translateY(-3px) scale(1.02)}
+  .qcell::after{
+    content:"";
+    position:absolute;inset:auto -18px -22px auto;
+    width:58px;height:58px;border-radius:50%;
+    background:#ffd43b55;
+  }
+  .qcell.used{
+    background:#e9ecef;
+    color:#adb5bd;
+    box-shadow:none;
+  }
+  .qcell.used::before{
+    content:"✓";
+    position:absolute;
+    top:6px;right:9px;
+    color:#2f9e44;
+    font-size:18px;
+  }
+  .footerNote{
+    text-align:center;
+    margin-top:12px;
+    font-size:13px;
+    opacity:.75;
+  }
+
+  /* Modal */
+  .modal{
+    position:fixed;
+    inset:0;
+    background:rgba(17,24,39,.68);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:99;
+  }
+  .modal.show{display:flex}
+  .modalCard{
+    width:min(950px,96vw);
+    max-height:92vh;
+    overflow:auto;
+    background:#fff;
+    border-radius:24px;
+    box-shadow:0 30px 70px rgba(0,0,0,.28);
+    padding:24px;
+    position:relative;
+  }
+  .qtag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#fff3bf;
+    border:2px solid #ffd43b;
+    border-radius:999px;
+    padding:7px 12px;
+    font-weight:900;
+    margin-bottom:14px;
+  }
+  .question{
+    font-size:clamp(24px,3.3vw,40px);
+    line-height:1.35;
+    font-weight:900;
+    margin:6px 0 18px;
+  }
+  .blank{
+    display:inline-block;
+    min-width:210px;
+    border-bottom:5px solid #364fc7;
+    transform:translateY(-3px);
+  }
+  .answerBox{
+    display:none;
+    margin:16px 0;
+    padding:16px 18px;
+    border-radius:16px;
+    background:#ebfbee;
+    border:2px solid #8ce99a;
+    font-size:28px;
+    font-weight:900;
+    color:#2b8a3e;
+  }
+  .answerBox.show{display:block}
+  .modalActions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:12px;
+  }
+  .awardGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:16px;
+  }
+  .award{
+    border:0;border-radius:14px;padding:13px 8px;
+    color:white;font-weight:900;cursor:pointer;font-size:16px;
+  }
+  .award:nth-child(1){background:var(--team1)}
+  .award:nth-child(2){background:var(--team2)}
+  .award:nth-child(3){background:var(--team3)}
+  .award:nth-child(4){background:var(--team4)}
+  .closeX{
+    position:absolute;right:14px;top:12px;
+    border:0;background:#f1f3f5;
+    width:40px;height:40px;border-radius:50%;
+    font-size:22px;cursor:pointer;
+  }
+
+  .confetti{position:fixed;pointer-events:none;z-index:999}
+  @media(max-width:900px){
+    .topbar{grid-template-columns:repeat(2,1fr)}
+    .grid{grid-template-columns:repeat(5,1fr)}
+    .awardGrid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:560px){
+    .grid{grid-template-columns:repeat(4,1fr)}
+    .qcell{font-size:18px}
+    .question{font-size:24px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>👨‍👩‍👧‍👦 Generation Gap Challenge</h1>
+  <div class="subtitle">Family • Generations • Gen X / Y / Z • Modal Verbs</div>
+</header>
+
+<div class="wrap">
+  <section class="topbar" id="teams"></section>
+
+  <section class="toolbar">
+    <div class="left">
+      <button class="btn alt" onclick="shuffleUnused()">🔀 Shuffle unused</button>
+      <button class="btn alt" onclick="resetTimer()">⏱ Reset 30s</button>
+      <button class="btn" onclick="startTimer()">▶ Start timer</button>
+      <span class="timer" id="timer">30</span>
+    </div>
+    <div class="right">
+      <span class="legend">Click a number → students fill the blank → show answer → award a team.</span>
+      <button class="btn warn" onclick="resetGame()">↻ Reset game</button>
+    </div>
+  </section>
+
+  <section class="board">
+    <div class="grid" id="grid"></div>
+    <div class="footerNote">Used questions are marked ✓. Team names are editable.</div>
+  </section>
+</div>
+
+<div class="modal" id="modal" onclick="backdropClose(event)">
+  <div class="modalCard">
+    <button class="closeX" onclick="closeModal()">×</button>
+    <div class="qtag" id="qtag">Question 1</div>
+    <div class="question" id="questionText"></div>
+    <div class="answerBox" id="answerBox"></div>
+    <div class="modalActions">
+      <button class="btn" onclick="showAnswer()">👀 Show answer</button>
+      <button class="btn alt" onclick="closeModal()">Close</button>
+    </div>
+    <div class="awardGrid" id="awardGrid"></div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {q:"My parents have a strict rule that I __________ be home before 10 p.m.", a:"have to"},
+  {q:"“My room is a mess. I __________ clean it before my friends arrive,” Tom said to himself.", a:"must"},
+  {q:"Children __________ speak rudely to their grandparents; it is strictly forbidden in our family.", a:"mustn’t"},
+  {q:"You __________ agree with your parents on everything. It is normal for different generations to have different opinions.", a:"don’t have to"},
+  {q:"I think parents __________ listen to their children more carefully when there is a disagreement.", a:"should"},
+  {q:"Parents __________ compare their children with other teenagers because this can make them feel under pressure.", a:"shouldn’t"},
+  {q:"When my grandmother was young, she __________ do most of the housework because her brothers did not help her.", a:"had to"},
+  {q:"In the future, older generations __________ learn how to use more new technology to communicate with younger family members.", a:"will have to"},
+  {q:"Emma’s parents require her to help with the washing-up every evening, so she __________ do it after dinner.", a:"has to"},
+  {q:"“I spend too much time on my phone. I __________ reduce my screen time,” Jack decided.", a:"must"},
+  {q:"Family members __________ use one another’s personal belongings without permission; it is strictly forbidden in our house.", a:"mustn’t"},
+  {q:"Dad has already cooked dinner, so Mum __________ cook tonight.", a:"doesn’t have to"},
+  {q:"I think teenagers __________ spend more time talking face-to-face with their family members.", a:"should"},
+  {q:"When my father was a teenager, he __________ ask his parents for permission before going out with friends.", a:"had to"},
+  {q:"According to our family rule, my younger brother __________ turn off his phone during dinner.", a:"has to"},
+  {q:"I think you __________ shout at your parents just because they have a different opinion from you; try to stay calm instead.", a:"shouldn’t"},
+  {q:"My parents allow me to choose my own clothes, so I __________ ask them what to wear every day.", a:"don’t have to"},
+  {q:"“I haven’t visited Grandma for weeks. I __________ go and see her this weekend,” Lucy said to herself.", a:"must"},
+  {q:"As technology develops, parents __________ learn more about the online platforms their children use in the future.", a:"will have to"},
+  {q:"In my opinion, parents and teenagers __________ try to understand each other’s point of view to reduce the generation gap.", a:"should"},
+
+  {q:"In the past, my grandparents __________ work on the farm all day without modern technology.", a:"had to"},
+  {q:"In my family, children __________ speak disrespectfully to the elderly; it is strictly forbidden.", a:"mustn’t"},
+  {q:"I think parents __________ listen more openly to their teenage children instead of just imposing their own opinions.", a:"should"},
+  {q:"According to my parents’ rule, I __________ be home before 9:30 p.m. every night.", a:"have to"},
+  {q:"Gen Z teenagers __________ spend so much time on social media late at night; it can seriously affect their sleep.", a:"shouldn’t"},
+  {q:"Today is Sunday, so we __________ wake up early for our family breakfast. Everyone can sleep in if they want to.", a:"don’t have to"},
+  {q:"“I can’t keep avoiding this problem. I __________ sit down and have a heart-to-heart talk with my parents,” I decided.", a:"must"},
+  {q:"When my Millennial aunt was at university, online academic resources were not available at her university, so she __________ go to the library to find research materials.", a:"had to"},
+  {q:"In the coming years, changes in technology will make it necessary for both parents and children to communicate in new ways. They __________ learn to understand each other better.", a:"will have to"},
+  {q:"I think young people __________ share personal family problems publicly on TikTok; they should respect their family’s privacy.", a:"shouldn’t"},
+  {q:"My sister __________ do the laundry today because Mom has already done it for her.", a:"doesn’t have to"},
+  {q:"My parents require me to maintain good academic results, so I __________ study hard to meet their expectations.", a:"have to"},
+  {q:"I think family members __________ spend quality time together regularly to maintain strong bonds.", a:"should"},
+  {q:"Our family has a strict rule: you __________ look at your smartphone while your grandparents are talking to you during family gatherings.", a:"mustn’t"},
+  {q:"My father is from Gen X, and his business now requires him to use banking apps. He __________ learn how to use them.", a:"has to"},
+  {q:"I think teenagers __________ feel guilty about having different music tastes from their parents; there is nothing wrong with having different preferences.", a:"shouldn’t"},
+  {q:"“Grandma’s birthday is this weekend, and I promised her I would bring a present. I __________ remember to buy one today,” I told myself.", a:"must"},
+  {q:"I think Gen X parents __________ force their children to pursue traditional career paths such as medicine or law when their children are interested in other careers.", a:"shouldn’t"},
+  {q:"Due to a strict family rule, my brother __________ ask for permission before inviting friends over to our house.", a:"has to"},
+  {q:"As Gen Z enters the workplace, working with colleagues from different generations will become unavoidable. They __________ adapt to working alongside older generations such as Gen X and Baby Boomers.", a:"will have to"}
+];
+
+let used = Array(40).fill(false);
+let order = [...Array(40).keys()];
+let scores = [0,0,0,0];
+let teamNames = ["Team 1","Team 2","Team 3","Team 4"];
+let current = null;
+let seconds = 30;
+let timerHandle = null;
+
+function renderTeams(){
+  const el=document.getElementById("teams");
+  el.innerHTML="";
+  teamNames.forEach((name,i)=>{
+    const d=document.createElement("div");
+    d.className="team";
+    d.innerHTML=`
+      <input value="${name}" oninput="teamNames[${i}]=this.value; renderAwards();">
+      <div class="scoreRow">
+        <button class="smallBtn" onclick="changeScore(${i},-1)">−</button>
+        <div class="score" id="score${i}">${scores[i]}</div>
+        <button class="smallBtn" onclick="changeScore(${i},1)">+</button>
+      </div>`;
+    el.appendChild(d);
+  });
+}
+function renderBoard(){
+  const g=document.getElementById("grid");
+  g.innerHTML="";
+  order.forEach(idx=>{
+    const b=document.createElement("button");
+    b.className="qcell"+(used[idx]?" used":"");
+    b.textContent=idx+1;
+    b.onclick=()=>openQuestion(idx);
+    g.appendChild(b);
+  });
+}
+function renderAwards(){
+  const a=document.getElementById("awardGrid");
+  if(!a) return;
+  a.innerHTML="";
+  teamNames.forEach((n,i)=>{
+    const b=document.createElement("button");
+    b.className="award";
+    b.textContent=`+1 ${n}`;
+    b.onclick=()=>award(i);
+    a.appendChild(b);
+  });
+}
+function changeScore(i,delta){
+  scores[i]=Math.max(0,scores[i]+delta);
+  document.getElementById("score"+i).textContent=scores[i];
+}
+function openQuestion(idx){
+  current=idx;
+  document.getElementById("qtag").textContent="Question "+(idx+1);
+  document.getElementById("questionText").textContent=questions[idx].q;
+  document.getElementById("answerBox").classList.remove("show");
+  document.getElementById("answerBox").textContent="Answer: "+questions[idx].a;
+  renderAwards();
+  document.getElementById("modal").classList.add("show");
+  resetTimer();
+}
+function showAnswer(){
+  document.getElementById("answerBox").classList.add("show");
+}
+function closeModal(){
+  if(current!==null){
+    used[current]=true;
+    renderBoard();
+  }
+  document.getElementById("modal").classList.remove("show");
+  stopTimer();
+}
+function backdropClose(e){
+  if(e.target.id==="modal") closeModal();
+}
+function award(i){
+  changeScore(i,1);
+  confettiBurst();
+  closeModal();
+}
+function shuffleUnused(){
+  const unused=order.filter(i=>!used[i]);
+  for(let i=unused.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [unused[i],unused[j]]=[unused[j],unused[i]];
+  }
+  let k=0;
+  order=order.map(i=>used[i]?i:unused[k++]);
+  renderBoard();
+}
+function startTimer(){
+  stopTimer();
+  timerHandle=setInterval(()=>{
+    seconds--;
+    document.getElementById("timer").textContent=seconds;
+    if(seconds<=0){
+      stopTimer();
+      document.getElementById("timer").textContent="TIME!";
+    }
+  },1000);
+}
+function stopTimer(){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
+}
+function resetTimer(){
+  stopTimer();
+  seconds=30;
+  document.getElementById("timer").textContent=seconds;
+}
+function resetGame(){
+  if(!confirm("Reset all scores and all 40 questions?")) return;
+  used=Array(40).fill(false);
+  order=[...Array(40).keys()];
+  scores=[0,0,0,0];
+  resetTimer();
+  renderTeams();
+  renderBoard();
+}
+function confettiBurst(){
+  const symbols=["🎉","✨","⭐","💛","💙","💚","💜"];
+  for(let i=0;i<24;i++){
+    const s=document.createElement("div");
+    s.className="confetti";
+    s.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    s.style.left=(45+Math.random()*10)+"vw";
+    s.style.top=(42+Math.random()*8)+"vh";
+    s.style.fontSize=(16+Math.random()*20)+"px";
+    s.style.transition="all 900ms ease-out";
+    document.body.appendChild(s);
+    requestAnimationFrame(()=>{
+      s.style.transform=`translate(${(Math.random()-.5)*700}px, ${-120-Math.random()*420}px) rotate(${Math.random()*720}deg)`;
+      s.style.opacity="0";
+    });
+    setTimeout(()=>s.remove(),950);
+  }
+}
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") closeModal();
+  if(e.key===" " && document.getElementById("modal").classList.contains("show")){
+    e.preventDefault(); showAnswer();
+  }
+});
+renderTeams();
+renderBoard();
+renderAwards();
+</script>
+</body>
+</html>
