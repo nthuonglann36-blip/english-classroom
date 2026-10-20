@@ -13,3 +13,8 @@ main{max-width:1200px;margin:0 auto;padding:28px 24px 70px}.hero{display:grid;gr
 .unit-choice.unit-two:hover{background:#edf8f4}
 .unit-section{margin-top:52px;padding-top:32px;border-top:1px solid var(--line)}
 .activity-group.unit2-practice{--group-color:var(--green)}
+
+.activity-group.language{--group-color:#7890bc}
+.activity-group.listening{--group-color:#7ba9b6}
+
+.activity-group.looking-back{--group-color:#b7a789}
