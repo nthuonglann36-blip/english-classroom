@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Guess The Song | V-pop Classroom Game</title>
+  <style>
+    :root {
+      --bg: #0c0920;
+      --panel: #181432;
+      --muted: #aaa7d3;
+      --white: #f9f7ff;
+      --cyan: #6df0ed;
+      --pink: #ff69b9;
+      --purple: #aa86ff;
+      --border: rgba(216, 208, 255, .18);
+      --glow: 0 0 34px rgba(195, 94, 255, .14);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--white);
+      background: var(--bg);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; overflow-x: hidden; background: radial-gradient(ellipse 60% 50% at 50% 17%, #28205c 0%, transparent 65%), radial-gradient(ellipse 44% 56% at 100% 76%, #24143e 0%, transparent 70%), #0c0920; }
+    button, input { font: inherit; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+    button:disabled { opacity: .34; cursor: not-allowed; transform: none !important; }
+    .app { max-width: 1460px; padding: 21px 35px 25px; margin: 0 auto; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 21px; }
+    .brand { display: flex; align-items: center; gap: 16px; min-width: 0; }
+    .brand-icon { width: 65px; height: 65px; border-radius: 20px; display: grid; place-items: center; flex: none; color: #101026; background: linear-gradient(135deg,#63f4ea,#9f83ff 55%,#ff65bd); box-shadow: 0 12px 32px #b565ff2b; transform: rotate(-6deg); }
+    .brand-icon svg { transform: rotate(6deg); }
+    .eyebrow { font-size: 10px; line-height: 1.4; font-weight: 850; color: var(--cyan); letter-spacing: 3.5px; }
+    h1 { margin: 1px 0 0; font-size: clamp(26px,3.2vw,43px); font-weight: 950; letter-spacing: -1.8px; line-height: 1.05; }
+    h1 span { color: var(--pink); }
+    .subtitle { margin-top: 4px; font-size: 12px; color: #bfb8df; font-weight: 700; letter-spacing: 1px; }
+    .header-pill { border: 1px solid #8b7acb5d; display: flex; gap: 10px; align-items: center; padding: 12px 18px; border-radius: 999px; background: #211b44; font-size: 12px; font-weight: 900; color: #d8d2f7; letter-spacing: 1.8px; white-space: nowrap; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
+
+    .stage { position: relative; display: flex; flex-direction: column; justify-content: space-between; height: clamp(330px,43vh,474px); overflow: hidden; isolation: isolate; border: 1px solid #aa8ffc8a; border-radius: 26px; background: radial-gradient(ellipse 40% 60% at 49% 35%, rgba(135,104,234,.23), transparent 80%), radial-gradient(ellipse 43% 66% at 101% 96%, rgba(176,49,190,.18), transparent 80%), linear-gradient(115deg,#17143d 0%,#211848 53%,#15112f 100%); box-shadow: var(--glow), 0 17px 50px #0503124a; }
+    .stage:before { content: ""; pointer-events: none; position: absolute; inset: -300px -180px auto auto; width: 520px; height: 520px; border: 1px solid rgba(249,105,225,.14); border-radius: 50%; box-shadow: 0 0 0 38px rgba(201,112,245,.025), 0 0 0 90px rgba(201,112,245,.02); }
+    .stage:after { content: ""; pointer-events: none; position: absolute; width: 380px; height: 380px; left: -260px; bottom: -280px; border-radius: 50%; border: 1px solid rgba(109,240,237,.15); box-shadow: 0 0 0 70px rgba(109,240,237,.02); }
+    .stage-top, .stage-bottom { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
+    .stage-top { padding: 23px 28px 0; }
+    .round-badge { border: 1px solid rgba(225,215,255,.24); background: rgba(245,244,255,.1); padding: 9px 17px; border-radius: 999px; font-size: 13px; font-weight: 950; letter-spacing: 1.5px; }
+    .round-badge strong { color: var(--cyan); }
+    .status { display: flex; align-items: center; gap: 8px; color: var(--cyan); font-size: 11px; letter-spacing: 2px; font-weight: 900; }
+    .status i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 11px currentColor; }
+    .stage.revealed .status { color: #ff9ed4; }
+
+    .stage-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; text-align: center; padding: 0 22px 6px; min-height: 0; }
+    .music-art { height: min(19vh,168px); min-height: 90px; display: flex; align-items: center; justify-content: center; gap: 37px; width: 100%; margin-top: -8px; }
+    .vinyl { width: min(17vh,152px); height: min(17vh,152px); min-width: 93px; min-height: 93px; border-radius: 50%; position: relative; flex: none; background: repeating-radial-gradient(circle at 50% 50%,transparent 0 7px,rgba(164,137,255,.1) 8px 9px,transparent 10px 14px), conic-gradient(from 12deg,#131128,#36285d,#110f29,#574178,#1a1539,#12112d,#36305e,#131128); box-shadow: inset 0 0 0 4px #0d0a22, inset 0 0 0 7px #ffffff14, 0 6px 28px #0b061baa, 0 0 0 10px #a386ff0b, 0 0 0 11px #b9a4ff1e; animation: turn 22s linear infinite; }
+    .vinyl:before { content: ""; width: 33%; height: 33%; background: linear-gradient(140deg,#72f4f1,#a38bfa 50%,#ff7bc2); position: absolute; left: 33.5%; top: 33.5%; border: 4px solid #171333; border-radius: 50%; box-shadow: 0 0 21px #c579ee80; }
+    .vinyl:after { content: ""; width: 9px; height: 9px; background: #141126; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; }
+    @keyframes turn { to { transform: rotate(360deg); } }
+    .equalizer { height: 55px; display: flex; align-items: center; gap: 6px; }
+    .equalizer i { display: block; width: 6px; height: var(--bar); background: linear-gradient(180deg,#65f9e9,#947dff); border-radius: 8px; box-shadow: 0 0 13px #85e9f536; animation: dance 1250ms ease-in-out infinite alternate; animation-delay: var(--delay); transform-origin: center; }
+    @keyframes dance { to { transform: scaleY(.39); } }
+    .stage.revealed .equalizer i { background: linear-gradient(180deg,#ffa2d2,#ba85ff); }
+    .stage.revealed .vinyl { animation-duration: 12s; }
+    .kicker { font-size: 11px; font-weight: 950; letter-spacing: 3px; color: var(--cyan); margin: 3px 0 10px; }
+    .stage.revealed .kicker { color: #ffacda; }
+    .main-title { font-size: clamp(32px,4.7vw,63px); font-weight: 1000; line-height: 1.09; letter-spacing: -1.7px; max-width: 1240px; min-height: 1.1em; text-wrap: balance; overflow-wrap: anywhere; text-shadow: 0 6px 35px #0004; }
+    .main-title .accent { color: var(--pink); }
+    .main-title.answer-title { background: linear-gradient(100deg,#e5fdfb,#f5e7ff 45%,#ffa4d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .artist { font-size: clamp(15px,1.7vw,23px); font-weight: 700; color: #dfd8fc; line-height: 1.3; min-height: 1.4em; margin-top: 9px; text-wrap: balance; }
+    .answer-enter { animation: answerIn .3s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes answerIn { from { opacity: 0; transform: translateY(11px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .stage-bottom { padding: 0 28px 22px; display: block; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 9px; color: #c9c0e6; font-size: 10px; font-weight: 900; letter-spacing: 1.1px; }
+    .progress-bar { display: grid; grid-template-columns: repeat(15,1fr); gap: 5px; }
+    .progress-segment { height: 5px; background: #514a76; border-radius: 20px; transition: background-color .18s ease, box-shadow .18s ease; }
+    .progress-segment.passed { background: #8a78c9; }
+    .progress-segment.current { background: var(--cyan); box-shadow: 0 0 12px #6df0edaa; }
+
+    .controls { display: grid; grid-template-columns: 1fr 1.45fr 1fr; gap: 12px; margin: 15px 0 23px; }
+    .control { border-radius: 16px; min-height: 65px; border: 1px solid #6d619a6e; background: linear-gradient(180deg,#252042,#1b1732); color: #efedff; font-weight: 950; letter-spacing: .6px; font-size: 14px; transition: background-color .14s ease, filter .14s ease, transform .14s ease, box-shadow .14s ease; }
+    .control:not(:disabled):hover { filter: brightness(1.13); transform: translateY(-2px); }
+    .control:not(:disabled):active { transform: translateY(0); }
+    .control.reveal { border: 0; background: linear-gradient(115deg,#66f1e9,#9f93ff 49%,#ff82c9); box-shadow: 0 7px 25px #9a79fe25; color: #191430; font-size: 17px; letter-spacing: .3px; }
+    .control.reveal.is-on { background: linear-gradient(115deg,#ff94c9,#b996fa); }
+    .score-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px; }
+    .score-heading h2 { margin: 0; font-size: 15px; font-weight: 950; letter-spacing: 1.9px; }
+    .score-heading p { color: #a9a2cc; margin: 5px 0 0; font-size: 12px; }
+    .score-actions { display: flex; gap: 8px; }
+    .little-btn { border: 1px solid var(--border); background: #211b3d; color: #c6bfeb; border-radius: 10px; padding: 9px 13px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .little-btn:hover { background: #352956; color: white; }
+    .scores { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+    .team { --team:#71eae9; border: 1px solid var(--border); background: linear-gradient(130deg,#181731,#14132d); border-radius: 19px; padding: 15px 16px 13px; min-width: 0; position: relative; overflow: hidden; }
+    .team:before { content: ""; position: absolute; height: 3px; left: 16px; right: 16px; top: 0; background: var(--team); border-radius: 0 0 4px 4px; }
+    .team:nth-child(2) { --team:#ff82c9; }
+    .team:nth-child(3) { --team:#b5f785; }
+    .team:nth-child(4) { --team:#ffd27e; }
+    .team-info { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .team-emoji { height: 32px; width: 32px; display: grid; place-items: center; border-radius: 10px; color: var(--team); border: 1px solid color-mix(in srgb,var(--team) 35%,transparent); background: color-mix(in srgb,var(--team) 13%,transparent); font-weight: 950; flex: none; }
+    .team-name { min-width: 0; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background: transparent; color: #f8f5ff; border: none; padding: 4px 2px; font-size: 13px; font-weight: 900; }
+    .team-name:hover { text-decoration: underline dotted var(--team); }
+    .team-score-row { display: flex; align-items: end; justify-content: space-between; gap: 8px; margin-top: 10px; }
+    .points { font-size: clamp(32px,3.4vw,47px); line-height: 1; font-weight: 1000; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+    .pts { color: #b4abcf; font-size: 9px; font-weight: 850; margin-left: 4px; letter-spacing: .6px; }
+    .team-controls { display: flex; gap: 6px; }
+    .point-btn { border: 1px solid color-mix(in srgb,var(--team) 36%,#555074); color: var(--team); border-radius: 9px; padding: 8px 9px; min-width: 43px; background: color-mix(in srgb,var(--team) 10%,#211b3b); font-size: 12px; font-weight: 1000; }
+    .point-btn.negative { background: #282440; color: #d6cee9; border-color: #4a406a; }
+    .point-btn:hover { filter: brightness(1.35); transform: translateY(-1px); }
+    .point-btn:active { transform: translateY(0); }
+    .team-score-changed .points { animation: pop .22s ease; }
+    @keyframes pop { 50% { transform: scale(1.13); color: var(--team); } }
+    footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 13px; color: #8f88b6; font-size: 11px; }
+    footer strong { color: #b7b0db; }
+    .keys { white-space: nowrap; }
+    kbd { font: inherit; font-weight: 900; font-size: 10px; border: 1px solid #5b537c; border-radius: 5px; padding: 2px 6px; margin: 0 2px; }
+    @media (max-width: 950px) {
+      .app { padding: 17px 17px 24px; }
+      .brand-icon { width: 52px; height: 52px; border-radius: 16px; }
+      .eyebrow { letter-spacing: 2px; font-size: 9px; }
+      .header-pill { padding: 9px 12px; }
+      .team { padding: 13px 10px 12px; }
+      .team-controls { gap: 4px; }
+      .point-btn { min-width: 35px; padding: 7px 6px; }
+      .team-name { font-size: 12px; }
+    }
+    @media (max-width: 700px) {
+      header { margin-bottom: 14px; }
+      .brand { gap: 11px; }
+      .brand-icon { width: 43px; height: 43px; border-radius: 12px; }
+      h1 { font-size: 27px; letter-spacing: -1.1px; }
+      .subtitle { font-size: 10px; }
+      .eyebrow { display: none; }
+      .header-pill { font-size: 9px; letter-spacing: 1px; padding: 7px 10px; }
+      .stage { height: 375px; border-radius: 21px; }
+      .stage-top { padding: 17px 16px 0; }
+      .stage-bottom { padding: 0 17px 17px; }
+      .round-badge { font-size: 10px; padding: 8px 11px; }
+      .status { font-size: 9px; letter-spacing: .8px; }
+      .music-art { gap: 18px; height: 122px; margin: 0; }
+      .equalizer { gap: 3px; }
+      .equalizer i { width: 4px; }
+      .vinyl { height: 110px; width: 110px; }
+      .main-title { font-size: clamp(30px,7vw,47px); letter-spacing: -.6px; }
+      .artist { font-size: 15px; }
+      .kicker { letter-spacing: 2px; font-size: 10px; }
+      .controls { gap: 7px; margin: 10px 0 18px; grid-template-columns: .82fr 1.35fr .82fr; }
+      .control { font-size: 11px; min-height: 54px; border-radius: 12px; letter-spacing: 0; padding: 5px; }
+      .control.reveal { font-size: 12px; }
+      .scores { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+      .team { padding: 13px; }
+      .points { font-size: 38px; }
+      .score-heading h2 { font-size: 12px; }
+      .score-heading p { font-size: 10px; }
+      footer { flex-wrap: wrap; }
+    }
+    @media (max-width: 440px) {
+      .app { padding: 14px 11px 18px; }
+      .brand-icon { display: none; }
+      h1 { font-size: 25px; }
+      .header-pill { display: none; }
+      .stage { height: 350px; }
+      .stage-center { padding: 0 12px 4px; }
+      .music-art { height: 105px; }
+      .vinyl { height: 92px; width: 92px; min-height: 92px; min-width: 92px; }
+      .equalizer { gap: 3px; }
+      .main-title { font-size: 29px; }
+      .artist { font-size: 14px; }
+      .score-heading { align-items: start; }
+      .score-actions { flex-direction: column; }
+      .little-btn { padding: 7px 9px; }
+      .team { padding: 12px 9px; }
+      .team-name { font-size: 11px; }
+      .team-emoji { width: 26px; height: 26px; }
+      .points { font-size: 34px; }
+      .point-btn { min-width: 32px; padding: 6px 4px; font-size: 11px; }
+      .keys { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="5.5" cy="18" rx="3.5" ry="2.5" fill="currentColor"/><ellipse cx="17.5" cy="16" rx="3.5" ry="2.5" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="eyebrow">THE CLASSROOM MUSIC SHOW</div>
+          <h1>GUESS THE <span>SONG.</span></h1>
+          <div class="subtitle">V-POP EDITION <span aria-hidden="true">&nbsp; ✦ &nbsp;</span> 15 SONGS <span aria-hidden="true">&nbsp; ✦ &nbsp;</span> 4 TEAMS</div>
+        </div>
+      </div>
+      <div class="header-pill"><span class="live-dot" aria-hidden="true"></span> MUSIC CHALLENGE</div>
+    </header>
+
+    <main>
+      <section class="stage" id="stage" aria-label="Vòng đoán tên bài hát">
+        <div class="stage-top">
+          <div class="round-badge">ROUND <strong id="roundNumber">01</strong> / 15</div>
+          <div class="status"><i aria-hidden="true"></i><span id="stageStatus">GET READY</span></div>
+        </div>
+        <div class="stage-center">
+          <div class="music-art" aria-hidden="true">
+            <div class="equalizer"><i style="--bar:24px;--delay:-.6s"></i><i style="--bar:41px;--delay:-.9s"></i><i style="--bar:56px;--delay:-.2s"></i><i style="--bar:35px;--delay:-.5s"></i><i style="--bar:19px;--delay:-.7s"></i></div>
+            <div class="vinyl"></div>
+            <div class="equalizer"><i style="--bar:19px;--delay:-.8s"></i><i style="--bar:35px;--delay:-.4s"></i><i style="--bar:56px;--delay:-.9s"></i><i style="--bar:41px;--delay:-.1s"></i><i style="--bar:24px;--delay:-.5s"></i></div>
+          </div>
+          <div class="kicker" id="stageKicker">LISTEN • THINK • GUESS</div>
+          <div class="main-title" id="songTitle" aria-live="polite">NAME THAT <span class="accent">SONG!</span></div>
+          <div class="artist" id="artist">Can you recognise this V-pop hit?</div>
+        </div>
+        <div class="stage-bottom">
+          <div class="progress-meta"><span>THE PLAYLIST JOURNEY</span><span id="progressLabel">01 OF 15</span></div>
+          <div class="progress-bar" id="progressBar" aria-label="Tiến độ vòng chơi"></div>
+        </div>
+      </section>
+
+      <nav class="controls" aria-label="Điều khiển bài hát">
+        <button class="control" type="button" id="prevButton">← BÀI TRƯỚC</button>
+        <button class="control reveal" type="button" id="revealButton" aria-pressed="false">✦ HIỆN ĐÁP ÁN</button>
+        <button class="control" type="button" id="nextButton">BÀI TIẾP →</button>
+      </nav>
+
+      <section aria-label="Bảng điểm 4 đội">
+        <div class="score-heading">
+          <div>
+            <h2>✦ BẢNG ĐIỂM 4 ĐỘI</h2>
+            <p>Trả lời đúng: +10 điểm • Bấm tên đội để đổi tên</p>
+          </div>
+          <div class="score-actions">
+            <button class="little-btn" type="button" id="undoButton" title="Hoàn tác lần cộng/trừ điểm gần nhất">↶ Hoàn tác</button>
+            <button class="little-btn" type="button" id="resetButton" title="Đưa trò chơi về vòng 1 và xóa điểm">↻ Chơi lại</button>
+          </div>
+        </div>
+        <div class="scores" id="scoreboard"></div>
+      </section>
+    </main>
+    <footer>
+      <span><strong>Không có nhạc trong game.</strong> Bạn tự mở bài hát ở bên ngoài; bấm Hiện đáp án khi học sinh đã đoán.</span>
+      <span class="keys"><kbd>←</kbd><kbd>→</kbd> chuyển bài &nbsp;•&nbsp; <kbd>Space</kbd> ẩn/hiện đáp án</span>
+    </footer>
+  </div>
+
+  <script>
+    'use strict';
+    // Fixed playlist: exactly the order approved by the teacher. No randomization or music playback.
+    const songs = [
+      {title:'Bắc Bling', artist:'Hòa Minzy, Xuân Hinh, Tuấn Cry'},
+      {title:'Đừng Làm Trái Tim Anh Đau', artist:'Sơn Tùng M-TP'},
+      {title:'Mất Kết Nối', artist:'Dương Domic'},
+      {title:'Tràn Bộ Nhớ', artist:'Dương Domic'},
+      {title:'Thủy Triều', artist:'Quang Hùng MasterD'},
+      {title:'See Tình', artist:'Hoàng Thùy Linh'},
+      {title:'Waiting For You', artist:'MONO'},
+      {title:'Đi Giữa Trời Rực Rỡ', artist:'Ngô Lan Hương'},
+      {title:'Từng Quen', artist:'Wren Evans'},
+      {title:'Phép Màu', artist:'MAYDAYs, Minh Tốc & Lam'},
+      {title:'Dù Cho Tận Thế', artist:'ERIK'},
+      {title:'Gã Săn Cá', artist:'Em Xinh Say Hi'},
+      {title:'Còn Gì Đẹp Hơn', artist:'Nguyễn Hùng'},
+      {title:'Kho Báu', artist:'(S)TRONG, Rhymastic'},
+      {title:'Không Thể Say', artist:'HIEUTHUHAI'}
+    ];
+    const defaultNames = ['Beat Blazers','Melody Makers','Rhythm Rebels','Tune Titans'];
+    const storageKey = 'guess-song-vpop-one-screen-v1';
+    const byId = id => document.getElementById(id);
+    const state = {index:0, revealed:false, scores:[0,0,0,0], names:[...defaultNames]};
+    let history = [];
+
+    function load() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        if (!saved || typeof saved !== 'object') return;
+        if (Number.isInteger(saved.index) && saved.index >= 0 && saved.index < songs.length) state.index = saved.index;
+        if (typeof saved.revealed === 'boolean') state.revealed = saved.revealed;
+        if (Array.isArray(saved.scores) && saved.scores.length === 4 && saved.scores.every(v => typeof v === 'number' && Number.isFinite(v))) state.scores = saved.scores;
+        if (Array.isArray(saved.names) && saved.names.length === 4 && saved.names.every(v=>typeof v==='string')) state.names = saved.names.map((name,i)=>name.trim().slice(0,30)||defaultNames[i]);
+      } catch (_error) { /* File-opened browsers may disable localStorage; game still works. */ }
+    }
+    function save() { try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (_error) { /* Offline game doesn't require storage. */ } }
+    const fmt = index => String(index + 1).padStart(2,'0');
+    const scoreboard = byId('scoreboard');
+    const progressBar = byId('progressBar');
+    const progressSegments = [];
+    const cardNodes = [];
+
+    function build() {
+      for (let i = 0; i < songs.length; i++) {
+        const seg = document.createElement('span');
+        seg.className = 'progress-segment';
+        seg.setAttribute('aria-hidden','true');
+        progressBar.appendChild(seg);
+        progressSegments.push(seg);
+      }
+      const letters = ['B','M','R','T'];
+      for (let i=0;i<4;i++) {
+        const card = document.createElement('article');
+        card.className = 'team';
+        const info = document.createElement('div'); info.className = 'team-info';
+        const letter = document.createElement('span'); letter.className = 'team-emoji'; letter.textContent = letters[i];
+        const name = document.createElement('button'); name.type = 'button'; name.className = 'team-name'; name.title = 'Đổi tên đội'; name.addEventListener('click', () => editName(i));
+        info.append(letter,name);
+        const row = document.createElement('div'); row.className='team-score-row';
+        const scorebox = document.createElement('div');
+        const score = document.createElement('span'); score.className='points';
+        const units = document.createElement('span'); units.className='pts'; units.textContent='PTS';
+        scorebox.append(score, units);
+        const buttons = document.createElement('div'); buttons.className = 'team-controls';
+        const minus = document.createElement('button'); minus.type='button'; minus.className='point-btn negative'; minus.textContent='−10'; minus.title='Trừ 10 điểm'; minus.setAttribute('aria-label',`Trừ 10 điểm đội ${i+1}`); minus.addEventListener('click', () => changeScore(i,-10));
+        const plus = document.createElement('button'); plus.type='button'; plus.className='point-btn'; plus.textContent='+10'; plus.title='Cộng 10 điểm'; plus.setAttribute('aria-label',`Cộng 10 điểm đội ${i+1}`); plus.addEventListener('click', () => changeScore(i,10));
+        buttons.append(minus,plus); row.append(scorebox,buttons); card.append(info,row); scoreboard.append(card);
+        cardNodes.push({card,score,name});
+      }
+    }
+    function render() {
+      byId('roundNumber').textContent = fmt(state.index);
+      byId('progressLabel').textContent = fmt(state.index) + ' OF 15';
+      const stage = byId('stage');
+      stage.classList.toggle('revealed',state.revealed);
+      byId('stageStatus').textContent = state.revealed ? 'ANSWER REVEALED' : 'GET READY';
+      byId('stageKicker').textContent = state.revealed ? 'THE ANSWER IS...' : 'LISTEN • THINK • GUESS';
+      const title = byId('songTitle');
+      title.className = 'main-title' + (state.revealed ? ' answer-title answer-enter' : '');
+      if (state.revealed) {
+        title.textContent = songs[state.index].title;
+        byId('artist').textContent = '♫ ' + songs[state.index].artist;
+      } else {
+        title.innerHTML = 'NAME THAT <span class="accent">SONG!</span>';
+        byId('artist').textContent = 'Can you recognise this V-pop hit?';
+      }
+      byId('prevButton').disabled = state.index === 0;
+      byId('nextButton').disabled = state.index === songs.length-1;
+      byId('revealButton').textContent = state.revealed ? '◌ ẨN ĐÁP ÁN' : '✦ HIỆN ĐÁP ÁN';
+      byId('revealButton').classList.toggle('is-on',state.revealed);
+      byId('revealButton').setAttribute('aria-pressed',String(state.revealed));
+      progressSegments.forEach((seg,i)=>{seg.className='progress-segment' + (i<state.index ? ' passed' : '') + (i===state.index ? ' current' : '');});
+      cardNodes.forEach((node,i)=>{ node.name.textContent=state.names[i]; node.score.textContent=String(state.scores[i]); });
+      byId('undoButton').disabled = history.length === 0;
+      save();
+    }
+    function go(delta) {
+      const next = Math.max(0,Math.min(songs.length-1,state.index+delta));
+      if (next === state.index) return;
+      state.index = next;
+      state.revealed = false;
+      render();
+    }
+    function toggleAnswer() {state.revealed=!state.revealed; render();}
+    function changeScore(i,amount) {
+      history.push({i,previous:state.scores[i]});
+      if (history.length>50) history.shift();
+      state.scores[i]+=amount;
+      render();
+      const card=cardNodes[i].card;
+      card.classList.remove('team-score-changed');
+      void card.offsetWidth;
+      card.classList.add('team-score-changed');
+    }
+    function undoScore() {
+      if (!history.length) return;
+      const last=history.pop(); state.scores[last.i]=last.previous; render();
+    }
+    function editName(i) {
+      const next = window.prompt('Đổi tên đội:',state.names[i]);
+      if (next !== null && next.trim()) {state.names[i]=next.trim().slice(0,30);render();}
+    }
+    function resetGame() {
+      if (!window.confirm('Bắt đầu lại từ vòng 1 và xóa tất cả điểm?')) return;
+      state.index=0; state.revealed=false; state.scores=[0,0,0,0]; history=[]; render();
+    }
+    byId('prevButton').addEventListener('click',()=>go(-1));
+    byId('nextButton').addEventListener('click',()=>go(1));
+    byId('revealButton').addEventListener('click',toggleAnswer);
+    byId('undoButton').addEventListener('click',undoScore);
+    byId('resetButton').addEventListener('click',resetGame);
+    document.addEventListener('keydown',event=>{
+      if (event.altKey||event.ctrlKey||event.metaKey||event.shiftKey) return;
+      const target=event.target;
+      if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+      if (event.key==='ArrowRight') {event.preventDefault();go(1);}
+      if (event.key==='ArrowLeft') {event.preventDefault();go(-1);}
+      if (event.code==='Space') {event.preventDefault();toggleAnswer();}
+    });
+    load(); build(); render();
+  </script>
+</body>
+</html>

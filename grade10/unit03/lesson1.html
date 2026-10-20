@@ -1,479 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unit 3 · Lesson 1: Getting started — Global Success 10</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="../gs10.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Unit 3 · Lesson 1: MUSICVERSE — Getting Started</title>
+<link rel="stylesheet" href="../slides-viewer.css">
+<script src="../slides-viewer.js" defer></script>
 </head>
-<body data-unit="3" class="tpl-music">
-
-<!-- =========================================================================
-     Unit 3 · Lesson 1 — Getting started: A talented artist
-     Bám giáo án: Unit_3_Music_Grade10_Full_Lesson_Plan.docx
-     Bám sách:   Global Success 10, tr. 28–29
-     Dựng lại từ: PPT/(PPT GLOBAL 10 HK1) UNIT 3 music/Unit 3_Lesson 1_Getting started.pptx
-     45 phút = Warm-up 5 · Presentation 5 · Practice 23 · Production 8 · Wrap 4
-
-     Theme tpl-music: ba ảnh nền kết xuất thẳng từ chính PPT này nên slide
-     trông đúng như bản cô đang chiếu — xem mục THEME "MUSIC" trong gs10.css.
-
-     ⚠ CẦN CÔ BỔ SUNG
-     1. Năm đoạn nhạc của phần khởi động (PPT có nhúng, HTML thì không).
-        Cô mở nhạc ngoài rồi bấm lật từng tên bài trên slide.
-     2. Ảnh minh hoạ bốn từ vựng — PPT có, ở đây tạm để chữ.
-     ========================================================================= -->
-
-<header class="bar">
-  <a href="index.html" data-back="unit">← Unit 3</a>
-  <span class="brand">Lesson 1 · Getting started</span>
-  <span class="spacer"></span>
+<body>
+<header class="lesson-bar">
+  <a class="back-link" href="index.html">← Unit 3</a>
+  <h1>MUSICVERSE · Lesson 1 · Getting Started</h1>
+  <nav aria-label="Hoạt động trong bài">
+    <button id="open-game" type="button" class="primary">♫ Guess the Song</button>
+    <button id="open-audio" type="button" aria-expanded="false" aria-controls="audio-panel">Nghe · Track 18</button>
+    <button id="open-scores" type="button">Bảng điểm</button>
+    <button id="fullscreen" type="button">Toàn màn hình</button>
+  </nav>
 </header>
-
-<main class="deck">
-
-<!-- ══ 1. BÌA ══════════════════════════════════════════════════════════ -->
-<section class="slide cover">
-  <span class="kicker">Unit 3 · Music</span>
-  <h1>A talented<br>artist</h1>
-  <p class="sub">Lesson 1 — Getting started</p>
-  <span class="unit-no">3</span>
-</section>
-
-<!-- ══ 2. LỘ TRÌNH TIẾT HỌC ═══════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Our lesson today</span>
-  <h2>Five stops in 45 minutes</h2>
-  <ul class="cards">
-    <li class="card"><span class="ico">🎵</span>
-      <h3>Name that song</h3><p>Five clips, one artist</p>
-      <span class="badge time">5 min</span></li>
-    <li class="card alt"><span class="ico">📚</span>
-      <h3>New words</h3><p>Five words you will need</p>
-      <span class="badge time">5 min</span></li>
-    <li class="card"><span class="ico">🎧</span>
-      <h3>Listen &amp; read</h3><p>Mai and Ann · Tasks 1–4</p>
-      <span class="badge time">23 min</span></li>
-    <li class="card alt"><span class="ico">🎤</span>
-      <h3>Your idol</h3><p>Task 5 · talk about a singer</p>
-      <span class="badge time">8 min</span></li>
-    <li class="card"><span class="ico">✅</span>
-      <h3>Wrap-up</h3><p>Board summary and homework</p>
-      <span class="badge time">4 min</span></li>
-  </ul>
-</section>
-
-<!-- ══ 3. MỤC TIÊU ════════════════════════════════════════════════════ -->
-<section class="slide denser">
-  <span class="kicker">Objectives</span>
-  <h2>By the end of this lesson…</h2>
-  <ul class="cards">
-    <li class="card"><span class="ico">🎼</span>
-      <h3>Knowledge</h3>
-      <p>Talk about musical talent and instruments; spot compound sentences and
-         <i>to</i>-infinitives in a real conversation.</p></li>
-    <li class="card alt"><span class="ico">🤝</span>
-      <h3>Core competences</h3>
-      <p>Listen actively, work in pairs, join in without waiting to be called.</p></li>
-  </ul>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Objectives</span>
-  <h2>…and also</h2>
-  <ul class="cards">
-    <li class="card"><span class="ico">🌏</span>
-      <h3>Personal qualities</h3>
-      <p>Stay open to music that is not your usual taste.</p></li>
-    <li class="card alt"><span class="ico">🤖</span>
-      <h3>Digital &amp; AI</h3>
-      <p><span class="badge code">10.C2.3</span> look up an artist with AI or search ·
-         <span class="badge code">10.A3.1</span> listen on official platforms, cite your source</p></li>
-  </ul>
-</section>
-
-<!-- ══ 4. PHASE 1 ═════════════════════════════════════════════════════ -->
-<section class="slide phase">
-  <span class="step">1</span>
-  <h1>Name that song</h1>
-  <p class="sub">Teams · five clips</p>
-  <span class="badge time">5 minutes</span>
-</section>
-
-<!-- ══ 5. KHỞI ĐỘNG · ĐOÁN TÊN BÀI ════════════════════════════════════
-     PPT nhúng sẵn năm đoạn nhạc. HTML không nhúng được nhạc bản quyền,
-     nên cô mở nhạc ngoài (điện thoại, YouTube) rồi bấm lật tên bài. -->
-<section class="slide denser">
-  <span class="kicker">Warm-up · guess the song</span> <span class="badge time">5 min</span>
-  <h2>Five clips. Who sings them all? · 1–3</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">Clip 1</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">Love Yourself</span></span></li>
-    <li class="q"><span class="v">Clip 2</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">Sorry</span></span></li>
-    <li class="q"><span class="v">Clip 3</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">What Do You Mean?</span></span></li>
-  </ul>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Warm-up · guess the song</span>
-  <h2>Five clips. Who sings them all? · 4–5</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">Clip 4</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">Where Are You Now</span></span></li>
-    <li class="q"><span class="v">Clip 5</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">Stuck in the Moment</span></span></li>
-  </ul>
-</section>
-
-<!-- ══ 6. KHỞI ĐỘNG · DẪN VÀO CHỦ ĐỀ ══════════════════════════════════ -->
-<section class="slide">
-  <span class="kicker">Warm-up · lead-in</span>
-  <h2>So — whose songs are they?</h2>
-  <p class="q">Whose songs are they?
-    <button class="reveal" type="button" aria-expanded="false">Answer</button>
-    <span class="answer">They are Justin Bieber’s.</span></p>
-  <p class="q">Is he a talented singer?
-    <button class="reveal" type="button" aria-expanded="false">Answer</button>
-    <span class="answer note">Yes — he is considered the Prince of Pop. Today’s
-      conversation is about an artist just like him.</span></p>
-</section>
-
-<!-- ══ 7. PHASE 2 ═════════════════════════════════════════════════════ -->
-<section class="slide phase">
-  <span class="step">2</span>
-  <h1>New words</h1>
-  <p class="sub">Five words for the conversation</p>
-  <span class="badge time">5 minutes</span>
-</section>
-
-<!-- ══ 8–10. TỪ VỰNG ══════════════════════════════════════════════════
-     Hai thẻ một slide — chữ trong thẻ to gấp rưỡi thân bài, ba thẻ là tràn. -->
-<section class="slide denser">
-  <span class="kicker">Vocabulary</span> <span class="badge time">5 min</span>
-  <h2>Five words for today · 1–2</h2>
-  <ul class="words">
-    <li class="word q"><span class="w">talented</span> <span class="pos">(adj)</span>
-      <span class="ipa">/ˈtæləntɪd/</span>
-      <button class="reveal" type="button" aria-expanded="false">Meaning</button>
-      <span class="answer">có tài năng, có năng khiếu</span></li>
-    <li class="word q"><span class="w">musical instrument</span> <span class="pos">(np)</span>
-      <span class="ipa">/ˌmjuːzɪkl ˈɪnstrəmənt/</span>
-      <button class="reveal" type="button" aria-expanded="false">Meaning</button>
-      <span class="answer">nhạc cụ</span></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Vocabulary</span>
-  <h2>Five words for today · 3–4</h2>
-  <ul class="words">
-    <li class="word q"><span class="w">trumpet</span> <span class="pos">(n)</span>
-      <span class="ipa">/ˈtrʌmpɪt/</span>
-      <button class="reveal" type="button" aria-expanded="false">Meaning</button>
-      <span class="answer">kèn trumpet</span></li>
-    <li class="word q"><span class="w">perform</span> <span class="pos">(v)</span>
-      <span class="ipa">/pəˈfɔːm/</span>
-      <button class="reveal" type="button" aria-expanded="false">Meaning</button>
-      <span class="answer">biểu diễn, trình diễn</span></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Vocabulary</span>
-  <h2>Five words for today · 5</h2>
-  <ul class="words">
-    <li class="word q"><span class="w">cover song</span> <span class="pos">(np)</span>
-      <span class="ipa">/ˈkʌvə(r) sɒŋ/</span>
-      <button class="reveal" type="button" aria-expanded="false">Meaning</button>
-      <span class="answer">bài hát hát lại (bản cover)</span></li>
-  </ul>
-</section>
-
-<!-- ══ 11. KIỂM TỪ · UNSCRAMBLE ═══════════════════════════════════════
-     PPT chạy đồng hồ 30 giây mỗi từ. Ở đây cô tự bấm giờ; slide chỉ giữ
-     chữ cái xáo và đáp án. -->
-<section class="slide dense">
-  <span class="kicker">Check · unscramble</span>
-  <h2>30 seconds each. Write the word.</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">usmic</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">music — the example</span></span></li>
-    <li class="q"><span class="v">rpfrmoe</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">perform</span></span></li>
-    <li class="q"><span class="v">mtrutep</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">trumpet</span></span></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Check · unscramble</span>
-  <h2>Two harder ones</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">teaentld</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">talented</span></span></li>
-    <li class="q"><span class="v">cmsilau isttruemnn</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">musical instrument</span></span></li>
-  </ul>
-</section>
-
-<!-- ══ 12. PHASE 3 ════════════════════════════════════════════════════ -->
-<section class="slide phase">
-  <span class="step">3</span>
-  <h1>Listen and read</h1>
-  <p class="sub">Mai and Ann · Tasks 1–4</p>
-  <span class="badge time">23 minutes</span>
-</section>
-
-<!-- ══════════════ 13–18. TASK 1 · HỘI THOẠI CHIA SÁU MÀN
-     Mười lượt thoại. Hai lượt dài của Ann (4 và 6) được cắt làm hai bóng
-     liên tiếp — cùng người nói nên bóng thứ hai không lặp tên. Theme nhạc có
-     dải cam trên đỉnh nên mỗi màn chỉ chứa hai bóng. Đừng gộp lại. -->
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span> <span class="badge time">7 min</span>
-  <span class="badge soft">🎧 Track 18 · 1:33 · play twice</span>
-  <h2>A talented artist · page 28 · 1–2</h2>
-  <!-- SGK Global Success 10 · Unit 3 · Track 18 · 1:33 (tr. 28, Task 1).
-       Task 1 có 7 phút — nghe hai lượt hết ~3 phút, còn ~4 phút đọc theo cặp. -->
-  <audio class="tight" controls preload="metadata" src="../assets/audio/u03-track18.mp3">
-    Your browser cannot play this audio — open assets/audio/u03-track18.mp3 directly.
-  </audio>
-  <div class="chat">
-    <div class="bubble l"><span class="who">Mai</span>That pop singer looks great, Ann!</div>
-    <div class="bubble r"><span class="who">Ann</span>Yeah. He’s a popular teen idol around the world now.</div>
+<main class="lesson-main">
+  <div class="chapter-row">
+    <label for="chapters">Đến phần <select id="chapters"><option value="1">Bìa · A talented artist</option><option value="3">Khởi động</option><option value="4">New words · 7 từ</option><option value="11">Game 1 · Hướng dẫn</option><option value="13">Game 1 · Playlist Panic</option><option value="35">Task 1 · Listen and read</option><option value="38">Game 2 · Hướng dẫn</option><option value="40">Game 2 · Unlock the Spotlight</option><option value="66">Bảng điểm 4 đội</option><option value="67">Tổng kết và bài tập về nhà</option></select></label>
+    <p>67 slide · bấm trực tiếp các nút trong slide để chơi</p>
   </div>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span>
-  <h2>A talented artist · page 28 · 3–4</h2>
-  <div class="chat">
-    <div class="bubble l"><span class="who">Mai</span>Really? You must be a fan of his!</div>
-    <div class="bubble r"><span class="who">Ann</span>Yep, I really love his music. He’s a <b>talented</b> artist who can write music and play many <b>musical instruments</b>.</div>
+  <div class="stage-wrap">
+    <section class="slide-stage" id="slide-stage" aria-label="Slide bài giảng" aria-describedby="slide-text">
+      <img class="slide-image" id="slide-image" src="../assets/slides/u03-l01/slide-001.webp" alt="MUSICVERSE · A talented artist" width="1920" height="1080">
+      <div id="animations" aria-hidden="true"></div>
+      <div class="hotspots" id="hotspots" aria-label="Các nút tương tác của slide"></div>
+      <div id="slide-text" class="sr-only"></div>
+      <section id="live-board" class="live-board" hidden aria-label="Bảng điểm trong slide">
+        <h2>LIVE SCOREBOARD · 4 MUSIC TEAMS</h2>
+        <p>+10 trả lời đúng · +5 thưởng nhanh hoặc giành lượt</p>
+        <div class="score-grid" data-score-grid></div>
+        <div class="score-tools">
+          <button type="button" data-score-undo>Hoàn tác điểm</button>
+          <button type="button" data-score-reset>Đưa điểm về 0</button>
+          <button type="button" data-go="13">Game 1</button>
+          <button type="button" data-go="40">Game 2</button>
+          <button type="button" data-go="67">Tổng kết →</button>
+        </div>
+      </section>
+    </section>
   </div>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span>
-  <h2>A talented artist · page 28 · 4–5</h2>
-  <div class="chat">
-    <div class="bubble r">He has received several awards such as the Grammy, Billboard Music and Teen Choice Awards.</div>
-    <div class="bubble l"><span class="who">Mai</span>Wow! Did he go to a music school?</div>
-  </div>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span>
-  <h2>A talented artist · page 28 · 6</h2>
-  <div class="chat">
-    <div class="bubble r"><span class="who">Ann</span>No, he didn’t, <b>but</b> he learnt to play the piano, drums, guitar, and <b>trumpet</b> by himself.</div>
-    <div class="bubble r">When he was a teenager, he <b>performed</b> at the local theatre in his home town during the tourist season.</div>
-  </div>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span>
-  <h2>A talented artist · page 28 · 7–8</h2>
-  <div class="chat">
-    <div class="bubble l"><span class="who">Mai</span>How did he become famous?</div>
-    <div class="bubble r"><span class="who">Ann</span>Well, when he was 12, his mother started <b>to upload</b> his <b>cover song</b> videos on social media, <b>and</b> the videos made him an online star within a couple of months.</div>
-  </div>
-</section>
-
-<section class="slide denser">
-  <span class="kicker">Task 1 · Listen and read</span>
-  <h2>A talented artist · page 29 · 9–10</h2>
-  <div class="chat">
-    <div class="bubble l"><span class="who">Mai</span>Sounds amazing!</div>
-    <div class="bubble r"><span class="who">Ann</span>And his videos have reached more than two billion total views. Many fans say that his beautiful songs have helped bring more love into their lives.</div>
-  </div>
-</section>
-
-<!-- ══ 17. TASK 2 ═════════════════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Task 2 · Answer the questions</span> <span class="badge time">6 min</span>
-  <h2>Read again · page 29</h2>
-  <p class="q"><b>1.</b> Who are Ann and Mai talking about?
-    <button class="reveal" type="button" aria-expanded="false">Answer</button>
-    <span class="answer note">A young pop singer — a teen idol.</span></p>
-  <p class="q"><b>2.</b> What is he good at?
-    <button class="reveal" type="button" aria-expanded="false">Answer</button>
-    <span class="answer note">Writing music and playing many musical instruments.</span></p>
-  <p class="q"><b>3.</b> What made him popular?
-    <button class="reveal" type="button" aria-expanded="false">Answer</button>
-    <span class="answer note">His cover song videos on social media.</span></p>
-</section>
-
-<!-- ══ 18–19. TASK 3 ══════════════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Task 3 · Find the words</span> <span class="badge time">5 min</span>
-  <h2>Scan the conversation · page 29 · 1–2</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">1 · a type of music</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">pop</span></span></li>
-    <li class="q"><span class="v">2 · music awards</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">the Grammy, Billboard Music and Teen Choice Awards</span></span></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Task 3 · Find the words</span>
-  <h2>Scan the conversation · page 29 · 3–4</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">3 · musical instruments</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">piano, drums, guitar, trumpet</span></span></li>
-    <li class="q"><span class="v">4 · ways of sharing videos</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">social media</span></span></li>
-  </ul>
-</section>
-
-<!-- ══ 20–21. TASK 4 ══════════════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Task 4 · Match the two parts</span> <span class="badge time">5 min</span>
-  <h2>Make complete sentences · page 29 · 1–2</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">1 · This artist didn’t go to a music school,</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">d — but he learnt to play musical instruments by himself.</span></span></li>
-    <li class="q"><span class="v">2 · His beautiful songs have helped</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">c — bring more love into people’s lives.</span></span></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Task 4 · Match the two parts</span>
-  <h2>Make complete sentences · page 29 · 3–4</h2>
-  <ul class="colloc">
-    <li class="q"><span class="v">3 · His mother started</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">b — to upload his cover song videos on social media.</span></span></li>
-    <li class="q"><span class="v">4 · He is a talented artist,</span><span class="n">
-      <button class="reveal" type="button" aria-expanded="false">?</button>
-      <span class="answer">a — and he has received several awards.</span></span></li>
-  </ul>
-</section>
-
-<!-- ══ 22. NGỮ PHÁP CHỚM ══════════════════════════════════════════════
-     Task 4 chính là cửa vào ngữ pháp của Lesson 2 — chỉ ra một lần ở đây
-     để tiết sau cô không phải dựng lại từ đầu. -->
-<section class="slide dense">
-  <span class="kicker">Grammar spotlight</span>
-  <h2>Look at what you just matched</h2>
-  <div class="compare">
-    <div><h3>Compound sentence</h3>
-      <p>Two clauses joined by <b>and · but · or · so</b>.</p>
-      <p class="eg">He is a talented artist, <b>and</b> he has received several awards.</p></div>
-    <div><h3><i>To</i>-infinitive</h3>
-      <p>After verbs like <b>start, decide, plan, want</b>.</p>
-      <p class="eg">His mother started <b>to upload</b> his videos.</p></div>
-  </div>
-</section>
-
-<!-- ══ 23. PHASE 4 ════════════════════════════════════════════════════ -->
-<section class="slide phase">
-  <span class="step">4</span>
-  <h1>Your idol</h1>
-  <p class="sub">Task 5 · pairs, then the class guesses</p>
-  <span class="badge time">8 minutes</span>
-</section>
-
-<!-- ══ 24. TASK 5 · SẢN PHẨM ══════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Task 5 · Talk about your idol</span>
-  <h2>Describe them — but never say the name</h2>
-  <div class="brief">
-    <p class="slogan">Two minutes to prepare · one minute to talk · the class guesses who.</p>
-    <p class="eg">“My idol is a talented pop singer who writes songs and plays guitar
-      beautifully. His cover videos gained millions of views. You can hear his
-      Grammy-winning albums on the official streaming platforms.”</p>
-  </div>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Task 5 · What to mention</span>
-  <h2>Three things, in this order</h2>
-  <ul class="cards">
-    <li class="card"><span class="ico">👤</span><h3>Who</h3>
-      <p>Singer or band · what kind of music</p></li>
-    <li class="card alt"><span class="ico">🎹</span><h3>Good at</h3>
-      <p>Writing? Singing? Which instruments?</p></li>
-    <li class="card"><span class="ico">⭐</span><h3>Famous for</h3>
-      <p>Which song, show or award made them known</p></li>
-  </ul>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Digital &amp; AI</span>
-  <h2>Where did your facts come from?</h2>
-  <p class="q"><span class="badge code">10.C2.3</span> You may look your idol up with AI or a
-    search engine before you talk.
-    <button class="reveal" type="button" aria-expanded="false">One rule</button>
-    <span class="answer note">Say where the fact came from. “I read on their official page
-      that…” is part of the answer, not an extra.</span></p>
-  <p class="q"><span class="badge code">10.A3.1</span> Where can the class listen to them —
-    legally?
-    <button class="reveal" type="button" aria-expanded="false">Examples</button>
-    <span class="answer note">Spotify · Apple Music · YouTube Music · the artist’s own
-      channel. Not a ripped file passed round the class.</span></p>
-</section>
-
-<!-- ══ 25. PHASE 5 ════════════════════════════════════════════════════ -->
-<section class="slide phase">
-  <span class="step">5</span>
-  <h1>Before you go</h1>
-  <p class="sub">Board summary and homework</p>
-  <span class="badge time">4 minutes</span>
-</section>
-
-<!-- ══ 26–27. TỔNG KẾT ════════════════════════════════════════════════ -->
-<section class="slide dense">
-  <span class="kicker">Wrap-up</span> <span class="badge time">2 min</span>
-  <h2>Today’s board</h2>
-  <div class="box"><h3>Words</h3>
-    <p>talented · musical instrument · trumpet · perform · cover song</p></div>
-  <p class="q">Say one sentence about the artist using <b>two</b> of today’s words.
-    <button class="reveal" type="button" aria-expanded="false">Example</button>
-    <span class="answer note">He is a talented artist who can perform on many
-      musical instruments.</span></p>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Wrap-up</span> <span class="badge time">2 min</span>
-  <h2>Homework</h2>
-  <div class="brief"><h3>Homework</h3>
-    <p>1. Workbook exercises for Getting started.</p>
-    <p>2. Prepare for <b>Lesson 2 — Language</b>: stress in two-syllable words.</p></div>
-</section>
-
-<section class="slide dense">
-  <span class="kicker">Project · starts now</span>
-  <h2>Traditional music — pick your country</h2>
-  <div class="brief"><h3>Between now and the last lesson</h3>
-    <p>1. Research one form of <b>traditional music</b> — Viet Nam or another country.</p>
-    <p>2. Cover the points on the Project page; make a poster with pictures.</p>
-    <p>3. You will present it orally in the last lesson of the unit.</p></div>
-</section>
-
+  <nav class="slide-nav" aria-label="Điều hướng slide">
+    <button id="previous" type="button">← Trước</button>
+    <output id="slide-count" aria-live="polite">Slide 1 / 67</output>
+    <button id="next" type="button">Sau →</button>
+    <span class="hint">← → chuyển slide · F toàn màn hình · Esc quay lại</span>
+  </nav>
+  <section id="audio-panel" class="audio-panel" hidden aria-label="Bài nghe hội thoại">
+    <p><b>Task 1 · Listen and read · Track 18.</b> Mở slide 35–37 để đọc hội thoại trong lúc nghe.</p>
+    <audio controls preload="metadata" src="../assets/audio/u03-track18.mp3">Trình duyệt không hỗ trợ âm thanh.</audio>
+  </section>
+  <noscript>Bật JavaScript để chuyển slide và dùng các nút game. <a href="../assets/games/u03-l1-guess-the-song.html">Mở game Guess the Song</a>.</noscript>
 </main>
-
-<script src="../gs10.js"></script>
+<dialog id="game-dialog" aria-labelledby="game-title">
+  <div class="dialog-bar">
+    <h2 id="game-title">Guess the Song · 15 bài · 4 đội</h2>
+    <div class="dialog-actions"><a href="../assets/games/u03-l1-guess-the-song.html" target="_blank" rel="noopener">Mở tab riêng ↗</a><button type="button" data-close-dialog aria-label="Đóng game">Đóng ✕</button></div>
+  </div>
+  <iframe class="game-frame" id="game-frame" data-src="../assets/games/u03-l1-guess-the-song.html" title="Guess the Song V-pop — game khởi động 15 vòng"></iframe>
+</dialog>
+<dialog id="score-dialog" aria-labelledby="score-title">
+  <div class="dialog-bar"><h2 id="score-title">Bảng điểm · MUSICVERSE</h2><button type="button" data-close-dialog aria-label="Đóng bảng điểm">Đóng ✕</button></div>
+  <div class="score-dialog-content">
+    <div class="score-grid" data-score-grid></div>
+    <div class="score-tools"><button type="button" data-score-undo>Hoàn tác điểm</button><button type="button" data-score-reset>Đưa điểm về 0</button></div>
+    <p class="score-help">+10 trả lời đúng · +5 thưởng nhanh hoặc giành lượt. Bạn có thể sửa tên đội. Điểm được giữ trong lúc mở bài; tải lại trang sẽ đưa điểm về 0.</p>
+  </div>
+</dialog>
+<script id="slide-data" type="application/json">[{"image":"../assets/slides/u03-l01/slide-001.webp","title":"MUSICVERSE · A talented artist","text":"UNIT 3  /  MUSIC\n\nLESSON 1 · GETTING STARTED\n\nMUSICVERSE\n\nGETTING STARTED · A TALENTED ARTIST!\n\nA TALENTED ARTIST!\n\nLearn music words • Read the conversation • Unlock the stage\n\nSTART THE LESSON →","links":[{"target":2,"label":"START THE LESSON →","box":[77.1,86.4,17.625,7.333333]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-002.webp","title":"TODAY’S MISSION","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTODAY’S MISSION\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n02\n\nWhat will you unlock today?\n\nComplete three missions to become a music star.\n\n01\n\nTalk about a talented artist.\n\n02\n\nUse seven key music words.\n\n03\n\nComplete the textbook tasks in teams.\n\nWARM-UP 4′   •   VOCABULARY 14′   •   GAME 1 7′   •   GAME 2 17′   •   WRAP-UP 3′\n\nNEXT →\n\n⌂ HOME","links":[{"target":3,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-003.webp","title":"WARM UP · 4 MIN","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nWARM UP · 4 MIN\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n03\n\nWHAT MAKES A MUSIC STAR?\n\nPAIR TALK  →  SHARE  →  LISTEN\n\nQUICK START\n\n1\n\nName a singer you admire.\n\n2\n\nWhat musical instrument can they play?\n\n3\n\nWhere do people share music videos?\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":2,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":4,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-004.webp","title":"New words · talented","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 01 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n04\n\nMusic word lab\n\nLook. Listen. Say. Make a connection.\n\nPICTURE CLUE\n\ntalented\n\nadjective\n\n🔊 /ˈtæl.ən.tɪd/\n\ncó tài năng\n\nEXAMPLE\n\nHe is a talented singer and songwriter.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":3,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":5,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-005.webp","title":"New words · artist","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 02 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n05\n\nMusic word lab\n\n02  /  07     •     NEW WORD\n\nPICTURE CLUE\n\nartist\n\nnoun\n\n🔊 /ˈɑː.tɪst/\n\nnghệ sĩ\n\nEXAMPLE\n\nThe artist performs live on stage.\n\nNghệ sĩ biểu diễn trực tiếp trên sân khấu.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":4,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":6,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-006.webp","title":"New words · musical instrument","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 03 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n06\n\nMusic word lab\n\n03  /  07     •     NEW WORD\n\nPICTURE CLUE\n\nmusical instrument\n\nnoun phrase\n\n🔊 /ˌmjuː.zɪ.kəl ˈɪn.strə.mənt/\n\nnhạc cụ\n\nEXAMPLE\n\nHe can play several musical instruments.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":5,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":7,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-007.webp","title":"New words · award","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 04 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n07\n\nMusic word lab\n\n04  /  07     •     NEW WORD\n\nPICTURE CLUE\n\naward\n\nnoun\n\n🔊 /əˈwɔːd/\n\ngiải thưởng\n\nEXAMPLE\n\nThe singer received an award.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":6,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":8,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-008.webp","title":"New words · tourist season","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 05 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n08\n\nMusic word lab\n\n05  /  07     •     NEW WORD\n\nPICTURE CLUE\n\ntourist season\n\nnoun phrase\n\n🔊 /ˈtʊə.rɪst ˈsiː.zən/\n\nmùa du lịch\n\nEXAMPLE\n\nHe performed during the tourist season.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":7,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":9,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-009.webp","title":"New words · upload","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 06 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n09\n\nMusic word lab\n\n06  /  07     •     NEW WORD\n\nPICTURE CLUE\n\nupload\n\nverb\n\n🔊 /ˌʌpˈləʊd/\n\ntải lên\n\nEXAMPLE\n\nHis mother started to upload videos.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":8,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":10,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-010.webp","title":"New words · view","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nVOCABULARY · 07 / 07\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n10\n\nMusic word lab\n\n07  /  07     •     NEW WORD\n\nPICTURE CLUE\n\nview\n\nnoun\n\n🔊 /vjuː/\n\nlượt xem\n\nEXAMPLE\n\nThe video has millions of views.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":9,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":11,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-011.webp","title":"GAME 1 · VOCAB","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 1 · VOCAB\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n11\n\nGAME 1 · VOCAB\n\nPLAYLIST PANIC!\n\nThe festival playlist lost seven songs! Restore each track.\n\n4 TEAMS  ·  1 MISSION  ·  BIG ENERGY\n\n▶ START\n\n← BACK\n\n⌂ HOME","links":[{"target":12,"label":"▶ START","box":[73.5,79.333333,20.7,7.6]},{"target":3,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-012.webp","title":"GAME RULES","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME RULES\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n12\n\nPlaylist Panic · How to Play\n\nREAD THE RULES IN 30 SECONDS\n\n1\n\nStudy five picture cards for eight seconds.\n\n2\n\nOne picture disappears; name the missing English word.\n\n3\n\nFastest correct team earns 10 points (+5 speed bonus).\n\n4\n\nSwap speakers every round so everybody participates.\n\nTEAM UP\n\nBEAT BREAKERS\n\nRHYTHM REBELS\n\nNEON NOTES\n\nSOUND CHASERS\n\nLET’S PLAY →\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":13,"label":"LET’S PLAY →","box":[72.15,76.0,18.975,7.333333]},{"target":11,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-013.webp","title":"GAME BOARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME BOARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n13\n\nPLAYLIST PANIC!\n\nPICK A CARD  •  SOLVE A CHALLENGE  •  CELEBRATE THE ANSWER\n\n★  01\n\nMISSING TRACK\n\n★  02\n\nMISSING TRACK\n\n★  03\n\nMISSING TRACK\n\n★  04\n\nMISSING TRACK\n\n★  05\n\nMISSING TRACK\n\n★  06\n\nMISSING TRACK\n\n★  07\n\nMISSING TRACK\n\nSeven missing tracks · 20 seconds per guess.\n\n← BACK\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":14,"label":"★  01 · MISSING TRACK","box":[9.3125,25.333333,18.825,21.466667]},{"target":17,"label":"★  02 · MISSING TRACK","box":[30.1625,25.333333,18.825,21.466667]},{"target":20,"label":"★  03 · MISSING TRACK","box":[51.0125,25.333333,18.825,21.466667]},{"target":23,"label":"★  04 · MISSING TRACK","box":[71.8625,25.333333,18.825,21.466667]},{"target":26,"label":"★  05 · MISSING TRACK","box":[9.3125,50.533333,18.825,21.466667]},{"target":29,"label":"★  06 · MISSING TRACK","box":[30.1625,50.533333,18.825,21.466667]},{"target":32,"label":"★  07 · MISSING TRACK","box":[51.0125,50.533333,18.825,21.466667]},{"target":12,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":66,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-014.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n14\n\nMEMORISE THE MUSIC CARDS\n\nROUND 1 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\ntourist season\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":15,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":15,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-015.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n15\n\nWHICH TRACK DISAPPEARED?\n\nROUND 1 / 7   •   TEAM BUZZER  •  20 SECONDS\n\nartist\n\nmusical instrument\n\naward\n\ntourist season\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":16,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":14,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":16,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-016.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n16\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\ntalented\n\ncó tài năng\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":15,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-017.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n17\n\nMEMORISE THE MUSIC CARDS\n\nROUND 2 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\nartist\n\ntalented\n\nmusical instrument\n\naward\n\ntourist season\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":18,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":18,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-018.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n18\n\nWHICH TRACK DISAPPEARED?\n\nROUND 2 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nmusical instrument\n\naward\n\ntourist season\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":19,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":17,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":19,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-019.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n19\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nartist\n\nnghệ sĩ\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":18,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-020.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n20\n\nMEMORISE THE MUSIC CARDS\n\nROUND 3 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\nmusical instrument\n\ntalented\n\nartist\n\naward\n\ntourist season\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":21,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":21,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-021.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n21\n\nWHICH TRACK DISAPPEARED?\n\nROUND 3 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nartist\n\naward\n\ntourist season\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":22,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":20,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":22,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-022.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n22\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nmusical instrument\n\nnhạc cụ\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":21,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-023.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n23\n\nMEMORISE THE MUSIC CARDS\n\nROUND 4 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\naward\n\ntalented\n\nartist\n\nmusical instrument\n\ntourist season\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":24,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":24,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-024.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n24\n\nWHICH TRACK DISAPPEARED?\n\nROUND 4 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nartist\n\nmusical instrument\n\ntourist season\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":25,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":23,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":25,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-025.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n25\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\naward\n\ngiải thưởng\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":24,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-026.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n26\n\nMEMORISE THE MUSIC CARDS\n\nROUND 5 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\ntourist season\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":27,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":27,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-027.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n27\n\nWHICH TRACK DISAPPEARED?\n\nROUND 5 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":28,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":26,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":28,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-028.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n28\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\ntourist season\n\nmùa du lịch\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":27,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-029.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n29\n\nMEMORISE THE MUSIC CARDS\n\nROUND 6 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\nupload\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":30,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":30,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-030.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n30\n\nWHICH TRACK DISAPPEARED?\n\nROUND 6 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":31,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":29,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":31,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-031.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n31\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nupload\n\ntải lên mạng\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":30,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-032.webp","title":"MEMORY PHASE","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMEMORY PHASE\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n32\n\nMEMORISE THE MUSIC CARDS\n\nROUND 7 / 7   •   LOOK CAREFULLY FOR 8 SECONDS\n\nview\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\nWHEN READY → ONE MUSIC CARD WILL VANISH\n\nHIDE A TRACK →\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":33,"label":"HIDE A TRACK →","box":[70.5,83.333333,23.4,6.8]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":33,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-31e5c962481e.gif","box":[90.525,10.0,4.575,8.133333]}]},{"image":"../assets/slides/u03-l01/slide-033.webp","title":"MISSING TRACK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nMISSING TRACK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n33\n\nWHICH TRACK DISAPPEARED?\n\nROUND 7 / 7   •   TEAM BUZZER  •  20 SECONDS\n\ntalented\n\nartist\n\nmusical instrument\n\naward\n\n?    ONE MUSIC CARD IS MISSING\n\n✓ REVEAL TRACK\n\n← BACK\n\n▦ BOARD\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":34,"label":"✓ REVEAL TRACK","box":[70.125,82.0,22.725,7.333333]},{"target":32,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":34,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-034.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n34\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nview\n\nlượt xem\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":13,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":33,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":13,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":13,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-035.webp","title":"TEXTBOOK TASK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTEXTBOOK TASK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n35\n\nTask 1 · Listen and Read\n\nSGK P.28  •  Audio track 18  •  PART 1\n\nMai: That pop singer looks great, Ann!\nAnn: Yeah. He’s a popular teen idol around the world now.\nMai: Really? You must be a fan of his!\nAnn: Yep. I really love his music. He’s a talented artist who can write music and play many musical instruments. He has received several awards such as the Grammy, Billboard Music and Teen Choice Awards.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":34,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":36,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-036.webp","title":"TEXTBOOK TASK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTEXTBOOK TASK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n36\n\nTask 1 · Listen and Read\n\nSGK P.28  •  PART 2\n\nMai: Wow! Did he go to a music school?\nAnn: No, he didn’t, but he learnt to play the piano, drums, guitar, and trumpet by himself. When he was a teenager, he performed at the local theatre in his home town during the tourist season.\nMai: How did he become famous?\nAnn: Well, when he was 12, his mother started to upload his cover song videos on social media, and the videos made him an online star within a couple of months.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":35,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":37,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-037.webp","title":"TEXTBOOK TASK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTEXTBOOK TASK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n37\n\nTask 1 · Listen and Read\n\nSGK P.29  •  PART 3\n\nMai: Sounds amazing!\nAnn: And his videos have reached more than two billion total views. Many fans say that his beautiful songs have helped bring more love into their lives.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":36,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":38,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-038.webp","title":"GAME 2 · SGK TASKS","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK TASKS\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n38\n\nGAME 2 · SGK TASKS\n\nUNLOCK THE SPOTLIGHT!\n\nSeven stage lights must glow before the show can begin.\n\n4 TEAMS  ·  1 MISSION  ·  BIG ENERGY\n\n▶ START\n\n← BACK\n\n⌂ HOME","links":[{"target":39,"label":"▶ START","box":[73.5,79.333333,20.7,7.6]},{"target":37,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-039.webp","title":"GAME RULES","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME RULES\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n39\n\nUNLOCK THE SPOTLIGHT! · How to Play\n\nREAD THE RULES IN 30 SECONDS\n\n1\n\nEach team chooses a numbered stage light.\n\n2\n\nRead the exact question from SGK (Tasks 2 and 4).\n\n3\n\nChoose a matching ending or give a short answer.\n\n4\n\nCorrect answer: +10; steal: +5.\n\nTEAM UP\n\nBEAT BREAKERS\n\nRHYTHM REBELS\n\nNEON NOTES\n\nSOUND CHASERS\n\nLET’S PLAY →\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":40,"label":"LET’S PLAY →","box":[72.15,76.0,18.975,7.333333]},{"target":38,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-040.webp","title":"GAME BOARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME BOARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n40\n\nUNLOCK THE SPOTLIGHT!\n\nPICK A CARD  •  SOLVE A CHALLENGE  •  CELEBRATE THE ANSWER\n\n★  01\n\nTASK 2 · Q1\n\n★  02\n\nTASK 2 · Q2\n\n★  03\n\nTASK 2 · Q3\n\n★  04\n\nTASK 4 · Q1\n\n★  05\n\nTASK 4 · Q2\n\n★  06\n\nTASK 4 · Q3\n\n★  07\n\nTASK 4 · Q4\n\nUse the exact textbook question. Click answer card or REVEAL.\n\n← BACK\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":41,"label":"★  01 · TASK 2 · Q1","box":[9.3125,25.333333,18.825,21.466667]},{"target":44,"label":"★  02 · TASK 2 · Q2","box":[30.1625,25.333333,18.825,21.466667]},{"target":47,"label":"★  03 · TASK 2 · Q3","box":[51.0125,25.333333,18.825,21.466667]},{"target":50,"label":"★  04 · TASK 4 · Q1","box":[71.8625,25.333333,18.825,21.466667]},{"target":54,"label":"★  05 · TASK 4 · Q2","box":[9.3125,50.533333,18.825,21.466667]},{"target":58,"label":"★  06 · TASK 4 · Q3","box":[30.1625,50.533333,18.825,21.466667]},{"target":62,"label":"★  07 · TASK 4 · Q4","box":[51.0125,50.533333,18.825,21.466667]},{"target":39,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":66,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-041.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n41\n\nTASK CHALLENGE 1\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 2\n\nWho are Ann and Mai talking about?\n\nDISCUSS  →  SHOW YOUR ANSWER  →  CHECK\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":43,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":42,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-042.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n42\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nA popular pop singer / a talented artist.\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":41,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-043.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n43\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nFind the first two lines of the conversation.\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":41,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":41,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":41,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-044.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n44\n\nTASK CHALLENGE 2\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 2\n\nWhat is he good at?\n\nDISCUSS  →  SHOW YOUR ANSWER  →  CHECK\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":46,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":45,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-045.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n45\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nHe can write music and play many musical instruments.\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":44,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-046.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n46\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nLook for “He’s a talented artist who can ...”\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":44,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":44,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":44,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-047.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n47\n\nTASK CHALLENGE 3\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 2\n\nWhat made him popular?\n\nDISCUSS  →  SHOW YOUR ANSWER  →  CHECK\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":49,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":48,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-048.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n48\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nHis cover song videos uploaded to social media made him popular.\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":47,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-049.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n49\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nFind the part about his mother and social media.\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":47,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":47,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":47,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-050.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n50\n\nTASK CHALLENGE 4\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 4\n\nThis artist didn’t go to a music school,\n\nA.  and he has received several awards.\n\nB.  to upload his cover song videos on social media.\n\nC.  bring more love into people’s lives.\n\nD.  but he learnt to play musical instruments by himself.\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":52,"label":"A.  and he has received several awards.","box":[8.25,48.4,82.125,7.466667]},{"target":52,"label":"B.  to upload his cover song videos on social media.","box":[8.25,56.933333,82.125,7.466667]},{"target":52,"label":"C.  bring more love into people’s lives.","box":[8.25,65.466667,82.125,7.466667]},{"target":51,"label":"D.  but he learnt to play musical instruments by himself.","box":[8.25,74.0,82.125,7.466667]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":53,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":51,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-051.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n51\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nD. but he learnt to play musical instruments by himself.\n\n1–d\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":50,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-052.webp","title":"TRY AGAIN","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTRY AGAIN\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n52\n\nNOT QUITE YET!\n\nTRY AGAIN  •  OR GIVE ANOTHER TEAM A CHANCE\n\n×\n\nKEEP THE BEAT GOING!\n\nRead the question again. Check the key words.\n\n↶ TRY THIS QUESTION\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":50,"label":"↶ TRY THIS QUESTION","box":[31.95,83.333333,35.175,6.8]},{"target":50,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":50,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-053.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n53\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nWhich ending shows contrast?\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":50,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":50,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":50,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-054.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n54\n\nTASK CHALLENGE 5\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 4\n\nHis beautiful songs have helped\n\nA.  and he has received several awards.\n\nB.  to upload his cover song videos on social media.\n\nC.  bring more love into people’s lives.\n\nD.  but he learnt to play musical instruments by himself.\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":56,"label":"A.  and he has received several awards.","box":[8.25,48.4,82.125,7.466667]},{"target":56,"label":"B.  to upload his cover song videos on social media.","box":[8.25,56.933333,82.125,7.466667]},{"target":55,"label":"C.  bring more love into people’s lives.","box":[8.25,65.466667,82.125,7.466667]},{"target":56,"label":"D.  but he learnt to play musical instruments by himself.","box":[8.25,74.0,82.125,7.466667]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":57,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":55,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-055.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n55\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nC. bring more love into people’s lives.\n\n2–c\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":54,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-056.webp","title":"TRY AGAIN","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTRY AGAIN\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n56\n\nNOT QUITE YET!\n\nTRY AGAIN  •  OR GIVE ANOTHER TEAM A CHANCE\n\n×\n\nKEEP THE BEAT GOING!\n\nRead the question again. Check the key words.\n\n↶ TRY THIS QUESTION\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":54,"label":"↶ TRY THIS QUESTION","box":[31.95,83.333333,35.175,6.8]},{"target":54,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":54,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-057.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n57\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nWhich ending follows “have helped” grammatically?\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":54,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":54,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":54,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-058.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n58\n\nTASK CHALLENGE 6\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 4\n\nHis mother started\n\nA.  and he has received several awards.\n\nB.  to upload his cover song videos on social media.\n\nC.  bring more love into people’s lives.\n\nD.  but he learnt to play musical instruments by himself.\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":60,"label":"A.  and he has received several awards.","box":[8.25,48.4,82.125,7.466667]},{"target":59,"label":"B.  to upload his cover song videos on social media.","box":[8.25,56.933333,82.125,7.466667]},{"target":60,"label":"C.  bring more love into people’s lives.","box":[8.25,65.466667,82.125,7.466667]},{"target":60,"label":"D.  but he learnt to play musical instruments by himself.","box":[8.25,74.0,82.125,7.466667]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":61,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":59,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-059.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n59\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nB. to upload his cover song videos on social media.\n\n3–b\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":58,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-060.webp","title":"TRY AGAIN","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTRY AGAIN\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n60\n\nNOT QUITE YET!\n\nTRY AGAIN  •  OR GIVE ANOTHER TEAM A CHANCE\n\n×\n\nKEEP THE BEAT GOING!\n\nRead the question again. Check the key words.\n\n↶ TRY THIS QUESTION\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":58,"label":"↶ TRY THIS QUESTION","box":[31.95,83.333333,35.175,6.8]},{"target":58,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":58,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-061.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n61\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nThe verb “start” can be followed by “to + verb”.\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":58,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":58,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":58,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-062.webp","title":"GAME 2 · SGK","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nGAME 2 · SGK\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n62\n\nTASK CHALLENGE 7\n\nANSWER AS A TEAM  •  30 SECONDS\n\nSGK P.29 · TASK 4\n\nHe is a talented artist\n\nA.  and he has received several awards.\n\nB.  to upload his cover song videos on social media.\n\nC.  bring more love into people’s lives.\n\nD.  but he learnt to play musical instruments by himself.\n\n▦ BOARD\n\n? HINT\n\n✓ ANSWER\n\n⌂ HOME","links":[{"target":63,"label":"A.  and he has received several awards.","box":[8.25,48.4,82.125,7.466667]},{"target":64,"label":"B.  to upload his cover song videos on social media.","box":[8.25,56.933333,82.125,7.466667]},{"target":64,"label":"C.  bring more love into people’s lives.","box":[8.25,65.466667,82.125,7.466667]},{"target":64,"label":"D.  but he learnt to play musical instruments by himself.","box":[8.25,74.0,82.125,7.466667]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":65,"label":"? HINT","box":[80.025,93.6,7.5,4.0]},{"target":63,"label":"✓ ANSWER","box":[88.5,93.6,8.25,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[{"src":"../assets/slides/u03-l01/timer-89eca40dfe13.gif","box":[85.2,23.333333,6.3,11.2]}]},{"image":"../assets/slides/u03-l01/slide-063.webp","title":"ANSWER REVEAL","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nANSWER REVEAL\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n63\n\nANSWER UNLOCKED!\n\nEXPLAIN BRIEFLY  •  AWARD POINTS  •  RETURN TO THE BOARD\n\n✓\n\nCORRECT ANSWER\n\nA. and he has received several awards.\n\n4–a\n\n← BACK TO GAME BOARD\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":40,"label":"← BACK TO GAME BOARD","box":[34.125,83.066667,32.55,6.0]},{"target":62,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-064.webp","title":"TRY AGAIN","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nTRY AGAIN\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n64\n\nNOT QUITE YET!\n\nTRY AGAIN  •  OR GIVE ANOTHER TEAM A CHANCE\n\n×\n\nKEEP THE BEAT GOING!\n\nRead the question again. Check the key words.\n\n↶ TRY THIS QUESTION\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":62,"label":"↶ TRY THIS QUESTION","box":[31.95,83.333333,35.175,6.8]},{"target":62,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":62,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-065.webp","title":"HELP CARD","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nHELP CARD\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n65\n\nTHE COACH’S HINT\n\nREAD THIS CLUE, THEN RETURN TO YOUR QUESTION\n\n?\n\nWhich ending adds another achievement?\n\nBACK TO QUESTION →\n\n← BACK\n\nNEXT →\n\n▦ BOARD\n\n⌂ HOME","links":[{"target":62,"label":"BACK TO QUESTION →","box":[32.475,83.333333,35.625,6.8]},{"target":62,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":62,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":null,"title":"Live scoreboard · 4 music teams","text":"Live scoreboard · 4 music teams\n\nBEAT BREAKERS · RHYTHM REBELS · NEON NOTES · SOUND CHASERS\n\nCộng/trừ điểm bằng các nút trên màn hình.","links":[{"target":40,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":40,"label":"▦ BOARD","box":[70.5,93.6,9.0,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]},{"image":"../assets/slides/u03-l01/slide-067.webp","title":"FINAL SPOTLIGHT","text":"MUSICVERSE  •  U3\n\nLESSON 1 · GETTING STARTED\n\nFINAL SPOTLIGHT\n\nENGLISH 10   /   GLOBAL SUCCESS   /   UNIT 3: MUSIC\n\n67\n\nYOU MADE THE MUSIC!\n\nCHECK YOUR WORDS  •  CELEBRATE YOUR TEAMS\n\ntalented\n\ncó tài năng\n\nartist\n\nnghệ sĩ\n\nmusical instrument\n\nnhạc cụ\n\naward\n\ngiải thưởng\n\ntourist season\n\nmùa du lịch\n\nupload\n\ntải lên mạng\n\nview\n\nlượt xem\n\nEXIT TICKET\n\nSay one new word.\nWrite one complete sentence.\nShare one thing you learnt.\n\nHOMEWORK\n\nReview today’s SGK tasks.\n\n← BACK\n\nNEXT →\n\n⌂ HOME","links":[{"target":66,"label":"← BACK","box":[3.225,93.6,8.85,4.0]},{"target":1,"label":"NEXT →","box":[12.9,93.6,8.85,4.0]},{"target":1,"label":"⌂ HOME","box":[44.85,93.6,10.125,4.0]}],"animations":[]}]</script>
 </body>
 </html>
