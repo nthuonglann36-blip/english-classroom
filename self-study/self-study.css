@@ -7,3 +7,9 @@ main{max-width:1200px;margin:0 auto;padding:28px 24px 70px}.hero{display:grid;gr
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 .play-link .arrow svg{display:block;flex:none}
+
+.unit-choice.unit-two{border-color:#4e9f8c99;box-shadow:inset 4px 0 0 var(--green)}
+.unit-choice.unit-two .unit-number{color:#2e7565}
+.unit-choice.unit-two:hover{background:#edf8f4}
+.unit-section{margin-top:52px;padding-top:32px;border-top:1px solid var(--line)}
+.activity-group.unit2-practice{--group-color:var(--green)}
