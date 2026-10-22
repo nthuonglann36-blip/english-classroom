@@ -1,7 +1,13 @@
 # Self-study · Grades 10 and 11
 
-Published content includes the teacher's 17 original Wordwall URLs and two
+Published content includes 28 teacher-supplied Wordwall URLs (17 Grade 10,
+11 Grade 11) and two
 pronunciation pages: `practice.html?unit=1&skill=pronunciation` and Unit 2.
+Grade 11 Wordwall has five activities for Unit 1, four for Unit 2 and two for
+Unit 3, preserving the exact URLs and supplied order within each unit. The two
+descriptive URL slugs supply their display names; nine numeric-only URLs use
+neutral numbered labels because Wordwall title retrieval is blocked. Do not
+infer lesson names or activity formats for those links without confirmation.
 Grade 11 supplementary listening was approved for publication in chat.
 `listening.html?grade=11&unit=1` (also Units 2 and 3) contains six activities
 and 42 questions based on teacher-supplied transcripts. Unit 2 video 3 is
@@ -44,7 +50,7 @@ English samples. New files are `audio/g10-u3-stress-*.mp3`. This synthetic
 practice audio is labelled and is separate from authentic supplementary
 Listening. Units 1–2 keep their existing 21 consonant-blend questions.
 Old `practice.html` writing/listening/Unit 3 routes forward to the new pages.
-All 17 original teacher-supplied Wordwall URLs remain unchanged.
+All 17 original Grade 10 teacher-supplied Wordwall URLs remain unchanged.
 
 The pronunciation pages contain 21 identification questions and six practice
 sentences. Audio is computer-generated American English using Piper, LibriTTS

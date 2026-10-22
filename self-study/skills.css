@@ -11,6 +11,9 @@
 .audio-source-link{display:inline-flex;align-items:center;min-height:44px;font-size:12px;font-weight:600;color:var(--pink)}
 .sound-guide h3{font-size:21px;overflow-wrap:anywhere}.sound-guide .guide-example{font-size:16px;color:var(--ink);font-weight:600}
 .skill-links{display:flex;flex-wrap:wrap;gap:5px 15px;margin-top:auto}.skill-links .skill-action{margin-top:0}
+.grade11-wordwall{--group-color:var(--green)}
+.grade11-wordwall .group-heading{flex-wrap:wrap}.grade11-wordwall .group-dot{flex:none}
+.grade11-wordwall h4{overflow-wrap:anywhere}
 button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #9b5e00;outline-offset:3px}
 .manual-copy{display:block}
 @media(max-width:650px){.planning-points{grid-template-columns:1fr}.ai-steps{align-items:stretch}.ai-steps>*{min-height:44px}.skill-links{gap:5px 13px}.sound-guide h3{font-size:20px}}
