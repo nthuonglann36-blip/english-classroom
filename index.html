@@ -418,6 +418,8 @@ footer strong{ color:var(--primary-dark); font-family:var(--serif); }
   .js-reveal .reveal{ opacity:1; transform:none; }
 }
 </style>
+<link rel="manifest" href="manifest.webmanifest">
+<script src="offline-client.js" defer></script>
 </head>
 
 <body>
@@ -588,10 +590,10 @@ footer strong{ color:var(--primary-dark); font-family:var(--serif); }
         <a href="#" class="quick-link" onclick="showComingSoon(event,'QR Activities')">View activities →</a>
       </article>
       <article class="quick-card quick-3 reveal">
-        <div class="quick-icon">📂</div>
-        <h3>Learning Resources</h3>
-        <p>Find worksheets, handouts, tests and useful lesson materials.</p>
-        <a href="#" class="quick-link" onclick="showComingSoon(event,'Learning Resources')">Open resources →</a>
+        <div class="quick-icon">📚</div>
+        <h3>Study offline</h3>
+        <p>Save lessons on this device, then keep practising without an Internet connection.</p>
+        <a href="offline.html" class="quick-link">Choose offline lessons →</a>
       </article>
     </div>
   </section>

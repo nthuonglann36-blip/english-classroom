@@ -1,5 +1,11 @@
 # Self-study · Grades 10 and 11
 
+Offline support is available through `../offline.html`. Save the Self-study
+package to keep all local activities and pronunciation audio on this device.
+YouTube, Wordwall and ChatGPT still require Internet. Before publishing any
+public content changes, run `python tools/build-offline-manifest.py`; see
+[`OFFLINE.md`](../OFFLINE.md) for the package/update workflow.
+
 ## Approved Grammar practice
 
 The teacher approved Grammar publication in chat. `grammar.html?grade=10&unit=1` (Grades 10 and

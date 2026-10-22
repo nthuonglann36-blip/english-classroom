@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "English Classroom",
+  "short_name": "English Classroom",
+  "lang": "vi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eaf0f8",
+  "theme_color": "#1f3b73",
+  "description": "Bài giảng và bài tập tiếng Anh lớp 10, 11. Lưu bộ bài để học khi không có mạng.",
+  "icons": [
+    {"src": "assets/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "assets/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}

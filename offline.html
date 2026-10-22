@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1f3b73">
+<title>Học Offline — English Classroom</title>
+<link rel="stylesheet" href="self-study/self-study.css">
+<link rel="stylesheet" href="self-study/practice.css">
+<link rel="stylesheet" href="offline.css">
+<link rel="manifest" href="manifest.webmanifest">
+<script src="offline-manifest.js" defer></script>
+<script src="offline-client.js" defer></script>
+<script src="offline.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#packs">Đến bộ bài học</a>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-seal" aria-hidden="true">EC</span><span>English Classroom</span></a>
+  <nav class="site-nav" aria-label="Điều hướng"><a href="index.html">Trang chủ</a><a href="self-study/index.html">Self-study</a><a href="offline.html" aria-current="page">Offline</a></nav>
+</header>
+<main>
+  <section class="offline-intro" aria-labelledby="page-title">
+    <p class="eyebrow">Học online · Tiếp tục khi mất mạng</p>
+    <h1 id="page-title">Bài học luôn sẵn sàng.</h1>
+    <p>Khi có Internet, chọn bộ bài và bấm <strong>Lưu trên thiết bị này</strong>. Sau khi lưu xong, mở lại website bằng cùng trình duyệt để học khi không có mạng.</p>
+    <p id="page-not-saved" class="offline-warning" hidden>Trang bạn vừa mở chưa được lưu trên thiết bị này. Hãy chọn một bộ đã lưu ở bên dưới hoặc kết nối Internet để lưu thêm bài.</p>
+    <div class="offline-status-row"><span class="connection" id="connection" role="status">Đang kiểm tra kết nối…</span><span id="saved-summary" role="status"></span><button class="secondary-button" id="install-app" type="button" hidden>Thêm vào màn hình chính</button></div>
+  </section>
+  <div class="offline-help">
+    <section><h2>Dùng được offline sau khi lưu</h2><p>Slide HTML, ảnh, game nội bộ, bài tập tự chấm và audio/video được lưu trực tiếp trên website. Bài Writing vẫn lưu bản nháp trong trình duyệt.</p></section>
+    <section><h2>Các phần cần Internet</h2><p>YouTube, Wordwall và ChatGPT cần kết nối mạng. Câu hỏi Listening vẫn có thể mở, nhưng video nghe từ YouTube cần Internet để phát.</p></section>
+  </div>
+  <p class="offline-message" id="offline-message" role="status" aria-live="polite">Đang chuẩn bị chế độ Offline…</p>
+  <section class="download-progress" id="download-progress" hidden aria-labelledby="download-title">
+    <h2 id="download-title">Đang lưu bài học</h2><p id="download-detail" role="status" aria-live="polite"></p><progress id="download-meter" max="100" value="0"></progress><button class="secondary-button" id="cancel-save" type="button">Dừng lưu</button>
+  </section>
+  <section id="packs" aria-labelledby="packs-title"><h2 id="packs-title">Chọn bộ bài cần dùng</h2><p class="pack-help">Dung lượng ghi bên dưới là ước tính. Chỉ bộ đã báo “Đã lưu đầy đủ” mới sẵn sàng để học offline.</p><div id="pack-list"></div></section>
+  <p class="device-note">Bản lưu chỉ dùng trên thiết bị và trình duyệt này. Nếu xóa dữ liệu website hoặc trình duyệt tự giải phóng bộ nhớ, bạn cần lưu lại. Xóa một bộ Offline ở đây sẽ giữ nguyên bản nháp Writing.</p>
+  <noscript><p>Bật JavaScript để lưu bài học và kiểm tra các bộ đã lưu.</p></noscript>
+</main>
+<footer><strong>English Classroom</strong><span>Online khi có mạng. Tiếp tục với các bài đã lưu khi mất mạng.</span></footer>
+</body>
+</html>
