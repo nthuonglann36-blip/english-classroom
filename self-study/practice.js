@@ -2,12 +2,13 @@
   'use strict';
   const params = new URLSearchParams(location.search);
   const unitNumber = Object.hasOwn(window.STUDY_CONTENT, params.get('unit')) ? params.get('unit') : '1';
-  const skillNames = {pronunciation:'Pronunciation'};
+  const skillNames = {listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
   const skill = 'pronunciation';
   const unit = window.STUDY_CONTENT[unitNumber];
   const root = document.getElementById('practice');
   const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const url = (number, name) => `practice.html?unit=${number}&skill=${name}`;
+  const url = (number, name) => name === 'listening' ? `listening.html?grade=10&unit=${number}` : name === 'writing' || String(number)==='3' ? `skills.html?grade=10&unit=${number}&skill=${name}` : `practice.html?unit=${number}&skill=${name}`;
+  if (params.get('unit')==='3') {location.replace(url('3', params.get('skill') || 'pronunciation'));return;}
   const normalize = value => String(value).normalize('NFKC').trim().toLowerCase().replace(/[.!?,;:]+$/g, '').trim();
   const descriptions = {
     pronunciation:'Listen closely, identify the starting sounds and practise short sentences aloud.',
@@ -17,15 +18,11 @@
   document.getElementById('page-title').textContent = `${skillNames[skill]} practice`;
   document.getElementById('page-description').textContent = descriptions[skill];
   document.getElementById('back-link').href = `index.html#${unitNumber === '1' ? 'activities' : 'unit2'}`;
-  document.getElementById('unit-switch').innerHTML = ['1','2'].map(n => `<a href="${url(n,skill)}" ${n===unitNumber?'aria-current="page"':''}>Unit ${n}</a>`).join('');
+  document.getElementById('unit-switch').innerHTML = ['1','2','3'].map(n => `<a href="${url(n,skill)}" ${n===unitNumber?'aria-current="page"':''}>Unit ${n}</a>`).join('');
   document.getElementById('skill-tabs').innerHTML = Object.entries(skillNames).map(([key,name])=>`<a href="${url(unitNumber,key)}" ${key===skill?'aria-current="page"':''}>${name}</a>`).join('');
 
-  if (['writing', 'listening'].includes(params.get('skill'))) {
-    document.title = 'Activity unavailable — English Classroom';
-    document.getElementById('page-title').textContent = 'Activity unavailable';
-    document.getElementById('page-description').textContent = 'Choose a published activity from Self-study.';
-    root.innerHTML = '<a class="button" href="index.html">Return to Self-study</a>';
-    return;
+  if (['writing','listening'].includes(params.get('skill'))) {
+    location.replace(url(unitNumber,params.get('skill')));return;
   }
 
   const quizzes = new Map();

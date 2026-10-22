@@ -24,9 +24,27 @@ speech: `grade11/assets/audio/u01-track03.mp3`, `u01-track04.mp3`,
 They provide model/listen-and-repeat practice; the 24 new written application
 questions test strong/weak auxiliaries, contractions and consonant–vowel linking.
 
-Grade 10 Writing and supplementary listening remain unpublished pending
-review/source confirmation. Do not restore the earlier synthetic listening
-drafts. Original teacher-supplied Wordwall activities are kept.
+Grade 10 Writing and supplementary Listening Units 1–3 have now been approved
+for publication. `listening.html?grade=10&unit=1` (also Units 2 and 3) has five
+transcript-based activities and 38 questions. Laundry uses the first teacher
+Unit 1 URL (BlqJiujHqfI), consistent with the transcript supplied in response
+to that source request. The teacher subsequently approved all Grade 10 parts;
+source playback was not independently verified. The rejected BBC True/False
+and the earlier synthetic listening passages remain excluded.
+
+`skills.html?grade=10&unit=1&skill=writing` (also Units 2 and 3) has an email
+about family routines, a general greener-life paragraph (not school-only), and
+a blog about a real or imaginary music event. All three are 120–150 words.
+Saved drafts are isolated by grade and unit; the same guided ChatGPT workflow
+is used for both grades.
+
+Grade 10 Pronunciation Unit 3 practises stress in two-syllable words with eight
+listening items, model/repeat audio, and phoneme-checked synthetic American
+English samples. New files are `audio/g10-u3-stress-*.mp3`. This synthetic
+practice audio is labelled and is separate from authentic supplementary
+Listening. Units 1–2 keep their existing 21 consonant-blend questions.
+Old `practice.html` writing/listening/Unit 3 routes forward to the new pages.
+All 17 original teacher-supplied Wordwall URLs remain unchanged.
 
 The pronunciation pages contain 21 identification questions and six practice
 sentences. Audio is computer-generated American English using Piper, LibriTTS

@@ -1,9 +1,10 @@
 (() => {
   'use strict';
-  const content = window.LISTENING_CONTENT;
   const params = new URLSearchParams(location.search);
-  const requestedGrade = params.get('grade') || String(content.grade);
-  if (requestedGrade !== String(content.grade)) {
+  const grades = {'10': window.GRADE10_LISTENING, '11': window.LISTENING_CONTENT};
+  const requestedGrade = params.get('grade') || '11';
+  const content = Object.hasOwn(grades, requestedGrade) ? grades[requestedGrade] : null;
+  if (!content) {
     document.title = 'Listening activity unavailable — English Classroom';
     document.getElementById('page-title').textContent = 'Listening activity unavailable';
     document.getElementById('activities').innerHTML = '<p>Choose an available listening activity from <a href="index.html">Self-study</a>.</p>';
@@ -21,9 +22,15 @@
     gap_fill:'Listen and complete each sentence with ONE word you hear.'
   };
   document.title = `Grade ${content.grade} · Unit ${unit.number} · Listening — English Classroom`;
+  document.getElementById('selfstudy-nav')?.setAttribute('href', `index.html#grade${content.grade}`);
+  document.getElementById('back-link')?.setAttribute('href', `index.html#grade${content.grade}`);
+  const lessonLink = document.getElementById('lessons-link');
+  if (lessonLink) {lessonLink.href = `../grade${content.grade}/index.html`;lessonLink.textContent = `Grade ${content.grade} lessons`;}
+  const summary = {'page-eyebrow': `Self-study · Grade ${content.grade}`, 'grade-summary': `Grade ${content.grade} · Units 1–3`, 'activity-summary': `${content.lessons.length} activities · ${content.lessons.reduce((count,lesson) => count+lesson.questions.length,0)} questions`};
+  Object.entries(summary).forEach(([id,text]) => {const node=document.getElementById(id);if(node)node.textContent=text;});
   document.getElementById('unit-switch').innerHTML = content.units.map(item => `<a href="?grade=${content.grade}&amp;unit=${item.number}" ${item.number === unit.number ? 'aria-current="page"' : ''}>Unit ${item.number} · ${escape(item.title)}</a>`).join('');
   document.getElementById('unit-label').textContent = `Grade ${content.grade} · Unit ${unit.number}`;
-  document.getElementById('skill-tabs').innerHTML = `<a href="?grade=11&amp;unit=${unit.number}" aria-current="page">Listening</a><a href="skills.html?grade=11&amp;unit=${unit.number}&amp;skill=writing">Writing</a><a href="skills.html?grade=11&amp;unit=${unit.number}&amp;skill=pronunciation">Pronunciation</a>`;
+  document.getElementById('skill-tabs').innerHTML = `<a href="?grade=${content.grade}&amp;unit=${unit.number}" aria-current="page">Listening</a><a href="skills.html?grade=${content.grade}&amp;unit=${unit.number}&amp;skill=writing">Writing</a><a href="${content.grade === 10 && unit.number < 3 ? `practice.html?unit=${unit.number}&amp;skill=pronunciation` : `skills.html?grade=${content.grade}&amp;unit=${unit.number}&amp;skill=pronunciation`}">Pronunciation</a>`;
   document.getElementById('unit-title').textContent = unit.title;
   document.getElementById('unit-description').textContent = `${lessons.length} ${lessons.length === 1 ? 'activity' : 'activities'} · ${lessons.reduce((count,lesson) => count + lesson.questions.length, 0)} questions. You can pause and listen again whenever you need.`;
   document.getElementById('activity-nav').innerHTML = lessons.map((lesson,index) => `<a href="#${lesson.id}">Activity ${index+1} · ${escape(labels[lesson.format])}</a>`).join('');
