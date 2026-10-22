@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11122e">
+<title>Music Mystery Box | Unit 3 Reading</title>
+<style>
+  :root{color-scheme:dark;--night:#0a0b20;--panel:#161936;--panel2:#1a1e43;--paper:#f7f8ff;--muted:#bec6ee;--pink:#ff6faf;--yellow:#ffd773;--cyan:#67ebfa;--violet:#bb99ff;--green:#70f1bc;--red:#ff8e9e;--shadow:0 22px 60px rgba(0,0,0,.28)}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--paper);background:radial-gradient(ellipse 750px 500px at 11% 0%,#54307370,transparent 70%),radial-gradient(ellipse 820px 600px at 96% 15%,#1d588f75,transparent 70%),linear-gradient(158deg,#0e112f,#0a0b20 76%);overflow-x:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:radial-gradient(circle at 11% 18%,#fff 0 2px,transparent 3px),radial-gradient(circle at 64% 5%,#fff 0 1.5px,transparent 3px),radial-gradient(circle at 83% 72%,#fff 0 2px,transparent 3px),radial-gradient(circle at 38% 88%,#fff 0 1px,transparent 3px);background-size:310px 250px,210px 340px,420px 260px,320px 330px}
+  button,input{font:inherit}
+  button{cursor:pointer;touch-action:manipulation}
+  button:focus-visible,input:focus-visible{outline:3px solid #f9e28f;outline-offset:3px}
+  button:disabled{cursor:not-allowed;opacity:.4;transform:none!important}
+  .app-container{position:relative;z-index:1;max-width:1510px;margin:auto;padding:24px clamp(13px,2.5vw,40px) 30px}
+  .eyebrow{font-size:11px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+  .tophead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+  .brand{display:flex;align-items:center;gap:12px;min-width:0}
+  .brand-icon{display:grid;place-items:center;width:53px;height:53px;flex:0 0 53px;border-radius:18px;font-size:30px;background:linear-gradient(145deg,#ff6cae,#9a69ff);box-shadow:0 8px 25px #f473b04d;transform:rotate(-6deg)}
+  .brand h1{font-size:clamp(20px,2.4vw,32px);line-height:1.1;margin:2px 0 0;letter-spacing:-.04em;color:white}
+  .brand h1 span{color:var(--yellow)}
+  .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .mini-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 13px;border:1px solid #ffffff2d;background:#ffffff10;color:#f5f6ff;border-radius:11px;font-size:12px;font-weight:800;transition:.2s}
+  .mini-btn:hover{background:#ffffff24;border-color:#ffffff56;transform:translateY(-1px)}
+  .mini-btn.selected{border-color:#9fe9ff88;background:#55dfff20}
+  .hero-line{height:5px;background:linear-gradient(90deg,#fe83ae,#fbd978,#6be6f5,#b894ff);border-radius:100px;margin-bottom:19px;box-shadow:0 2px 20px #e19bff5c}
+  .setup-shell{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(315px,.95fr);gap:24px;align-items:stretch;margin-top:24px}
+  .setup-card,.preview-card,.board-panel,.score-panel{background:linear-gradient(145deg,#1c2046ec,#11152eec);border:1px solid #a9b8fc24;border-radius:24px;box-shadow:var(--shadow)}
+  .setup-card{padding:clamp(20px,3vw,39px)}
+  .setup-card h2{font-size:clamp(29px,3.5vw,49px);line-height:1.1;margin:12px 0 10px;letter-spacing:-.05em}
+  .gradient-text{background:linear-gradient(95deg,#fff3aa,#ff8bbd 52%,#a5b5ff);background-clip:text;-webkit-background-clip:text;color:transparent}
+  .lead{font-size:15px;color:#d0d7f6;line-height:1.65;margin:0 0 24px}
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:#dce3ff;font-weight:900;margin:20px 0 12px}
+  .count-buttons{display:flex;gap:10px;flex-wrap:wrap}
+  .count-btn{width:53px;height:50px;border-radius:14px;border:1px solid #ffffff36;color:#eff0ff;background:#ffffff11;font-size:19px;font-weight:900;transition:.18s}
+  .count-btn:hover{background:#ffffff23}
+  .count-btn.active{background:linear-gradient(135deg,#ff8bab,#ffbe74);border:0;color:#25133d;box-shadow:0 7px 25px #ff81ac55;transform:translateY(-2px)}
+  .name-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 24px}
+  .name-input{display:flex;align-items:center;gap:10px;padding:7px 12px;border:1px solid #ffffff2a;border-radius:13px;background:#090e27ad;min-width:0}
+  .name-input .avatar{font-size:21px}
+  .name-input input{background:transparent;border:0;color:#fff;width:100%;min-width:0;padding:7px 0;font-size:14px;font-weight:800;outline:0}
+  .name-input:focus-within{border-color:#fcd482;box-shadow:0 0 0 2px #efc86635}
+  .primary-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:17px 20px;border:0;border-radius:15px;background:linear-gradient(110deg,#ffcb7c,#ff78a8);font-size:18px;font-weight:1000;color:#22142a;box-shadow:0 12px 25px #ff85b353;transition:.2s}
+  .primary-btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+  .preview-card{padding:28px;overflow:hidden;position:relative;display:flex;flex-direction:column;justify-content:center}
+  .preview-card:before{content:"";position:absolute;width:430px;height:430px;top:-190px;right:-200px;border:75px solid #7e57de24;border-radius:50%}
+  .stage-light{text-align:center;font-size:clamp(65px,8vw,125px);line-height:1.4;filter:drop-shadow(0 16px 20px #f66aad60);animation:float 3.7s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+  .preview-card h3{font-size:clamp(21px,2.3vw,32px);text-align:center;margin:0 0 10px;color:var(--yellow)}
+  .preview-card p{text-align:center;color:#d9deff;font-size:14px;line-height:1.55;margin:0}
+  .prize-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin:24px 0 10px}
+  .prize-pill{padding:8px 10px;border-radius:10px;color:#292040;background:#fce4a9;font-size:13px;font-weight:900}
+  .prize-pill.neg{background:#f9a8bc;color:#54152b}
+  .small-note{color:#b6bfde!important;font-size:12px!important}
+  .steps{display:flex;gap:11px;flex-wrap:wrap;margin-top:12px;justify-content:center}
+  .step{border:1px solid #ffffff2c;border-radius:11px;padding:9px 12px;font-size:12px;font-weight:800;color:#e6e3fc;background:#ffffff0b}
+  .game-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,320px);gap:17px;align-items:start}
+  .board-panel{padding:clamp(16px,1.8vw,25px)}
+  .board-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .board-head h2{font-size:clamp(19px,2.2vw,29px);margin:1px 0 0;letter-spacing:-.04em}
+  .progress-pill{padding:9px 12px;border:1px solid #ffffff29;background:#ffffff12;border-radius:999px;font-size:12px;font-weight:900;color:#ecdcfa;white-space:nowrap}
+  .boxes-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.2vw,17px)}
+  .mystery-box{min-width:0;min-height:clamp(140px,14.5vw,184px);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;overflow:hidden;padding:11px 8px 15px;border-radius:17px;background:radial-gradient(circle at 50% -12%,color-mix(in srgb,var(--box-color) 40%,transparent),transparent 69%),linear-gradient(145deg,#232855,#151933);border:2px solid color-mix(in srgb,var(--box-color) 56%,#303960);color:white;transition:.18s;isolation:isolate;box-shadow:inset 0 1px 2px #ffffff24,0 9px 24px #0004}
+  .mystery-box:not(:disabled):hover{transform:translateY(-4px) scale(1.015);box-shadow:0 0 24px color-mix(in srgb,var(--box-color) 35%,transparent),0 13px 26px #0007}
+  .mystery-box:before{content:"";height:90px;width:90px;border:1px solid color-mix(in srgb,var(--box-color) 45%,transparent);border-radius:50%;position:absolute;top:28px;left:50%;transform:translateX(-50%);z-index:-1}
+  .tile-id{position:relative;align-self:flex-start;padding:3px 9px;border-radius:7px;background:#05082264;font-weight:900;letter-spacing:.09em;font-size:11px;color:#e9dfff}
+  .gift{position:relative;margin:auto;display:grid;place-items:center;height:78px;width:89px;transition:.2s;filter:drop-shadow(0 7px 0 #0003)}
+  .gift-base{height:57px;width:69px;border-radius:8px;position:absolute;top:18px;background:linear-gradient(160deg,var(--box-color),color-mix(in srgb,var(--box-color) 63%,#6835ba));box-shadow:inset 6px 4px 0 #ffffff50}
+  .gift-base:after{content:"";position:absolute;top:0;left:28px;width:15px;height:57px;background:#fff7d7cf}
+  .gift-lid{height:18px;width:82px;position:absolute;top:13px;background:color-mix(in srgb,var(--box-color) 64%,white);border-radius:5px;z-index:2;box-shadow:0 4px 6px #0002}
+  .gift-lid:after{content:"";position:absolute;top:0;left:34px;height:18px;width:15px;background:#fff6cc}
+  .gift-bow{position:absolute;top:-6px;left:26px;height:24px;width:35px;z-index:3}
+  .gift-bow:before,.gift-bow:after{position:absolute;content:"";height:18px;width:22px;border:5px solid #fff6d6;border-radius:18px 18px 3px 18px;transform:rotate(29deg)}
+  .gift-bow:after{left:16px;transform:rotate(-39deg) scaleX(-1)}
+  .tile-caption{font-size:13px;font-weight:1000;letter-spacing:.11em;color:#eef0ff;text-shadow:0 2px #0004;white-space:nowrap}
+  .music-spark{position:absolute;right:10px;top:9px;font-size:20px;opacity:.92;transform:rotate(17deg)}
+  .mystery-box.used{cursor:default;opacity:.72;filter:saturate(.7);background:linear-gradient(145deg,#1b213a,#121527);border-color:#4b506a}
+  .mystery-box.used:before{display:none}
+  .used-value{font-size:clamp(26px,2.7vw,38px);font-weight:1000;margin:auto 0 3px;line-height:1;color:#8bedc8}
+  .used-value.negative{color:#ff9ab0}
+  .used-value.no-score{color:#b5bad2;font-size:27px}
+  .used-caption{font-size:11px;color:#d5d7ed;white-space:nowrap;overflow:hidden;max-width:95%;text-overflow:ellipsis}
+  .helper-strip{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:#cbd1ef}
+  .helper-strip .dot{height:7px;width:7px;background:var(--green);border-radius:50%;flex-shrink:0}
+  .score-panel{padding:18px}
+  .score-panel h2{font-size:21px;letter-spacing:-.04em;margin:1px 0 5px}
+  .score-caption{font-size:12px;color:#bfc8e4;margin:0 0 14px;line-height:1.5}
+  .turn-banner{background:linear-gradient(90deg,#382961,#2d3469);border:1px solid #b2a0f45e;padding:12px;border-radius:13px;margin-bottom:13px}
+  .turn-banner small{display:block;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#d7c8ff;font-weight:900;margin-bottom:5px}
+  .turn-banner strong{font-size:17px;overflow-wrap:anywhere}
+  .score-list{display:flex;flex-direction:column;gap:8px}
+  .score-item{padding:9px 10px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;border-radius:13px;background:#090e29b3;border:1px solid #ffffff21;transition:.18s}
+  .score-item.active{border-color:var(--team-color);box-shadow:inset 3px 0 var(--team-color),0 0 15px #b29aff20;background:#ffffff11}
+  .score-item .team-select{display:flex;align-items:center;gap:7px;min-width:0;border:0;background:transparent;padding:0;color:#fff;text-align:left}
+  .score-item .team-select:hover .team-name{text-decoration:underline}
+  .team-emoji{font-size:21px;flex-shrink:0}
+  .team-name{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .score-num{font-size:23px;font-weight:1000;font-variant-numeric:tabular-nums;min-width:40px;text-align:right;color:var(--yellow)}
+  .score-ctrl{grid-column:1 / -1;display:flex;justify-content:flex-end;gap:5px}
+  .tiny-btn{border:1px solid #ffffff2b;background:#ffffff12;color:#dce7ff;border-radius:8px;font-weight:900;font-size:11px;padding:5px 10px;line-height:1}
+  .tiny-btn:hover{background:#ffffff2b}
+  .score-footer{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .score-footer .mini-btn{flex:1}
+  .score-footnote{font-size:11px;line-height:1.5;color:#929fc9;margin:11px 0 0}
+  .win-banner{margin-top:17px;border-radius:15px;padding:18px;background:linear-gradient(115deg,#f9d77b,#ff8da9);color:#30203d;text-align:center;box-shadow:0 8px 30px #f9c97042}
+  .win-banner .crown{font-size:38px}
+  .win-banner h3{font-size:25px;letter-spacing:-.035em;margin:2px 0}
+  .win-banner p{font-size:14px;margin:0;font-weight:900}
+  .backdrop{position:fixed;inset:0;z-index:30;background:#020516cf;backdrop-filter:blur(9px);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+  .modal{position:relative;width:min(790px,100%);max-height:calc(100svh - 30px);overflow-y:auto;border-radius:24px;border:1px solid #c3abff54;box-shadow:0 32px 100px #000b,0 0 85px #7068dc24;background:radial-gradient(ellipse at 15% -10%,#553e7a7a,transparent 75%),linear-gradient(155deg,#222850,#11142d);padding:clamp(22px,3.5vw,35px);animation:appear .2s ease-out}
+  @keyframes appear{from{opacity:0;transform:scale(.97) translateY(12px)}to{opacity:1;transform:scale(1)}}
+  .modal-header{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:15px}
+  .question-pill{display:inline-flex;align-items:center;gap:7px;color:#bdeafa;border:1px solid #75d8f755;background:#63dafa14;border-radius:9px;font-weight:1000;padding:7px 10px;font-size:11px;letter-spacing:.07em;text-transform:uppercase}
+  .question-team{font-size:14px;color:#fff;font-weight:900;margin-top:9px}
+  .close-btn{border:1px solid #ffffff35;color:#eae9ff;background:#ffffff13;width:39px;height:39px;border-radius:12px;font-size:22px;line-height:1;display:grid;place-items:center}
+  .close-btn:hover{background:#ffffff27}
+  .modal h2{font-size:clamp(23px,3.1vw,35px);margin:12px 0 17px;letter-spacing:-.035em;line-height:1.25}
+  .answers{display:grid;gap:11px;margin:15px 0 14px}
+  .answer-btn{display:flex;gap:14px;align-items:center;border:1px solid #818cb552;background:#ffffff0c;color:#f8faff;text-align:left;font-size:clamp(15px,1.8vw,19px);line-height:1.4;padding:13px 16px;border-radius:13px;transition:.14s}
+  .answer-btn:hover{background:#ffffff1f;border-color:#ffc3e0;transform:translateX(3px)}
+  .answer-letter{display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;background:linear-gradient(145deg,#ff9aca,#ffa873);border-radius:10px;font-size:16px;font-weight:1000;color:#26203b}
+  .question-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:19px;color:#aab6dc;font-size:12px}
+  .hint-note{margin-top:12px;font-size:12px;color:#bac4e7}
+  .feedback-area{text-align:center;padding:4px 0 12px}
+  .feedback-icon{font-size:70px;display:inline-block;animation:pop .4s ease-out}
+  @keyframes pop{0%{transform:scale(.3) rotate(-25deg)}70%{transform:scale(1.2) rotate(8deg)}100%{transform:scale(1)}}
+  .feedback-area h2{font-size:clamp(28px,4vw,44px);margin:6px 0 9px}
+  .feedback-area p{margin:4px auto 12px;max-width:580px;color:#dae1ff;line-height:1.5}
+  .answer-key{background:#ffffff0b;border:1px solid #ffffff25;border-radius:12px;padding:13px 16px;margin:15px 0;font-size:15px;line-height:1.5;text-align:left}
+  .answer-key strong{color:var(--green)}
+  .answer-key em{display:block;margin-top:6px;color:#bfcaff;font-size:13px;font-style:normal}
+  .modal-actions{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:21px}
+  .action-btn{border:0;border-radius:14px;min-height:55px;padding:13px 22px;font-size:15px;font-weight:1000;flex:1;transition:.15s}
+  .action-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  .action-btn.keep{background:linear-gradient(115deg,#ffd16b,#ffac7d);color:#34223e}
+  .action-btn.give{background:linear-gradient(115deg,#b5a1ff,#75e5ff);color:#1f2350}
+  .action-btn.secondary{background:#ffffff19;color:#e9efff;border:1px solid #ffffff3e}
+  .action-btn.danger{background:linear-gradient(115deg,#ff8da2,#ffbaab);color:#3e1630}
+  .action-btn.primary{background:linear-gradient(115deg,#ffd16b,#ff85b2);color:#2b1a37}
+  .recipient-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:20px 0}
+  .recipient{display:flex;gap:13px;align-items:center;border:1px solid #ffffff43;border-radius:14px;background:#ffffff12;padding:14px;color:white;text-align:left;font-weight:1000;font-size:16px}
+  .recipient:hover{border-color:#facf8f;background:#ffffff26}
+  .recipient span{font-size:30px}
+  .result-card{margin:10px auto 15px;max-width:390px;padding:25px 20px;border-radius:20px;border:2px solid #fce28db3;background:radial-gradient(circle at 50% 0%,#fff7c150,transparent 80%),linear-gradient(145deg,#53416e,#252455);box-shadow:0 0 45px #fff08d23;animation:pop .38s ease-out}
+  .result-card.negative{border-color:#ff8da5a8;background:radial-gradient(circle at 50% 0%,#ff969450,transparent 85%),linear-gradient(145deg,#5b2c59,#292144)}
+  .result-kicker{font-size:13px;text-transform:uppercase;letter-spacing:.15em;font-weight:1000;color:#dfe8ff}
+  .result-points{font-weight:1000;letter-spacing:-.085em;font-size:clamp(69px,10vw,101px);line-height:1.18;color:#fff3a1;text-shadow:0 6px 20px #0005}
+  .result-card.negative .result-points{color:#ff9db0}
+  .result-label{font-size:16px;font-weight:1000;color:#fff}
+  .reading-backdrop{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:#030819eb;backdrop-filter:blur(11px);padding:18px}
+  .reading-card{width:min(810px,100%);max-height:calc(100svh - 26px);overflow-y:auto;border-radius:19px;background:#fdfbf5;color:#273253;padding:clamp(19px,3vw,34px);box-shadow:0 30px 100px #000b}
+  .reading-card h2{margin:0 0 10px;color:#6a43a8;font-size:30px}
+  .reading-card p{font-size:clamp(15px,1.8vw,18px);line-height:1.65;margin:12px 0}
+  .reading-card mark{background:#fff19b;color:#473256;padding:0 3px;border-radius:3px}
+  .reading-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+  .reading-card .close-btn{color:#34416b;background:#e8e4fa;border-color:#d5cce6}
+  .warning-text{font-size:12px;color:#aeb7d4;margin:10px 0 0}
+  .footer-note{font-size:12px;color:#a7b4d7;margin-top:18px;text-align:center}
+  .footer-note b{color:#f4d18d}
+  .winner-sub{font-size:14px;color:#ffe4a7;font-weight:900}
+  @media (max-width:1050px){.game-layout{grid-template-columns:minmax(0,1fr) 260px}.score-panel{padding:13px}.boxes-grid{gap:9px}.mystery-box{min-height:138px}}
+  @media (max-width:760px){.app-container{padding:15px 12px 26px}.setup-shell{grid-template-columns:1fr;gap:12px}.preview-card{padding:20px}.stage-light{font-size:70px}.game-layout{grid-template-columns:1fr}.score-panel{order:-1}.score-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.score-item{gap:4px}.score-item .team-name{font-size:12px}.board-panel{padding:13px}.mystery-box{min-height:145px}.tophead{align-items:start}.brand-icon{width:42px;height:42px;flex-basis:42px;font-size:23px}.toolbar .mini-btn{font-size:11px;padding:8px}.board-head{margin-bottom:12px}}
+  @media (max-width:510px){.boxes-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mystery-box{min-height:130px;border-radius:12px}.gift{transform:scale(.78);margin:-2px auto}.tile-caption{font-size:10px}.name-grid,.recipient-grid{grid-template-columns:1fr}.brand h1{font-size:19px}.eyebrow{font-size:9px}.modal{padding:18px}.answer-btn{font-size:14px;padding:10px}.modal-actions .action-btn{flex-basis:100%}.score-ctrl{justify-content:space-between}.tophead{gap:8px}.toolbar{gap:5px}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media print{body{color:black;background:white}.toolbar,.mini-btn,.score-ctrl{display:none}}
+</style>
+</head>
+<body>
+<main id="app" class="app-container" aria-live="polite"></main>
+<script>
+"use strict";
+
+/* Unit 3 – Music, Reading (Global Success 10), pp. 31–32.
+   Questions 1–9: 4 vocabulary items from Task 2 and 5 original MCQs from Task 3.
+   Questions 10–12: three easy additional MCQs taken from the provided reading. */
+const QUESTION_BANK = [
+  {id:"V1",kind:"TASK 2 · VOCABULARY",prompt:'What does the word “series” mean?',options:['A set of TV or radio programmes on the same subject','A single live music concert','A group of competition judges'],correct:0,evidence:'A series is a set of related TV or radio programmes.'},
+  {id:"V2",kind:"TASK 2 · VOCABULARY",prompt:'What does “identify with” mean?',options:['To vote for a favourite singer','To feel similar to and understand someone','To remove a competitor from a contest'],correct:1,evidence:'The audience can identify with ordinary participants because they feel similar to them.'},
+  {id:"V3",kind:"TASK 2 · VOCABULARY",prompt:'What does “in search of” mean?',options:['Waiting for','Celebrating','Looking for'],correct:2,evidence:'The judges travel around America looking for the best singers.'},
+  {id:"V4",kind:"TASK 2 · VOCABULARY",prompt:'What does “eliminated” mean?',options:['Removed from the competition','Selected for the next round','Given the highest score'],correct:0,evidence:'The singer with the lowest number of votes is eliminated.'},
+  {id:"R1",kind:"TASK 3 · READING",prompt:'What is American Idol?',options:['A game show on TV.','A TV singing competition.','A live dancing competition.'],correct:1,evidence:'Participants compete as singers and perform live on TV.'},
+  {id:"R2",kind:"TASK 3 · READING",prompt:'Which of the following statements is correct?',options:['From the semi-final, singers who can go to the next stage are decided by the audience vote.','The judges choose as many singers as they can.','People around the world can vote for the songs they like.'],correct:0,evidence:'From the semi-final onwards, eligible viewers vote for their preferred singers.'},
+  {id:"R3",kind:"TASK 3 · READING",prompt:'Who wins American Idol?',options:['The singer with the highest number of votes on the final night.','The singer with the highest number of votes and highest score from the judges.','The singer with the highest score from the judges.'],correct:0,evidence:'The most popular singer becomes the winner on the final night.'},
+  {id:"R4",kind:"TASK 3 · READING",prompt:'Which of the following statements about the judges is NOT mentioned?',options:['They give comments after each live performance.','They have different views about the singers’ performances.','They are not in favour of choosing ordinary people.'],correct:2,evidence:'The text mentions judges’ opinions and comments, but does not say they oppose ordinary participants.'},
+  {id:"R5",kind:"TASK 3 · READING",prompt:'What can be inferred about the competition in Viet Nam?',options:['The audience decides who makes it to the final stage.','All the singers will be famous.','It can help develop participants’ singing careers.'],correct:2,evidence:'Winners of different Vietnam Idol seasons have become famous singers.'},
+  {id:"E1",kind:"BONUS · EASY",prompt:'When was American Idol first shown on television?',options:['January 2002','January 2007','January 2012'],correct:0,evidence:'American Idol was first shown on television in January 2002.'},
+  {id:"E2",kind:"BONUS · EASY",prompt:'Where do the judges bring the best singers?',options:['To New York','To Hollywood','To the Virgin Islands'],correct:1,evidence:'The judges travel around America and bring the best singers to Hollywood.'},
+  {id:"E3",kind:"BONUS · EASY",prompt:'How many stages did the first season of Vietnam Idol include?',options:['Two stages','Four stages','Three stages'],correct:2,evidence:'It included short performances, semi-finals and finals.'}
+];
+const PRIZE_POOL=[10,20,30,40,50,70,20,40,-10,-20,-30,-40];
+const TEAM_PRESETS=[
+  {name:'Rock Stars',emoji:'🎸',color:'#ff91b4'},
+  {name:'Pop Idols',emoji:'🎤',color:'#ffd583'},
+  {name:'Beat Makers',emoji:'🎧',color:'#79dff8'},
+  {name:'Rhythm Rebels',emoji:'🥁',color:'#aeacff'},
+  {name:'Melody Makers',emoji:'🎹',color:'#8af5c0'},
+  {name:'Jazz Cats',emoji:'🎷',color:'#ffb78c'}
+];
+const BOX_COLORS=['#ff89b5','#91a9ff','#f6d56d','#75dfee','#bd94ff','#ffb57b','#7aefba','#ff99cf','#f8da87','#7ecbeb','#d6a3ff','#fba77f'];
+const BOX_NOTES=['♫','♬','🎵','✦','♪','♩','🎶','✧','♪','♬','♫','✦'];
+const state={screen:'setup',teamCount:4,setupNames:TEAM_PRESETS.map(t=>t.name),teams:[],boxes:[],activeTeam:0,openIndex:null,phase:'question',selected:null,readingOpen:false,soundOn:true,history:[],recipient:null};
+const app=document.getElementById('app');
+const safe=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const fmt=n=>(n>0?'+':'')+n;
+function randomize(array){const a=[...array];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function toolbar(game){return `<div class="toolbar">
+  ${game?'<button class="mini-btn" data-action="reading" title="Show the reading passage">📖 Reading Text</button>':''}
+  <button class="mini-btn ${state.soundOn?'selected':''}" data-action="sound" title="Toggle sound">${state.soundOn?'🔊 Sound On':'🔇 Sound Off'}</button>
+  <button class="mini-btn" data-action="fullscreen" title="Fullscreen (F)">⛶ Fullscreen</button>
+</div>`;}
+function tophead(game){return `<header class="tophead"><div class="brand"><div class="brand-icon" aria-hidden="true">🎁</div><div><div class="eyebrow">UNIT 3 · MUSIC · READING</div><h1>MUSIC <span>MYSTERY BOX</span></h1></div></div>${toolbar(game)}</header><div class="hero-line"></div>`;}
+function renderSetup(){const countButtons=[2,3,4,5,6].map(n=>`<button type="button" class="count-btn ${state.teamCount===n?'active':''}" data-action="team-count" data-count="${n}" aria-pressed="${state.teamCount===n}">${n}</button>`).join('');
+const inputs=TEAM_PRESETS.slice(0,state.teamCount).map((team,i)=>`<label class="name-input"><span class="avatar">${team.emoji}</span><input data-setup-name="${i}" aria-label="Team ${i+1} name" maxlength="30" value="${safe(state.setupNames[i])}" spellcheck="false"></label>`).join('');
+return `${tophead(false)}<div class="setup-shell"><section class="setup-card"><div class="eyebrow">🎙️ WELCOME TO THE SHOW!</div><h2>Pick a box.<br><span class="gradient-text">Take the mystery!</span></h2><p class="lead">Read, answer, and choose your team's fate. Behind every box is a surprise — some rewards are big, and some points are negative!</p><div class="section-title">01 / How many teams?</div><div class="count-buttons" role="group" aria-label="Number of teams">${countButtons}</div><div class="section-title">02 / Your music teams (editable)</div><div class="name-grid">${inputs}</div><button type="button" class="primary-btn" data-action="start">🎬 START THE SHOW <span aria-hidden="true">→</span></button><p class="warning-text">12 mystery boxes · 12 multiple-choice questions · Play offline · No sign-in needed</p></section><aside class="preview-card"><div class="stage-light" aria-hidden="true">🎁🎶</div><h3>KEEP it or GIVE it?</h3><p><strong>Answer correctly</strong> to earn the right to choose KEEP or GIVE. Choose <strong>before</strong> discovering the secret points!</p><div class="prize-pills"><span class="prize-pill">+10</span><span class="prize-pill">+20</span><span class="prize-pill">+30</span><span class="prize-pill">+40</span><span class="prize-pill">+50</span><span class="prize-pill">+70</span><span class="prize-pill neg">−10</span><span class="prize-pill neg">−20</span><span class="prize-pill neg">−30</span><span class="prize-pill neg">−40</span></div><p class="small-note">Some values appear twice. All 12 rewards are shuffled every new game.</p><div class="steps"><div class="step">1. PICK 🎁</div><div class="step">2. ANSWER 🎤</div><div class="step">3. KEEP / GIVE 🎲</div></div></aside></div><div class="footer-note">Teacher-led classroom game · Based on <b>American Idol</b> (Global Success 10, pp. 31–32)</div>`;}
+function renderBox(box,i){if(box.used){const correct=box.outcome==='correct';return `<button type="button" class="mystery-box used" disabled style="--box-color:${BOX_COLORS[i]}" title="Already opened"><span class="tile-id">BOX ${String(i+1).padStart(2,'0')}</span><span class="used-value ${!correct?'no-score':box.prize<0?'negative':''}">${correct?fmt(box.prize):'✕'}</span><span class="used-caption">${correct?safe(state.teams[box.awardTo].name):'NO POINTS'}</span></button>`;}
+return `<button type="button" class="mystery-box" data-action="open-box" data-index="${i}" style="--box-color:${BOX_COLORS[i]}" aria-label="Open mystery box ${i+1}"><span class="music-spark" aria-hidden="true">${BOX_NOTES[i]}</span><span class="tile-id">BOX ${String(i+1).padStart(2,'0')}</span><span class="gift" aria-hidden="true"><span class="gift-bow"></span><span class="gift-lid"></span><span class="gift-base"></span></span><span class="tile-caption">MYSTERY ?</span></button>`;}
+function renderTeam(team,i){return `<article class="score-item ${state.activeTeam===i?'active':''}" style="--team-color:${team.color}"><button type="button" class="team-select" data-action="active-team" data-index="${i}" title="Make this team the active team"><span class="team-emoji" aria-hidden="true">${team.emoji}</span><span class="team-name">${safe(team.name)}</span></button><span class="score-num">${team.score}</span><div class="score-ctrl"><button class="tiny-btn" data-action="adjust" data-index="${i}" data-delta="-5" title="Subtract 5 points from ${safe(team.name)}">−5</button><button class="tiny-btn" data-action="adjust" data-index="${i}" data-delta="5" title="Add 5 points to ${safe(team.name)}">+5</button></div></article>`;}
+function renderGame(){const completed=state.boxes.filter(b=>b.used).length;const allDone=completed===12;const names=state.teams.map((t,i)=>({name:t.name,score:t.score,i}));const bestScore=Math.max(...names.map(t=>t.score));const winners=names.filter(t=>t.score===bestScore);const winnerNames=winners.map(w=>safe(w.name)).join(' & ');
+return `${tophead(true)}<div class="game-layout"><section class="board-panel"><div class="board-head"><div><div class="eyebrow">🎼 THE MYSTERY STAGE</div><h2>Choose your lucky box!</h2></div><span class="progress-pill">${completed} / 12 boxes opened</span></div><div class="boxes-grid">${state.boxes.map((b,i)=>renderBox(b,i)).join('')}</div><div class="helper-strip"><span class="dot"></span>Click a team on the scoreboard to choose whose turn it is. <strong>Correct answer → KEEP or GIVE → secret points!</strong></div>${allDone?`<div class="win-banner"><div class="crown">🏆</div><h3>${winners.length>1?'IT’S A TIE!':'WE HAVE A WINNER!'}</h3><p>${winnerNames} · ${bestScore} points</p></div>`:''}</section><aside class="score-panel"><div class="eyebrow">🎧 LIVE SCOREBOARD</div><h2>Battle of the Bands</h2><p class="score-caption">Tap a team name to select its turn. Teacher can manually adjust scores by ±5.</p><div class="turn-banner"><small>${allDone?'Show complete':'Now playing'}</small><strong>${allDone?'✨ All boxes opened!':state.teams[state.activeTeam].emoji+' '+safe(state.teams[state.activeTeam].name)}</strong></div><div class="score-list">${state.teams.map((t,i)=>renderTeam(t,i)).join('')}</div><div class="score-footer"><button class="mini-btn" data-action="undo" ${state.history.length?'':'disabled'} title="Undo the most recent score action">↶ Undo</button><button class="mini-btn" data-action="new-game" title="Return to setup">⟳ New Game</button></div><p class="score-footnote">Secret prize pool: +10, +20, +20, +30, +40, +40, +50, +70, −10, −20, −30, −40. Each appears in one box. Incorrect answers earn 0.</p></aside></div><div class="footer-note">📖 Need the article? Use <b>Reading Text</b> at the top. Press <b>F</b> for fullscreen.</div>${state.openIndex!==null?renderModal():''}${state.readingOpen?renderReading():''}`;}
+function answerKey(q){return `<div class="answer-key"><div>✅ Correct answer: <strong>${'ABC'[q.correct]}. ${safe(q.options[q.correct])}</strong></div><em>📖 Evidence: ${safe(q.evidence)}</em></div>`;}
+function renderModal(){const box=state.boxes[state.openIndex];const q=box.question;const team=state.teams[state.activeTeam];let inner='';
+const modalHead=`<div class="modal-header"><div><div class="question-pill">🎤 BOX ${String(state.openIndex+1).padStart(2,'0')} · ${safe(q.kind)}</div><div class="question-team">${team.emoji} Playing: ${safe(team.name)}</div></div>${box.used?'':`<button type="button" class="close-btn" data-action="cancel-box" aria-label="Cancel box" title="Cancel and return to the board">×</button>`}</div>`;
+if(state.phase==='question'){
+  inner=`${modalHead}<h2>${safe(q.prompt)}</h2><div class="answers">${q.options.map((opt,i)=>`<button type="button" class="answer-btn" data-action="answer" data-index="${i}"><span class="answer-letter">${'ABC'[i]}</span><span>${safe(opt)}</span></button>`).join('')}</div><div class="question-bottom"><span>💡 Teacher: click the answer your team gives.</span><button class="mini-btn" data-action="reading">📖 Read the passage</button></div><p class="hint-note">Tip: You may press 1, 2 or 3 to select an answer.</p>`;
+}else if(state.phase==='wrong'){
+  inner=`${modalHead}<div class="feedback-area"><div class="feedback-icon">🫢</div><h2 style="color:#ffaabe">NOT QUITE!</h2><p>No mystery points this round. Try again with the next box!</p></div>${answerKey(q)}<div class="modal-actions"><button type="button" class="action-btn secondary" data-action="retry">↶ Change answer</button><button type="button" class="action-btn danger" data-action="finish-wrong">Close Box · 0 Points →</button></div>`;
+}else if(state.phase==='decision'){
+  inner=`${modalHead}<div class="feedback-area"><div class="feedback-icon">🌟</div><h2 style="color:#a9fbd0">CORRECT ANSWER!</h2><p><b>${safe(team.name)}</b>, you've earned a mystery reward! Choose what to do with it <strong>before</strong> the secret points are revealed.</p></div>${answerKey(q)}<div class="modal-actions"><button type="button" class="action-btn keep" data-action="keep">🎁 KEEP IT<br><small>For your team</small></button><button type="button" class="action-btn give" data-action="give">💌 GIVE IT<br><small>To another team</small></button></div><p class="warning-text" style="text-align:center">⚠️ The surprise may add points OR take points away.</p>`;
+}else if(state.phase==='give'){
+  inner=`${modalHead}<div class="feedback-area"><div class="feedback-icon">💌</div><h2>WHO GETS THE BOX?</h2><p>Choose a different team to receive the secret points. The prize is still hidden!</p></div><div class="recipient-grid">${state.teams.map((t,i)=>i===state.activeTeam?'':`<button class="recipient" data-action="recipient" data-index="${i}"><span>${t.emoji}</span>${safe(t.name)}</button>`).join('')}</div><div class="modal-actions"><button type="button" class="action-btn secondary" data-action="back-to-decision">↶ Back to KEEP / GIVE</button></div>`;
+}else if(state.phase==='reveal'){
+  const target=state.teams[box.awardTo];const value=box.prize;const given=box.awardTo!==box.player;
+  inner=`<div class="feedback-area"><div class="feedback-icon">${value>=0?'🎉':'😱'}</div><h2>${value>=0?'MYSTERY REVEALED!':'OH NO! A TWIST!'}</h2><p>The secret reward was hidden until the team made its choice.</p><div class="result-card ${value<0?'negative':''}"><div class="result-kicker">${given?'GIVEN TO':'KEPT BY'} ${safe(target.name)}</div><div class="result-points">${fmt(value)}</div><div class="result-label">${value>=0?'POINTS! 🌟':'POINTS! ⚡'}</div></div><p><b>${target.emoji} ${safe(target.name)}</b> ${value>=0?'gains':'loses'} <b>${Math.abs(value)}</b> points.${given?` Gift from ${safe(state.teams[box.player].name)}.`:''}</p></div><div class="modal-actions"><button class="action-btn primary" data-action="next-turn">🎵 NEXT BOX →</button></div>`;
+}
+return `<div class="backdrop" id="question-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-label="Mystery Box Question">${inner}</section></div>`;}
+function renderReading(){return `<div class="reading-backdrop"><section class="reading-card" role="dialog" aria-modal="true" aria-label="American Idol reading passage"><div class="reading-head"><div><div class="eyebrow" style="color:#9175b8">UNIT 3 · MUSIC · READING</div><h2>📖 American Idol</h2></div><button class="close-btn" data-action="close-reading" aria-label="Close reading">×</button></div><p><i>American Idol</i> was shown for the first time on television in January 2002. At that time, there were many movies and TV <mark>series</mark>, but no reality competitions on TV. The participants in this programme are ordinary people who the audience can really <mark>identify with</mark>.</p><p>First, judges travel all round America <mark>in search of</mark> the best singers and bring them to Hollywood. Twenty-four to thirty-six participants are then chosen to go on to the next stages where they perform live on TV, and receive the judges’ opinions. From the semi-final onwards, people over 13 and living in the US, Puerto Rico or the Virgin Islands can vote for their preferred singers online or through text messaging. The singer with the lowest number of votes is <mark>eliminated</mark>. On the final night, the most popular singer becomes the winner of that <i>American Idol</i> season.</p><p>People watch <i>American Idol</i> not only to see the participants sing, but also to hear the comments of the judges, who play an important role in the competition. Their different opinions and interesting arguments make the show very exciting.</p><p>The first season of <i>Vietnam Idol</i> was shown in 2007. It included three stages: short performances to choose participants, semi-finals and finals. The winners of the show’s different seasons have become famous singers in Viet Nam.</p><div style="text-align:right"><button type="button" class="mini-btn" style="background:#e9e1ff;color:#453263;border-color:#d9cef2" data-action="close-reading">Back to game →</button></div></section></div>`;}
+function render(){app.innerHTML=state.screen==='setup'?renderSetup():renderGame();}
+function sound(kind){if(!state.soundOn)return;try{const AudioContext=window.AudioContext||window.webkitAudioContext; if(!AudioContext)return; const ctx=new AudioContext();const now=ctx.currentTime;const tones=kind==='win'?[523,659,784]:kind==='loss'?[392,310]:kind==='open'?[440,554]:kind==='big'?[523,659,784,1046]:[600];tones.forEach((hz,i)=>{const o=ctx.createOscillator();const g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(hz,now+i*.11);g.gain.setValueAtTime(.0001,now+i*.11);g.gain.exponentialRampToValueAtTime(.055,now+i*.11+.017);g.gain.exponentialRampToValueAtTime(.0001,now+i*.11+.18);o.connect(g).connect(ctx.destination);o.start(now+i*.11);o.stop(now+i*.11+.2)});setTimeout(()=>ctx.close().catch(()=>{}),1000);}catch(e){/* sound is optional */}}
+function snapshot(){state.history.push({teams:state.teams.map(t=>({...t})),boxes:state.boxes.map(b=>({...b})),activeTeam:state.activeTeam});if(state.history.length>30)state.history.shift();}
+function start(){state.teams=TEAM_PRESETS.slice(0,state.teamCount).map((t,i)=>({...t,name:state.setupNames[i].trim()||t.name,score:0}));const questions=randomize(QUESTION_BANK),prizes=randomize(PRIZE_POOL);state.boxes=questions.map((question,i)=>({question,prize:prizes[i],used:false,outcome:null,player:null,awardTo:null}));state.openIndex=null;state.activeTeam=0;state.history=[];state.screen='game';state.phase='question';state.readingOpen=false;sound('win');render();}
+function openBox(index){if(state.boxes[index]?.used)return;state.openIndex=index;state.phase='question';state.selected=null;state.readingOpen=false;sound('open');render();}
+function answer(index){if(state.phase!=='question'||state.openIndex===null)return;const q=state.boxes[state.openIndex].question;state.selected=index;state.phase=index===q.correct?'decision':'wrong';sound(index===q.correct?'win':'loss');render();}
+function award(recipient){if(state.openIndex===null)return;const box=state.boxes[state.openIndex];if(box.used)return;snapshot();box.used=true;box.outcome='correct';box.player=state.activeTeam;box.awardTo=recipient;state.teams[recipient].score+=box.prize;state.phase='reveal';sound(box.prize>=50?'big':box.prize>=0?'win':'loss');render();}
+function finishWrong(){if(state.openIndex===null)return;const box=state.boxes[state.openIndex];if(box.used)return;snapshot();box.used=true;box.outcome='wrong';box.player=state.activeTeam;state.openIndex=null;state.phase='question';state.activeTeam=(state.activeTeam+1)%state.teams.length;render();}
+function nextTurn(){state.openIndex=null;state.phase='question';state.activeTeam=(state.activeTeam+1)%state.teams.length;render();}
+function undo(){if(!state.history.length)return;const prev=state.history.pop();state.teams=prev.teams;state.boxes=prev.boxes;state.activeTeam=prev.activeTeam;state.openIndex=null;state.phase='question';render();}
+function newGame(){if(window.confirm('Start a new game? Current scores and opened boxes will be reset.')){state.setupNames=state.teams.map(t=>t.name).concat(state.setupNames.slice(state.teams.length));state.teamCount=state.teams.length;state.screen='setup';state.openIndex=null;state.readingOpen=false;render();}}
+function adjustScore(index,delta){snapshot();state.teams[index].score+=delta;sound(delta>0?'win':'loss');render();}
+function handleAction(button){const action=button.dataset.action;const index=Number(button.dataset.index);switch(action){
+case 'team-count':state.teamCount=Number(button.dataset.count);render();break;
+case 'start':start();break;
+case 'sound':state.soundOn=!state.soundOn;render();break;
+case 'fullscreen':if(document.fullscreenElement){document.exitFullscreen?.();}else{document.documentElement.requestFullscreen?.().catch(()=>{});}break;
+case 'reading':state.readingOpen=true;render();break;
+case 'close-reading':state.readingOpen=false;render();break;
+case 'open-box':openBox(index);break;
+case 'answer':answer(index);break;
+case 'cancel-box':if(state.phase!=='reveal'){state.openIndex=null;state.phase='question';render();}break;
+case 'retry':state.phase='question';state.selected=null;render();break;
+case 'finish-wrong':finishWrong();break;
+case 'keep':award(state.activeTeam);break;
+case 'give':state.phase='give';render();break;
+case 'recipient':if(index!==state.activeTeam)award(index);break;
+case 'back-to-decision':state.phase='decision';render();break;
+case 'next-turn':nextTurn();break;
+case 'active-team':if(state.openIndex===null){state.activeTeam=index;render();}break;
+case 'adjust':if(state.openIndex===null)adjustScore(index,Number(button.dataset.delta));break;
+case 'undo':if(state.openIndex===null)undo();break;
+case 'new-game':if(state.openIndex===null)newGame();break;
+}}
+document.addEventListener('click',e=>{const button=e.target.closest('button[data-action]');if(button&&!button.disabled){handleAction(button);}});
+document.addEventListener('input',e=>{if(e.target.matches('[data-setup-name]')){state.setupNames[Number(e.target.dataset.setupName)]=e.target.value;}});
+document.addEventListener('keydown',e=>{if(e.target.matches('input'))return;if(e.key.toLowerCase()==='f'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{});}if(e.key==='Escape'&&state.readingOpen){state.readingOpen=false;render();}else if(e.key==='Escape'&&state.openIndex!==null&&state.phase!=='reveal'){state.openIndex=null;state.phase='question';render();}else if(state.screen==='game'&&state.openIndex!==null&&state.phase==='question'&&!state.readingOpen&&['1','2','3'].includes(e.key)){answer(Number(e.key)-1);}});
+render();
+</script>
+</body>
+</html>
