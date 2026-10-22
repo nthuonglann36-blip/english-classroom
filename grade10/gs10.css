@@ -1244,3 +1244,44 @@ body.tpl-music .compare > div:last-child{ border-color:var(--accent-2); }
 @media print{
   body.tpl-music .slide{ background:none !important; padding:0 0 24px !important; }
 }
+
+/* ==========================================================================
+   BỔ SUNG 22/10/2026 — dùng cho Unit 3 L2–L8, Unit 4, Unit 5
+   --------------------------------------------------------------------------
+   .vocab      một từ / slide có tranh (chép từ gs11.css): tranh trái, chữ phải.
+   .slide.play trên nền tpl-music: bỏ ảnh nền + đệm của slide nội dung để trò
+               nhúng chiếm trọn khung (luật chung của tpl-music mạnh hơn .play).
+   ========================================================================== */
+.vocab{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  gap:clamp(16px,2.6vw,44px); align-items:center;
+}
+.vocab .art img{
+  display:block; width:100%; height:clamp(180px,42vh,360px);
+  object-fit:contain; border-radius:var(--radius);
+}
+.vocab .art .emo{
+  display:block; text-align:center; line-height:1.15;
+  font-size:clamp(110px,24vh,210px);
+}
+.vocab .w{
+  display:block; font-family:var(--font-display, inherit); font-weight:800;
+  font-size:clamp(40px, min(5vw, 8.4vh), 76px); line-height:1.05; color:var(--accent);
+}
+.vocab .pos{ font-style:italic; color:var(--muted); }
+.vocab .ipa{ display:block; margin:.15em 0 .45em; font-size:1.15em; font-weight:600; color:var(--accent-2); }
+.vocab .eg{ display:block; margin-top:.7em; font-style:italic; color:var(--muted); }
+.vocab .answer.is-open{ font-weight:700; }
+@media (max-width:900px){ .vocab{ grid-template-columns:1fr; } }
+
+body.tpl-music .slide.play:not(.cover):not(.phase):not(.side){
+  background:var(--paper);
+  padding:clamp(6px,.7vw,12px) clamp(6px,.7vw,12px) 72px;
+}
+/* Cột nghĩa a–e cạnh cột từ có nút lật (match_chips): dòng sát hơn một chút,
+   chữ giữ nguyên cỡ. */
+.mean p{ margin:0 0 .24em; line-height:1.28; }
+.mean p b{ color:var(--accent); }
+/* .short — ảnh lớn đứng chung với câu hỏi bên dưới: thấp hơn một nấc (như gs11). */
+.slide .pics.wide.short img, .slide.dense .pics.wide.short img,
+.slide.denser .pics.wide.short img{ height:33vh; max-height:none; width:auto; max-width:100%; object-fit:contain; }
