@@ -1,10 +1,17 @@
-# Grade 10 self-study
+# Self-study · Grades 10 and 11
 
 Published content includes the teacher's 17 original Wordwall URLs and two
 pronunciation pages: `practice.html?unit=1&skill=pronunciation` and Unit 2.
-Writing and supplementary listening materials have been withdrawn from the
-current public site pending explicit teacher approval. Do not republish them
-without that approval. Original teacher-supplied Wordwall activities are kept.
+Grade 11 supplementary listening was approved for publication in chat.
+`listening.html?grade=11&unit=1` (also Units 2 and 3) contains six activities
+and 42 questions based on teacher-supplied transcripts. Unit 2 video 3 is
+excluded at the teacher's request. YouTube players load only when selected;
+whole-video activities omit an end time. Original playback is not independently
+verified, and every activity has an official YouTube fallback link.
+
+Writing and Grade 10 supplementary listening remain unpublished pending
+review/source confirmation. Do not restore the earlier synthetic listening
+drafts. Original teacher-supplied Wordwall activities are kept.
 
 The pronunciation pages contain 21 identification questions and six practice
 sentences. Audio is computer-generated American English using Piper, LibriTTS
