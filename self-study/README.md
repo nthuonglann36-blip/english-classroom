@@ -1,5 +1,23 @@
 # Self-study · Grades 10 and 11
 
+## Grammar draft for teacher review
+
+The local Grammar review adds `grammar.html?grade=10&unit=1` (Grades 10 and
+11, Units 1–3). Each unit contains three short rules and 18 new questions:
+six multiple-choice, six completion and six correction questions. All 108
+sentences relate to their unit topic; feedback explains the answer in Vietnamese.
+The worksheets check each activity independently and accept listed contractions
+and British/American spelling variants. Changing an answer clears stale feedback;
+reset clears only that activity. No account or AI service is needed.
+
+Focus: Grade 10—present simple/continuous; will, be going to and passive voice;
+compound sentences and to-/bare infinitives. Grade 11—past simple/present perfect;
+must, have to and should; stative and linking verbs. Five Language lesson pages
+were checked in this repository. Grade 10 Unit 3 has no Language page yet, so
+its proposed focus awaits the teacher's review.
+
+## Existing published practice
+
 Published content includes 28 teacher-supplied Wordwall URLs (17 Grade 10,
 11 Grade 11) and two
 pronunciation pages: `practice.html?unit=1&skill=pronunciation` and Unit 2.

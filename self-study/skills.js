@@ -15,8 +15,10 @@
   const number = Object.hasOwn(content.units, params.get('unit')) ? params.get('unit') : '1';
   const skill = params.get('skill') === 'pronunciation' ? 'pronunciation' : 'writing';
   const unit = content.units[number];
-  const names = {listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
-  const url = (n, name) => name === 'listening'
+  const names = {grammar:'Grammar', listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
+  const url = (n, name) => name === 'grammar'
+    ? `grammar.html?grade=${content.grade}&unit=${n}`
+    : name === 'listening'
     ? `listening.html?grade=${content.grade}&unit=${n}`
     : name === 'pronunciation' && content.units[n].pronunciation_url
       ? content.units[n].pronunciation_url

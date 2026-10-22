@@ -2,12 +2,12 @@
   'use strict';
   const params = new URLSearchParams(location.search);
   const unitNumber = Object.hasOwn(window.STUDY_CONTENT, params.get('unit')) ? params.get('unit') : '1';
-  const skillNames = {listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
+  const skillNames = {grammar:'Grammar', listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
   const skill = 'pronunciation';
   const unit = window.STUDY_CONTENT[unitNumber];
   const root = document.getElementById('practice');
   const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const url = (number, name) => name === 'listening' ? `listening.html?grade=10&unit=${number}` : name === 'writing' || String(number)==='3' ? `skills.html?grade=10&unit=${number}&skill=${name}` : `practice.html?unit=${number}&skill=${name}`;
+  const url = (number, name) => name === 'grammar' ? `grammar.html?grade=10&unit=${number}` : name === 'listening' ? `listening.html?grade=10&unit=${number}` : name === 'writing' || String(number)==='3' ? `skills.html?grade=10&unit=${number}&skill=${name}` : `practice.html?unit=${number}&skill=${name}`;
   if (params.get('unit')==='3') {location.replace(url('3', params.get('skill') || 'pronunciation'));return;}
   const normalize = value => String(value).normalize('NFKC').trim().toLowerCase().replace(/[.!?,;:]+$/g, '').trim();
   const descriptions = {
