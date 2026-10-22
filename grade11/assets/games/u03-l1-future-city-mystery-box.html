@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08162b">
+<title>Future City Mystery Box | English 11 · Unit 3</title>
+<style>
+:root{--bg:#07162b;--deep:#102543;--panel:#132947;--ink:#f8fbff;--muted:#afc6dd;--turquoise:#54e0dc;--gold:#ffcd60;--purple:#b58aff;--green:#63e6a2;--red:#ff7d98;--edge:rgba(181,219,247,.16);--glow:0 20px 45px rgba(0,0,0,.26)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{min-height:100vh;margin:0;background:radial-gradient(ellipse 58% 46% at 74% 6%,rgba(50,111,194,.22),transparent 76%),radial-gradient(ellipse 35% 45% at -8% 70%,rgba(46,187,189,.10),transparent 80%),#07162b;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",Inter,"Segoe UI",Arial,sans-serif;line-height:1.35;overflow-x:hidden}
+button,input{font:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:not-allowed;opacity:.46}
+button:focus-visible,input:focus-visible{outline:3px solid #fce18e;outline-offset:3px}
+[hidden]{display:none!important}
+.starscape{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;background-image:radial-gradient(circle at 9% 12%,rgba(255,255,255,.8) 0 1px,transparent 1.9px),radial-gradient(circle at 28% 29%,rgba(255,255,255,.7) 0 1px,transparent 1.9px),radial-gradient(circle at 71% 19%,rgba(255,255,255,.6) 0 1px,transparent 1.9px),radial-gradient(circle at 86% 48%,rgba(255,255,255,.45) 0 1px,transparent 1.9px),radial-gradient(circle at 43% 67%,rgba(255,255,255,.45) 0 1px,transparent 1.9px);background-size:470px 390px}
+.skyline{position:fixed;left:0;right:0;bottom:0;height:170px;pointer-events:none;z-index:0;opacity:.34;background:linear-gradient(to top,#163b5d 0 27px,transparent 27px)}
+.tower{position:absolute;bottom:25px;width:68px;height:var(--h);left:var(--x);border:1px solid #307aa4;border-radius:9px 9px 0 0;background:repeating-linear-gradient(to bottom,transparent 0 16px,rgba(105,206,230,.26) 17px 20px),linear-gradient(90deg,#16466b,#24547a 55%,#104066)}
+.tower:before{content:"";position:absolute;bottom:100%;left:35%;height:19px;width:30%;background:linear-gradient(#53c8d7,#2871a9);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.app{position:relative;z-index:1;max-width:1500px;padding:22px clamp(15px,3vw,44px) 24px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px}
+.brandline{display:flex;align-items:center;gap:11px;color:#bce5ef;font-size:12px;font-weight:900;letter-spacing:2.6px;text-transform:uppercase}
+.brand-mark{height:30px;width:30px;border-radius:10px;background:linear-gradient(125deg,#70f9d5,#6d96ff);display:grid;place-items:center;box-shadow:0 5px 20px #1af2d44d;font-size:18px}
+header h1{margin:4px 0 0;letter-spacing:-1.4px;font-weight:1000;font-size:clamp(25px,3.5vw,46px);line-height:1.1}
+header h1 span{color:#ffcb60}
+.subtitle{margin:5px 0 0;color:var(--muted);font-size:14px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn,.mini-btn{appearance:none;border:1px solid #346183;color:var(--ink);font-weight:800;border-radius:13px;padding:11px 15px;background:linear-gradient(180deg,#214665,#17314d);box-shadow:inset 0 1px 0 #ffffff21;transition:transform .15s,border-color .15s,background .15s}
+.btn:hover,.mini-btn:hover{transform:translateY(-2px);border-color:#75c9e6}
+.btn:active,.mini-btn:active{transform:translateY(1px)}
+.btn-primary{color:#05213b;border:1px solid #96faed;background:linear-gradient(140deg,#8ffbd4,#55ddeb);box-shadow:0 8px 22px #39edda36}
+.btn-gold{color:#2b220d;background:linear-gradient(135deg,#ffe39e,#ffba55);border:1px solid #ffe8a3}
+.btn-pink{color:white;background:linear-gradient(130deg,#c37cff,#9c6ded);border-color:#e0bcff}
+.btn-danger{background:#6b3047;border-color:#9b4b64}
+.mini-btn{padding:6px 10px;border-radius:9px;font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);align-items:start;gap:21px}
+.board-panel,.score-panel{border:1px solid var(--edge);background:linear-gradient(153deg,rgba(24,54,85,.92),rgba(12,32,56,.96));border-radius:27px;box-shadow:var(--glow),inset 0 1px 0 #ffffff0d;overflow:hidden}
+.board-panel{padding:24px 24px 25px;min-height:594px}
+.board-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.board-kicker{font-size:11px;letter-spacing:2px;color:var(--turquoise);font-weight:1000;text-transform:uppercase}
+.board-panel h2{font-size:25px;letter-spacing:-.5px;margin:5px 0 3px;line-height:1.15}
+.board-description{font-size:12px;color:var(--muted)}
+.progress-block{text-align:right;font-size:12px;color:var(--muted)}
+.progress-block strong{display:block;color:var(--gold);font-size:27px;font-variant-numeric:tabular-nums}
+.progress-track{height:6px;border-radius:50px;background:#26445e;overflow:hidden;margin-top:10px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#3cddb7,#ffda87);width:0;transition:width .45s ease}
+.box-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(9px,1.5vw,18px);margin-top:24px}
+.mystery-box{appearance:none;min-width:0;position:relative;isolation:isolate;aspect-ratio:1.05/1;max-height:175px;border:2px solid #7581ed;border-radius:19px;background:linear-gradient(155deg,#9b85fb 0%,#6558c9 54%,#4d3fb5 100%);box-shadow:0 10px 0 #352a7c,0 21px 29px rgba(0,0,0,.28),inset 0 3px 0 #d4caff82;color:white;overflow:hidden;transform:translateY(0);transition:transform .22s,filter .22s,border-color .22s}
+.mystery-box:nth-child(5n + 2){background:linear-gradient(155deg,#49d9d3,#268cbb 65%,#226eaf);border-color:#78f2ec;box-shadow:0 10px 0 #155376,0 21px 29px rgba(0,0,0,.25),inset 0 3px 0 #d4f7ff6b}
+.mystery-box:nth-child(5n + 3){background:linear-gradient(155deg,#ffb76b,#f18b6e 60%,#c7637f);border-color:#ffd59f;box-shadow:0 10px 0 #833f65,0 21px 29px rgba(0,0,0,.25),inset 0 3px 0 #fff3c880}
+.mystery-box:nth-child(5n + 4){background:linear-gradient(145deg,#60d9a1,#2eb9a9 62%,#188b88);border-color:#9bffc8;box-shadow:0 10px 0 #116763,0 21px 29px rgba(0,0,0,.25),inset 0 3px 0 #c9fff46b}
+.mystery-box:nth-child(5n + 5){background:linear-gradient(155deg,#ed8dd1,#ba71d2 65%,#8458bf);border-color:#ffafe1;box-shadow:0 10px 0 #713e87,0 21px 29px rgba(0,0,0,.25),inset 0 3px 0 #ffdcf280}
+.mystery-box:before{content:"";position:absolute;left:41%;width:18%;height:100%;top:0;z-index:1;background:#fff6a1ba;box-shadow:0 0 10px #fff6b16b;transform:skewX(-6deg)}
+.mystery-box:after{content:"";position:absolute;left:0;top:44%;height:17%;width:100%;z-index:1;background:#fff5a6c7;box-shadow:0 0 12px #fff6bc5c;transform:skewY(-3deg)}
+.mystery-box:hover:not(.used){transform:translateY(-9px) rotate(-1deg);filter:brightness(1.12)}
+.box-num{position:absolute;left:12px;top:9px;z-index:3;font-size:15px;font-weight:1000;text-shadow:0 2px 3px #2024446b}
+.box-gift{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-52%);font-size:clamp(29px,4vw,52px);color:#fff;line-height:1;text-shadow:0 4px 3px #0006,0 0 10px #ffffff52;font-weight:1000}
+.box-footer{position:absolute;bottom:10px;left:0;right:0;z-index:3;display:block;font-size:11px;font-weight:1000;letter-spacing:2px;text-shadow:0 2px 4px #0008}
+.mystery-box.used{cursor:default;transform:none;filter:saturate(.4);background:linear-gradient(165deg,#2e5473,#1b3959);border:1px solid #3d6075;box-shadow:inset 0 3px 8px #0004;opacity:.6}
+.mystery-box.used:before,.mystery-box.used:after{display:none}
+.mystery-box.used .box-gift{font-size:clamp(20px,3vw,38px);color:#bdf4ed;text-shadow:none}
+.mystery-box.used.skipped .box-gift{color:#fac7cf}
+.board-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-top:23px;padding-top:17px;border-top:1px solid var(--edge);font-size:12px;color:var(--muted)}
+.star-chip{display:inline-flex;align-items:center;gap:7px;color:#fce8a6;background:#ecb94b16;border:1px solid #eac75e35;padding:7px 11px;border-radius:50px;font-weight:700}
+.score-panel{padding:19px;min-height:594px}
+.score-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.score-title h2{font-size:19px;margin:0;letter-spacing:-.2px}
+.score-caption{color:#9ecfe4;font-size:11px;margin:2px 0 12px}
+.score-list{display:grid;gap:10px}
+.team{padding:11px;border:1px solid #335270;background:#102943bb;border-radius:17px;transition:border .15s,background .15s,transform .15s}
+.team.active{border:1px solid var(--team-color);background:linear-gradient(110deg,#203b57,#0f2945);box-shadow:inset 4px 0 0 var(--team-color),0 0 17px #4fe6e312}
+.team-main{display:flex;justify-content:space-between;align-items:center;gap:7px}
+.team-select{appearance:none;background:none;border:0;color:inherit;min-width:0;flex:1;display:flex;align-items:center;gap:10px;text-align:left;padding:0}
+.avatar{flex:0 0 38px;height:38px;display:grid;place-items:center;background:var(--team-bg);border-radius:13px;font-size:23px;border:1px solid var(--team-color)}
+.team-name{font-size:13px;font-weight:900;line-height:1.1;display:block;max-width:145px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.team-label{font-size:10px;color:#9fb8cb;display:block;margin-top:4px;letter-spacing:.4px}
+.team-points{font-weight:1000;min-width:40px;text-align:right;font-size:26px;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.team-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:5px}
+.team-actions button{background:#1f4160;border:1px solid #345779;color:#d5eaff;padding:3px 9px;font-size:11px;font-weight:800;border-radius:7px}
+.team-actions button:hover{background:#326b87}
+.score-help{margin:13px 0 12px;font-size:11px;color:var(--muted)}
+.panel-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;padding-top:12px;border-top:1px solid var(--edge)}
+.panel-actions .btn{padding:9px 11px;font-size:12px;flex:1}
+.bottom-source{font-size:11px;text-align:center;color:#7eafc8;margin:11px 0 0;letter-spacing:.2px}
+.overlay{position:fixed;inset:0;background:rgba(4,12,26,.78);backdrop-filter:blur(8px);z-index:30;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:16px}
+.intro{max-width:810px;width:100%;overflow:auto;max-height:calc(100dvh - 20px);border-radius:27px;border:1px solid #5f96ba;background:radial-gradient(ellipse at 92% 0,rgba(86,179,200,.3),transparent 55%),linear-gradient(165deg,#1a4263,#0d2544 65%);box-shadow:0 30px 100px #0009,inset 0 1px #ffffff27;padding:26px clamp(18px,4vw,38px)}
+.intro-top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(170px,1fr);align-items:center;gap:15px}
+.pretitle{font-size:12px;font-weight:1000;letter-spacing:2.5px;color:#92f8e9}
+.intro h2{margin:9px 0 10px;font-size:clamp(34px,6vw,59px);line-height:1.02;letter-spacing:-2px}
+.intro h2 em{font-style:normal;color:var(--gold)}
+.intro p{font-size:14px;color:#c2dfeb;margin:0}
+.city-art{max-width:100%;filter:drop-shadow(0 16px 25px #0003)}
+.setup-box{margin-top:17px;background:#0a223cb3;border:1px solid #45627e;border-radius:21px;padding:19px}
+.setup-label{font-size:12px;color:#aee6ee;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:9px}
+.count-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:15px}
+.count-option{width:48px;height:45px;border-radius:11px;border:1px solid #47708a;background:#163c5a;color:#fff;font-weight:1000;font-size:18px}
+.count-option.selected{background:#69e8d6;color:#093349;border-color:#a1f5e5;box-shadow:0 0 18px #5ff9e14d}
+.name-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.name-field{display:flex;align-items:center;gap:8px;background:#153b58;border:1px solid #42647d;padding:6px 10px;border-radius:12px}
+.name-field .emoji{font-size:22px}
+.name-field input{border:0;outline:0;background:none;color:white;padding:8px 0;width:100%;font-size:13px;font-weight:900;min-width:0}
+.name-field input::placeholder{color:#abc0d2}
+.intro-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-top:16px}
+.intro-actions .btn{font-size:15px;padding:14px 21px}
+.intro-actions small{color:#a7c9dc;font-size:11px}
+.modal-card{width:min(740px,100%);max-height:calc(100dvh - 32px);overflow:auto;position:relative;border:1px solid #70adc9;border-radius:27px;background:radial-gradient(circle at 100% 0,#2d5576 0,transparent 48%),linear-gradient(155deg,#153b5e,#102641 80%);box-shadow:0 35px 90px #000a;padding:clamp(18px,3.5vw,33px);animation:rise .24s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+.modal-close{position:absolute;right:16px;top:15px;width:36px;height:36px;border-radius:12px;border:1px solid #50718b;background:#244565;color:#fff;font-size:20px;display:grid;place-items:center;z-index:2}
+.kicker{font-size:12px;letter-spacing:1.5px;color:var(--turquoise);font-weight:900;text-transform:uppercase}
+.modal-heading{margin:8px 45px 8px 0;font-size:clamp(23px,3.7vw,34px);line-height:1.17;letter-spacing:-.7px}
+.player-strip{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:17px 0}
+.player-chip{padding:8px 13px;border-radius:13px;background:#203f5b;border:1px solid #507a96;font-size:12px;font-weight:900}
+.timer{display:flex;align-items:center;gap:8px;margin-left:auto;color:#dff1fc}
+.timer strong{display:inline-block;min-width:53px;text-align:center;font-size:20px;font-variant-numeric:tabular-nums;color:var(--gold)}
+.timer.timeup strong{color:var(--red)}
+.question-panel{background:linear-gradient(140deg,#0d2948,#183a5c);border:1px solid #4b7192;border-radius:20px;padding:19px 20px;margin-top:14px}
+.question-text{font-size:clamp(18px,2.8vw,25px);font-weight:900;line-height:1.48;letter-spacing:-.2px}
+.blank{display:inline-block;min-width:100px;border-bottom:3px dashed #e2cc7c;padding:0 11px 1px;color:#ffeea6}
+.question-note{font-size:12px;color:#9cc6d7;margin-top:12px}
+.answer-input{padding:12px 14px;background:#f5fbff;border:1px solid #b8e4ef;border-radius:12px;color:#113752;min-width:0;width:100%;font-size:16px;margin-top:14px}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:17px}
+.option{background:#1c405d;color:#f3fbff;border:1px solid #4b7390;text-align:left;padding:13px 14px;border-radius:12px;font-weight:800;font-size:15px;display:flex;gap:12px;align-items:center}
+.option b{font-size:12px;background:#3b637f;border-radius:8px;display:inline-grid;place-items:center;min-width:25px;height:25px}
+.option.selected{border-color:#f8dc7e;background:#415b66}
+.option.correct{background:#1c6b61;border-color:#6ce6bd}
+.option.wrong{background:#6b334b;border-color:#ff91a4}
+.answer-result{display:none;border-radius:12px;padding:12px 14px;margin-top:13px;font-weight:800;font-size:14px}
+.answer-result.show{display:block}
+.answer-result.ok{background:#1a6c4e;color:#c9ffdd;border:1px solid #53d8ab}
+.answer-result.no{background:#633144;color:#ffe1e8;border:1px solid #d8788a}
+.answer-result.reveal{background:#423c68;color:#fff0ae;border:1px solid #aa9be6}
+.question-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}
+.question-actions .btn{flex:1;min-width:133px;text-align:center;font-size:13px}
+.sub-actions{display:flex;gap:9px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:12px;color:#8eb9c8}
+.link-button{padding:5px;border:none;background:transparent;color:#c8eaf1;text-decoration:underline;text-underline-offset:3px;font-size:12px}
+.reward-big{font-size:clamp(56px,9vw,97px);text-align:center;filter:drop-shadow(0 13px 14px #0006);animation:bob 2.8s ease-in-out infinite;margin:3px 0 14px}
+@keyframes bob{50%{transform:translateY(-9px) rotate(5deg)}}
+.reward-info{text-align:center;color:#c6deef;font-size:15px;max-width:540px;margin:0 auto 18px}
+.choice-heading{font-size:clamp(22px,4vw,32px);text-align:center;font-weight:1000;margin:9px 0 9px}
+.keep-give{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.keep-give button{border:1px solid #80f6dc;background:linear-gradient(120deg,#135b6c,#1d7086);color:white;min-height:92px;padding:13px;border-radius:18px;font-size:22px;font-weight:1000;letter-spacing:.4px;line-height:1.3}
+.keep-give button:last-child{background:linear-gradient(120deg,#683a94,#9453b8);border-color:#d4a4f5}
+.keep-give button:hover{filter:brightness(1.14);transform:translateY(-3px)}
+.keep-give span{display:block;font-size:12px;opacity:.79;margin-top:3px;font-weight:600}
+.recipient-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:17px}
+.recipient-list button{border:1px solid #658aaa;border-radius:13px;background:#244863;color:#fff;padding:13px 10px;font-weight:900}
+.recipient-list button:hover{border-color:#ffd98a}
+.ready-panel{text-align:center;background:#112e4c;border:1px dashed #7dbdd4;border-radius:16px;padding:14px;margin:16px 0}
+.ready-panel strong{color:#ffe293}
+.ready-panel .btn{margin-top:14px;padding:15px 24px;font-size:18px}
+.reward-value{font-weight:1000;font-size:clamp(76px,15vw,132px);letter-spacing:-5px;line-height:1.15;margin:8px 0;color:#ffe387;text-align:center;text-shadow:0 10px 29px #fac65343}
+.reward-value.negative{color:#ff8499;text-shadow:0 10px 29px #fa526343}
+.reward-value.zero{color:#bfe3f1}
+.reward-announce{text-align:center;font-size:clamp(17px,3vw,25px);font-weight:900}
+.reward-sub{text-align:center;color:#b7d2e3;margin:7px 0 22px}
+.result-actions{text-align:center}
+.rules-list{display:grid;gap:10px;margin:17px 0 23px;padding-left:18px;font-size:15px;color:#e1f0fb;line-height:1.5}
+.rules-list li::marker{color:#ffcc5a}
+.rules-vi{font-size:12px;color:#afd5dc;border-top:1px solid var(--edge);padding-top:12px}
+.end-scores{display:grid;gap:9px;margin:20px auto;max-width:520px}
+.end-score{display:flex;align-items:center;gap:10px;padding:12px 15px;border-radius:13px;background:#1e4260;border:1px solid #4d7590}
+.end-score strong{margin-left:auto;font-size:24px}
+.end-score.winner{border-color:#ffe08b;background:#6b583d}
+.trophy{font-size:75px;text-align:center;line-height:1.15;margin:10px 0}
+.toast{position:fixed;bottom:28px;left:50%;transform:translate(-50%,16px);background:#f2fff9;color:#0c3b41;border:1px solid #4fffc4;border-radius:13px;padding:12px 19px;box-shadow:0 12px 30px #0009;font-size:14px;font-weight:800;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:92%;text-align:center}
+.toast.active{opacity:1;transform:translate(-50%,0)}
+.fab{display:none}
+@media (max-width:1040px){.layout{grid-template-columns:minmax(0,1fr) 260px}.board-panel{padding:17px}.box-grid{gap:10px}.mystery-box{border-radius:14px}.score-panel{padding:12px}.team-name{max-width:105px}}
+@media (max-width:785px){header{flex-direction:column}.top-actions{justify-content:flex-start}.layout{grid-template-columns:1fr}.score-panel{min-height:0}.score-list{grid-template-columns:repeat(2,minmax(0,1fr))}.board-panel{min-height:0}.board-foot{margin-top:18px}.skyline{height:120px}.intro-top{grid-template-columns:1.35fr .65fr}}
+@media (max-width:560px){.app{padding:14px 10px}.subtitle{font-size:12px}.top-actions .btn{font-size:11px;padding:8px}.board-panel{padding:14px 9px;border-radius:18px}.board-top{padding:0 4px}.box-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.mystery-box{aspect-ratio:1.12/1;max-height:140px}.box-gift{font-size:37px}.score-list{grid-template-columns:1fr 1fr;gap:7px}.team{padding:9px 7px}.team-name{max-width:86px;font-size:11px}.team-points{font-size:19px}.avatar{flex-basis:29px;height:30px;font-size:18px}.team-actions{flex-wrap:wrap}.intro{padding:17px 15px;max-height:calc(100dvh - 10px)}.intro-top{grid-template-columns:1fr}.city-art{display:none}.name-fields{grid-template-columns:1fr}.modal-card{padding:18px 13px;border-radius:19px}.choices{grid-template-columns:1fr}.question-actions .btn{min-width:0;flex:1 1 39%;font-size:11px;padding:10px 8px}.keep-give{gap:8px}.keep-give button{font-size:17px}.player-chip{font-size:11px}.timer{margin-left:0}.recipient-list{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+<style id="largeTextStyle">
+/* Classroom projection font sizes. Press A- / A+ to adjust without resetting the game. */
+html{--type-scale:1}
+.layout{grid-template-columns:minmax(0,1fr) minmax(345px,390px)}
+.brandline{font-size:calc(15px * var(--type-scale));letter-spacing:1.6px}
+.subtitle{font-size:calc(17px * var(--type-scale))}
+.top-actions{align-items:center}
+.top-actions .btn{font-size:calc(15px * var(--type-scale));padding:11px 14px}
+.type-controls{display:flex;align-items:center;gap:4px;padding:4px;background:#102b48;border:1px solid #4a7892;border-radius:15px}
+.top-actions .type-controls .btn{font-size:calc(22px * var(--type-scale));padding:5px 11px;min-width:46px}
+.type-level{font-size:calc(13px * var(--type-scale));min-width:43px;text-align:center;font-weight:900;color:#f6dc93;font-variant-numeric:tabular-nums}
+.board-kicker,.board-description,.progress-block{font-size:calc(16px * var(--type-scale))}
+.board-panel h2{font-size:clamp(calc(27px * var(--type-scale)),2.4vw,calc(35px * var(--type-scale)))}
+.progress-block strong{font-size:calc(32px * var(--type-scale))}
+.box-num{font-size:calc(22px * var(--type-scale));left:10px}
+.box-gift{font-size:clamp(calc(43px * var(--type-scale)),4.8vw,calc(65px * var(--type-scale)))}
+.box-footer{font-size:calc(14px * var(--type-scale));letter-spacing:1px}
+.mystery-box.used .box-gift{font-size:calc(39px * var(--type-scale))}
+.board-foot,.star-chip{font-size:calc(15px * var(--type-scale))}
+.score-title h2{font-size:calc(25px * var(--type-scale))}
+.mini-btn{font-size:calc(15px * var(--type-scale));padding:8px 12px}
+.score-caption,.score-help{font-size:calc(15px * var(--type-scale));line-height:1.45}
+.team{padding:13px 12px}
+.avatar{flex-basis:44px;height:44px;font-size:27px}
+.team-name{font-size:calc(18px * var(--type-scale));max-width:none;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word;line-height:1.2}
+.team-label{font-size:calc(13px * var(--type-scale))}
+.team-points{font-size:calc(35px * var(--type-scale));min-width:57px}
+.team-actions button{font-size:calc(15px * var(--type-scale));padding:6px 12px}
+.panel-actions .btn{font-size:calc(16px * var(--type-scale));padding:12px 10px}
+.bottom-source{font-size:calc(12px * var(--type-scale))}
+.intro{max-width:890px}
+.pretitle,.setup-label{font-size:calc(15px * var(--type-scale))}
+.intro p{font-size:calc(18px * var(--type-scale));line-height:1.4}
+.count-option{font-size:calc(22px * var(--type-scale));height:48px;width:52px}
+.name-field input{font-size:calc(18px * var(--type-scale))}
+.intro-actions .btn{font-size:calc(19px * var(--type-scale))}
+.intro-actions small{font-size:calc(14px * var(--type-scale));line-height:1.5}
+.modal-card{width:min(920px,100%)}
+.kicker{font-size:calc(17px * var(--type-scale));letter-spacing:1.2px}
+.modal-heading{font-size:clamp(calc(31px * var(--type-scale)),3.5vw,calc(43px * var(--type-scale)))}
+.player-chip{font-size:calc(17px * var(--type-scale));padding:10px 14px}
+.timer{font-size:calc(17px * var(--type-scale))}
+.timer strong{font-size:calc(27px * var(--type-scale))}
+.question-panel{padding:24px 25px}
+.question-text{font-size:clamp(calc(29px * var(--type-scale)),3vw,calc(40px * var(--type-scale)));line-height:1.43;font-weight:900}
+.question-note{font-size:calc(17px * var(--type-scale));line-height:1.4}
+.blank{min-width:120px}
+.answer-input{font-size:calc(23px * var(--type-scale));padding:16px}
+.option{font-size:calc(21px * var(--type-scale));padding:16px 15px;min-height:64px;line-height:1.32}
+.option b{font-size:calc(17px * var(--type-scale));min-width:34px;height:34px}
+.answer-result{font-size:calc(20px * var(--type-scale));line-height:1.4;padding:16px}
+.question-actions .btn{font-size:calc(18px * var(--type-scale));padding:14px 12px;min-width:155px}
+.sub-actions{font-size:calc(17px * var(--type-scale))}
+.link-button{font-size:calc(16px * var(--type-scale))}
+.reward-info{font-size:calc(20px * var(--type-scale));line-height:1.45;max-width:720px}
+.choice-heading{font-size:clamp(calc(29px * var(--type-scale)),4vw,calc(42px * var(--type-scale)))}
+.keep-give button{font-size:calc(29px * var(--type-scale));min-height:115px}
+.keep-give span{font-size:calc(18px * var(--type-scale));line-height:1.35}
+.recipient-list button{font-size:calc(21px * var(--type-scale));line-height:1.3;min-height:66px}
+.ready-panel{font-size:calc(20px * var(--type-scale));line-height:1.55}
+.ready-panel[style]{font-size:calc(18px * var(--type-scale))!important}
+.ready-panel .btn{font-size:calc(22px * var(--type-scale))}
+.reward-announce{font-size:clamp(calc(25px * var(--type-scale)),3vw,calc(34px * var(--type-scale)))}
+.reward-sub{font-size:calc(20px * var(--type-scale));line-height:1.5}
+.rules-list{font-size:calc(21px * var(--type-scale));line-height:1.5}
+.rules-vi{font-size:calc(17px * var(--type-scale));line-height:1.5}
+.end-score{font-size:calc(21px * var(--type-scale))}
+.end-score strong{font-size:calc(27px * var(--type-scale))}
+.toast{font-size:calc(19px * var(--type-scale))}
+@media(max-width:1150px){
+  .layout{grid-template-columns:minmax(0,1fr) minmax(300px,345px)}
+  .team-name{font-size:calc(16px * var(--type-scale))}
+  .team-points{font-size:calc(30px * var(--type-scale))}
+  .score-title h2{font-size:calc(22px * var(--type-scale))}
+}
+@media(max-width:785px){
+  .layout{grid-template-columns:1fr}
+  .score-panel{min-height:0}
+}
+@media(max-width:560px){
+  .brandline{font-size:calc(11px * var(--type-scale));letter-spacing:.6px}
+  .subtitle{font-size:calc(14px * var(--type-scale))}
+  .top-actions .btn{font-size:calc(12px * var(--type-scale));padding:8px}
+  .top-actions .type-controls .btn{font-size:calc(18px * var(--type-scale));padding:5px 8px;min-width:36px}
+  .type-level{font-size:calc(11px * var(--type-scale));min-width:34px}
+  .board-kicker,.board-description,.progress-block{font-size:calc(13px * var(--type-scale))}
+  .box-num{font-size:calc(17px * var(--type-scale))}
+  .box-footer{font-size:calc(12px * var(--type-scale))}
+  .board-foot,.star-chip{font-size:calc(12px * var(--type-scale))}
+  .score-title h2{font-size:calc(19px * var(--type-scale))}
+  .team{padding:10px 7px}
+  .team-name{font-size:calc(14px * var(--type-scale))}
+  .team-label{font-size:calc(11px * var(--type-scale))}
+  .team-points{font-size:calc(24px * var(--type-scale));min-width:35px}
+  .avatar{flex-basis:31px;height:33px;font-size:19px}
+  .team-actions button{font-size:calc(13px * var(--type-scale));padding:5px 7px}
+  .score-caption,.score-help{font-size:calc(13px * var(--type-scale))}
+  .intro p{font-size:calc(16px * var(--type-scale))}
+  .name-field input{font-size:calc(16px * var(--type-scale))}
+  .kicker{font-size:calc(13px * var(--type-scale))}
+  .modal-heading{font-size:clamp(calc(25px * var(--type-scale)),7vw,calc(34px * var(--type-scale)))}
+  .player-chip{font-size:calc(13px * var(--type-scale))}
+  .question-panel{padding:17px 13px}
+  .question-text{font-size:clamp(calc(23px * var(--type-scale)),5.7vw,calc(29px * var(--type-scale)))}
+  .question-note{font-size:calc(14px * var(--type-scale))}
+  .option{font-size:calc(18px * var(--type-scale));min-height:54px;padding:13px}
+  .answer-input{font-size:calc(19px * var(--type-scale))}
+  .answer-result{font-size:calc(17px * var(--type-scale))}
+  .question-actions .btn{font-size:calc(15px * var(--type-scale));min-width:0;padding:12px 8px}
+  .reward-info{font-size:calc(17px * var(--type-scale))}
+  .choice-heading{font-size:calc(28px * var(--type-scale))}
+  .keep-give button{font-size:calc(21px * var(--type-scale));min-height:105px;padding:10px}
+  .keep-give span{font-size:calc(14px * var(--type-scale))}
+  .recipient-list button{font-size:calc(18px * var(--type-scale))}
+  .rules-list{font-size:calc(17px * var(--type-scale))}
+  .rules-vi{font-size:calc(14px * var(--type-scale))}
+}
+</style>
+</head>
+<body>
+<div class="starscape" aria-hidden="true"></div>
+<div class="skyline" aria-hidden="true">
+  <i class="tower" style="--x:3%;--h:85px"></i><i class="tower" style="--x:13%;--h:136px"></i><i class="tower" style="--x:26%;--h:99px"></i><i class="tower" style="--x:39%;--h:125px"></i><i class="tower" style="--x:52%;--h:84px"></i><i class="tower" style="--x:65%;--h:150px"></i><i class="tower" style="--x:79%;--h:104px"></i><i class="tower" style="--x:92%;--h:130px"></i>
+</div>
+<div class="app">
+<header>
+  <div>
+    <div class="brandline"><span class="brand-mark">✦</span> English 11 · Global Success · Unit 3</div>
+    <h1>FUTURE CITY <span>MYSTERY BOX</span></h1>
+    <p class="subtitle">Getting Started · Task 2 &amp; Task 3 · Keep it or give it away?</p>
+  </div>
+  <div class="top-actions">
+    <div class="type-controls" role="group" aria-label="Adjust classroom text size"><button type="button" class="btn" id="fontMinusBtn" aria-label="Make text smaller" title="Smaller text">A−</button><span class="type-level" id="fontLevel">100%</span><button type="button" class="btn" id="fontPlusBtn" aria-label="Make text larger" title="Larger text">A+</button></div>
+    <button class="btn" type="button" id="rulesBtn">ⓘ How to play</button>
+    <button class="btn" type="button" id="soundBtn">♫ Sound ON</button>
+    <button class="btn" type="button" id="fullscreenBtn">⛶ Fullscreen</button>
+  </div>
+</header>
+<main class="layout">
+  <section class="board-panel" aria-label="Mystery Box gameboard">
+    <div class="board-top">
+      <div><div class="board-kicker">★ Choose your lucky box ★</div><h2>15 secret boxes</h2><div class="board-description">Answer correctly first. Choose KEEP or GIVE before points are revealed!</div></div>
+      <div class="progress-block"><strong id="progressText">0 / 15</strong>Boxes opened</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="box-grid" id="boxGrid" aria-label="15 boxes"></div>
+    <div class="board-foot"><span class="star-chip">✦ 9 textbook challenges · 5 extra · 1 surprise</span><span id="activeTeamLabel">Choose a team on the right →</span></div>
+  </section>
+  <aside class="score-panel" aria-label="Team scoreboard">
+    <div class="score-title"><h2>🏆 SCOREBOARD</h2><button class="mini-btn" type="button" id="undoBtn" title="Undo the most recent score/box action">↶ Undo</button></div>
+    <div class="score-caption">Choose the team answering now. Teacher controls the points.</div>
+    <div class="score-list" id="teamList"></div>
+    <p class="score-help">+10 / −10: adjust scores manually. A box's points are added automatically after it opens.</p>
+    <div class="panel-actions"><button class="btn btn-gold" id="finishBtn" type="button">🏆 Results</button><button class="btn" id="resetBtn" type="button">↺ New Game</button></div>
+  </aside>
+</main>
+<p class="bottom-source">Based on English 11 · Global Success · Unit 3 · Getting Started, pp. 28–29 · For classroom use</p>
+</div>
+
+<div class="overlay" id="introOverlay" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+ <div class="intro">
+  <div class="intro-top">
+   <div><div class="pretitle">🏙️ HELLO, FUTURE EXPLORERS!</div><h2 id="introTitle">MYSTERY <em>BOX</em></h2><p>Explore the cities of tomorrow. Answer questions, make risky choices, and discover secret points!</p></div>
+   <svg class="city-art" viewBox="0 0 320 232" aria-label="Illustration of a futuristic green and smart city" role="img">
+    <defs><linearGradient id="a" x2="0" y2="1"><stop stop-color="#98f9f3"/><stop offset="1" stop-color="#5d82d7"/></linearGradient><linearGradient id="b" x2="0" y2="1"><stop stop-color="#9cd8f2"/><stop offset="1" stop-color="#3e73c4"/></linearGradient></defs>
+    <circle cx="260" cy="42" r="29" fill="#ffe0a3" opacity=".96"/><ellipse cx="161" cy="207" rx="150" ry="14" fill="#051d39" opacity=".5"/>
+    <path d="M23 183L23 99L55 79L87 99L87 183" fill="url(#b)" stroke="#eaf8ff" stroke-width="3"/>
+    <rect x="93" y="61" width="66" height="122" rx="12" fill="url(#a)" stroke="#eaf8ff" stroke-width="3"/><path d="M103 62L126 14L148 62" fill="url(#a)" stroke="#eaf8ff" stroke-width="3"/>
+    <path d="M165 185V94Q199 28 230 94V185" fill="url(#b)" stroke="#dffaff" stroke-width="3"/><rect x="243" y="104" width="47" height="81" rx="8" fill="#6c91cb" stroke="#dafffc" stroke-width="3"/>
+    <path d="M179 108H214M177 125H217M175 142H220M179 159H215" stroke="#d9ffff" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+    <path d="M109 76H142M109 96H142M109 116H142M109 136H142M109 156H142" stroke="#327b9b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M31 112H79M31 133H79M31 154H79" stroke="#d0faff" stroke-width="4" opacity=".65"/>
+    <path d="M13 185H306" stroke="#e3f2fe" stroke-width="9" stroke-linecap="round"/>
+    <path d="M40 185v19M61 185v19M264 185v19M279 185v19" stroke="#78ddaf" stroke-width="8"/>
+    <g fill="#5fe6ae" stroke="#d1ffe1" stroke-width="2"><circle cx="40" cy="176" r="14"/><circle cx="65" cy="178" r="13"/><circle cx="273" cy="178" r="14"/></g>
+    <path d="M217 49l37-8 9 9-8 8-38-2z" fill="#ffd8a1" stroke="#e6ffff" stroke-width="3"/><circle cx="229" cy="55" r="3" fill="#377da8"/><circle cx="251" cy="54" r="3" fill="#377da8"/>
+    <path d="M206 46H180" stroke="#92eaff" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 5"/>
+   </svg>
+  </div>
+  <div class="setup-box">
+   <div class="setup-label">1. Choose number of teams</div>
+   <div class="count-row" id="countRow"></div>
+   <div class="setup-label">2. Choose cute team names (editable)</div>
+   <div class="name-fields" id="nameFields"></div>
+  </div>
+  <div class="intro-actions"><span><small>15 boxes: 14 questions + 1 surprise<br>Every point value stays secret until your choice.</small></span><button type="button" class="btn btn-primary" id="startBtn">LET'S PLAY! &nbsp;➜</button></div>
+ </div>
+</div>
+
+<div class="overlay" id="modalOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalContentTitle">
+  <div class="modal-card" id="modalCard"><button class="modal-close" id="modalClose" type="button" aria-label="Return to gameboard">×</button><div id="modalBody"></div></div>
+</div>
+<div class="toast" id="toast" aria-live="polite"></div>
+<script>
+"use strict";
+// Questions 1–9 are directly based on Getting Started Tasks 2–3, page 29.
+// Questions 10–14 are new gap-fill questions adapted from the dialogue on pp. 28–29.
+// Question 15 is an extra surprise box, not a textbook question.
+const QUESTIONS=[
+ {id:'t2-1',source:'SGK · TASK 2',mode:'fill',prompt:'More than 50% of the green city is made up of <span class="blank">__________</span>.',answer:'green areas',alt:[],note:'Use no more than TWO words. (1) Green city'},
+ {id:'t2-2',source:'SGK · TASK 2',mode:'fill',prompt:'Using public transport will help reduce <span class="blank">__________</span> and pollution.',answer:'traffic jams',alt:[],note:'Use no more than TWO words. (2) Green city'},
+ {id:'t2-3',source:'SGK · TASK 2',mode:'fill',prompt:'AI <span class="blank">__________</span> will help the city operate more efficiently.',answer:'technologies',alt:[],note:'Use no more than TWO words. (3) Smart city'},
+ {id:'t2-4',source:'SGK · TASK 2',mode:'fill',prompt:'High-rise buildings will help solve the <span class="blank">__________</span> problems.',answer:'housing',alt:[],note:'Use no more than TWO words. (4) Smart city'},
+ {id:'t3-1',source:'SGK · TASK 3',mode:'match',prompt:'Match the words to make a phrase from the conversation:<br><span style="color:#ffe28b">public + ?</span>',answer:'transport',option:2,note:'Choose the matching word (1).'},
+ {id:'t3-2',source:'SGK · TASK 3',mode:'match',prompt:'Match the words to make a phrase from the conversation:<br><span style="color:#ffe28b">private + ?</span>',answer:'vehicles',option:3,note:'Choose the matching word (2).'},
+ {id:'t3-3',source:'SGK · TASK 3',mode:'match',prompt:'Match the words to make a phrase from the conversation:<br><span style="color:#ffe28b">modern + ?</span>',answer:'infrastructure',option:1,note:'Choose the matching word (3).'},
+ {id:'t3-4',source:'SGK · TASK 3',mode:'match',prompt:'Match the words to make a phrase from the conversation:<br><span style="color:#ffe28b">high-rise + ?</span>',answer:'buildings',option:4,note:'Choose the matching word (4).'},
+ {id:'t3-5',source:'SGK · TASK 3',mode:'match',prompt:'Match the words to make a phrase from the conversation:<br><span style="color:#ffe28b">smart + ?</span>',answer:'city',option:0,note:'Choose the matching word (5).'},
+ {id:'extra-1',source:'EXTRA · DIALOGUE',mode:'fill',prompt:'People will use trams and electric <span class="blank">__________</span> in the green city.',answer:'buses',alt:[],note:'Complete the sentence with ONE word.'},
+ {id:'extra-2',source:'EXTRA · DIALOGUE',mode:'fill',prompt:'A green city is designed to reduce its negative impact on the <span class="blank">__________</span>.',answer:'environment',alt:[],note:'Complete the sentence with ONE word.'},
+ {id:'extra-3',source:'EXTRA · DIALOGUE',mode:'fill',prompt:'A smart city can use cameras and smart <span class="blank">__________</span> to operate efficiently.',answer:'sensors',alt:[],note:'Complete the sentence with ONE word.'},
+ {id:'extra-4',source:'EXTRA · DIALOGUE',mode:'fill',prompt:'High-rise buildings can help limit the <span class="blank">__________</span> footprint of the built environment.',answer:'carbon',alt:[],note:'Complete the sentence with ONE word.'},
+ {id:'extra-5',source:'EXTRA · DIALOGUE',mode:'fill',prompt:'Mai says she is thinking of <span class="blank">__________</span> in a smart city in the future.',answer:'living',alt:[],note:'Complete the sentence with ONE word.'},
+ {id:'surprise',source:'SURPRISE BOX',mode:'bonus',prompt:'SURPRISE! You have found a mystery box without a question!',answer:'',note:'You can keep or give away its points.'}
+];
+const OPTIONS=['city','infrastructure','transport','vehicles','buildings'];
+const TEAM_PRESETS=[
+ {name:'Puppy Pioneers',emoji:'🐶',color:'#74e1ef',bg:'#20495c'},
+ {name:'Bunny Builders',emoji:'🐰',color:'#ffce8a',bg:'#5b473d'},
+ {name:'Kitty Coders',emoji:'🐱',color:'#d6a4ff',bg:'#493968'},
+ {name:'Panda Planners',emoji:'🐼',color:'#8aeebf',bg:'#31564f'},
+ {name:'Foxy Futurists',emoji:'🦊',color:'#ffa6b3',bg:'#634453'},
+ {name:'Koala Creators',emoji:'🐨',color:'#bac9ff',bg:'#454d70'}
+];
+// 15 shuffled, hidden values. Choices of GIVE/KEEP always precede the reveal.
+const PRIZES=[10,20,30,40,50,60,70,20,30,40,50,-10,-20,-30,-40];
+const STORAGE_KEY='future_city_mystery_box_v2';
+const $=(q,root=document)=>root.querySelector(q);
+const $$=(q,root=document)=>Array.from(root.querySelectorAll(q));
+const shuffle=list=>{let out=list.slice();for(let i=out.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;};
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s).toLowerCase().normalize('NFKD').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+let setupTeamCount=4;
+let state=null;
+let undoStack=[];
+let selectedOption=-1;
+let soundOn=true;
+let audioCtx=null;
+let timerInterval=null;
+let secondsLeft=30;
+let toastTimeout=null;
+function sound(kind){if(!soundOn)return;try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;audioCtx=audioCtx||new Ctx();if(audioCtx.state==='suspended')audioCtx.resume();const notes=kind==='win'?[523,659,784]:kind==='bad'?[300,220]:kind==='box'?[380,520]:kind==='end'?[523,659,784,1046]:[560];notes.forEach((freq,i)=>{let osc=audioCtx.createOscillator(),amp=audioCtx.createGain(),now=audioCtx.currentTime+i*.10;osc.type=kind==='bad'?'triangle':'sine';osc.frequency.setValueAtTime(freq,now);amp.gain.setValueAtTime(.0001,now);amp.gain.exponentialRampToValueAtTime(.065,now+.015);amp.gain.exponentialRampToValueAtTime(.0001,now+.18);osc.connect(amp);amp.connect(audioCtx.destination);osc.start(now);osc.stop(now+.19);});}catch(e){/* audio is optional */}}
+function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('active');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('active'),2600)}
+function persist(){try{if(state)localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
+function remember(){if(!state)return;undoStack.push(JSON.stringify(state));if(undoStack.length>40)undoStack.shift()}
+function undo(){if(!undoStack.length){toast('Nothing to undo yet.');return;}stopTimer();state=JSON.parse(undoStack.pop());persist();renderAll();if(state.phase==='board')closeModal();else renderModal();toast('Last action undone.');}
+function load(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return null;const obj=JSON.parse(raw);if(obj && obj.version===2 && obj.teams && obj.cells && obj.cells.length===15)return obj;}catch(e){}return null;}
+function getQuestion(cell){return QUESTIONS.find(q=>q.id===cell.id)}
+function usedCount(){return state.cells.filter(c=>c.status!=='closed').length}
+function colorTeam(i){return TEAM_PRESETS[i % TEAM_PRESETS.length]}
+function teamName(i){return state.teams[i]?.name||'Unknown team'}
+function makeInitial(teams){const quests=shuffle(QUESTIONS);const prizes=shuffle(PRIZES);return {version:2,teams:teams.map((name,i)=>({name,score:0})),activeTeam:0,currentTeam:0,cells:quests.map((q,i)=>({num:i+1,id:q.id,prize:prizes[i],status:'closed',awardedTo:null})),currentIndex:null,recipient:null,phase:'board',answerRevealed:false};}
+function setupNames(){const count=$('#countRow');count.innerHTML=[2,3,4,5,6].map(i=>`<button type="button" class="count-option ${i===setupTeamCount?'selected':''}" data-n="${i}" aria-pressed="${i===setupTeamCount}">${i}</button>`).join('');const entries=$('#nameFields');const old=$$('input',entries).map(el=>el.value);entries.innerHTML=Array.from({length:setupTeamCount},(_,i)=>`<label class="name-field"><span class="emoji">${TEAM_PRESETS[i].emoji}</span><input aria-label="Name of team ${i+1}" maxlength="24" value="${escapeHTML(old[i]||TEAM_PRESETS[i].name)}"></label>`).join('');}
+function startGame(){const names=$$('#nameFields input').map((el,i)=>el.value.trim()||TEAM_PRESETS[i].name);state=makeInitial(names);undoStack=[];$('#introOverlay').hidden=true;closeModal();renderAll();persist();sound('win');toast('Welcome to the future! Choose a team, then a box.');}
+function renderAll(){if(!state)return;const done=usedCount();$('#progressText').textContent=`${done} / 15`;$('#progressFill').style.width=`${done/15*100}%`;$('#activeTeamLabel').textContent=`⭐ Playing now: ${teamName(state.activeTeam)}`;$('#boxGrid').innerHTML=state.cells.map((box,i)=>{const used=box.status!=='closed';return `<button type="button" class="mystery-box ${used?'used '+(box.status==='skipped'?'skipped':''):''}" data-index="${i}" aria-label="Box ${box.num}${used?', already opened':''}" ${used?'disabled':''}><span class="box-num">${String(box.num).padStart(2,'0')}</span><span class="box-gift">${used?(box.status==='skipped'?'×':'✓'):'?'}</span><span class="box-footer">${used?(box.status==='skipped'?'SKIPPED':'OPENED'):'MYSTERY'}</span></button>`}).join('');$('#teamList').innerHTML=state.teams.map((team,i)=>{const preset=colorTeam(i),isActive=state.activeTeam===i;return `<div class="team ${isActive?'active':''}" style="--team-color:${preset.color};--team-bg:${preset.bg}"><div class="team-main"><button type="button" class="team-select" data-team="${i}" title="Make this team the current player"><span class="avatar">${preset.emoji}</span><span><span class="team-name" title="${escapeHTML(team.name)}">${escapeHTML(team.name)}</span><span class="team-label">${isActive?'● NOW PLAYING':'SELECT TEAM'}</span></span></button><span class="team-points">${team.score}</span></div><div class="team-actions"><button type="button" data-adjust="-10" data-team="${i}" aria-label="Minus 10 points for ${escapeHTML(team.name)}">− 10</button><button type="button" data-adjust="10" data-team="${i}" aria-label="Plus 10 points for ${escapeHTML(team.name)}">+ 10</button></div></div>`}).join('');}
+function openBox(index){if(!state || state.cells[index].status!=='closed')return;state.currentIndex=index;state.currentTeam=state.activeTeam;state.recipient=null;state.phase=getQuestion(state.cells[index]).mode==='bonus'?'choose':'question';state.answerRevealed=false;selectedOption=-1;secondsLeft=30;persist();renderModal();sound('box');}
+function showModal(){ $('#modalOverlay').hidden=false;document.body.style.overflow='hidden';}
+function closeModal(){stopTimer();$('#modalOverlay').hidden=true;document.body.style.overflow='';if(state && state.phase!=='board' && state.phase!=='done'){state.phase='board';state.currentIndex=null;state.recipient=null;state.answerRevealed=false;persist()}}
+function currentBox(){return state.cells[state.currentIndex]}
+function currentQuestion(){return getQuestion(currentBox())}
+function renderModal(){if(!state || state.phase==='board'){closeModal();return;}stopTimer();const body=$('#modalBody');if(state.phase==='question')renderQuestion(body);else if(state.phase==='choose')renderChoose(body);else if(state.phase==='recipient')renderRecipient(body);else if(state.phase==='ready')renderReady(body);else if(state.phase==='result')renderResult(body);else if(state.phase==='done')renderDone(body);showModal();}
+function renderQuestion(body){const item=currentQuestion(),box=currentBox(),team=teamName(state.currentTeam);const choices=item.mode==='match'?`<div class="choices" role="group" aria-label="Choose matching word">${OPTIONS.map((w,i)=>`<button type="button" class="option" data-choice="${i}" aria-pressed="false"><b>${String.fromCharCode(65+i)}</b>${w}</button>`).join('')}</div>`:`<input type="text" class="answer-input" id="answerInput" autocomplete="off" spellcheck="false" placeholder="Type the missing word(s) (optional)" aria-label="Answer">`;body.innerHTML=`<div class="kicker" id="modalContentTitle">${item.source} · BOX ${String(box.num).padStart(2,'0')}</div><h2 class="modal-heading">Solve the mystery!</h2><div class="player-strip"><span class="player-chip">🎯 Answering: ${escapeHTML(team)}</span><span class="timer" id="timerWrap">⏱️ <strong id="timerLabel">00:30</strong> <button type="button" class="mini-btn" id="timerBtn">▶ Timer</button></span></div><div class="question-panel"><div class="question-text">${item.prompt}</div><div class="question-note">${item.note}</div>${choices}<div class="answer-result" id="answerResult" aria-live="polite"></div></div><div class="question-actions"><button type="button" class="btn" id="checkBtn">✓ Check answer</button><button type="button" class="btn" id="revealBtn">👁 Show answer</button><button type="button" class="btn btn-primary" id="correctBtn">✅ Correct → Box</button><button type="button" class="btn btn-pink" id="passBtn">↪ Pass to next team</button></div><div class="sub-actions"><span>The teacher can award a box for an oral answer.</span><button type="button" class="link-button" id="skipBtn">Skip this question →</button></div>`;
+ $('#checkBtn').onclick=checkAnswer;$('#revealBtn').onclick=revealAnswer;$('#correctBtn').onclick=correct;$('#passBtn').onclick=pass;$('#skipBtn').onclick=skip;$('#timerBtn').onclick=toggleTimer;$$('[data-choice]',body).forEach(b=>b.onclick=()=>{selectedOption=Number(b.dataset.choice);$$('[data-choice]',body).forEach(el=>{let sel=Number(el.dataset.choice)===selectedOption;el.classList.toggle('selected',sel);el.setAttribute('aria-pressed',sel?'true':'false')});});const input=$('#answerInput');if(input)input.addEventListener('keydown',ev=>{if(ev.key==='Enter')checkAnswer()});}
+function answerBox(message,type){const el=$('#answerResult');if(!el)return;el.textContent=message;el.className='answer-result show '+type;}
+function checkAnswer(){const item=currentQuestion();let ok;if(item.mode==='match'){if(selectedOption<0){toast('Choose A, B, C, D or E first.');return}ok=selectedOption===item.option;$$('[data-choice]').forEach(el=>{el.classList.toggle('correct',Number(el.dataset.choice)===item.option);el.classList.toggle('wrong',Number(el.dataset.choice)===selectedOption && !ok)});}else{let el=$('#answerInput');if(!el||!el.value.trim()){toast('Type an answer or let the teacher decide.');return;}ok=[item.answer,...(item.alt||[])].some(a=>normalize(a)===normalize(el.value));}answerBox(ok?'✅ Correct! Well done. Now the teacher can open your mystery box.':'❌ Not quite! Try again or pass to the next team.',ok?'ok':'no');sound(ok?'win':'bad');}
+function revealAnswer(){const item=currentQuestion();state.answerRevealed=true;answerBox('💡 Answer: '+item.answer+(item.mode==='match'?' ('+String.fromCharCode(65+item.option)+')':''),'reveal');if(item.mode==='match')$$('[data-choice]').forEach(el=>el.classList.toggle('correct',Number(el.dataset.choice)===item.option));stopTimer();persist();}
+function correct(){stopTimer();state.phase='choose';persist();renderModal();sound('win');}
+function pass(){stopTimer();state.currentTeam=(state.currentTeam+1)%state.teams.length;state.activeTeam=state.currentTeam;state.answerRevealed=false;selectedOption=-1;secondsLeft=30;persist();renderAll();renderModal();toast(`Next team: ${teamName(state.currentTeam)}`);}
+function skip(){if(!confirm('Skip this question? The box will count as opened with 0 points.'))return;remember();currentBox().status='skipped';state.phase='board';state.currentIndex=null;state.recipient=null;persist();closeModal();renderAll();if(usedCount()===15)toast('All 15 boxes are done! Click Results.');}
+function chooseShell(title,subtitle){return `<div class="kicker" id="modalContentTitle">BOX ${String(currentBox().num).padStart(2,'0')} · SECRET POINTS</div><div class="reward-big" aria-hidden="true">🎁</div><h2 class="choice-heading">${title}</h2><p class="reward-info">${subtitle}</p>`}
+function renderChoose(body){const isBonus=currentQuestion().mode==='bonus';body.innerHTML=chooseShell('KEEP or GIVE?',`${isBonus?'🎉 Lucky discovery! No question this time. ': '✅ Correct answer! '}<b>${escapeHTML(teamName(state.currentTeam))}</b>, decide before the secret points appear.`)+`<div class="keep-give"><button id="keepBtn" type="button">🫶 KEEP<span>Add the hidden points to your team</span></button><button id="giveBtn" type="button">🎀 GIVE<span>Give the hidden points to another team</span></button></div><div class="ready-panel" style="font-size:12px;color:#add2dc">The points can be positive or negative. Your decision is final after you open the box!</div>`;$('#keepBtn').onclick=()=>{state.recipient=state.currentTeam;state.phase='ready';persist();renderModal();sound('box')};$('#giveBtn').onclick=()=>{state.phase='recipient';persist();renderModal();sound('box')};}
+function renderRecipient(body){body.innerHTML=chooseShell('Who gets your box?',`<b>${escapeHTML(teamName(state.currentTeam))}</b> chose GIVE. Pick one other team; the secret points will be theirs.`)+`<div class="recipient-list">${state.teams.map((t,i)=>i===state.currentTeam?'':`<button type="button" data-recipient="${i}">${colorTeam(i).emoji} ${escapeHTML(t.name)}</button>`).join('')}</div><div style="text-align:center;margin-top:17px"><button type="button" class="btn" id="backKeep">← Back to KEEP / GIVE</button></div>`;$$('[data-recipient]',body).forEach(el=>el.onclick=()=>{state.recipient=Number(el.dataset.recipient);state.phase='ready';persist();renderModal()});$('#backKeep').onclick=()=>{state.phase='choose';persist();renderModal()};}
+function renderReady(body){const keep=state.recipient===state.currentTeam;body.innerHTML=chooseShell(keep?'You chose KEEP!':'You chose GIVE!',keep?`<b>${escapeHTML(teamName(state.currentTeam))}</b> will receive the hidden points.`:`The box now belongs to <b>${escapeHTML(teamName(state.recipient))}</b>!`)+`<div class="ready-panel">✨ Are you ready to reveal the surprise?<br><button type="button" class="btn btn-gold" id="openPrize">🎁 OPEN THE BOX!</button></div><div style="text-align:center"><button type="button" class="link-button" id="changeMind">← Change KEEP / GIVE choice</button></div>`;$('#openPrize').onclick=revealPrize;$('#changeMind').onclick=()=>{state.recipient=null;state.phase='choose';persist();renderModal()};}
+function revealPrize(){if(state.phase!=='ready'||state.recipient===null)return;remember();const box=currentBox();box.status='opened';box.awardedTo=state.recipient;state.teams[state.recipient].score+=box.prize;state.phase='result';persist();renderAll();renderModal();sound(box.prize<0?'bad':'end');}
+function renderResult(body){const box=currentBox(),prize=box.prize,recipient=teamName(box.awardedTo),isGift=box.awardedTo!==state.currentTeam;body.innerHTML=`<div class="kicker" id="modalContentTitle">BOX ${String(box.num).padStart(2,'0')} · REVEALED!</div><div class="reward-big" aria-hidden="true">${prize<0?'🌧️':'🎉'}</div><h2 class="choice-heading">MYSTERY REVEALED!</h2><div class="reward-value ${prize<0?'negative':''}">${prize>0?'+':''}${prize}</div><p class="reward-announce">${isGift?'🎁 GIVEN TO ':'✨ KEPT BY '}${escapeHTML(recipient)}</p><p class="reward-sub">${prize>=0?'Lucky points added!':'Oops! Those negative points are now applied.'}<br><b>${escapeHTML(recipient)}</b>'s total: ${state.teams[box.awardedTo].score} points</p><div class="result-actions"><button class="btn btn-primary" id="nextBox" type="button">${usedCount()===15?'🏆 See final results':'↩ Back to gameboard'}</button></div>`;$('#nextBox').onclick=()=>{if(usedCount()===15)finish();else{state.phase='board';state.currentIndex=null;state.recipient=null;persist();closeModal();renderAll();}};}
+function finish(){stopTimer();if(!state)return;state.phase='done';state.currentIndex=null;state.recipient=null;persist();renderModal();sound('end')}
+function renderDone(body){const sorted=state.teams.map((t,i)=>({...t,index:i})).sort((a,b)=>b.score-a.score),max=sorted[0].score,winners=sorted.filter(t=>t.score===max),winnerNames=winners.map(t=>t.name).join(' & ');body.innerHTML=`<div class="kicker" id="modalContentTitle">${usedCount()===15?'ALL 15 BOXES OPENED':'CURRENT STANDINGS'}</div><div class="trophy">🏆</div><h2 class="choice-heading">${winners.length===1?'THE WINNER IS...':'IT’S A TIE!'}</h2><div class="reward-announce" style="color:#ffe29c;font-size:clamp(21px,4vw,34px)">${escapeHTML(winnerNames)}</div><p class="reward-sub">${winners.length===1?'Congratulations, future city champion!':'Congratulations to all the top teams!'}</p><div class="end-scores">${sorted.map((t,i)=>`<div class="end-score ${t.score===max?'winner':''}"><span style="font-size:21px">${t.score===max?'👑':colorTeam(t.index).emoji}</span><span>${escapeHTML(t.name)}</span><strong>${t.score}</strong></div>`).join('')}</div><div class="result-actions"><button class="btn btn-primary" id="returnBoard" type="button">↩ Return to gameboard</button> <button class="btn" id="playAgain" type="button">↺ New Game</button></div>`;$('#returnBoard').onclick=()=>{state.phase='board';persist();closeModal();renderAll()};$('#playAgain').onclick=reset;}
+function reset(){if(!confirm('Start a new game? All existing scores and opened boxes will be cleared.'))return;stopTimer();state=null;undoStack=[];try{localStorage.removeItem(STORAGE_KEY)}catch(e){}$('#introOverlay').hidden=false;closeModal();setupNames();}
+function rules(){const modal=$('#modalBody');modal.innerHTML=`<div class="kicker" id="modalContentTitle">HOW TO PLAY · KEEP OR GIVE</div><h2 class="modal-heading">Mystery Box Rules 🎁</h2><ol class="rules-list"><li>Divide the class into <b>2–6 teams</b> and pick a team to answer.</li><li>Choose a numbered mystery box. There are <b>14 questions and 1 surprise</b>.</li><li>Give an answer. If correct, that team wins the chance to open a box. If wrong, pass to another team.</li><li><b>Before revealing the points</b>, choose KEEP (for your team) or GIVE (to another team).</li><li>Open the box! Its hidden positive or negative points go to the selected team automatically.</li><li>After 15 boxes, the team with the <b>highest score wins</b>.</li></ol><div class="rules-vi">Dành cho giáo viên: Nút “Correct → Box” dùng khi học sinh trả lời miệng. “Pass to next team” cho đội kế tiếp trả lời cùng câu. Nút +10/−10 bên bảng điểm để chỉnh thủ công. “Undo” để hoàn tác lượt chấm gần nhất.</div><div style="text-align:center;margin-top:17px"><button type="button" class="btn btn-primary" id="rulesOk">GOT IT!</button></div>`;$('#rulesOk').onclick=()=>{if(state && state.phase!=='board' && state.phase!=='done')renderModal();else closeModal()};showModal();}
+function updateTimer(){const label=$('#timerLabel');if(!label)return;label.textContent=`00:${String(secondsLeft).padStart(2,'0')}`;$('#timerWrap')?.classList.toggle('timeup',secondsLeft===0);if(secondsLeft===0){stopTimer();toast('Time’s up! The teacher can pass to the next team.');sound('bad')}}
+function toggleTimer(){if(timerInterval){stopTimer();return;}if(secondsLeft===0)secondsLeft=30;$('#timerBtn').textContent='Ⅱ Pause';timerInterval=setInterval(()=>{secondsLeft=Math.max(0,secondsLeft-1);updateTimer()},1000);updateTimer();}
+function stopTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null;const b=$('#timerBtn');if(b)b.textContent='▶ Timer';}
+// Event delegation means re-rendered boxes and score controls always work.
+$('#boxGrid').addEventListener('click',ev=>{const b=ev.target.closest('[data-index]');if(b)openBox(Number(b.dataset.index))});
+$('#teamList').addEventListener('click',ev=>{const scoreButton=ev.target.closest('[data-adjust]');if(scoreButton){let team=Number(scoreButton.dataset.team),amount=Number(scoreButton.dataset.adjust);remember();state.teams[team].score+=amount;persist();renderAll();sound('box');return;}const teamButton=ev.target.closest('[data-team]');if(teamButton){state.activeTeam=Number(teamButton.dataset.team);persist();renderAll();}});
+$('#countRow').addEventListener('click',ev=>{const b=ev.target.closest('[data-n]');if(!b)return;setupTeamCount=Number(b.dataset.n);setupNames()});
+// Font size can be changed during a round; scores, questions and boxes are untouched.
+const FONT_STORAGE_KEY='future_city_mystery_box_font_v1';
+let fontScale=1;
+function setFontScale(value){
+  fontScale=Math.max(.8,Math.min(1.5,Math.round(value*10)/10));
+  document.documentElement.style.setProperty('--type-scale',String(fontScale));
+  $('#fontLevel').textContent=Math.round(fontScale*100)+'%';
+  try{localStorage.setItem(FONT_STORAGE_KEY,String(fontScale))}catch(e){}
+}
+try{const saved=Number(localStorage.getItem(FONT_STORAGE_KEY));setFontScale(Number.isFinite(saved)&&saved>=.8&&saved<=1.5?saved:1)}catch(e){setFontScale(1)}
+$('#fontPlusBtn').onclick=()=>setFontScale(fontScale+.1);
+$('#fontMinusBtn').onclick=()=>setFontScale(fontScale-.1);
+$('#startBtn').onclick=startGame;
+$('#rulesBtn').onclick=rules;
+$('#soundBtn').onclick=()=>{soundOn=!soundOn;$('#soundBtn').textContent=soundOn?'♫ Sound ON':'♪ Sound OFF';if(soundOn)sound('win')};
+$('#fullscreenBtn').onclick=()=>{try{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();}catch(e){toast('Fullscreen is unavailable in this browser.')}};
+$('#undoBtn').onclick=undo;
+$('#resetBtn').onclick=reset;
+$('#finishBtn').onclick=()=>{if(state)finish()};
+$('#modalClose').onclick=()=>{if(state && state.phase==='done'){state.phase='board';persist()}closeModal();renderAll()};
+$('#modalOverlay').addEventListener('click',ev=>{if(ev.target===$('#modalOverlay')){$('#modalClose').click()}});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&!$('#modalOverlay').hidden){$('#modalClose').click()}});
+(function init(){setupNames();const old=load();if(old){state=old;$('#introOverlay').hidden=true;renderAll();if(state.phase!=='board')renderModal();toast('Previous game restored automatically.');}else{state=null;$('#introOverlay').hidden=false;}})();
+</script>
+</body>
+</html>
