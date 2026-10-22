@@ -248,8 +248,8 @@
         onDone: function (ok) {
           lastCorrect = ok;
           if (!tile.classList.contains('done')) { tile.classList.add('done'); doneN++; }
-          if (G.boxes && ok) {
-            var b = el('button', '', '🎁 Mystery box'); b.type = 'button';
+          if (G.boxes && ok && !qScreen.querySelector('.mbox-btn')) {
+            var b = el('button', 'mbox-btn', '🎁 Mystery box'); b.type = 'button';
             b.onclick = openBoxes;
             qScreen.querySelector('.actions').insertBefore(b, qScreen.querySelector('.actions').lastChild);
           }

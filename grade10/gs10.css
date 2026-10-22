@@ -1285,3 +1285,137 @@ body.tpl-music .slide.play:not(.cover):not(.phase):not(.side){
 /* .short — ảnh lớn đứng chung với câu hỏi bên dưới: thấp hơn một nấc (như gs11). */
 .slide .pics.wide.short img, .slide.dense .pics.wide.short img,
 .slide.denser .pics.wide.short img{ height:33vh; max-height:none; width:auto; max-width:100%; object-fit:contain; }
+
+/* ==========================================================================
+   THEME "COMMUNITY" — Unit 4 For a better community (thêm 22/10/2026)
+   --------------------------------------------------------------------------
+   Bật bằng: <body data-unit="4" class="tpl-community">
+   Màu theo PPT Unit 4 của cô: xanh mòng két + cam. Ảnh bìa = tranh slide 1 bài
+   G10-U4-L1 (assets/tpl-community-cover.webp); slide phân đoạn dùng lại tranh đó
+   dưới lớp kem dày; slide nội dung chỉ vẽ bằng CSS (dải mòng két trên đỉnh).
+   --accent #0F6F68 đạt 6.1 trên nền kem, --accent-2 #B4430B đạt 5.3.
+   ========================================================================== */
+body.tpl-community{
+  --paper:#FBF8F1; --panel:#FFFDF8; --surface:#FFFFFF; --sunk:#F1F6F2;
+  --ink:#21323A; --muted:#566468; --rule:#D7E3DE;
+  --accent:#0F6F68; --accent-fill:#14918A; --accent-2:#B4430B; --accent-soft:#E4F2EE;
+  --on-accent:#FFFFFF;
+  --font-display:Georgia, "Times New Roman", serif;
+}
+body.tpl-community .deck{ background:var(--paper); }
+body.tpl-community .deck h1, body.tpl-community .deck h2{ font-family:var(--font-display); font-weight:700; }
+body.tpl-community .deck h2{ color:var(--accent); }
+body.tpl-community .kicker{ color:var(--accent-2); }
+body.tpl-community .bar{ background:var(--panel); border-bottom-color:var(--rule); }
+body.tpl-community .bar .brand{ color:var(--accent); font-family:var(--font-display); }
+
+body.tpl-community .slide.cover{
+  background:linear-gradient(180deg, rgba(251,248,241,.94) 0%, rgba(251,248,241,.86) 42%, rgba(251,248,241,0) 68%),
+             url(assets/tpl-community-cover.webp) center bottom/cover no-repeat;
+  color:var(--ink); padding:9vh 12% 30vh;
+}
+body.tpl-community .slide.cover.is-current{ place-content:start center; text-align:center; }
+body.tpl-community .slide.cover h1{ color:var(--accent); }
+body.tpl-community .slide.cover .sub{ color:var(--accent-2); font-weight:700; }
+body.tpl-community .slide.cover .kicker{ color:var(--accent-2); }
+body.tpl-community .slide.cover .unit-no{ display:none; }
+
+body.tpl-community .slide.phase{
+  background:linear-gradient(rgba(251,248,241,.9), rgba(251,248,241,.9)),
+             url(assets/tpl-community-cover.webp) center/cover no-repeat;
+}
+body.tpl-community .slide.phase h1{ color:var(--accent); }
+body.tpl-community .slide.phase .step{ background:var(--accent-fill); color:#fff; }
+body.tpl-community .slide.phase .badge.time{ background:var(--accent-2); color:#fff; }
+
+body.tpl-community .slide:not(.cover):not(.phase){
+  background:linear-gradient(180deg, var(--accent-fill) 0, var(--accent-fill) 1.1vh, #F2A65A 1.1vh, #F2A65A 1.6vh, var(--paper) 1.6vh);
+}
+body.tpl-community .slide.play:not(.cover):not(.phase){ background:var(--paper); }
+body.tpl-community .card, body.tpl-community .word, body.tpl-community .colloc li,
+body.tpl-community .tf li, body.tpl-community .box, body.tpl-community table{ background:var(--surface); color:var(--ink); }
+body.tpl-community .card{ border-color:var(--rule); border-top-color:var(--accent-fill); }
+body.tpl-community .card.alt{ border-top-color:var(--accent-2); }
+body.tpl-community .box{ border-color:var(--rule); border-left-color:var(--accent-fill); }
+body.tpl-community .box h3{ color:var(--accent); }
+body.tpl-community .brief{ background:linear-gradient(135deg, var(--accent-soft), var(--surface)); border-color:var(--accent-fill); }
+body.tpl-community .brief h3, body.tpl-community .brief .slogan{ color:var(--accent); }
+body.tpl-community .chips li.hot, body.tpl-community .chip.hot{ background:var(--accent-fill); border-color:var(--accent-fill); color:#fff; }
+body.tpl-community .bubble.l{ background:var(--sunk); color:var(--ink); }
+body.tpl-community .bubble.r{ background:var(--accent-soft); color:var(--ink); }
+body.tpl-community .badge.time{ background:var(--accent-2); color:#fff; }
+body.tpl-community .badge.soft{ background:var(--accent-soft); color:var(--accent); border-color:var(--rule); }
+body.tpl-community .slide th{ color:var(--accent); }
+body.tpl-community .colloc .v{ color:var(--accent); }
+body.tpl-community .word .w, body.tpl-community .vocab .w{ color:var(--accent); }
+body.tpl-community .word .ipa, body.tpl-community .vocab .ipa{ color:var(--accent-2); }
+body.tpl-community .tf li::before{ background:var(--accent-fill); color:#fff; }
+body.tpl-community .compare > div:first-child{ border-color:var(--accent-fill); background:var(--accent-soft); }
+body.tpl-community .compare > div:last-child{ border-color:var(--accent-2); background:#FDF1E8; }
+body.tpl-community .compare > div:last-child h3{ color:var(--accent-2); }
+@media print{ body.tpl-community .slide{ background:none !important; } }
+
+/* ==========================================================================
+   THEME "INVENT" — Unit 5 Inventions (thêm 22/10/2026)
+   --------------------------------------------------------------------------
+   Bật bằng: <body data-unit="5" class="tpl-invent">
+   Theo slide từ vựng Unit 5 của cô: nền xanh đêm, chữ vàng. Bìa và slide phân
+   đoạn tối (vẽ bằng CSS, có lưới mạch điện mờ); slide nội dung sáng để dễ đọc.
+   Vàng #FFC845 trên #1F2554 đạt 9.8; --accent #2B3A8C trên nền sáng đạt 9.3.
+   ========================================================================== */
+body.tpl-invent{
+  --paper:#F6F8FD; --panel:#FFFFFF; --surface:#FFFFFF; --sunk:#EEF2FB;
+  --ink:#1B2240; --muted:#4F587A; --rule:#D6DDF0;
+  --accent:#2B3A8C; --accent-fill:#3D4FB5; --accent-2:#A3540A; --accent-soft:#E8ECFA;
+  --on-accent:#FFFFFF; --night:#1F2554; --gold:#FFC845;
+  --font-display:"Trebuchet MS", "Segoe UI", Arial, sans-serif;
+}
+body.tpl-invent .deck{ background:var(--paper); }
+body.tpl-invent .deck h1, body.tpl-invent .deck h2{ font-family:var(--font-display); font-weight:800; }
+body.tpl-invent .deck h2{ color:var(--accent); }
+body.tpl-invent .kicker{ color:var(--accent-2); }
+body.tpl-invent .bar{ background:var(--panel); border-bottom-color:var(--rule); }
+body.tpl-invent .bar .brand{ color:var(--accent); font-family:var(--font-display); }
+body.tpl-invent .slide.cover, body.tpl-invent .slide.phase{
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,200,69,.22) 0 9%, transparent 26%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 1px, transparent 1px 46px),
+    linear-gradient(160deg, #26306A, var(--night));
+  color:#F3F5FF;
+}
+body.tpl-invent .slide.cover h1, body.tpl-invent .slide.phase h1{ color:var(--gold); }
+body.tpl-invent .slide.cover .sub, body.tpl-invent .slide.phase .sub{ color:#DCE2FF; }
+body.tpl-invent .slide.cover .kicker{ color:#A9B6FF; }
+body.tpl-invent .slide.cover .unit-no{ color:rgba(255,200,69,.28); }
+body.tpl-invent .slide.phase .step{ background:var(--gold); color:var(--night); }
+body.tpl-invent .slide.phase .badge.time{ background:var(--gold); color:var(--night); }
+body.tpl-invent .slide:not(.cover):not(.phase){
+  background:linear-gradient(180deg, var(--night) 0, var(--night) 1.2vh, var(--gold) 1.2vh, var(--gold) 1.7vh, var(--paper) 1.7vh);
+}
+body.tpl-invent .slide.play:not(.cover):not(.phase){ background:var(--paper); }
+body.tpl-invent .card, body.tpl-invent .word, body.tpl-invent .colloc li,
+body.tpl-invent .tf li, body.tpl-invent .box, body.tpl-invent table{ background:var(--surface); color:var(--ink); }
+body.tpl-invent .card{ border-color:var(--rule); border-top-color:var(--accent-fill); }
+body.tpl-invent .card.alt{ border-top-color:#E0A21B; }
+body.tpl-invent .box{ border-color:var(--rule); border-left-color:var(--accent-fill); }
+body.tpl-invent .box h3{ color:var(--accent); }
+body.tpl-invent .brief{ background:linear-gradient(135deg, var(--accent-soft), var(--surface)); border-color:var(--accent-fill); }
+body.tpl-invent .brief h3, body.tpl-invent .brief .slogan{ color:var(--accent); }
+body.tpl-invent .chips li.hot, body.tpl-invent .chip.hot{ background:var(--accent-fill); border-color:var(--accent-fill); color:#fff; }
+body.tpl-invent .bubble.l{ background:var(--sunk); color:var(--ink); }
+body.tpl-invent .bubble.r{ background:#FFF4D6; color:var(--ink); }
+body.tpl-invent .badge.time{ background:var(--accent-fill); color:#fff; }
+body.tpl-invent .badge.soft{ background:var(--accent-soft); color:var(--accent); border-color:var(--rule); }
+body.tpl-invent .slide th{ color:var(--accent); }
+body.tpl-invent .colloc .v{ color:var(--accent); }
+body.tpl-invent .word .w, body.tpl-invent .vocab .w{ color:var(--accent); }
+body.tpl-invent .word .ipa, body.tpl-invent .vocab .ipa{ color:var(--accent-2); }
+body.tpl-invent .tf li::before{ background:var(--accent-fill); color:#fff; }
+body.tpl-invent .compare > div:first-child{ border-color:var(--accent-fill); background:var(--accent-soft); }
+body.tpl-invent .compare > div:last-child{ border-color:#E0A21B; background:#FFF8E6; }
+body.tpl-invent .compare > div:last-child h3{ color:var(--accent-2); }
+@media print{ body.tpl-invent .slide{ background:none !important; color:#1B2240 !important; } }
+/* Hội thoại trong khung chữ (kit10.dialogue): mỗi lượt một dòng, tên người nói đậm màu nhấn. */
+.box.dialog p{ margin:0 0 .3em; line-height:1.32; }
+.box.dialog p b{ color:var(--accent); }
