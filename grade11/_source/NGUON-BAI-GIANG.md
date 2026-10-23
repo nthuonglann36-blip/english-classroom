@@ -117,11 +117,11 @@ Slide 2 nhiều file có "FAMILY LIFE"; Unit 9 có "6TH GRADE" (L1, L2) và "11T
 
 ## Trò thêm 23/10 từ BAI-DAY-HOAN-CHINH
 
-Dữ liệu câu hỏi, đáp án và lời giải dùng nguyên văn yêu cầu cô gửi ngày 23/10. Nguồn PPT gộp
+Dữ liệu câu hỏi, đáp án và lời giải theo yêu cầu cô gửi ngày 23/10, trừ các chỉnh sửa được ghi bên dưới. Nguồn PPT gộp
 được ghi theo mẫu tên cô chỉ định (`G11-UN-LM-*.pptx`); trò của cô nằm trong `SLIDE-DAY-HOC`.
 Chưa có các PPT gốc trong môi trường này để đối chiếu tên đầy đủ; phần kiểm tra nội dung dùng bài đọc
-hiện có trên web. Riêng câu 6 của Tết or Songkran? đã sửa theo yêu cầu cô để khớp bài đọc;
-các câu còn cần cô duyệt được ghi bên dưới.
+hiện có trên web. Cô đã đồng ý tự điều chỉnh toàn bộ các điểm đã đề xuất trong lượt trao đổi tiếp theo;
+các chỉnh sửa Tết or Songkran? và hai slide tràn chữ được ghi bên dưới.
 
 | Trò HTML | Tiết và vị trí | Nguồn PPT gộp | Thời lượng |
 |---|---|---|---|
@@ -140,8 +140,9 @@ Khung chung được chép từ lớp 10: `_board.js`, `_board.css`, `_game.js`.
 CSS bản lớp 11 thêm ba theme và cỡ chữ để vừa khung máy chiếu. Không sửa khung lớp 10 hay bất kỳ trò
 cũ nào của cô. Trò có nguồn từ mẫu Pinny chỉ lấy câu chữ, không dùng hình, nhân vật hoặc tên mẫu trong giao diện.
 
-Mọi tiết giữ nguyên các slide và trò cũ; chỉ chèn 10 slide trò + 1 slide xếp chuỗi, ghi nguồn và điều chỉnh
-thẻ thời lượng để kế hoạch vẫn 45 phút. U3 L7 trước đó cộng các phần mới được 43 phút; Culture từ 15 lên 17
+Mọi tiết giữ nguyên nội dung các slide và trò cũ; chèn 10 slide trò + 1 slide xếp chuỗi, ghi nguồn và điều chỉnh
+thẻ thời lượng để kế hoạch vẫn 45 phút. Hai slide cũ được giảm khoảng cách cuối khối để hết tràn chữ, không giảm cỡ chữ.
+U3 L7 trước đó cộng các phần mới được 43 phút; Culture từ 15 lên 17
 phút (thêm Charades 2 phút) để đủ 45. Trò dài dùng tập câu hỏi để chọn một số lượt trong thời gian đã phân bổ.
 
 ### Câu đã chỉnh theo yêu cầu cô
@@ -150,14 +151,15 @@ phút (thêm Charades 2 phút) để đủ 45. Trò dài dùng tập câu hỏi 
   Đáp án **Tết — Stand up** (`a: 0`), theo đoạn Lunar New Year có **parades, street parties**.
   Thay câu cũ về colourful parades with music and dancing và đáp án Songkran theo yêu cầu cô chỉnh cho khớp bài đọc.
 
-### Những câu còn cần cô duyệt — dữ liệu vẫn giữ nguyên
+### Những chi tiết đã điều chỉnh sau khi cô đồng ý
 
 - **Câu 3:** chi tiết **pour water on the hands of monks and elders** không nêu trực tiếp; bài đọc nói
-  offering rice to Buddhist monks và splash each other with water.
+  offering rice to Buddhist monks và splash each other with water. Thêm nhãn **Culture extra** ngay trong câu hỏi.
 - **Câu 4–5:** red envelopes / lucky money và chung cakes không xuất hiện trong bài đọc hiện có;
-  đây là kiến thức văn hoá bổ sung, chưa phải thông tin đọc hiểu trong đoạn.
-- **Câu 7:** bài đọc chỉ ghi **in April**, không nêu cụ thể **in the middle of April**.
-- **Câu 8:** câu trò dùng **firecrackers**, còn bài đọc dùng **fireworks**; giữ nguyên từ cô cung cấp.
+  đây là kiến thức văn hoá bổ sung. Thêm nhãn **Culture extra** ngay trong từng câu hỏi.
+- **Câu 7:** bài đọc chỉ ghi **in April**, không nêu cụ thể **in the middle of April**; thêm nhãn **Culture extra**.
+  Luật chơi giải thích nhãn này là thông tin ngoài bài đọc; các đáp án câu 3–5 và 7 giữ nguyên.
+- **Câu 8:** đổi **firecrackers** thành **fireworks** để khớp bài đọc; đáp án vẫn là **Tết**.
 - **Save the Planet:** 12 câu phù hợp nội dung bài COP hiện có (mục tiêu 1.5°C, giảm CO₂ 50% đến 2030,
   giảm than, chống phá rừng, methane và người tham gia). **Brain Brawl** cũng phù hợp bài Cities of the Future hiện có.
 
@@ -168,5 +170,6 @@ cung cấp (ví dụ `foreign (nước ngoài)`), không tự dịch lại. Phư
 ### Ghi nhận khi kiểm tra slide cũ ở 1366×768
 
 Hai slide đã tràn dọc ngay trong bản trước khi chèn trò: U3 L7 slide 8 (Task 1 · conversation 1, **A or B?**)
-tràn 22 px; U4 L7 slide 7 (Task 1 nghe hội thoại Linda and Hoa) tràn 9 px. Giữ nguyên hai slide này theo yêu cầu
-chỉ chèn thêm, không sửa nội dung slide cũ; không phát sinh tràn mới từ các slide được thêm.
+tràn 22 px; U4 L7 slide 7 (Task 1 nghe hội thoại Linda and Hoa) tràn 9 px. Theo sự đồng ý của cô,
+bỏ lề dưới khối hội thoại ở slide thứ nhất và lề dưới khối ảnh ở slide thứ hai.
+Giữ nguyên lời văn, đáp án, cỡ chữ, audio và số slide; kiểm tra lại cả khi ẩn và hiện đáp án.
