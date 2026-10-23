@@ -317,7 +317,7 @@ section{ scroll-margin-top:90px; }
    QUICK ACCESS
 ===================================================== */
 
-.quick-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px; }
+.quick-grid{ display:grid; grid-template-columns:minmax(0,1fr); gap:22px; max-width:720px; margin:0 auto; }
 .quick-card{
   background:var(--card); border-radius:18px; padding:28px 26px 26px;
   border:1px solid var(--line);
@@ -325,8 +325,6 @@ section{ scroll-margin-top:90px; }
   transition:transform .25s;
 }
 .quick-card:hover{ transform:translateY(-4px); }
-.quick-1{ --c:var(--l0); }
-.quick-2{ --c:var(--l1); }
 .quick-3{ --c:var(--l2); }
 .quick-icon{
   width:54px; height:54px; border-radius:14px;
@@ -370,18 +368,8 @@ footer strong{ color:var(--primary-dark); font-family:var(--serif); }
 
 
 /* =====================================================
-   TOAST + REVEAL
+   SCROLL REVEAL
 ===================================================== */
-
-.toast{
-  position:fixed; left:50%; bottom:28px; z-index:2000;
-  transform:translate(-50%, 20px); opacity:0; pointer-events:none;
-  padding:13px 20px; border-radius:14px;
-  background:var(--primary-dark); color:#fff; font-weight:600;
-  box-shadow:0 10px 30px rgba(20,38,77,.3);
-  transition:.3s;
-}
-.toast.show{ opacity:1; transform:translate(-50%, 0); }
 
 .js-reveal .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s, transform .7s; }
 .js-reveal .reveal.visible{ opacity:1; transform:none; }
@@ -577,18 +565,6 @@ footer strong{ color:var(--primary-dark); font-family:var(--serif); }
     </div>
 
     <div class="quick-grid">
-      <article class="quick-card quick-1 reveal">
-        <div class="quick-icon">🎮</div>
-        <h3>Interactive Games</h3>
-        <p>Access Wordwall, HTML games, quizzes and classroom competitions.</p>
-        <a href="#" class="quick-link" onclick="showComingSoon(event,'Interactive Games')">Explore games →</a>
-      </article>
-      <article class="quick-card quick-2 reveal">
-        <div class="quick-icon">📱</div>
-        <h3>Scan &amp; Play</h3>
-        <p>Scan QR codes to instantly join classroom games and activities.</p>
-        <a href="#" class="quick-link" onclick="showComingSoon(event,'QR Activities')">View activities →</a>
-      </article>
       <article class="quick-card quick-3 reveal">
         <div class="quick-icon">📚</div>
         <h3>Study offline</h3>
@@ -624,22 +600,7 @@ footer strong{ color:var(--primary-dark); font-family:var(--serif); }
   &nbsp;•&nbsp; Learn • Play • Explore • Improve
 </footer>
 
-<div class="toast" id="toast" role="status">Coming soon!</div>
-
-
 <script>
-/* ==========================================
-   COMING SOON MESSAGE
-========================================== */
-function showComingSoon(event, name){
-  event.preventDefault();
-  const toast = document.getElementById("toast");
-  toast.textContent = name + " page is coming next!";
-  toast.classList.add("show");
-  clearTimeout(toast._t);
-  toast._t = setTimeout(function(){ toast.classList.remove("show"); }, 2200);
-}
-
 /* ==========================================
    SCROLL REVEAL
 ========================================== */
