@@ -10,7 +10,7 @@
     try { grade = localStorage.getItem('ec:self-study:grade') === '11' ? '11' : '10'; } catch { /* Default Grade 10. */ }
   }
   function skillUrl(g, n, skill) {
-    if (skill === 'vocabulary') return g === '11' ? `#grade11-unit${n}-wordwall` : n === '1' ? '#getting-started' : '#unit2-getting-started';
+    if (skill === 'vocabulary') return g === '11' ? `#grade11-unit${n}-wordwall` : n === '1' ? '#getting-started' : n === '2' ? '#unit2-getting-started' : '#unit3';
     if (skill === 'grammar' || skill === 'listening') return `${skill}.html?grade=${g}&unit=${n}`;
     if (skill === 'pronunciation' && g === '10' && n !== '3') return `practice.html?unit=${n}&skill=pronunciation`;
     return `skills.html?grade=${g}&unit=${n}&skill=${skill}`;
@@ -54,29 +54,41 @@
       const seal = svg.querySelector('.seal text'), title = svg.querySelector('.ttl');
       if (seal) seal.textContent = '★';
       if (title) title.textContent = `Unit ${n}`;
+      window.ECPrintArt?.prepare(frame);
     });
     document.querySelectorAll('[data-journey-unit]').forEach(card => {
       const n = card.dataset.journeyUnit, stats = journey.unitStats(grade,n);
       const status = card.querySelector('.journey-print-status');
-      status.textContent = stats.finished ? 'Dấu son · Print complete!' : `${stats.printed} / 5 layers printed${stats.skills[4].done?' · Writing ready; ink prints last.':''}`;
+      const unavailable = stats.skills.filter(skill => !skill.total);
+      status.textContent = stats.finished ? 'Dấu son · Print complete!' : `${stats.printed} / 5 layers printed${unavailable.length ? ' · '+unavailable.map(s => s.label).join(', ')+' practice is not open yet.' : stats.skills[4].done?' · Writing ready; ink prints last.':''}`;
       card.querySelector('progress').value = stats.printed;
       card.querySelectorAll('[data-layer]').forEach(link => {
         const skill = stats.skills.find(s => s.id === link.dataset.layer);
         const pending = skill.id === 'writing' && skill.done && !stats.finished;
         link.classList.toggle('is-done', skill.done && !pending);
         link.classList.toggle('is-pending', pending);
-        link.querySelector('small').textContent = pending ? 'Ready · prints last' : skill.done ? '✓ Complete' : `${skill.count} / ${skill.total} activities`;
+        link.querySelector('small').textContent = !skill.total ? 'Chưa có bài · Not open yet' : pending ? 'Ready · prints last' : skill.done ? '✓ Complete' : `${skill.count} / ${skill.total} activities`;
       });
       const next = stats.skills.find(s => s.total && !s.done) || stats.skills[2];
       card.querySelector('.journey-continue').href = skillUrl(grade,n,next.id);
-      card.querySelector('.journey-continue').textContent = stats.finished ? 'Practise again →' : 'Continue this print →';
+      const waiting = unavailable.length && stats.skills.filter(s => s.total).every(s => s.done);
+      card.querySelector('.journey-continue').textContent = stats.finished || waiting ? 'Practise again →' : 'Continue this print →';
     });
     renderTime();
   }
   function renderGallery() {
     try { localStorage.setItem('ec:self-study:grade',grade); } catch { /* Remember for this visit. */ }
     root.querySelectorAll('[data-journey-grade]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.journeyGrade === grade)));
-    document.getElementById('journey-prints').innerHTML = Object.entries(content.units[grade]).filter(([,u]) => u.print).map(([n,u]) => `<article class="journey-print-card" data-journey-unit="${n}" aria-labelledby="journey-g${grade}-u${n}"><div class="journey-picture">${art(grade,n)}<p class="journey-art-name">${escape(u.printName)}</p></div><div class="journey-print-info"><p class="eyebrow">Grade ${grade} · Unit ${n}</p><h3 id="journey-g${grade}-u${n}">${escape(u.title)}</h3><p class="journey-print-status"></p><progress max="5" value="0" aria-label="Unit ${n}: printing layers completed"></progress><ul class="journey-skills">${content.skills.map(s => `<li><a data-layer="${s.id}" href="${skillUrl(grade,n,s.id)}"><i style="--swatch:var(--l${s.index})" aria-hidden="true"></i><span>${s.label}</span><small></small></a></li>`).join('')}</ul><a class="button journey-continue" href="grammar.html?grade=${grade}&unit=${n}">Continue this print →</a></div></article>`).join('');
+    document.getElementById('journey-prints').innerHTML = Object.entries(content.units[grade]).filter(([,u]) => u.print).map(([n,u]) => {
+      const preview = content.printFiles?.[u.print];
+      const skills = content.skills.map(s => {
+        const available = (u.activities[s.id] || []).length > 0;
+        const tag = available ? 'a' : 'span';
+        const destination = available ? `href="${skillUrl(grade,n,s.id)}"` : 'aria-disabled="true"';
+        return `<li><${tag} data-layer="${s.id}" ${destination}><i style="--swatch:var(--l${s.index})" aria-hidden="true"></i><span>${s.label}</span><small></small></${tag}></li>`;
+      }).join('');
+      return `<article class="journey-print-card" id="grade${grade}-unit${n}-print" data-journey-unit="${n}" aria-labelledby="journey-g${grade}-u${n}"><div class="journey-picture">${art(grade,n)}<p class="journey-art-name">${escape(u.printName)}</p>${preview?`<a class="journey-art-preview" href="${escape(preview)}" target="_blank" rel="noopener noreferrer" aria-label="View finished artwork for Grade ${grade} Unit ${n} (opens in a new tab)">View finished artwork</a>`:''}</div><div class="journey-print-info"><p class="eyebrow">Grade ${grade} · Unit ${n}</p><h3 id="journey-g${grade}-u${n}">${escape(u.title)}</h3><p class="journey-print-status"></p><progress max="5" value="0" aria-label="Unit ${n}: printing layers completed"></progress><ul class="journey-skills">${skills}</ul><a class="button journey-continue" href="grammar.html?grade=${grade}&unit=${n}">Continue this print →</a></div></article>`;
+    }).join('');
     document.getElementById('journey-future').innerHTML = Object.entries(content.units[grade]).filter(([,u]) => !u.print).map(([n,u]) => {
       const ready = Object.keys(u.activities).length > 0;
       const href = grade === '11' ? '#grade11' : '#unit3';

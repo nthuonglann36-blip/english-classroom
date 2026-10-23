@@ -11,7 +11,10 @@ public content changes, run `python tools/build-offline-manifest.py`; see
 The teacher chose five layers: Vocabulary / Wordwall (yellow), Pronunciation
 (pink), Grammar (green), Listening (indigo), and Writing (final black ink).
 Grade 10 Units 1–2 reuse the existing Lợn đàn and Cây đa bến nước SVGs; Grade 11
-Units 1–2 reuse Đào tiên – rùa and Gà đàn. Each skill adds its own complete
+Units 1–2 reuse Đào tiên – rùa and Gà đàn. Unit 3 adds Hoà ca (Grade 10) and
+Thành phố xanh (Grade 11), two original AI-generated illustrations inspired by
+Vietnamese folk-print imagery. They are contemporary illustrations, not copies
+of historical Dong Ho prints. Each skill adds its own complete
 colour layer. Writing can be recorded first, but black ink and the red seal
 appear only after all five skills are complete. Resetting or retrying a quiz
 does not remove an earned layer. No classroom game files are changed.
@@ -48,11 +51,27 @@ streak can continue through yesterday; a missed completed day breaks it.
 
 `journey-practice.js` adds completion hooks after the existing exercise scripts.
 It never changes the original questions, answer keys or marking. Units 1–3
-keep their existing routes and content. Unit 3 remains accessible while its
-picture is being prepared; Units 4–10 have muted “Chưa mở” frames because their
+keep their existing routes and content. Grade 10 Unit 3 has no published
+Vocabulary / Wordwall activity yet: its yellow layer is explicitly unavailable,
+the other four skills remain accessible, and the final ink/seal waits for all
+five skills. It is never counted complete just because no vocabulary activity
+exists. Units 4–10 have muted “Chưa mở” frames because their
 Self-study activities are not yet available. The teacher chose personal
 progress first, so the class market and shared participation counts are
 deferred. No sample classroom totals are presented as real data.
+
+### Unit 3 artwork
+
+The original generated PNGs were copied to WebP files under `assets/prints/`
+for delivery (about 550 KiB total). `journey-art.js` renders the source colours
+as four independent pigment layers plus ink on the learner's device. It keeps
+the source files unchanged, uses only local assets, and caches the rendered
+layers in memory. The completed rendering reconstructs the source artwork;
+initial ink appears as a faint guide. Writing reveals the final ink, and the
+same completion rule adds the red seal. Reduced-motion settings are respected.
+“View finished artwork” opens the full-colour source without awarding progress.
+The offline manifest includes both sources and the renderer. The four earlier
+SVG prints and all saved progress keys/activity IDs remain unchanged.
 
 ## Approved Grammar practice
 
