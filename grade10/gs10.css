@@ -1422,3 +1422,84 @@ body.tpl-invent .compare > div:last-child h3{ color:var(--accent-2); }
 /* Ảnh trong bố cục hai cột (.cols): cho ảnh rộng hết cột, giữ tỉ lệ, chặn chiều cao.
    (Luật chung .pics.wide img dùng width:auto nên trong cột lưới ảnh co về rất nhỏ.) */
 .slide .cols .pics.wide img, .slide.denser .cols .pics.wide img{ width:100%; height:auto; max-height:52vh; object-fit:contain; }
+
+/* ======================================================================
+   Chép từ gs11.css (23/10/2026) để lớp 10 có trang Review giống lớp 11.
+   ====================================================================== */
+/* ==========================================================================
+   TRANG REVIEW — danh sách 3 tiết, KHÔNG ảnh nền (thêm 2026-10-08)
+   --------------------------------------------------------------------------
+   Review chỉ có 3 tiết (Language · Listening & Speaking · Reading & Writing)
+   nên không vẽ bản đồ riêng. Thẻ khoá dùng <div aria-disabled="true">, thẻ đã
+   dựng dùng <a data-popup href="lessonN.html"> — data-popup để mở thẳng tệp
+   reviewN/index.html vẫn bật bài trong popup như bản đồ unit.
+   Cỡ chữ theo thang chiếu (--t-*): trang này cũng được chiếu lên tường.
+   ========================================================================== */
+
+body.review-page{ --accent:#283567; --accent-2:#7A5A12; --accent-soft:#ECEEF5; }
+
+.review{
+  max-width:1280px; margin:0 auto;
+  padding:4.5vh 18px 6vh;
+}
+.review-head{ margin-bottom:3.5vh; }
+.review-head .kicker{ margin-bottom:.3em; }
+.review-head h1{ font-size:var(--t-h2); color:var(--accent); margin:0 0 .35em; }
+
+/* Ba unit được ôn — chip nhỏ, dòng phụ */
+.review-units{
+  display:flex; flex-wrap:wrap; gap:.45em .6em;
+  margin:0; padding:0; list-style:none;
+  font-size:.62em; color:var(--muted);
+}
+.review-units li{
+  padding:.25em .8em; border:1px solid var(--rule); border-radius:999px;
+  background:var(--surface);
+}
+.review-units b{ color:var(--accent); }
+
+.review-lessons{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:2.4vh 22px;
+  margin:0; padding:0; list-style:none;
+}
+@media (max-width:900px){ .review-lessons{ grid-template-columns:1fr; } }
+
+.review-lessons .lesson{
+  display:flex; flex-direction:column; gap:.35em;
+  height:100%; min-height:30vh;
+  padding:3vh 26px 3.2vh;
+  background:var(--surface);
+  border:1px solid var(--rule); border-top:8px solid var(--accent);
+  border-radius:var(--radius);
+  color:var(--ink); text-decoration:none;
+  transition:transform .12s, box-shadow .12s, border-color .12s;
+}
+.review-lessons li:nth-child(2) .lesson{ border-top-color:var(--accent-2); }
+.review-lessons li:nth-child(3) .lesson{ border-top-color:var(--ok); }
+
+.review-lessons .no{
+  display:inline-grid; place-items:center;
+  width:2em; height:2em; border-radius:50%;
+  background:var(--accent); color:#fff;
+  font-weight:700; font-size:.8em;
+}
+.review-lessons li:nth-child(2) .no{ background:var(--accent-2); }
+.review-lessons li:nth-child(3) .no{ background:var(--ok); }
+
+.review-lessons .t{ font-family:var(--font-display); font-weight:700; font-size:var(--t-lead); line-height:1.15; }
+.review-lessons .s{ color:var(--muted); font-size:.8em; line-height:1.35; }
+.review-lessons .state{
+  margin-top:auto; align-self:flex-start;
+  padding:.2em .8em; border-radius:999px;
+  font-size:.55em; font-weight:700; letter-spacing:.02em;
+  background:var(--accent-soft); color:var(--accent);
+}
+
+a.lesson:hover, a.lesson:focus-visible{
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(26,31,53,.12);
+  border-color:var(--accent); outline:none;
+}
+.lesson[aria-disabled="true"]{ cursor:not-allowed; }
+.lesson[aria-disabled="true"] .t{ color:var(--muted); }
+.lesson[aria-disabled="true"] .state{ background:var(--sunk); color:var(--muted); }
