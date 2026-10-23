@@ -13,7 +13,8 @@
   const banner = document.createElement('aside');
   banner.className = 'journey-practice-banner'; banner.setAttribute('aria-label','Your unit print');
   const link = document.createElement('a');
-  link.href = `index.html#studio-grade${grade}`;
+  link.href = `index.html#grade${grade}-unit${unit}-print`;
+  ['selfstudy-nav','back-link'].forEach(id => document.getElementById(id)?.setAttribute('href',link.href));
   banner.append(link);
   const hint = document.createElement('span');
   banner.append(hint);
