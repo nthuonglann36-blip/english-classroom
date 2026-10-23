@@ -1,0 +1,91 @@
+/* Personal print studio; the original lessons and artwork keep their own styles. */
+.hero-art.journey-hero-art{display:block;width:180px}
+.hero-art.journey-hero-art::before{bottom:28px}
+.journey-featured-caption{position:relative;text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.journey-art{--o0:0;--o1:0;--o2:0;--o3:0;isolation:isolate}
+.journey-art .ln,.journey-art .lines{stroke:#bcb3a2;stroke-width:1.2;stroke-dasharray:3 3;fill:none}
+.journey-art .solid,.journey-art .ttl{fill:#a99f8c}
+.journey-art .k0,.journey-art .k1,.journey-art .k2,.journey-art .k3{transition:opacity .8s ease}
+.journey-art.is-ink .ln,.journey-art.is-ink .lines{stroke:var(--l4);stroke-width:2.2;stroke-dasharray:none}
+.journey-art.is-ink .solid,.journey-art.is-ink .ttl{fill:var(--l4)}
+.journey-art.is-complete .seal{display:inline}
+.journey{margin:30px 0 48px;scroll-margin-top:100px}
+.journey-anchor{display:block}
+.journey h2{font-size:clamp(25px,3vw,34px)}
+.journey-time{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;padding:28px 30px;background:var(--white);border:1px solid var(--line);border-radius:18px}
+.journey-time .eyebrow{margin-bottom:8px}
+.journey-time>div>p:last-child{font-size:12px;color:var(--muted);margin-top:9px}
+.journey-metrics{display:flex;gap:30px;align-items:center}
+.journey-metrics>div{display:flex;flex-direction:column;max-width:145px}
+.journey-metrics strong{font-size:38px;line-height:1.15;color:var(--pink);font-family:var(--serif)}
+.journey-metrics span{font-size:11px;color:var(--muted);margin-top:6px}
+.journey-week{grid-column:1/-1;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.journey-week li{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;background:#f5f7fb;border:1px solid transparent;border-radius:12px;font-size:11px;color:var(--muted)}
+.journey-week b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--white);color:var(--ink);font-size:15px}
+.journey-week small{font-size:10px}
+.journey-week .today{border-color:var(--pink)}
+.journey-week .qualified b{background:var(--green);color:white}
+.journey-week .future{opacity:.55}
+.journey-gallery{margin-top:40px}
+.journey-gallery-heading{display:flex;justify-content:space-between;gap:20px;align-items:end;flex-wrap:wrap}
+.journey-gallery-heading .eyebrow{margin-bottom:8px}
+.journey-grades{display:flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:999px;background:white}
+.journey-grades button{border:0;padding:10px 18px;border-radius:999px;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:600;cursor:pointer;min-height:42px}
+.journey-grades button[aria-pressed="true"]{background:var(--indigo);color:white}
+.journey-description{font-size:14px;color:var(--muted);margin-top:16px;max-width:770px}
+.journey-legend{list-style:none;padding:0;margin:22px 0;display:flex;flex-wrap:wrap;gap:12px 20px;font-size:12px;font-weight:600}
+.journey-legend li{display:flex;align-items:center;gap:7px}
+.journey-legend span{font-size:11px;color:var(--muted);font-weight:400}
+.journey-legend i,.journey-skills i{width:12px;height:12px;border-radius:50%;background:var(--swatch);flex:none}
+.journey-print-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.journey-print-card{display:grid;grid-template-columns:160px minmax(0,1fr);gap:23px;align-items:start;background:var(--paper);padding:25px;border:1px solid #d9cbb1;border-radius:18px}
+.journey-picture{padding-top:5px;min-width:0}
+.journey-art-name{text-align:center;font-family:var(--serif);font-size:13px;color:var(--muted);margin-top:14px}
+.journey-print-info{min-width:0}
+.journey-print-info .eyebrow{font-size:10px;margin-bottom:8px}
+.journey-print-info h3{font-size:23px;overflow-wrap:anywhere}
+.journey-print-status{font-size:11px;min-height:36px;color:var(--muted);margin:10px 0 8px}
+.journey-print-card progress{appearance:none;display:block;width:100%;height:6px;border:0;border-radius:99px;background:#e8dfce;overflow:hidden}
+.journey-print-card progress::-webkit-progress-bar{background:#e8dfce}
+.journey-print-card progress::-webkit-progress-value{background:var(--green)}
+.journey-print-card progress::-moz-progress-bar{background:var(--green)}
+.journey-skills{list-style:none;padding:0;margin:16px 0 20px}
+.journey-skills li+li{margin-top:7px}
+.journey-skills a{display:grid;grid-template-columns:12px minmax(0,1fr);gap:0 8px;text-decoration:none;font-size:12px;font-weight:600;padding:4px 0}
+.journey-skills i{margin-top:5px}
+.journey-skills small{grid-column:2;font-size:10px;color:var(--muted);font-weight:400}
+.journey-skills a:hover span{text-decoration:underline}
+.journey-skills .is-done small{color:#286653}
+.journey-skills .is-pending small{color:#835600}
+.journey-continue{font-size:11px;padding:9px 14px;min-height:42px}
+.journey-future,.journey-help{margin-top:22px;padding:17px 20px;border:1px solid var(--line);border-radius:14px;background:#ffffff88}
+.journey summary{cursor:pointer;font-size:13px;font-weight:600;min-height:24px}
+.journey-future-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.journey-coming{padding:16px;text-align:center;border:1px dashed #c4cbd5;background:#f0f2f5;border-radius:12px;color:#697386}
+.journey-coming h3{font-size:16px;margin-top:12px}
+.journey-coming p{font-size:11px;margin-top:5px}
+.journey-coming>span{display:block;font-size:10px;margin-top:10px}
+.journey-coming a{display:block;font-size:11px;font-weight:600;margin-top:12px;color:var(--pink)}
+.journey-empty-frame{display:grid;place-items:center;height:95px;max-width:76px;margin:0 auto;border:3px double #c9c4b8;background:var(--paper);opacity:.5}
+.journey-empty-frame span{font:26px var(--serif);color:#a39b8d}
+.journey-coming.has-activities{background:var(--paper);border-style:solid}
+.journey-help ul{padding-left:20px;margin:15px 0 0;font-size:12px;color:var(--muted)}
+.journey-help li+li{margin-top:9px}
+.journey-local-note{font-size:11px;color:var(--muted);margin:18px 3px 0}
+.journey-wordwall-confirm{margin-top:14px;width:100%}
+.journey-confirm-button{font:inherit;font-size:12px;font-weight:600;min-height:44px;padding:9px 12px;background:#edf6f2;border:1px solid #9bc7b6;border-radius:9px;color:#286653;cursor:pointer;width:100%}
+.journey-confirm-button:disabled{background:#f2f4f7;border-color:var(--line);color:#65728a;cursor:default}
+.activity-card .journey-wordwall-confirm p{font-size:10px;line-height:1.5;color:var(--muted);margin:7px 0 0}
+.journey-practice-banner{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin:20px 0;padding:14px 18px;border:1px solid #d9cbb1;border-radius:12px;background:var(--paper);font-size:12px}
+.journey-practice-banner a{font-weight:700;color:var(--pink)}
+.journey-practice-banner span{color:var(--muted)}
+.journey-finish>p{color:var(--muted);font-size:14px;margin:14px 0 20px}
+.journey-repeat-check{display:flex;align-items:flex-start;gap:10px;margin:20px 0;font-size:14px}
+.journey-repeat-check input{margin-top:5px;min-width:18px;min-height:18px;accent-color:var(--green)}
+.journey-finish .primary-button:disabled{opacity:.55;cursor:default}
+.journey-finish .journey-finish-status{margin-bottom:0;color:#286653}
+.journey button:focus-visible,.journey-confirm-button:focus-visible{outline:3px solid #9b5e00;outline-offset:3px}
+@media(max-width:1100px){.journey-print-card{grid-template-columns:125px minmax(0,1fr);padding:20px;gap:18px}}
+@media(max-width:820px){.journey-print-grid{grid-template-columns:1fr}.journey-print-card{grid-template-columns:170px minmax(0,1fr);padding:25px}.journey-time{grid-template-columns:1fr}.journey-metrics{gap:45px}.journey-future-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.hero-art.journey-hero-art{display:block;width:112px;order:-1}.journey-featured-caption{font-size:10px}.journey-time{padding:22px 16px;gap:20px}.journey-time h2{font-size:25px}.journey-week{gap:3px}.journey-week li{padding:8px 1px;font-size:8px;border-radius:8px}.journey-week b{width:28px;height:28px;font-size:12px}.journey-week small{font-size:8px}.journey-metrics strong{font-size:33px}.journey-metrics{gap:26px}.journey-legend{gap:10px 14px}.journey-legend li{font-size:11px}.journey-legend span{font-size:10px}.journey-print-card{grid-template-columns:110px minmax(0,1fr);padding:20px 16px;gap:17px}.journey-print-info h3{font-size:20px}.journey-print-card .journey-continue{font-size:10px;padding:9px 11px}.journey-art-name{font-size:11px}.journey-description{font-size:12px}.journey-future-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.journey-coming{padding:12px}.journey-help,.journey-future{padding:15px}.journey-practice-banner{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.journey-art .k0,.journey-art .k1,.journey-art .k2,.journey-art .k3{transition:none}}

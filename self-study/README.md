@@ -6,6 +6,54 @@ YouTube, Wordwall and ChatGPT still require Internet. Before publishing any
 public content changes, run `python tools/build-offline-manifest.py`; see
 [`OFFLINE.md`](../OFFLINE.md) for the package/update workflow.
 
+## Personal Dong Ho print studio
+
+The teacher chose five layers: Vocabulary / Wordwall (yellow), Pronunciation
+(pink), Grammar (green), Listening (indigo), and Writing (final black ink).
+Grade 10 Units 1–2 reuse the existing Lợn đàn and Cây đa bến nước SVGs; Grade 11
+Units 1–2 reuse Đào tiên – rùa and Gà đàn. Each skill adds its own complete
+colour layer. Writing can be recorded first, but black ink and the red seal
+appear only after all five skills are complete. Resetting or retrying a quiz
+does not remove an earned layer. No classroom game files are changed.
+
+`journey-content.js` holds the original artwork and exact published activity
+IDs. `journey-store.js` keeps progress in `ec:self-study:journey:v1` in the
+current browser's localStorage, isolated by grade, unit, skill and activity.
+It does not send student data to any server. Existing writing draft keys are
+unchanged. If storage is blocked or full, progress remains in memory for the
+current visit and the interface explains that it is not saved. Other browsers,
+devices, private sessions or cleared site storage do not share this progress.
+
+Completion rules are visible in the studio:
+
+- Grammar / Listening: answer every question and submit each activity for
+  feedback. A colour rewards completing the practice, without a score cutoff.
+- Pronunciation: check all quiz questions and explicitly confirm listening and
+  speaking practice before finishing.
+- Writing: save a distinct revised draft within the task's existing word limit,
+  review all checklist items and choose Finish my writing. This is learner
+  confirmation, not a claim that ChatGPT has graded or verified the writing.
+- Wordwall: open the original link, return and explicitly confirm completion.
+  Opening a link alone never completes an activity. Wordwall does not return
+  scores or completion events to this website.
+
+Only visible, focused local practice pages add study time. The gallery and
+external Wordwall / ChatGPT tabs do not count. A short localStorage lease
+prevents multiple tabs from counting the same time twice; visibility, focus
+and page lifecycle events flush the current interval. Long suspended intervals
+and clock jumps do not add idle time. Time is split at local midnight. A day
+qualifies at 300,000 milliseconds; the weekly strip runs Monday–Sunday using
+the device's local date. Before today's five-minute target is reached, the
+streak can continue through yesterday; a missed completed day breaks it.
+
+`journey-practice.js` adds completion hooks after the existing exercise scripts.
+It never changes the original questions, answer keys or marking. Units 1–3
+keep their existing routes and content. Unit 3 remains accessible while its
+picture is being prepared; Units 4–10 have muted “Chưa mở” frames because their
+Self-study activities are not yet available. The teacher chose personal
+progress first, so the class market and shared participation counts are
+deferred. No sample classroom totals are presented as real data.
+
 ## Approved Grammar practice
 
 The teacher approved Grammar publication in chat. `grammar.html?grade=10&unit=1` (Grades 10 and
