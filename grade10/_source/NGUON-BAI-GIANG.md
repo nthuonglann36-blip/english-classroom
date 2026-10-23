@@ -56,4 +56,23 @@ TA10-Unit 5.docx. Lesson 4–8 chưa có bài PPT hoàn chỉnh → thẻ trên 
 ## Unit 1–2 và Review 1 trong BAI-DAY-HOAN-CHINH (thêm chiều 22/10)
 
 Là bản chép nguyên các PPT cô đã có (tháng 8–10) — chính là nguồn của các tiết Unit 1–2 đang có trên web → **không thay**.
-Review 1 lớp 10 chưa có trang web (lớp 10 chưa có mục Review).
+Review 1 lớp 10 đã dựng thành ba tiết web; xem nguồn chi tiết bên dưới.
+
+## Review 1 (Units 1–3)
+
+Nội dung câu hỏi, bài đọc và đáp án dùng nguyên văn bản cô cung cấp trong yêu cầu dựng Review 1;
+nguồn đối chiếu do cô chỉ định là SGK Global Success 10 tr. 38–41 và giáo án `TA10-Review 1.docx`.
+
+| Tiết | Nguồn PPT | Nội dung trên web |
+|---|---|---|
+| **L1 Language** | `ppt game/BAI-DAY-HOAN-CHINH/Lop10-Review1/G10-R1-L1-Language.pptx` | SGK tr. 38–39; phát âm /br/, /gr/, /kr/, /pr/, /tr/; từ vựng và ngữ pháp Units 1–3. Audio `r01-track25.m4a` (Track 25). |
+| **L2 Skills 1** | `ppt game/BAI-DAY-HOAN-CHINH/Lop10-Review1/G10-R1-L2-Skills-1.pptx` | SGK tr. 40; nghe về Elvis Presley và nói về ca sĩ/nhạc sĩ yêu thích. Audio `r01-track26.m4a`, `r01-track27.m4a` (Track 26–27). Lời thoại theo giáo án được tách thành ba slide, sau nút **Audio script**. |
+| **L3 Skills 2** | `ppt game/BAI-DAY-HOAN-CHINH/Lop10-Review1/G10-R1-L3-Skills-2.pptx` | SGK tr. 40–41; bài đọc **Collect water to live a green life**, ô chữ `r01-l3-crossword.webp`, đoạn viết **Living green** và trò **Brain Brawl — Review 1**. Bài mẫu viết giữ nguyên lời văn cô cung cấp, tách thành hai slide, sau nút **Sample**. |
+
+Trò `assets/games/r01-brain-brawl.html` lấy 20 câu hỏi (5 chủ đề × 4 mức điểm) từ phần **BONUS** của bài L1.
+Ý tưởng mẫu Brain Brawl của Pinny: chỉ lấy chữ; khung trò được vẽ lại bằng `_board.css` + `_board.js`,
+không đưa hình, nhân vật hay tên mẫu vào giao diện. Bốn đội: Life Leaders, Eco Explorers, Music Makers, Bright Minds.
+
+Review dùng khung bài giảng lớp 10, không có `tpl-*`. Đáp án được mở từng bước; các phần dài tách slide để
+giữ cỡ chữ thân bài từ 24 pt khi chiếu ở 1366×768. Toàn bộ audio, ảnh và trò chơi đều là tài nguyên nội bộ,
+được gom trong gói Offline **g10-review1**.

@@ -86,6 +86,7 @@ for grade in [10,11]:
         asset_root=ROOT/f'grade{grade}/assets'
         extras=[str(p.relative_to(ROOT)) for p in asset_root.rglob('*') if p.is_file() and p.suffix in EXTENSIONS and any(part.startswith(f'u{number:02}-') for part in p.relative_to(asset_root).parts)]
         add_pack(f'g{grade}-u{number:02}',f'Unit {number} · {theme}',str(grade),f'{len(lessons)} bài hiện có, kèm ảnh, game và audio/video nội bộ. Các liên kết bên ngoài cần Internet.',folder+'/index.html',[folder+'/index.html',*lessons,*extras])
+add_pack('g10-review1','Review 1 · Units 1–3','10','3 bài ôn tập Language, Skills 1 và Skills 2, cùng các tệp nghe nội bộ.','grade10/review1/index.html',sorted(str(p.relative_to(ROOT)) for p in (ROOT/'grade10/review1').glob('*.html')))
 add_pack('g11-review1','Review 1 · Units 1–3','11','3 bài ôn tập Language, Skills 1 và Skills 2, cùng các tệp nghe nội bộ.','grade11/review1/index.html',sorted(str(p.relative_to(ROOT)) for p in (ROOT/'grade11/review1').glob('*.html')))
 if missing:raise SystemExit('Missing offline dependency files: '+', '.join(sorted(missing)))
 
