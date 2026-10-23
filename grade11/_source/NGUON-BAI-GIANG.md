@@ -120,7 +120,8 @@ Slide 2 nhiều file có "FAMILY LIFE"; Unit 9 có "6TH GRADE" (L1, L2) và "11T
 Dữ liệu câu hỏi, đáp án và lời giải dùng nguyên văn yêu cầu cô gửi ngày 23/10. Nguồn PPT gộp
 được ghi theo mẫu tên cô chỉ định (`G11-UN-LM-*.pptx`); trò của cô nằm trong `SLIDE-DAY-HOC`.
 Chưa có các PPT gốc trong môi trường này để đối chiếu tên đầy đủ; phần kiểm tra nội dung dùng bài đọc
-hiện có trên web. Những câu cần cô duyệt được ghi bên dưới, không tự sửa dữ liệu.
+hiện có trên web. Riêng câu 6 của Tết or Songkran? đã sửa theo yêu cầu cô để khớp bài đọc;
+các câu còn cần cô duyệt được ghi bên dưới.
 
 | Trò HTML | Tiết và vị trí | Nguồn PPT gộp | Thời lượng |
 |---|---|---|---|
@@ -143,11 +144,14 @@ Mọi tiết giữ nguyên các slide và trò cũ; chỉ chèn 10 slide trò + 
 thẻ thời lượng để kế hoạch vẫn 45 phút. U3 L7 trước đó cộng các phần mới được 43 phút; Culture từ 15 lên 17
 phút (thêm Charades 2 phút) để đủ 45. Trò dài dùng tập câu hỏi để chọn một số lượt trong thời gian đã phân bổ.
 
-### Những câu cần cô duyệt — dữ liệu vẫn giữ nguyên
+### Câu đã chỉnh theo yêu cầu cô
 
-- **Tết or Songkran? — câu 6:** đáp án được cung cấp là Songkran; bài đọc hiện nêu **parades** trong đoạn
-  về Lunar New Year, còn đoạn Buddhist New Year có art performances, folk games, dancing. Không suy ra chắc
-  đáp án Songkran chỉ từ bài đọc này.
+- **Tết or Songkran? — câu 6:** đổi thành **There are parades and street parties during the celebrations.**
+  Đáp án **Tết — Stand up** (`a: 0`), theo đoạn Lunar New Year có **parades, street parties**.
+  Thay câu cũ về colourful parades with music and dancing và đáp án Songkran theo yêu cầu cô chỉnh cho khớp bài đọc.
+
+### Những câu còn cần cô duyệt — dữ liệu vẫn giữ nguyên
+
 - **Câu 3:** chi tiết **pour water on the hands of monks and elders** không nêu trực tiếp; bài đọc nói
   offering rice to Buddhist monks và splash each other with water.
 - **Câu 4–5:** red envelopes / lucky money và chung cakes không xuất hiện trong bài đọc hiện có;
