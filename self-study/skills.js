@@ -1,10 +1,12 @@
 (() => {
   'use strict';
-  const content = window.GRADE11_SKILLS;
   const params = new URLSearchParams(location.search);
+  const grades = {'10': window.GRADE10_SKILLS, '11': window.GRADE11_SKILLS};
+  const requestedGrade = params.get('grade') || '11';
+  const content = Object.hasOwn(grades, requestedGrade) ? grades[requestedGrade] : null;
   const root = document.getElementById('practice');
   const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
-  if (params.has('grade') && params.get('grade') !== String(content.grade)) {
+  if (!content) {
     document.title = 'Activity unavailable — English Classroom';
     document.getElementById('page-title').textContent = 'Activity unavailable';
     root.innerHTML = '<p>Choose an available activity from <a href="index.html">Self-study</a>.</p>';
@@ -13,16 +15,28 @@
   const number = Object.hasOwn(content.units, params.get('unit')) ? params.get('unit') : '1';
   const skill = params.get('skill') === 'pronunciation' ? 'pronunciation' : 'writing';
   const unit = content.units[number];
-  const names = {listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
-  const url = (n, name) => name === 'listening'
-    ? `listening.html?grade=11&unit=${n}`
-    : `skills.html?grade=11&unit=${n}&skill=${name}`;
-  document.title = `Grade 11 · Unit ${number} · ${names[skill]} — English Classroom`;
-  document.getElementById('unit-label').textContent = `Grade 11 · Unit ${number} · ${unit.title}`;
+  const names = {grammar:'Grammar', listening:'Listening', writing:'Writing', pronunciation:'Pronunciation'};
+  const url = (n, name) => name === 'grammar'
+    ? `grammar.html?grade=${content.grade}&unit=${n}`
+    : name === 'listening'
+    ? `listening.html?grade=${content.grade}&unit=${n}`
+    : name === 'pronunciation' && content.units[n].pronunciation_url
+      ? content.units[n].pronunciation_url
+      : `skills.html?grade=${content.grade}&unit=${n}&skill=${name}`;
+  if (skill === 'pronunciation' && unit.pronunciation_url) {
+    location.replace(unit.pronunciation_url);
+    return;
+  }
+  document.getElementById('selfstudy-nav')?.setAttribute('href', `index.html#grade${content.grade}`);
+  document.getElementById('back-link')?.setAttribute('href', `index.html#grade${content.grade}`);
+  const lessonsLink = document.getElementById('lessons-link');
+  if (lessonsLink) {lessonsLink.href=`../grade${content.grade}/index.html`;lessonsLink.textContent=`Grade ${content.grade} lessons`;}
+  document.title = `Grade ${content.grade} · Unit ${number} · ${names[skill]} — English Classroom`;
+  document.getElementById('unit-label').textContent = `Grade ${content.grade} · Unit ${number} · ${unit.title}`;
   document.getElementById('page-title').textContent = `${names[skill]} practice`;
   document.getElementById('page-description').textContent = skill === 'writing'
     ? 'Plan your ideas, write a draft and use guided ChatGPT feedback to help you revise.'
-    : 'Listen to the lesson recordings, practise the pattern and read the new examples aloud.';
+    : unit.pronunciation.description || 'Listen to the lesson recordings, practise the pattern and read the new examples aloud.';
   document.getElementById('unit-switch').innerHTML = Object.keys(content.units).map(n => `<a href="${escape(url(n,skill))}" ${n === number ? 'aria-current="page"' : ''}>Unit ${n} · ${escape(content.units[n].title)}</a>`).join('');
   document.getElementById('skill-tabs').innerHTML = Object.entries(names).map(([key,name]) => `<a href="${escape(url(number,key))}" ${key === skill ? 'aria-current="page"' : ''}>${name}</a>`).join('');
 
@@ -39,7 +53,7 @@
     const fallbackBox = document.getElementById('manual-copy-box');
     const fallback = document.getElementById('manual-copy');
     const saveStatus = document.getElementById('save-status');
-    const key = `ec:g11:u${number}:writing:v1`;
+    const key = `ec:g${content.grade}:u${number}:writing:v1`;
     const countWords = text => (text.match(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu) || []).length;
     function updateCount(field, target) {
       const count = countWords(field.value);
@@ -98,17 +112,30 @@
   function audioMarkup(src, id, label) {
     return `<div class="audio-row"><audio id="${id}" controls preload="none" aria-label="${escape(label)}" src="${escape(src)}">Your browser cannot play this recording.</audio><label class="speed-label" for="${id}-speed">Speed<select id="${id}-speed" data-speed-for="${id}"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option></select></label></div><a class="audio-source-link" href="${escape(src)}" target="_blank" rel="noopener noreferrer">Open recording ↗</a>`;
   }
-  root.innerHTML = `<section class="practice-panel"><p class="step-label">1 · Listen to the pattern</p><h2>${escape(practice.focus)}</h2><p class="panel-intro">${escape(practice.intro)}</p>${audioMarkup(practice.model_audio,'model-audio','Unit '+number+' model recording')}<p class="audio-note">Model recording from the Unit ${number} lesson.</p><div class="sound-guides">${practice.guide.map(item => `<div class="sound-guide"><h3>${escape(item.pattern)}</h3><p class="guide-example">${escape(item.example)}</p><p>${escape(item.tip)}</p></div>`).join('')}</div></section>
-    <section class="practice-panel"><p class="step-label">2 · Apply the pattern</p><h2>Try eight new examples</h2><p class="panel-intro">${escape(practice.quiz_instruction)}</p><form class="quiz" id="pronunciation-quiz" novalidate>${practice.questions.map((q,i) => `<fieldset class="question"><legend><span class="question-number">${i+1}.</span>${escape(q.prompt)}</legend><div class="options">${q.options.map((option,j) => `<label class="option" for="q${i}-${j}"><input type="radio" id="q${i}-${j}" name="q${i}" value="${escape(option)}" aria-describedby="q${i}-feedback"><span>${escape(option)}</span></label>`).join('')}</div><p class="answer-feedback" id="q${i}-feedback" hidden></p></fieldset>`).join('')}<div class="quiz-actions"><button class="primary-button" type="submit">Check answers</button><button class="secondary-button" type="reset">Try again</button><p class="score" role="status" aria-live="polite"></p></div></form></section>
-    <section class="practice-panel"><p class="step-label">3 · Listen and repeat</p><h2>Bring the pattern into speech</h2><p class="panel-intro">${escape(practice.repeat_tip)}</p>${audioMarkup(practice.repeat_audio,'repeat-audio','Unit '+number+' repeat recording')}<p class="audio-note">Practice recording from the Unit ${number} lesson. You can also return to the new quiz examples and read them aloud.</p></section>`;
+  root.innerHTML = `<section class="practice-panel"><p class="step-label">1 · Listen to the pattern</p><h2>${escape(practice.focus)}</h2><p class="panel-intro">${escape(practice.intro)}</p>${audioMarkup(practice.model_audio,'model-audio','Unit '+number+' model recording')}<p class="audio-note">${escape(practice.model_note || `Model recording from the Unit ${number} lesson.`)}</p><div class="sound-guides">${practice.guide.map(item => `<div class="sound-guide"><h3>${escape(item.pattern)}</h3><p class="guide-example">${escape(item.example)}</p><p>${escape(item.tip)}</p></div>`).join('')}</div></section>
+    <section class="practice-panel"><p class="step-label">2 · Apply the pattern</p><h2>Try eight new examples</h2><p class="panel-intro">${escape(practice.quiz_instruction)}</p><form class="quiz" id="pronunciation-quiz" novalidate>${practice.questions.map((q,i) => `<fieldset class="question"><legend><span class="question-number">${i+1}.</span>${escape(q.prompt)}</legend>${q.audio ? `<div class="sound-question"><button class="listen-button" type="button" data-audio="${escape(q.audio)}" aria-label="Play word ${i+1}">▶ Play word ${i+1}</button></div>` : ''}<div class="options">${q.options.map((option,j) => `<label class="option" for="q${i}-${j}"><input type="radio" id="q${i}-${j}" name="q${i}" value="${escape(option)}" aria-describedby="q${i}-feedback"><span>${escape(option)}</span></label>`).join('')}</div><p class="answer-feedback" id="q${i}-feedback" hidden></p></fieldset>`).join('')}<div class="quiz-actions"><button class="primary-button" type="submit">Check answers</button><button class="secondary-button" type="reset">Try again</button><p class="score" role="status" aria-live="polite"></p></div></form></section>
+    <section class="practice-panel"><p class="step-label">3 · Listen and repeat</p><h2>Bring the pattern into speech</h2><p class="panel-intro">${escape(practice.repeat_tip)}</p>${audioMarkup(practice.repeat_audio,'repeat-audio','Unit '+number+' repeat recording')}<p class="audio-note">${escape(practice.repeat_note || `Practice recording from the Unit ${number} lesson. You can also return to the new quiz examples and read them aloud.`)}</p></section>`;
+  let wordAudio;
+  const audioStatus = document.createElement('p');
+  audioStatus.className = 'audio-status';audioStatus.setAttribute('role','status');root.appendChild(audioStatus);
+  root.addEventListener('click', async event => {
+    const button = event.target.closest('[data-audio]');
+    if (!button) return;
+    if (wordAudio) wordAudio.pause();
+    root.querySelectorAll('audio').forEach(audio => audio.pause());
+    const selected = new Audio(button.dataset.audio);wordAudio=selected;
+    try {await selected.play();audioStatus.textContent='';}
+    catch (error) {if(error.name!=='AbortError')audioStatus.textContent='Audio could not play. Check your connection and try again.';}
+  });
   root.querySelectorAll('[data-speed-for]').forEach(select => select.addEventListener('change', () => {
     document.getElementById(select.dataset.speedFor).playbackRate = Number(select.value);
   }));
   root.addEventListener('play', event => {
     if (!(event.target instanceof HTMLMediaElement)) return;
+    if (wordAudio) wordAudio.pause();
     root.querySelectorAll('audio').forEach(audio => { if (audio !== event.target) audio.pause(); });
   }, true);
-  window.addEventListener('pagehide', () => root.querySelectorAll('audio').forEach(audio => audio.pause()));
+  window.addEventListener('pagehide', () => {if(wordAudio)wordAudio.pause();root.querySelectorAll('audio').forEach(audio => audio.pause());});
   const form = document.getElementById('pronunciation-quiz');
   form.addEventListener('submit', event => {
     event.preventDefault();

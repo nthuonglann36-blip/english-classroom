@@ -1,7 +1,37 @@
 # Self-study · Grades 10 and 11
 
-Published content includes the teacher's 17 original Wordwall URLs and two
+Offline support is available through `../offline.html`. Save the Self-study
+package to keep all local activities and pronunciation audio on this device.
+YouTube, Wordwall and ChatGPT still require Internet. Before publishing any
+public content changes, run `python tools/build-offline-manifest.py`; see
+[`OFFLINE.md`](../OFFLINE.md) for the package/update workflow.
+
+## Approved Grammar practice
+
+The teacher approved Grammar publication in chat. `grammar.html?grade=10&unit=1` (Grades 10 and
+11, Units 1–3). Each unit contains three short rules and 18 new questions:
+six multiple-choice, six completion and six correction questions. All 108
+sentences relate to their unit topic; feedback explains the answer in Vietnamese.
+The worksheets check each activity independently and accept listed contractions
+and British/American spelling variants. Changing an answer clears stale feedback;
+reset clears only that activity. No account or AI service is needed.
+
+Focus: Grade 10—present simple/continuous; will, be going to and passive voice;
+compound sentences and to-/bare infinitives. Grade 11—past simple/present perfect;
+must, have to and should; stative and linking verbs. Five Language lesson pages
+were checked in this repository. Grade 10 Unit 3 has no Language page yet;
+its compound-sentence and infinitive focus was included in the approved review.
+
+## Existing published practice
+
+Published content includes 28 teacher-supplied Wordwall URLs (17 Grade 10,
+11 Grade 11) and two
 pronunciation pages: `practice.html?unit=1&skill=pronunciation` and Unit 2.
+Grade 11 Wordwall has five activities for Unit 1, four for Unit 2 and two for
+Unit 3, preserving the exact URLs and supplied order within each unit. The two
+descriptive URL slugs supply their display names; nine numeric-only URLs use
+neutral numbered labels because Wordwall title retrieval is blocked. Do not
+infer lesson names or activity formats for those links without confirmation.
 Grade 11 supplementary listening was approved for publication in chat.
 `listening.html?grade=11&unit=1` (also Units 2 and 3) contains six activities
 and 42 questions based on teacher-supplied transcripts. Unit 2 video 3 is
@@ -24,9 +54,27 @@ speech: `grade11/assets/audio/u01-track03.mp3`, `u01-track04.mp3`,
 They provide model/listen-and-repeat practice; the 24 new written application
 questions test strong/weak auxiliaries, contractions and consonant–vowel linking.
 
-Grade 10 Writing and supplementary listening remain unpublished pending
-review/source confirmation. Do not restore the earlier synthetic listening
-drafts. Original teacher-supplied Wordwall activities are kept.
+Grade 10 Writing and supplementary Listening Units 1–3 have now been approved
+for publication. `listening.html?grade=10&unit=1` (also Units 2 and 3) has five
+transcript-based activities and 38 questions. Laundry uses the first teacher
+Unit 1 URL (BlqJiujHqfI), consistent with the transcript supplied in response
+to that source request. The teacher subsequently approved all Grade 10 parts;
+source playback was not independently verified. The rejected BBC True/False
+and the earlier synthetic listening passages remain excluded.
+
+`skills.html?grade=10&unit=1&skill=writing` (also Units 2 and 3) has an email
+about family routines, a general greener-life paragraph (not school-only), and
+a blog about a real or imaginary music event. All three are 120–150 words.
+Saved drafts are isolated by grade and unit; the same guided ChatGPT workflow
+is used for both grades.
+
+Grade 10 Pronunciation Unit 3 practises stress in two-syllable words with eight
+listening items, model/repeat audio, and phoneme-checked synthetic American
+English samples. New files are `audio/g10-u3-stress-*.mp3`. This synthetic
+practice audio is labelled and is separate from authentic supplementary
+Listening. Units 1–2 keep their existing 21 consonant-blend questions.
+Old `practice.html` writing/listening/Unit 3 routes forward to the new pages.
+All 17 original Grade 10 teacher-supplied Wordwall URLs remain unchanged.
 
 The pronunciation pages contain 21 identification questions and six practice
 sentences. Audio is computer-generated American English using Piper, LibriTTS

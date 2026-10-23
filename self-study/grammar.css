@@ -1,0 +1,15 @@
+#grade-switch{margin-top:20px}#unit-switch{margin-top:12px}
+.grammar-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.grammar-rule{padding:20px;background:var(--paper);border:1px solid #e6dac5;border-radius:12px;min-width:0}
+.grammar-rule h3{font-size:21px;overflow-wrap:anywhere}
+.grammar-rule p{margin-top:13px;font-size:14px;color:var(--muted)}
+.grammar-rule .grammar-form{color:var(--ink);font-weight:600}
+.grammar-rule .grammar-example{font-style:italic;color:var(--ink)}
+.grammar-nav{margin:20px 0 8px}.grammar-nav a{min-height:44px}
+.grammar-question{line-height:1.75}.grammar-input input{width:min(100%,540px)}
+.grammar-instruction{font-size:14px;color:var(--muted);margin-top:10px}
+.grammar-note{color:var(--muted);font-size:13px;margin-top:18px}
+.grammar-collection .skill-card.grammar{--group-color:var(--yellow)}
+@media(min-width:651px){.grammar-collection{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:950px){.grammar-rules{grid-template-columns:1fr}.grammar-rule{padding:17px}}
+@media(max-width:650px){.grammar-rule h3{font-size:20px}.grammar-rule p{font-size:13px}.grammar-question{font-size:14px}}
