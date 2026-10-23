@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Brawl</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="_board.css">
+</head>
+<body>
+<script>
+window.GAME = {
+  "title": "Brain Brawl",
+  "sub": "Unit 3 · Lesson 3 · 5 minutes",
+  "theme": "city",
+  "mode": "board",
+  "teams": [
+    "Team 1",
+    "Team 2",
+    "Team 3",
+    "Team 4"
+  ],
+  "step": 50,
+  "cats": [
+    "NUMBERS",
+    "SMART",
+    "GREEN",
+    "TRANSPORT",
+    "WORDS"
+  ],
+  "rules": [
+    "Choose a CATEGORY and a POINT VALUE: 50 / 100 / 150 / 200.",
+    "Answer in English; use evidence from the article.",
+    "The teacher awards the points to the team with the correct answer."
+  ],
+  "items": [
+    {
+      "q": "By 2050, the world's population is expected to reach ___.",
+      "a": "about 10 billion",
+      "cat": 0,
+      "pts": 50
+    },
+    {
+      "q": "What percentage of people will live in cities by 2050?",
+      "a": 0,
+      "opts": [
+        "nearly 70 per cent",
+        "about 30 per cent",
+        "about 50 per cent",
+        "nearly 90 per cent"
+      ],
+      "cat": 0,
+      "pts": 100
+    },
+    {
+      "q": "\"About 70 million people will live in cities by 2050.\" Is it true?",
+      "a": 1,
+      "opts": [
+        "Not mentioned",
+        "No – 70% of 10 billion",
+        "Yes – 70 million",
+        "Yes – only in Asia"
+      ],
+      "cat": 0,
+      "pts": 150
+    },
+    {
+      "q": "How many characteristics of future cities does the article describe?",
+      "a": 2,
+      "opts": [
+        "one: sustainable",
+        "three: smart, big, green",
+        "two: smart and sustainable",
+        "four: smart, cheap, quiet, green"
+      ],
+      "cat": 0,
+      "pts": 200
+    },
+    {
+      "q": "What is a smart city?",
+      "a": "a modern urban area that uses technologies to provide services, solve problems and support people",
+      "cat": 1,
+      "pts": 50
+    },
+    {
+      "q": "How can new technologies help people save time?",
+      "a": 3,
+      "opts": [
+        "by building more car parks",
+        "by making people stay at home",
+        "by closing roads at night",
+        "by warning them about traffic jams"
+      ],
+      "cat": 1,
+      "pts": 100
+    },
+    {
+      "q": "What can street lights do in a smart city?",
+      "a": 0,
+      "opts": [
+        "turn off when the streets are empty",
+        "charge electric cars",
+        "change colour every hour",
+        "play music at night"
+      ],
+      "cat": 1,
+      "pts": 150
+    },
+    {
+      "q": "What do sensors tell waste collection teams?",
+      "a": 1,
+      "opts": [
+        "who throws rubbish",
+        "when the bins are full",
+        "where to buy new bins",
+        "how heavy the rubbish is"
+      ],
+      "cat": 1,
+      "pts": 200
+    },
+    {
+      "q": "Future cities will include a lot of green ___.",
+      "a": "space",
+      "cat": 2,
+      "pts": 50
+    },
+    {
+      "q": "Which is a way of making room for nature in cities?",
+      "a": 2,
+      "opts": [
+        "taller skyscrapers",
+        "more car parks",
+        "rooftop farming and roof gardens",
+        "wider roads"
+      ],
+      "cat": 2,
+      "pts": 100
+    },
+    {
+      "q": "What kind of energy will most cities use?",
+      "a": 3,
+      "opts": [
+        "coal, oil and gas",
+        "energy from cars",
+        "nuclear energy only",
+        "renewable and clean energy"
+      ],
+      "cat": 2,
+      "pts": 150
+    },
+    {
+      "q": "Why will most cities use renewable energy?",
+      "a": 0,
+      "opts": [
+        "People will care more about the environment.",
+        "Cars need it.",
+        "It is cheaper than water.",
+        "Coal will disappear."
+      ],
+      "cat": 2,
+      "pts": 200
+    },
+    {
+      "q": "Name ONE computer-controlled transport system.",
+      "a": "electric buses or trains",
+      "cat": 3,
+      "pts": 50
+    },
+    {
+      "q": "Why are these transport systems eco-friendly?",
+      "a": 1,
+      "opts": [
+        "They are faster than planes.",
+        "They produce less greenhouse gas.",
+        "They have no drivers.",
+        "They are free."
+      ],
+      "cat": 3,
+      "pts": 100
+    },
+    {
+      "q": "What will be made available for walking and cycling?",
+      "a": 2,
+      "opts": [
+        "more private cars",
+        "bigger car parks",
+        "more pedestrian zones and cycle paths",
+        "underground roads"
+      ],
+      "cat": 3,
+      "pts": 150
+    },
+    {
+      "q": "How will these features help city dwellers?",
+      "a": 3,
+      "opts": [
+        "They make cities more crowded.",
+        "They make travel more expensive.",
+        "They make people drive more.",
+        "They make cities more liveable."
+      ],
+      "cat": 3,
+      "pts": 200
+    },
+    {
+      "q": "\"operate efficiently\" means …",
+      "a": "work better without wasting time, money or energy",
+      "cat": 4,
+      "pts": 50
+    },
+    {
+      "q": "\"sensors\" are …",
+      "a": 0,
+      "opts": [
+        "devices that react to light, heat or pressure",
+        "traffic lights",
+        "musical instruments",
+        "people who check the bins"
+      ],
+      "cat": 4,
+      "pts": 100
+    },
+    {
+      "q": "\"liveable\" means …",
+      "a": 1,
+      "opts": [
+        "suitable for farming",
+        "nice to live in",
+        "very expensive",
+        "full of skyscrapers"
+      ],
+      "cat": 4,
+      "pts": 150
+    },
+    {
+      "q": "Which word means \"basic systems a city needs to run smoothly\"?",
+      "a": 2,
+      "opts": [
+        "biodiversity",
+        "pedestrian",
+        "infrastructure",
+        "population"
+      ],
+      "cat": 4,
+      "pts": 200
+    }
+  ]
+};
+</script>
+<script src="_game.js"></script>
+<script src="_board.js"></script>
+</body>
+</html>

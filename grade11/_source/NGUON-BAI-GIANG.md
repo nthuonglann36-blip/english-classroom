@@ -113,3 +113,56 @@ Chuyển tiết nào sang HTML thì lấy đúng file ghi ở đây.
 ## Chữ thừa của mẫu slide — đừng chép sang HTML
 
 Slide 2 nhiều file có "FAMILY LIFE"; Unit 9 có "6TH GRADE" (L1, L2) và "11TH GRADE" (L8).
+
+
+## Trò thêm 23/10 từ BAI-DAY-HOAN-CHINH
+
+Dữ liệu câu hỏi, đáp án và lời giải dùng nguyên văn yêu cầu cô gửi ngày 23/10. Nguồn PPT gộp
+được ghi theo mẫu tên cô chỉ định (`G11-UN-LM-*.pptx`); trò của cô nằm trong `SLIDE-DAY-HOC`.
+Chưa có các PPT gốc trong môi trường này để đối chiếu tên đầy đủ; phần kiểm tra nội dung dùng bài đọc
+hiện có trên web. Những câu cần cô duyệt được ghi bên dưới, không tự sửa dữ liệu.
+
+| Trò HTML | Tiết và vị trí | Nguồn PPT gộp | Thời lượng |
+|---|---|---|---|
+| **Pros or Cons? · Mystery Box** (`u03-l6-pros-or-cons.html`) | U3 L6 — sau hướng dẫn viết, trước While writing | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit3/G11-U3-L6-*.pptx` | 5 phút |
+| **Smart City Charades** (`u03-l7-smart-city-charades.html`) | U3 L7 — sau Culture Task 1, trước thảo luận Task 2 | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit3/G11-U3-L7-*.pptx` | 2 phút |
+| **Board Race · ASEAN Words** (`u04-l2-board-race-asean.html`) | U4 L2 — sau Vocabulary Task 2, trước Grammar | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit4/G11-U4-L2-*.pptx` | 4 phút |
+| **Backwards Words** (`u04-l5-backwards-words.html`) | U4 L5 — sau từ mới, trước While listening | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit4/G11-U4-L5-*.pptx` | 3 phút |
+| **Tết or Songkran?** (`u04-l7-tet-or-songkran.html`) | U4 L7 — sau bài đọc và bảng Culture Task 1, trước Task 2 | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit4/G11-U4-L7-*.pptx` | 4 phút |
+| **Cause or Consequence?** (`u05-l1-cause-or-consequence.html`) | U5 L1 — sau Tasks 1–4, trước Production; kèm slide The global warming chain | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit5/G11-U5-L1-*.pptx` | 3 phút |
+| **Save the Planet** (`u05-l3-save-the-planet.html`) | U5 L3 — sau Reading Task 4, trước After reading | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit5/G11-U5-L3-*.pptx` | 5 phút |
+| **Odd One Out · Climate Words** (`u05-l2-odd-one-out.html`) | U5 L2 — sau Vocabulary Task 2, trước Grammar | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit5/G11-U5-L2-*.pptx` | 4 phút |
+| **Brain Brawl** (`u03-l3-brain-brawl.html`) | U3 L3 — sau Reading Task 4, trước After reading; giữ nguyên trò vòng quay đã có | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit3/G11-U3-L3-*.pptx` | 5 phút |
+| **Word Challenge** (`u04-l1-word-challenge.html`) | U4 L1 — sau từ vựng, trước Practice; giữ nguyên hai trò đã có | `ppt game/BAI-DAY-HOAN-CHINH/Lop11-Unit4/G11-U4-L1-*.pptx` | 4 phút |
+
+Khung chung được chép từ lớp 10: `_board.js`, `_board.css`, `_game.js`. Hai tệp JS giữ nguyên byte;
+CSS bản lớp 11 thêm ba theme và cỡ chữ để vừa khung máy chiếu. Không sửa khung lớp 10 hay bất kỳ trò
+cũ nào của cô. Trò có nguồn từ mẫu Pinny chỉ lấy câu chữ, không dùng hình, nhân vật hoặc tên mẫu trong giao diện.
+
+Mọi tiết giữ nguyên các slide và trò cũ; chỉ chèn 10 slide trò + 1 slide xếp chuỗi, ghi nguồn và điều chỉnh
+thẻ thời lượng để kế hoạch vẫn 45 phút. U3 L7 trước đó cộng các phần mới được 43 phút; Culture từ 15 lên 17
+phút (thêm Charades 2 phút) để đủ 45. Trò dài dùng tập câu hỏi để chọn một số lượt trong thời gian đã phân bổ.
+
+### Những câu cần cô duyệt — dữ liệu vẫn giữ nguyên
+
+- **Tết or Songkran? — câu 6:** đáp án được cung cấp là Songkran; bài đọc hiện nêu **parades** trong đoạn
+  về Lunar New Year, còn đoạn Buddhist New Year có art performances, folk games, dancing. Không suy ra chắc
+  đáp án Songkran chỉ từ bài đọc này.
+- **Câu 3:** chi tiết **pour water on the hands of monks and elders** không nêu trực tiếp; bài đọc nói
+  offering rice to Buddhist monks và splash each other with water.
+- **Câu 4–5:** red envelopes / lucky money và chung cakes không xuất hiện trong bài đọc hiện có;
+  đây là kiến thức văn hoá bổ sung, chưa phải thông tin đọc hiểu trong đoạn.
+- **Câu 7:** bài đọc chỉ ghi **in April**, không nêu cụ thể **in the middle of April**.
+- **Câu 8:** câu trò dùng **firecrackers**, còn bài đọc dùng **fireworks**; giữ nguyên từ cô cung cấp.
+- **Save the Planet:** 12 câu phù hợp nội dung bài COP hiện có (mục tiêu 1.5°C, giảm CO₂ 50% đến 2030,
+  giảm than, chống phá rừng, methane và người tham gia). **Brain Brawl** cũng phù hợp bài Cities of the Future hiện có.
+
+Giao diện và luật trò bằng tiếng Anh. Riêng Backwards Words giữ nguyên nghĩa từ vựng tiếng Việt được cô
+cung cấp (ví dụ `foreign (nước ngoài)`), không tự dịch lại. Phương án Save the Planet, Brain Brawl và Odd One Out
+được xáo, cập nhật chỉ số `a` theo đáp án gốc. Mọi tài nguyên đều nội bộ và được thêm vào gói Offline Unit 3–5.
+
+### Ghi nhận khi kiểm tra slide cũ ở 1366×768
+
+Hai slide đã tràn dọc ngay trong bản trước khi chèn trò: U3 L7 slide 8 (Task 1 · conversation 1, **A or B?**)
+tràn 22 px; U4 L7 slide 7 (Task 1 nghe hội thoại Linda and Hoa) tràn 9 px. Giữ nguyên hai slide này theo yêu cầu
+chỉ chèn thêm, không sửa nội dung slide cũ; không phát sinh tràn mới từ các slide được thêm.
