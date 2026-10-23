@@ -7,7 +7,7 @@ import hashlib,json,posixpath,re
 
 ROOT=Path(__file__).resolve().parents[1]
 GENERATED='offline-manifest.js'
-EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.mp4','.webm','.ogg','.woff2','.webmanifest'}
+EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.m4a','.mp4','.webm','.ogg','.woff2','.webmanifest'}
 
 def read(path):return (ROOT/path).read_bytes().decode('utf-8')
 def local(source,reference):
@@ -60,7 +60,7 @@ def dependencies(starts):
             text=re.sub(r'/\*.*?\*/','',text,flags=re.S)
             refs+=re.findall(r'url\(\s*[\'"]?([^\)\'"\s]+)',text)
         # Includes slide-data image/animation URLs and media paths held in quiz data.
-        refs+=re.findall(r'''["']([^"'\n\r<>]+\.(?:mp3|mp4|webm|ogg|webp|png|jpe?g|gif|svg|woff2))(?:\?[^"']*)?["']''',text,re.I)
+        refs+=re.findall(r'''["']([^"'\n\r<>]+\.(?:mp3|m4a|mp4|webm|ogg|webp|png|jpe?g|gif|svg|woff2))(?:\?[^"']*)?["']''',text,re.I)
         for ref in refs:
             if ref.startswith('-') or '${' in ref:continue
             target=local(source,ref)

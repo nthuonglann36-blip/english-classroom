@@ -1419,3 +1419,6 @@ body.tpl-invent .compare > div:last-child h3{ color:var(--accent-2); }
 /* Hội thoại trong khung chữ (kit10.dialogue): mỗi lượt một dòng, tên người nói đậm màu nhấn. */
 .box.dialog p{ margin:0 0 .3em; line-height:1.32; }
 .box.dialog p b{ color:var(--accent); }
+/* Ảnh trong bố cục hai cột (.cols): cho ảnh rộng hết cột, giữ tỉ lệ, chặn chiều cao.
+   (Luật chung .pics.wide img dùng width:auto nên trong cột lưới ảnh co về rất nhỏ.) */
+.slide .cols .pics.wide img, .slide.denser .cols .pics.wide img{ width:100%; height:auto; max-height:52vh; object-fit:contain; }

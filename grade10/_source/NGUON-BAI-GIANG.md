@@ -22,7 +22,7 @@ Chuyển tiết nào sang HTML thì ghi đúng file nguồn ở đây (cách là
 |---|---|---|
 | **L1 Getting started** | Cô cập nhật 20/10 (slide MUSICVERSE dạng ảnh + Guess the Song) | Giữ nguyên bản của cô. Bài gộp G10-U3-L1 thêm Task 3 + trò Music Night (mẫu Pinny) — chưa đưa vào |
 | **L2 Language** | `G10-U3-L2-Language.pptx` (MUSICVERSE_Unit3_Lesson2_REBUILT + 6 slide ngữ pháp u3 lang + Mystery Box) | Track 19/20. Trò **Beat Drop Battle** (8 câu từ vựng) + **Music Mystery Box** (15 câu, câu hỏi của trò mẫu Pinny, khung vẽ lại; câu 15 trùng câu 6 → đổi câu khác). Trò Secret Music Vault của PPT = 8 câu ngữ pháp SGK → làm slide lật đáp án |
-| **L3 Reading** | `G10-U3-L3-Reading.pptx` (Lesson3_Reading_DOWNLOAD + Millionaire) + trò HTML của cô `Music_Mystery_Box_Unit3_Reading.html` (22/10) | Task 3 dùng 3 phương án A–C của SGK (PPT thêm D). 12 từ PPT → 6 từ giáo án + trò **The Masked Mic** (8 từ, 2 gợi ý). Trò của cô = `u03-l3-music-mystery-box.html` (cô tải lên GitHub trưa 22/10, kèm trang lesson3 chỉ có trò) → nay là slide 21 của bài đầy đủ; thêm khối CSS `@media (max-height:700px)` cho vừa khung slide, thay slide câu hỏi thêm. Bản trang-chỉ-có-trò vẫn xem được qua git (commit 1f28465). Millionaire (mẫu Pinny) trùng Task 2–3 → không dựng. Ảnh Task 1 cắt SGK tr. 31 |
+| **L3 Reading** | `G10-U3-L3-Reading.pptx` (Lesson3_Reading_DOWNLOAD + Millionaire) + trò HTML của cô `Music_Mystery_Box_Unit3_Reading.html` (22/10) | Task 3 dùng 3 phương án A–C của SGK (PPT thêm D). 12 từ PPT → 6 từ giáo án + trò **The Masked Mic** (8 từ, 2 gợi ý). Trò của cô = `u03-l3-music-mystery-box.html` (cô tải lên GitHub trưa 22/10, kèm trang lesson3 chỉ có trò) → nay là slide 21 của bài đầy đủ (thay slide câu hỏi thêm). Tệp trò giữ nguyên như cô tải lên (theo AGENTS.md); trong khung slide trò cao hơn khung nên có thanh cuộn — bấm **Fullscreen** trong trò khi chơi. Bản trang-chỉ-có-trò vẫn xem được qua git (commit 1f28465). Millionaire (mẫu Pinny) trùng Task 2–3 → không dựng. Ảnh Task 1 cắt SGK tr. 31 |
 | **L4 Speaking** | `G10-U3-L4-Speaking.pptx` (u3 spk + 6 từ SGK_Expanded + Don’t Say The Word) | Task 1 theo giáo án. Trò **Don’t Say It!** (10 thẻ Taboo, 45 giây) |
 | **L5 Listening** | `G10-U3-L5-Listening.pptx` (u3 lis + trò điền poster lễ hội của cô) | Track 21/22. ⚠ **Task 2**: giáo án A, D — PPT ghi A, C, D. ⚠ **Task 3 câu 5**: giáo án T — PPT ghi F. Đang dùng đáp án giáo án, cô nghe lại để xác nhận. Trò thưởng Festival Info Desk (audio riêng) chưa đưa lên. Ảnh Task 1 cắt SGK tr. 33 |
 | **L6 Writing** | `G10-U3-L6-Writing.pptx` (u3 wrt + 6 từ SGK_Expanded + Blog Builder Relay) | Blog của Ann nguyên văn sách. Blog Builder vòng 1–2 (xếp câu, sửa 5 lỗi) → slide lật đáp án; vòng 3 → câu mẫu Task 3 |
@@ -41,3 +41,19 @@ Chuyển tiết nào sang HTML thì ghi đúng file nguồn ở đây (cách là
 | **L6 Writing** | `G10-U4-L6-Writing.pptx` (u4 wrt, giữ nguyên) | Thư mẫu + quảng cáo nguyên văn tr. 48; bài mẫu Task 3 theo giáo án. Không có trò |
 | **L7 Communication & Culture** | `G10-U4-L7-Communication-Culture.pptx` (unit 4 com, giữ nguyên) | Track 33. Bài đọc *Save the Children* nguyên văn tr. 49. Trò **Pass the Globe** (luật của PPT, 10 câu nghĩa từ) |
 | **L8 Looking back & Project** | `G10-U4-L8-Looking-back-Game.pptx` (chỉ có trò Help Grandma) + SGK tr. 50–51 + giáo án | Track 34. Trò **Help Grandma Get Home** (8 câu chính + 8 câu dự phòng, dữ liệu lấy từ `G10_U4_Community_Quest_7_Games.html`). Ảnh Project cắt SGK tr. 51 |
+
+## Unit 5 · Inventions (tpl-invent — giao diện mới 23/10: xanh đêm + vàng, vẽ bằng CSS)
+
+PPT gộp Unit 5 **chưa có bài giảng gốc**: chỉ có slide từ vựng của cô + trò chơi → phần nhiệm vụ dựng theo SGK tr. 52–55 + giáo án
+TA10-Unit 5.docx. Lesson 4–8 chưa có bài PPT hoàn chỉnh → thẻ trên bản đồ còn khoá.
+
+| Tiết | Nguồn | Ghi chú |
+|---|---|---|
+| **L1 Getting started** | `G10-U5-L1-Getting-started.pptx` (13 từ + The Lucky Envelope từ mẫu Red Envelope) | Track 35. Hội thoại nguyên văn tr. 52. Lưới tìm từ cắt SGK tr. 53. Trò **Lucky Envelopes** (12 phát minh, có hộp may mắn) |
+| **L2 Language** | `G10-U5-L2-Language.pptx` (6 từ + Let’s go shopping! + 2 trò thưởng ChatGPT) | Track 36/37. Đường qua sông: giáo án để ảnh → tự xác định: advantage, invention, computer, tradition. Tranh bài sắp xếp chữ cắt SGK tr. 54. Trò **Gadget Shop** (11 câu). Trò thưởng Hardware or Software? + Draw it! chưa đưa lên |
+| **L3 Reading** | `G10-U5-L3-Reading.pptx` (từ mới + Asimo or Sophia? + AI Museum Mystery từ mẫu Museum Robbery) | Bài đọc nguyên văn tr. 55. Ảnh Asimo/Sophia + ảnh Task 3 cắt SGK tr. 55. Trò **AI Museum Mystery** (15 câu) |
+
+## Unit 1–2 và Review 1 trong BAI-DAY-HOAN-CHINH (thêm chiều 22/10)
+
+Là bản chép nguyên các PPT cô đã có (tháng 8–10) — chính là nguồn của các tiết Unit 1–2 đang có trên web → **không thay**.
+Review 1 lớp 10 chưa có trang web (lớp 10 chưa có mục Review).
