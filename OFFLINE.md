@@ -13,6 +13,12 @@ từng bộ bài vào trình duyệt, không cần đăng nhập hoặc máy ch�
 4. Khi bộ bài có bản mới, dùng **Cập nhật bản lưu** lúc có Internet.
 5. **Xóa bản lưu** chỉ xóa bộ Offline được chọn, giữ nguyên bản nháp Writing.
 
+Nút **Phóng to** trên các trang cho phép tăng/giảm kích thước nội dung, bấm tỷ lệ
+ở giữa để trở về 100%, hoặc chọn **Toàn màn hình**. Phím **F** bật/tắt toàn màn
+hình; **Esc** trở lại. Trên trình duyệt không hỗ trợ toàn màn hình, nút này mở
+chế độ xem rộng và có nút thoát. Chức năng dùng được với các bài đã lưu Offline;
+mức phóng to được nhớ trên cùng trình duyệt và không thay đổi bản nháp hay tiến độ.
+
 Các gói lưu HTML, ảnh, game, audio và video nội bộ. Câu hỏi Listening được lưu,
 nhưng YouTube, Wordwall, ChatGPT và các nguồn bên ngoài vẫn cần Internet.
 Không tải hoặc sao chép nội dung từ các dịch vụ đó. Bộ bài đã lưu không tự đồng

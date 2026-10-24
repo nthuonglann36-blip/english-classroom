@@ -67,7 +67,7 @@ def dependencies(starts):
             if target and target not in found:queue.append(target)
     return found
 
-core=dependencies(['index.html','offline.html','offline.css','offline.js','offline-client.js','sw.js',GENERATED,'manifest.webmanifest','assets/app-icon-192.png','assets/app-icon-512.png','grade10/index.html','grade11/index.html','self-study/index.html'])
+core=dependencies(['index.html','offline.html','offline.css','offline.js','offline-client.js','view-controls.js','view-controls.css','sw.js',GENERATED,'manifest.webmanifest','assets/app-icon-192.png','assets/app-icon-512.png','grade10/index.html','grade11/index.html','self-study/index.html'])
 packs=[]
 def add_pack(id,title,group,description,start,starts):
     files=dependencies(starts)-core

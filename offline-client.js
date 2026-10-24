@@ -2,6 +2,15 @@
   'use strict';
   if (window.EC_OFFLINE_READY) return;
   const root = new URL('./', document.currentScript.src);
+  // Shared viewing controls also work without a service worker or Internet.
+  const viewStyle = document.createElement('link');
+  viewStyle.rel = 'stylesheet'; viewStyle.href = new URL('view-controls.css',root).href;
+  viewStyle.addEventListener('load', () => {
+    const viewScript = document.createElement('script');
+    viewScript.src = new URL('view-controls.js',root).href;
+    document.head.append(viewScript);
+  }, {once:true});
+  document.head.append(viewStyle);
   const supported = 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1');
   window.EC_OFFLINE_ROOT = root.href;
   window.EC_OFFLINE_READY = supported ? (async()=>{

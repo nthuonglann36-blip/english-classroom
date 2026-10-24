@@ -1,0 +1,30 @@
+/* The controls stay at their normal size while only lesson content is enlarged. */
+:root{--ec-view-scale:1}
+.ec-view-content.deck{height:calc((100dvh - var(--bar,56px)) / var(--ec-view-scale))}
+#ec-view-tools{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:1000;color:#14264d;font:13px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:left;letter-spacing:normal}
+#ec-view-tools *{box-sizing:border-box}
+#ec-view-tools [hidden]{display:none!important}
+#ec-view-tools button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:44px;min-height:44px;padding:8px 12px;border:1px solid #d3dce9;border-radius:10px;background:#fff;color:#14264d;font:600 13px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer;letter-spacing:normal;white-space:normal;margin:0}
+#ec-view-tools button:hover:not(:disabled){background:#f0f4fa;border-color:#9aacc9}
+#ec-view-tools button:disabled{opacity:.45;cursor:default}
+#ec-view-tools button:focus-visible{outline:3px solid #d39a22;outline-offset:3px}
+#ec-view-tools .ec-view-toggle{border-radius:999px;padding:10px 15px;background:#1f3b73;color:#fff;border-color:#1f3b73;box-shadow:0 3px 15px #14264d26}
+#ec-view-tools .ec-view-toggle:hover{background:#2d4f90}
+#ec-view-panel{position:absolute;bottom:calc(100% + 9px);right:0;width:276px;max-width:calc(100vw - 32px);padding:16px;border:1px solid #d3dce9;border-radius:15px;background:#fbf7ee;box-shadow:0 8px 35px #14264d26;max-height:calc(100dvh - 100px);overflow:auto}
+#ec-view-tools .ec-view-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
+#ec-view-tools h2{font:700 15px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif;color:#14264d;letter-spacing:normal;margin:0}
+#ec-view-tools .ec-view-close{padding:6px;font-size:22px;background:transparent;border-color:transparent}
+#ec-view-tools .ec-view-zoom{display:grid;grid-template-columns:44px 1fr 44px;gap:8px;margin:0 0 10px}
+#ec-view-tools .ec-view-zoom button{font-size:18px;padding:8px}
+#ec-view-tools .ec-view-zoom [data-view-action="reset"]{font-size:14px}
+#ec-view-tools .ec-view-fullscreen{width:100%;font-size:17px}
+#ec-view-tools .ec-view-fullscreen span{font-size:13px}
+#ec-view-tools .ec-view-hint,#ec-view-tools .ec-view-status{font:11px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:#596b8a;max-width:none;margin:12px 0 0;padding:0;white-space:normal}
+#ec-view-tools .ec-view-status:empty{display:none}
+.ec-view-on-deck #ec-view-tools{right:auto;left:max(16px,env(safe-area-inset-left));bottom:calc(var(--ec-view-nav-height,68px) + 12px)}
+.ec-view-on-deck #ec-view-panel{right:auto;left:0;max-height:calc(100dvh - var(--ec-view-nav-height,68px) - 82px)}
+body.is-locked>#ec-view-tools{display:none}
+.ec-view-expanded>body>.site-header,.ec-view-expanded>body>.bar,.ec-view-expanded>body>.lesson-bar,.ec-view-expanded>body>footer{display:none}
+.ec-view-expanded .ec-view-content.deck{height:calc(100dvh / var(--ec-view-scale))}
+@media(max-width:600px){#ec-view-tools{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom))}#ec-view-tools .ec-view-toggle{font-size:12px;padding:9px 12px}.ec-view-on-deck #ec-view-tools{left:max(12px,env(safe-area-inset-left));right:auto}}
+@media print{#ec-view-tools{display:none!important}.ec-view-content{zoom:1!important}.ec-view-content.deck{height:auto!important}}
