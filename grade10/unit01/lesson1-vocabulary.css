@@ -1,0 +1,12 @@
+/* Large illustrations for the five Getting Started words; other slides retain their layout. */
+.vocabulary-picture .vocab{margin-top:.35em}
+body.tpl-family .vocabulary-picture h2.w{font-style:normal;margin:0 0 .08em}
+.vocabulary-picture .art img{background:var(--paper)}
+.vocabulary-picture .answer.is-open{display:block;margin-top:.3em}
+.vocabulary-picture .eg{color:var(--ink);line-height:1.4}
+@media(max-width:900px){
+  /* Keep the floating viewer away from the vocabulary's meaning button. */
+  body:has(.vocabulary-picture.is-current) #ec-view-tools{left:auto;right:12px;top:calc(var(--bar,56px) + 12px);bottom:auto}
+  body:has(.vocabulary-picture.is-current) #ec-view-panel{left:auto;right:0;top:calc(100% + 9px);bottom:auto;max-height:calc(100dvh - var(--bar,56px) - 80px)}
+}
+@media print{.vocabulary-picture .art img{max-height:260px}}
