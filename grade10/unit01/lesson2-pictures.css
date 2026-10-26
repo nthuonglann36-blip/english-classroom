@@ -1,0 +1,14 @@
+/* Uses Lesson 1's picture vocabulary layout; the two warm-up rounds stay separate. */
+.picture-quiz .cards{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:.45em}
+.picture-quiz .card{padding:clamp(10px,1.1vw,16px);text-align:center}
+.picture-quiz .card img{display:block;width:100%;height:clamp(130px,21vh,220px);object-fit:contain;border-radius:var(--radius)}
+.picture-quiz .card .reveal{margin:.35em 0 0;min-width:44px;min-height:44px}
+.picture-quiz .card .answer.is-open{display:block;margin-top:.3em;font-weight:600}
+.picture-quiz .unbroken{white-space:nowrap}
+@media(max-width:900px){
+  .picture-quiz .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .picture-quiz>.reveal-all{position:static;display:block;margin:.6em auto 0}
+  body:has(.picture-quiz.is-current) #ec-view-tools{left:auto;right:12px;top:calc(var(--bar,56px) + 12px);bottom:auto}
+  body:has(.picture-quiz.is-current) #ec-view-panel{left:auto;right:0;top:calc(100% + 9px);bottom:auto;max-height:calc(100dvh - var(--bar,56px) - 80px)}
+}
+@media(max-width:480px){.picture-quiz .cards{grid-template-columns:1fr}.picture-quiz .card img{height:180px}}
