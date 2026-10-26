@@ -4,6 +4,7 @@ body.tpl-family .vocabulary-picture h2.w{font-style:normal;margin:0 0 .08em}
 .vocabulary-picture .art img{background:var(--paper)}
 .vocabulary-picture .answer.is-open{display:block;margin-top:.3em}
 .vocabulary-picture .eg{color:var(--ink);line-height:1.4}
+.vocabulary-picture>.reveal-all{display:none}
 @media(max-width:900px){
   /* Keep navigation compact so pupils can scroll through the full example. */
   .deck-nav{gap:10px}
