@@ -1,0 +1,74 @@
+/* Teacher-provided vocabulary for Grade 10 Unit 4, Lessons 1–5. */
+.community-word-panel{position:relative;width:100%;aspect-ratio:var(--panel-aspect,4/3);overflow:hidden;border-radius:var(--radius);background:var(--paper);--crop-x:0%;--crop-y:0%;--sheet-width:200%;--sheet-height:200%}
+body.tpl-community .community-word-panel>img{position:absolute;display:block;left:var(--crop-x);top:var(--crop-y);width:var(--sheet-width);height:var(--sheet-height);max-width:none;max-height:none;object-fit:fill;border-radius:0}
+.vocabulary-picture .vocab{margin-top:.3em}
+.vocabulary-picture .community-word-panel{max-width:calc(min(42vh,350px) * var(--panel-aspect,4/3));margin-inline:auto}
+.vocabulary-picture h2.w{font-style:normal;font-size:clamp(40px,min(4.5vw,7.5vh),68px);line-height:1.08;margin:0 0 .08em}
+.vocabulary-picture .ipa{margin:.12em 0 .3em}
+.vocabulary-picture .answer.is-open{display:block;margin-top:.2em}
+.vocabulary-picture .eg{color:var(--ink);line-height:1.35;margin-top:.5em}
+.vocabulary-picture>.reveal-all{display:none}
+@media(max-width:900px){
+ .deck-nav{gap:10px}.deck-nav .dots,.deck-nav>.count:last-child{display:none}
+ .vocabulary-picture>.kicker{display:block;max-width:calc(100% - 130px)}
+ .vocabulary-picture h2.w{font-size:clamp(32px,8.7vw,52px)}
+ body:has(.vocabulary-picture.is-current) #ec-view-tools{left:auto;right:12px;top:calc(var(--bar,56px) + 12px);bottom:auto}
+ body:has(.vocabulary-picture.is-current) #ec-view-panel{left:auto;right:0;top:calc(100% + 9px);bottom:auto;max-height:calc(100dvh - var(--bar,56px) - 80px)}
+}
+@media print{.vocabulary-picture .community-word-panel{max-width:320px;margin-inline:auto}}
+.community-word-panel.sheet-u01-family-reading.q0{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u01-family-reading.q1{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u01-family-reading.q2{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:0.000000%;--crop-y:-100.000000%}
+.community-word-panel.sheet-u01-family-reading.q3{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:-100.000000%;--crop-y:-100.000000%}
+.community-word-panel.sheet-u01-family-support.q0{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u01-family-support.q1{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u01-family-support.q2{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:0.000000%;--crop-y:-100.000000%}
+.community-word-panel.sheet-u01-family-support.q3{--panel-aspect:724/543;--sheet-width:200.000000%;--sheet-height:200.000000%;--crop-x:-100.000000%;--crop-y:-100.000000%}
+.community-word-panel.sheet-u02-family-action-details.q0{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-family-action-details.q1{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-family-action-details.q2{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:0.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u02-family-action-details.q3{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:-100.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u02-family-events.q0{--panel-aspect:724/478;--sheet-width:200.000000%;--sheet-height:227.196653%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-family-events.q1{--panel-aspect:724/478;--sheet-width:200.000000%;--sheet-height:227.196653%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-family-events.q2{--panel-aspect:724/608;--sheet-width:200.000000%;--sheet-height:178.618421%;--crop-x:0.000000%;--crop-y:-78.618421%}
+.community-word-panel.sheet-u02-family-events.q3{--panel-aspect:724/608;--sheet-width:200.000000%;--sheet-height:178.618421%;--crop-x:-100.000000%;--crop-y:-78.618421%}
+.community-word-panel.sheet-u02-l1-actions.q0{--panel-aspect:724/484;--sheet-width:200.000000%;--sheet-height:224.380165%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-l1-actions.q1{--panel-aspect:724/484;--sheet-width:200.000000%;--sheet-height:224.380165%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u02-l1-actions.q2{--panel-aspect:724/602;--sheet-width:200.000000%;--sheet-height:180.398671%;--crop-x:0.000000%;--crop-y:-80.398671%}
+.community-word-panel.sheet-u02-l1-actions.q3{--panel-aspect:724/602;--sheet-width:200.000000%;--sheet-height:180.398671%;--crop-x:-100.000000%;--crop-y:-80.398671%}
+.community-word-panel.sheet-u04-words-adjectives.q0{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-adjectives.q1{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-adjectives.q2{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:0.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-adjectives.q3{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:-100.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-care.q0{--panel-aspect:724/522;--sheet-width:200.000000%;--sheet-height:208.045977%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-care.q1{--panel-aspect:724/522;--sheet-width:200.000000%;--sheet-height:208.045977%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-care.q2{--panel-aspect:724/564;--sheet-width:200.000000%;--sheet-height:192.553191%;--crop-x:0.000000%;--crop-y:-92.553191%}
+.community-word-panel.sheet-u04-words-care.q3{--panel-aspect:724/564;--sheet-width:200.000000%;--sheet-height:192.553191%;--crop-x:-100.000000%;--crop-y:-92.553191%}
+.community-word-panel.sheet-u04-words-chance.q0{--panel-aspect:724/494;--sheet-width:200.000000%;--sheet-height:219.838057%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-chance.q1{--panel-aspect:724/494;--sheet-width:200.000000%;--sheet-height:219.838057%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-chance.q2{--panel-aspect:724/592;--sheet-width:200.000000%;--sheet-height:183.445946%;--crop-x:0.000000%;--crop-y:-83.445946%}
+.community-word-panel.sheet-u04-words-chance.q3{--panel-aspect:724/592;--sheet-width:200.000000%;--sheet-height:183.445946%;--crop-x:-100.000000%;--crop-y:-83.445946%}
+.community-word-panel.sheet-u04-words-connections.q0{--panel-aspect:724/487;--sheet-width:200.000000%;--sheet-height:222.997947%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-connections.q1{--panel-aspect:724/487;--sheet-width:200.000000%;--sheet-height:222.997947%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-connections.q2{--panel-aspect:724/599;--sheet-width:200.000000%;--sheet-height:181.302170%;--crop-x:0.000000%;--crop-y:-81.302170%}
+.community-word-panel.sheet-u04-words-connections.q3{--panel-aspect:724/599;--sheet-width:200.000000%;--sheet-height:181.302170%;--crop-x:-100.000000%;--crop-y:-81.302170%}
+.community-word-panel.sheet-u04-words-crafts.q0{--panel-aspect:721/541;--sheet-width:200.832178%;--sheet-height:200.739372%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-crafts.q1{--panel-aspect:727/541;--sheet-width:199.174691%;--sheet-height:200.739372%;--crop-x:-99.174691%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-crafts.q2{--panel-aspect:721/545;--sheet-width:200.832178%;--sheet-height:199.266055%;--crop-x:0.000000%;--crop-y:-99.266055%}
+.community-word-panel.sheet-u04-words-crafts.q3{--panel-aspect:727/545;--sheet-width:199.174691%;--sheet-height:199.266055%;--crop-x:-99.174691%;--crop-y:-99.266055%}
+.community-word-panel.sheet-u04-words-jobs.q0{--panel-aspect:748/528;--sheet-width:193.582888%;--sheet-height:205.681818%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-jobs.q1{--panel-aspect:700/528;--sheet-width:206.857143%;--sheet-height:205.681818%;--crop-x:-106.857143%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-jobs.q2{--panel-aspect:748/558;--sheet-width:193.582888%;--sheet-height:194.623656%;--crop-x:0.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-jobs.q3{--panel-aspect:700/558;--sheet-width:206.857143%;--sheet-height:194.623656%;--crop-x:-106.857143%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-learning.q0{--panel-aspect:724/542;--sheet-width:200.000000%;--sheet-height:200.369004%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-learning.q1{--panel-aspect:724/542;--sheet-width:200.000000%;--sheet-height:200.369004%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-learning.q2{--panel-aspect:724/544;--sheet-width:200.000000%;--sheet-height:199.632353%;--crop-x:0.000000%;--crop-y:-99.632353%}
+.community-word-panel.sheet-u04-words-learning.q3{--panel-aspect:724/544;--sheet-width:200.000000%;--sheet-height:199.632353%;--crop-x:-100.000000%;--crop-y:-99.632353%}
+.community-word-panel.sheet-u04-words-pathways.q0{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-pathways.q1{--panel-aspect:724/528;--sheet-width:200.000000%;--sheet-height:205.681818%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-pathways.q2{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:0.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-pathways.q3{--panel-aspect:724/558;--sheet-width:200.000000%;--sheet-height:194.623656%;--crop-x:-100.000000%;--crop-y:-94.623656%}
+.community-word-panel.sheet-u04-words-service.q0{--panel-aspect:725/496;--sheet-width:199.724138%;--sheet-height:218.951613%;--crop-x:0.000000%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-service.q1{--panel-aspect:723/496;--sheet-width:200.276625%;--sheet-height:218.951613%;--crop-x:-100.276625%;--crop-y:0.000000%}
+.community-word-panel.sheet-u04-words-service.q2{--panel-aspect:725/590;--sheet-width:199.724138%;--sheet-height:184.067797%;--crop-x:0.000000%;--crop-y:-84.067797%}
+.community-word-panel.sheet-u04-words-service.q3{--panel-aspect:723/590;--sheet-width:200.276625%;--sheet-height:184.067797%;--crop-x:-100.276625%;--crop-y:-84.067797%}
