@@ -47,6 +47,10 @@ Chuyển tiết nào sang HTML thì ghi đúng file nguồn ở đây (cách là
 PPT gộp Unit 5 **chưa có bài giảng gốc**: chỉ có slide từ vựng của cô + trò chơi → phần nhiệm vụ dựng theo SGK tr. 52–55 + giáo án
 TA10-Unit 5.docx. Lesson 4–8 chưa có bài PPT hoàn chỉnh → thẻ trên bản đồ còn khoá.
 
+Từ vựng web cập nhật ngày 27/10/2026 theo [danh sách cô gửi cho Lesson 1–3](unit05-vocabulary.md):
+12 mục Getting Started, 6 mục Language và 19 mục Reading. Mỗi mục có hình, IPA, nghĩa và ví dụ theo chủ đề.
+Các nhiệm vụ SGK, đáp án, audio và tệp trò chơi giữ nguyên.
+
 | Tiết | Nguồn | Ghi chú |
 |---|---|---|
 | **L1 Getting started** | `G10-U5-L1-Getting-started.pptx` (13 từ + The Lucky Envelope từ mẫu Red Envelope) | Track 35. Hội thoại nguyên văn tr. 52. Lưới tìm từ cắt SGK tr. 53. Trò **Lucky Envelopes** (12 phát minh, có hộp may mắn) |
