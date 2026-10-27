@@ -1,0 +1,4 @@
+/* Keep vocabulary controls clear of the floating zoom button on phones. */
+@media (max-width:900px){
+  .vocab .art img{ height:clamp(180px,28vh,260px); }
+}
