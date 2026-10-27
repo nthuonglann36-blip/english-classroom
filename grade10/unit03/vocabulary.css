@@ -1,0 +1,47 @@
+/* Illustrations for the existing Grade 10 Unit 3 vocabulary, Lessons 3–7. */
+.music-word-panel{position:relative;width:100%;aspect-ratio:var(--panel-aspect,4/3);overflow:hidden;border-radius:var(--radius);background:var(--paper);--crop-x:0%;--crop-y:0%;--sheet-width:200%;--sheet-height:200%}
+.music-word-panel.q1{--crop-x:-100%}.music-word-panel.q2{--crop-y:-100%}.music-word-panel.q3{--crop-x:-100%;--crop-y:-100%}
+body.tpl-music .music-word-panel>img{position:absolute;display:block;left:var(--crop-x);top:var(--crop-y);width:var(--sheet-width);height:var(--sheet-height);max-width:none;max-height:none;object-fit:fill;border-radius:0}
+.vocabulary-picture .vocab{margin-top:.3em}
+.vocabulary-picture .music-word-panel{max-width:calc(min(42vh,350px) * var(--panel-aspect,4/3));margin-inline:auto}
+.vocabulary-picture h2.w{font-style:normal;font-size:clamp(40px,min(5vw,8.4vh),76px);line-height:1.08;margin:0 0 .08em}
+.vocabulary-picture .ipa{margin:.12em 0 .3em}
+.vocabulary-picture .answer.is-open{display:block;margin-top:.2em}
+.vocabulary-picture .eg{color:var(--ink);line-height:1.35;margin-top:.5em}
+.vocabulary-picture>.reveal-all{display:none}
+@media(max-width:900px){
+ .deck-nav{gap:10px}.deck-nav .dots,.deck-nav>.count:last-child{display:none}
+ .vocabulary-picture>.kicker{display:block;max-width:calc(100% - 130px)}
+ .vocabulary-picture h2.w{font-size:clamp(32px,8.7vw,52px)}
+ body:has(.vocabulary-picture.is-current) #ec-view-tools{left:auto;right:12px;top:calc(var(--bar,56px) + 12px);bottom:auto}
+ body:has(.vocabulary-picture.is-current) #ec-view-panel{left:auto;right:0;top:calc(100% + 9px);bottom:auto;max-height:calc(100dvh - var(--bar,56px) - 80px)}
+}
+@media print{.vocabulary-picture .music-word-panel{max-width:320px;margin-inline:auto}}
+.music-word-panel.sheet-competition.q0{--panel-aspect:724/534;--sheet-width:200.000000%;--sheet-height:203.370787%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-competition.q1{--panel-aspect:724/534;--sheet-width:200.000000%;--sheet-height:203.370787%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-competition.q2{--panel-aspect:724/552;--sheet-width:200.000000%;--sheet-height:196.739130%;--crop-x:0.000000%;--crop-y:-96.739130%}
+.music-word-panel.sheet-competition.q3{--panel-aspect:724/552;--sheet-width:200.000000%;--sheet-height:196.739130%;--crop-x:-100.000000%;--crop-y:-96.739130%}
+.music-word-panel.sheet-show.q0{--panel-aspect:768/524;--sheet-width:188.541667%;--sheet-height:207.251908%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-show.q1{--panel-aspect:680/524;--sheet-width:212.941176%;--sheet-height:207.251908%;--crop-x:-112.941176%;--crop-y:0.000000%}
+.music-word-panel.sheet-show.q2{--panel-aspect:768/562;--sheet-width:188.541667%;--sheet-height:193.238434%;--crop-x:0.000000%;--crop-y:-93.238434%}
+.music-word-panel.sheet-show.q3{--panel-aspect:680/562;--sheet-width:212.941176%;--sheet-height:193.238434%;--crop-x:-112.941176%;--crop-y:-93.238434%}
+.music-word-panel.sheet-ideas.q0{--panel-aspect:724/542;--sheet-width:200.000000%;--sheet-height:200.369004%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-ideas.q1{--panel-aspect:724/542;--sheet-width:200.000000%;--sheet-height:200.369004%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-ideas.q2{--panel-aspect:724/544;--sheet-width:200.000000%;--sheet-height:199.632353%;--crop-x:0.000000%;--crop-y:-99.632353%}
+.music-word-panel.sheet-ideas.q3{--panel-aspect:724/544;--sheet-width:200.000000%;--sheet-height:199.632353%;--crop-x:-100.000000%;--crop-y:-99.632353%}
+.music-word-panel.sheet-festival.q0{--panel-aspect:724/507;--sheet-width:200.000000%;--sheet-height:214.201183%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-festival.q1{--panel-aspect:724/507;--sheet-width:200.000000%;--sheet-height:214.201183%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-festival.q2{--panel-aspect:724/579;--sheet-width:200.000000%;--sheet-height:187.564767%;--crop-x:0.000000%;--crop-y:-87.564767%}
+.music-word-panel.sheet-festival.q3{--panel-aspect:724/579;--sheet-width:200.000000%;--sheet-height:187.564767%;--crop-x:-100.000000%;--crop-y:-87.564767%}
+.music-word-panel.sheet-experience.q0{--panel-aspect:724/521;--sheet-width:200.000000%;--sheet-height:208.445298%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-experience.q1{--panel-aspect:724/521;--sheet-width:200.000000%;--sheet-height:208.445298%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-experience.q2{--panel-aspect:724/565;--sheet-width:200.000000%;--sheet-height:192.212389%;--crop-x:0.000000%;--crop-y:-92.212389%}
+.music-word-panel.sheet-experience.q3{--panel-aspect:724/565;--sheet-width:200.000000%;--sheet-height:192.212389%;--crop-x:-100.000000%;--crop-y:-92.212389%}
+.music-word-panel.sheet-memories.q0{--panel-aspect:723/517;--sheet-width:200.276625%;--sheet-height:210.058027%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-memories.q1{--panel-aspect:725/517;--sheet-width:199.724138%;--sheet-height:210.058027%;--crop-x:-99.724138%;--crop-y:0.000000%}
+.music-word-panel.sheet-memories.q2{--panel-aspect:723/569;--sheet-width:200.276625%;--sheet-height:190.861160%;--crop-x:0.000000%;--crop-y:-90.861160%}
+.music-word-panel.sheet-memories.q3{--panel-aspect:725/569;--sheet-width:199.724138%;--sheet-height:190.861160%;--crop-x:-99.724138%;--crop-y:-90.861160%}
+.music-word-panel.sheet-culture.q0{--panel-aspect:724/504;--sheet-width:200.000000%;--sheet-height:215.476190%;--crop-x:0.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-culture.q1{--panel-aspect:724/504;--sheet-width:200.000000%;--sheet-height:215.476190%;--crop-x:-100.000000%;--crop-y:0.000000%}
+.music-word-panel.sheet-culture.q2{--panel-aspect:724/582;--sheet-width:200.000000%;--sheet-height:186.597938%;--crop-x:0.000000%;--crop-y:-86.597938%}
+.music-word-panel.sheet-culture.q3{--panel-aspect:724/582;--sheet-width:200.000000%;--sheet-height:186.597938%;--crop-x:-100.000000%;--crop-y:-86.597938%}
