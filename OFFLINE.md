@@ -19,7 +19,7 @@ hình; **Esc** trở lại. Trên trình duyệt không hỗ trợ toàn màn h�
 chế độ xem rộng và có nút thoát. Chức năng dùng được với các bài đã lưu Offline;
 mức phóng to được nhớ trên cùng trình duyệt và không thay đổi bản nháp hay tiến độ.
 
-Các gói lưu HTML, ảnh, game, audio và video nội bộ. Câu hỏi Listening được lưu,
+Các gói lưu HTML, ảnh, game, audio, video nội bộ và handout Word đính kèm. Câu hỏi Listening được lưu,
 nhưng YouTube, Wordwall, ChatGPT và các nguồn bên ngoài vẫn cần Internet.
 Không tải hoặc sao chép nội dung từ các dịch vụ đó. Bộ bài đã lưu không tự đồng
 bộ sang thiết bị khác; dữ liệu có thể mất khi xóa dữ liệu trình duyệt hoặc bị
