@@ -7,7 +7,7 @@ import hashlib,json,posixpath,re
 
 ROOT=Path(__file__).resolve().parents[1]
 GENERATED='offline-manifest.js'
-EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.m4a','.mp4','.webm','.ogg','.woff2','.webmanifest','.docx'}
+EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.m4a','.mp4','.webm','.ogg','.woff2','.webmanifest','.docx','.pptx'}
 
 def read(path):return (ROOT/path).read_bytes().decode('utf-8')
 def local(source,reference):
