@@ -6,7 +6,11 @@ Nội dung web được dựng lại theo đầy đủ 22 slide của PPT: mục
 
 Các bảng và hội thoại dài được tách để giữ chữ lớn trên máy chiếu. Có 51 slide web, bao gồm game What am I? cũ ở slide 3 và 6 slide từ vựng đã có hình minh hoạ. File game không sửa. Đáp án Task 1: 1B 2C 3A; Task 2: 1c 2a 3b.
 
-Giao diện riêng ở `unit03/speaking.css`; hình bìa mới là minh hoạ AI. Các hình từ vựng Unit 3 được dùng lại cho phần luyện nói. Thanh đầu bài có PPT gốc và handout Word của giáo viên; hai tệp giữ nguyên nội dung và được lưu trong gói Offline Unit 3.
+Giao diện riêng ở `unit03/speaking.css`. Ngày 02/11/2026, giáo viên gửi lại cùng PPT (SHA-256 và toàn bộ 22 slide trùng bản đã có), yêu cầu giữ nguyên nội dung và chữ, giữ game ở slide 3, đổi màu sáng hơn và thêm hình minh hoạ.
+
+Bản cập nhật dùng nền trắng, xanh trời, xanh bạc hà và vàng nhạt, chữ xanh đậm và sáu minh hoạ AI mới: giao thông công cộng, nhà xanh, công viên cộng đồng, hội thoại theo cặp, bảo vệ thông tin cá nhân và thuyết trình nhóm. Hình nằm trong `assets/images/u03-l4-bright-*.webp`; hình của sáu thẻ từ vựng giữ nguyên. Đối chiếu toàn bộ chữ trước/sau: 51 slide giữ nguyên từng câu chữ và thứ tự. Tệp game không thay đổi và vẫn ở slide 3.
+
+Thanh đầu bài có PPT gốc và handout Word của giáo viên; hai tệp giữ nguyên nội dung và được lưu trong gói Offline Unit 3. Theme mới áp dụng cho bài giảng web; nút PPT tải đúng bản gốc giáo viên gửi.
 
 ## Ánh xạ slide PPT → slide web
 
