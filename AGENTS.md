@@ -12,3 +12,12 @@ YouTube, Wordwall and ChatGPT require Internet; do not describe their embedded
 or linked content as available offline. Test Offline under the GitHub Pages
 subpath `/english-classroom/`, including query-string unit selection and media
 byte ranges, whenever the service worker or offline package logic changes.
+
+# Teacher source presentations
+
+The teacher requested that original PowerPoint files must not be downloadable
+from the website. Use uploaded presentations as source material for web lessons,
+but keep the original files outside this published repository. Do not add source
+PowerPoint download links or include presentations in Offline packages. This
+applies to both grades. Handouts explicitly requested by the teacher can remain
+downloadable. Do not rewrite public Git history as part of routine publication.

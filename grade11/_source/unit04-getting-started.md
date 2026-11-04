@@ -2,7 +2,7 @@
 
 Nguồn: **G11-U4-L1-Getting-started_Dong-bo-theme_UNO-moi-v3.pptx**, giáo viên tải lên ngày 04/11/2026; 83 slide, 16.250.061 byte.
 SHA-256: `8dab014c207456bd8d71ca7b0e8aa6fca9b2bc6d4cc235f15a2834439d69213e`.
-Tải nguyên bản ở `assets/presentations/u04-l1-getting-started-uno-v3.pptx`; giữ nguyên từng byte, kể cả trạng thái ẩn của slide.
+Theo yêu cầu ngày 04/11/2026, PPT nguồn được giữ ngoài repository phát hành; không có nút tải PPT hoặc tệp PPT gốc trên website/Offline.
 
 Bài web có **41 slide**. Dùng lại theme navy/coral/kem của Reading qua `unit04/reading.css`, bổ sung bố cục riêng trong `unit04/getting.css`. Bài Reading không thay đổi. Trang mở đầu/learning route chung của PPT được gộp vào phần giới thiệu Getting Started.
 
@@ -51,4 +51,4 @@ Hỗ trợ 2–4 đội, mặc định 4; trả lời sai chuyển đội. Câu 
 | 39–82, trừ slide 42 ẩn | 40; UNO 15 câu |
 | 83 | 41 |
 
-Tất cả ảnh, game, audio và PPT tải xuống nằm trong gói Offline Unit 4. Các tệp game tải lên trước đó không thay đổi.
+Ảnh, game và audio nằm trong gói Offline Unit 4. PPT nguồn không phát hành; các tệp game tải lên trước đó không thay đổi.

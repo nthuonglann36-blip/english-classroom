@@ -13,6 +13,39 @@ let savedMemo=null, saveJob=null, coreJob=null;
 function url(path){return new URL(path,ROOT).href;}
 function canonical(request){const u=new URL(typeof request==='string'?request:request.url);u.search='';u.hash='';if(u.pathname.endsWith('/'))u.pathname+='index.html';return u.href;}
 function failure(code){const e=new Error(code);e.code=code;return e;}
+function sourcePresentation(value){
+  try{return /\.(?:ppt|pptx|pptm|pps|ppsx|ppsm|pot|potx|potm)$/i.test(decodeURIComponent(new URL(value,ROOT).pathname));}
+  catch{return false;}
+}
+function removePresentationLinks(text){
+  return text.replace(/<a\b[^>]*\bhref\s*=\s*(["'])([^"']+)\1[^>]*>[\s\S]*?<\/a\s*>/gi,
+    (anchor,quote,href)=>sourcePresentation(href)?'':anchor);
+}
+async function removeCachedPresentations(){
+  for(const name of await caches.keys()){
+    if(!name.startsWith(PREFIX))continue;
+    const cache=await caches.open(name);
+    for(const request of await cache.keys()){
+      if(sourcePresentation(request.url)){await cache.delete(request);continue;}
+      const path=new URL(request.url).pathname.slice(new URL(ROOT).pathname.length);
+      if(!/\.html$/i.test(path))continue;
+      const response=await cache.match(request);if(!response)continue;
+      const text=await response.text(),clean=removePresentationLinks(text);
+      if(clean!==text){
+        const headers=new Headers(response.headers);headers.delete('Content-Length');headers.delete('Content-Encoding');
+        await cache.put(request,new Response(clean,{status:response.status,statusText:response.statusText,headers}));
+      }
+    }
+    if(!name.startsWith(PACK_PREFIX))continue;
+    const marker=await cache.match(MARKER);if(!marker)continue;
+    let meta;try{meta=await marker.json();}catch{continue;}
+    if(!Array.isArray(meta.files)||!meta.files.some(sourcePresentation))continue;
+    meta.files=meta.files.filter(path=>!sourcePresentation(path));
+    meta.bytes=meta.files.reduce((total,path)=>total+(MANIFEST.files[path]?.bytes||0),0);
+    await cache.put(MARKER,new Response(JSON.stringify(meta),{headers:{'Content-Type':'application/json'}}));
+  }
+  savedMemo=null;
+}
 async function parallel(items,fn,limit=4,onError){
   let index=0,firstError;
   await Promise.all(Array.from({length:Math.min(limit,items.length)},async()=>{
@@ -61,6 +94,7 @@ self.addEventListener('install',event=>event.waitUntil((async()=>{await ensureCo
 self.addEventListener('activate',event=>event.waitUntil((async()=>{
   const names=await caches.keys();
   await Promise.all(names.filter(n=>n.startsWith(PREFIX+'shell:')&&n!==SHELL).map(n=>caches.delete(n)));
+  await removeCachedPresentations();
   await self.clients.claim();
 })()));
 
@@ -162,6 +196,9 @@ async function network(request){
 }
 async function respond(event){
   const request=event.request;
+  if(sourcePresentation(request.url))return new Response('Original PowerPoint files are not provided on this website.',{
+    status:404,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'}
+  });
   if(request.headers.has('Range')){
     const stored=await cachedResponse(request);
     if(stored?.status===200)return rangeResponse(request,stored);

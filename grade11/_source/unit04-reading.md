@@ -2,7 +2,7 @@
 
 Nguồn: **G11-U4-L3-Reading_Dong-bo-theme.pptx**, 73 slide, 30.022.078 byte.
 SHA-256: `9d2271ad7c7305266015a66a159c95bc7d58c70ec47bd4e6de8f6db3ba545135`.
-Tệp tải ở `assets/presentations/u04-l3-reading-dong-bo-theme.pptx` giữ nguyên từng byte của bản giáo viên gửi.
+Theo yêu cầu ngày 04/11/2026, PPT nguồn được giữ ngoài repository phát hành; website và Offline không có tệp hoặc nút tải PPT gốc.
 
 Bài web có **55 slide**. Các hình minh hoạ và bảng màu navy `#073765`, coral `#E54A3B`, nền kem `#FFF8EA` lấy từ PPT. Giao diện riêng ở `unit04/reading.css`, không đổi các bài khác.
 
@@ -32,7 +32,7 @@ Lưu nguyên từng byte ở `assets/games/u04-l3-reading-asean-flags.html`, nh�
 - View news hiển thị đủ ba bản tin, tạm dừng đồng hồ khi mở và tiếp tục khi quay lại. Văn bản khớp với các đoạn trong bài web.
 - SVG cờ và âm thanh tạo bằng Web Audio được đóng gói trong file, không gọi nguồn bên ngoài.
 
-`unit04/flags-embed.js` chỉ điều chỉnh kích thước khung nhúng trên màn hình hẹp để giữ đủ tiêu đề và các nút; không sửa mã hoặc nội dung của game giáo viên gửi. Game Mystery Box ở slide 53 giữ nguyên. PPT gửi lại có cùng SHA-256 với bản đã xuất bản, nên tệp tải xuống không đổi.
+`unit04/flags-embed.js` chỉ điều chỉnh kích thước khung nhúng trên màn hình hẹp để giữ đủ tiêu đề và các nút; không sửa mã hoặc nội dung của game giáo viên gửi. Game Mystery Box ở slide 53 giữ nguyên. PPT gửi lại có cùng SHA-256 với nguồn đã dùng để dựng bài web.
 
 ## Mystery Box
 
@@ -64,4 +64,4 @@ Lưu nguyên từng byte ở `assets/games/u04-l3-reading-asean-flags.html`, nh�
 | 39–72 | 53; game Mystery Box 15 câu |
 | 73 | 54–55 |
 
-Ảnh, hai game và PPT tải xuống được lưu trong gói Offline Unit 4. Các tệp game giáo viên đã tải lên trước đó không thay đổi.
+Ảnh và hai game được lưu trong gói Offline Unit 4. PPT nguồn không phát hành; các tệp game giáo viên đã tải lên trước đó không thay đổi.

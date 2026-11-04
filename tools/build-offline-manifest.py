@@ -7,7 +7,11 @@ import hashlib,json,posixpath,re
 
 ROOT=Path(__file__).resolve().parents[1]
 GENERATED='offline-manifest.js'
-EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.m4a','.mp4','.webm','.ogg','.woff2','.webmanifest','.docx','.pptx'}
+EXTENSIONS={'.html','.css','.js','.webp','.png','.jpg','.jpeg','.gif','.svg','.mp3','.m4a','.mp4','.webm','.ogg','.woff2','.webmanifest','.docx'}
+SOURCE_PRESENTATIONS={'.ppt','.pptx','.pptm','.pps','.ppsx','.ppsm','.pot','.potx','.potm'}
+originals=sorted(str(p.relative_to(ROOT)) for p in ROOT.rglob('*') if '.git' not in p.relative_to(ROOT).parts and p.is_file() and p.suffix.lower() in SOURCE_PRESENTATIONS)
+if originals:
+    raise SystemExit('Original PowerPoint files must stay outside the published repository: '+', '.join(originals))
 
 def read(path):return (ROOT/path).read_bytes().decode('utf-8')
 def local(source,reference):

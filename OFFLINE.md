@@ -19,7 +19,7 @@ hình; **Esc** trở lại. Trên trình duyệt không hỗ trợ toàn màn h�
 chế độ xem rộng và có nút thoát. Chức năng dùng được với các bài đã lưu Offline;
 mức phóng to được nhớ trên cùng trình duyệt và không thay đổi bản nháp hay tiến độ.
 
-Các gói lưu HTML, ảnh, game, audio, video nội bộ, handout Word và PowerPoint đính kèm. Câu hỏi Listening được lưu,
+Các gói lưu HTML, ảnh, game, audio, video nội bộ và handout Word được giáo viên cho phép tải. Không phát hành hoặc lưu PPT gốc trong gói Offline. Câu hỏi Listening được lưu,
 nhưng YouTube, Wordwall, ChatGPT và các nguồn bên ngoài vẫn cần Internet.
 Không tải hoặc sao chép nội dung từ các dịch vụ đó. Bộ bài đã lưu không tự đồng
 bộ sang thiết bị khác; dữ liệu có thể mất khi xóa dữ liệu trình duyệt hoặc bị
@@ -48,5 +48,10 @@ lỗi mạng, hủy hoặc hết dung lượng sẽ giữ bộ cũ và hủy b�
 riêng, phiên bản và dấu hoàn tất. Việc cập nhật giao diện không xóa các bộ đã lưu.
 Các tệp tải được đối chiếu SHA-256; media hỗ trợ HTTP Range khi dùng bản lưu.
 Nội dung gần đây được lưu tối đa 120 tệp / khoảng 20 MB, không tự lưu media lớn.
+
+Khi trình duyệt có Internet và cập nhật service worker, các PPT gốc trong cache
+của website được gỡ; liên kết tải PPT trong HTML đã lưu cũng được loại bỏ. Các
+bộ bài cũ vẫn mở được và tiếp tục được báo có bản cập nhật. Việc này không xóa
+file người dùng đã tải ra ngoài trình duyệt hoặc các bản trong lịch sử GitHub.
 
 `.nojekyll` giữ cách phục vụ tệp tĩnh, bao gồm các tài nguyên bắt đầu bằng `_`.

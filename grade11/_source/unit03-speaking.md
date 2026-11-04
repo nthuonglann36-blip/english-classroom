@@ -10,7 +10,7 @@ Giao diện riêng ở `unit03/speaking.css`. Ngày 02/11/2026, giáo viên gử
 
 Bản cập nhật dùng nền trắng, xanh trời, xanh bạc hà và vàng nhạt, chữ xanh đậm và sáu minh hoạ AI mới: giao thông công cộng, nhà xanh, công viên cộng đồng, hội thoại theo cặp, bảo vệ thông tin cá nhân và thuyết trình nhóm. Hình nằm trong `assets/images/u03-l4-bright-*.webp`; hình của sáu thẻ từ vựng giữ nguyên. Đối chiếu toàn bộ chữ trước/sau: 51 slide giữ nguyên từng câu chữ và thứ tự. Tệp game không thay đổi và vẫn ở slide 3.
 
-Thanh đầu bài có PPT gốc và handout Word của giáo viên; hai tệp giữ nguyên nội dung và được lưu trong gói Offline Unit 3. Theme mới áp dụng cho bài giảng web; nút PPT tải đúng bản gốc giáo viên gửi.
+Theo yêu cầu ngày 04/11/2026, không phát hành PPT gốc hoặc nút tải PPT trên website và Offline. Tệp nguồn được giữ ngoài repository phát hành; phần web tiếp tục giữ đủ nội dung và hình. Handout Word được giáo viên yêu cầu tải vẫn có trên thanh đầu bài và trong gói Offline Unit 3.
 
 ## Ánh xạ slide PPT → slide web
 
