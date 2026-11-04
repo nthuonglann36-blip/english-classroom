@@ -1,0 +1,50 @@
+/* Getting Started uses the same teacher theme as Reading, with lesson-specific layouts. */
+body.tpl-asean.getting-refresh .deck > .slide.getting-cover{
+  background:#FFF8EA url(../assets/images/u04-l1-refresh-cover.webp) center/cover no-repeat;
+  border-top:0;
+}
+body.tpl-asean.getting-refresh .deck > .getting-cover.is-current{
+  display:grid; align-content:start; justify-items:center; text-align:center;
+  padding:38vh 24% 100px;
+}
+.getting-refresh .getting-cover h1{
+  color:var(--navy); font-size:clamp(36px,4.4vw,72px); line-height:1.05;
+  margin:0 0 .35em; letter-spacing:-.025em;
+}
+.getting-refresh .getting-cover > .kicker{ letter-spacing:.08em; }
+.getting-refresh .getting-cover p{ margin:0; }
+.getting-refresh .flag-grid{
+  display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px;
+}
+.getting-refresh .flag-card{
+  display:grid; justify-items:center; align-content:start; gap:9px;
+  min-width:0; padding:14px 10px; margin:0; border:1px solid var(--rule);
+  border-radius:16px; background:#FFFFFF;
+}
+.getting-refresh .flag-card img{ display:block; width:130px; height:74px; object-fit:contain; border-radius:0; }
+.getting-refresh .flag-card .reveal{ margin:0; min-height:34px; padding:0 20px; }
+.getting-refresh .flag-card .answer.is-open{ font-size:1em; padding:.04em .14em; }
+.getting-refresh .match-grid .q{ margin:0; }
+.getting-refresh .match-grid .q > p{ display:inline; }
+.getting-refresh .match-grid .reveal{ padding:0 10px; min-height:34px; font-size:.8em; }
+.getting-refresh .getting-dialogue{ display:grid; gap:18px; }
+.getting-refresh .getting-dialogue p{
+  margin:0; padding:16px 22px; border:1px solid var(--rule);
+  border-radius:16px; background:#FFFFFF; line-height:1.27;
+}
+.getting-refresh .getting-dialogue p:nth-child(even){ background:#FFF4D8; }
+.getting-refresh .getting-dialogue b{ color:var(--navy); }
+.getting-refresh audio{ display:block; width:100%; height:42px; margin:0 0 16px; }
+.getting-refresh [data-lesson-section^="tf-evidence"] > .reading-card{ margin-top:18px; }
+.getting-refresh [data-lesson-section="grammar-noticing"] .reading-card{ padding:14px 18px; }
+@media(max-width:900px){
+  body.tpl-asean.getting-refresh .deck > .getting-cover.is-current{
+    padding:40vh 8% 110px; background-position:center;
+  }
+  .getting-refresh .getting-cover{ text-shadow:0 1px 4px #FFF8EA; }
+  .getting-refresh .getting-cover > .kicker{ max-width:none; }
+  .getting-refresh .flag-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .getting-refresh .flag-card img{ width:110px; height:70px; }
+  .getting-refresh .getting-dialogue{ gap:12px; }
+  .getting-refresh .getting-dialogue p{ padding:14px 16px; }
+}
