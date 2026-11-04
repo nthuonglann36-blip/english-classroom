@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Mystery Box · Unit 4 Reading</title>
+<style>
+:root{color-scheme:light;--navy:#073765;--red:#C5372C;--paper:#FFF8EA;--ink:#17324A;--line:#D8E2EB}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Aptos,"Segoe UI",Arial,sans-serif}
+button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}button:focus-visible,select:focus-visible{outline:4px solid #DB9718;outline-offset:3px}
+button{min-height:44px;padding:10px 18px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--navy);font-weight:700}
+button.primary{background:var(--navy);color:white;border-color:var(--navy)}button.red{background:var(--red);color:white;border-color:var(--red)}
+[hidden]{display:none!important}h1,h2,p{margin-top:0}h1,h2{line-height:1.08}h2{font-size:clamp(26px,4vh,42px)}
+.home{min-height:100dvh;padding:clamp(20px,4vw,60px);display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:40px;border-left:10px solid var(--navy)}
+.eyebrow{font-size:clamp(15px,2.4vh,24px);font-weight:750;letter-spacing:.1em;color:var(--red)}
+.home h1{font-size:clamp(42px,8.5vh,88px);color:var(--navy);margin:20px 0}.home h1 span{color:var(--red)}
+.home p{font-size:clamp(24px,4vh,38px)}.home .subtitle{font-size:clamp(20px,3.2vh,30px)}
+.home figure{margin:0}.home img{display:block;width:100%;max-height:50vh;object-fit:contain}
+.start-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:clamp(20px,3.2vh,28px)}
+select{padding:10px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--navy)}
+.game{min-height:100dvh;padding:16px 24px 24px}.game-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.game-top h1{font-size:clamp(26px,4vh,42px);margin:0;color:var(--navy)}.spacer{flex:1}.small{font-size:18px}
+.scores{display:grid;grid-template-columns:repeat(var(--teams,4),minmax(0,1fr));gap:12px;margin-bottom:14px}
+.team{display:flex;justify-content:space-between;align-items:center;gap:10px;background:white;border:2px solid var(--line);font-size:clamp(18px,2.8vh,26px)}
+.team.active{border-color:var(--red);box-shadow:inset 0 -4px var(--red)}.team strong{font-size:clamp(26px,4vh,38px)}
+.status{min-height:28px;margin:0 0 12px;font-size:clamp(18px,2.8vh,26px);font-weight:650}
+.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.tile{height:clamp(92px,18vh,155px);border:0;color:white;background:linear-gradient(145deg,#073765,#1684C5);box-shadow:0 5px 0 #0737652B;font-size:clamp(32px,6vh,58px);border-radius:16px}
+.tile:disabled{background:#E6EDF2;color:#526B7D;box-shadow:none;opacity:1}.tile:disabled::after{content:' ✓';font-size:.45em}
+dialog{width:min(1000px,calc(100vw - 32px));max-height:calc(100dvh - 28px);padding:24px 30px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--ink);overflow:auto}
+dialog::backdrop{background:#102B48AD}.dialog-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}.dialog-top .eyebrow{margin:0;flex:1}.close{min-width:44px;padding:4px;font-size:30px}
+.question{font-size:clamp(34px,4.8vh,40px);font-weight:750;line-height:1.18;margin:0 0 18px}.instruction{font-size:clamp(28px,4.4vh,34px);color:var(--red);margin-bottom:12px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}.options button{text-align:left;font-size:clamp(34px,4.8vh,38px);line-height:1.2;padding:16px 20px}.options button.wrong{background:#FBE6E2;border-color:var(--red)}
+.cues{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 20px}.cues span{padding:12px 20px;background:#FFF0C7;border:1px solid #E8D29A;border-radius:12px;font-size:clamp(27px,4.5vh,36px);font-weight:700}
+.answer{background:#EAF6EC;border-left:5px solid #267142;padding:16px 20px;margin:16px 0;font-size:clamp(34px,4.8vh,38px);line-height:1.25}.answer b{font-size:.7em;display:block;margin-bottom:8px}.answer p{margin:0}.evidence{margin-top:10px;font-size:.85em}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.actions button{font-size:clamp(21px,3.4vh,28px)}
+.feedback{font-size:clamp(22px,3.6vh,30px);font-weight:700;margin:12px 0 0;color:var(--red)}
+.box-stage{text-align:center}.box-stage img{display:block;width:180px;height:180px;object-fit:contain;margin:0 auto 14px}.box-stage p{font-size:clamp(24px,4vh,34px);line-height:1.25}.box-stage .actions{justify-content:center}
+.points{font-size:clamp(52px,10vh,86px);font-weight:800;color:var(--navy);margin:16px 0}
+.rules{font-size:clamp(21px,3.5vh,28px);line-height:1.3;padding-left:1.1em}.rules li{margin-bottom:12px}.rules-note{font-size:22px}
+@media(max-width:650px){.home{display:flex;flex-direction:column;padding:24px;gap:20px;border-left-width:6px;align-items:stretch}.home h1{font-size:42px}.home figure{order:-1}.home img{height:170px}.home p{font-size:24px}.home .eyebrow{font-size:14px}.start-row{font-size:20px}.game{padding:14px 12px}.game-top{gap:8px}.game-top h1{font-size:25px}.game-top button{padding:8px 10px}.scores{gap:6px}.team{flex-direction:column;gap:4px;font-size:15px;padding:8px 4px}.team strong{font-size:26px}.board{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tile{height:80px;font-size:34px}.status{font-size:18px}dialog{padding:18px 16px}.question{font-size:26px}.options{grid-template-columns:1fr}.options button{font-size:24px;padding:13px 16px}.cues span{font-size:24px}.answer{font-size:24px}.actions button{font-size:20px}.rules{font-size:21px}.box-stage img{width:120px;height:120px}.box-stage p{font-size:24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head><body>
+<!-- Adapted from teacher PPT slides 39–72. Original uploaded games are unchanged. -->
+<main>
+<section id="home" class="home"><div><div class="eyebrow">UNIT 4 • ASEAN &amp; VIET NAM</div><h1>THE MYSTERY<br><span>BOX</span></h1><p>Read • Think • Win!</p><p class="subtitle">15 NEWS CHALLENGES · READING GAME</p><div class="start-row"><label for="team-count">Teams</label><select id="team-count"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select><button id="start" class="primary">Start game</button><button data-rules>Game rules</button></div></div><figure><img src="../images/u04-l3-refresh-box-red.webp" alt="A red mystery box with question marks" width="700" height="700"></figure></section>
+<section id="game" class="game" hidden><div class="game-top"><h1>The Mystery Box</h1><span id="progress" class="small">0 / 15 completed</span><span class="spacer"></span><button data-rules>Rules</button><button id="restart">Restart</button></div><div id="scores" class="scores" aria-label="Team scores"></div><p id="status" class="status" aria-live="polite"></p><div id="board" class="board" aria-label="Choose a news challenge"></div></section>
+</main>
+<dialog id="challenge" aria-labelledby="challenge-title"><div class="dialog-top"><p id="challenge-title" class="eyebrow"></p><button id="close-challenge" class="close" aria-label="Back to gameboard">×</button></div><div id="challenge-body"></div></dialog>
+<dialog id="rules" aria-labelledby="rules-title"><div class="dialog-top"><h2 id="rules-title">Game rules</h2><button id="close-rules" class="close" aria-label="Close rules">×</button></div><ul class="rules"><li>Divide the class into 2 - 4 teams. Teams take turns choosing a number from 1 to 15 and answering a question.</li><li>If your team answers correctly, you earn a chance to open a Mystery Box.</li><li>If wrong, the turn goes to the next player/team.</li><li>When you get the correct answer, you’ll get a random Mystery Box with secret points. You can choose to keep it or give it to another player/team.</li><li>After all 15 questions, the player/team with the most points wins!</li></ul><p class="rules-note">Choose who gets the box before revealing the points. Boxes can add or subtract points. For open questions, the teacher accepts any suitable answer.</p></dialog>
+<script>
+const QUESTIONS = [
+  {
+    "source": 42,
+    "question": "News 1: The 121 students came from ______ schools.",
+    "options": [
+      "A. two",
+      "B. ten",
+      "C. six",
+      "D. twelve"
+    ],
+    "correct": 2,
+    "answer": "C. six",
+    "evidence": "121 Korean and Asian students from six schools"
+  },
+  {
+    "source": 44,
+    "question": "Make a sentence about the news with the two cues.",
+    "cues": [
+      "Korean students",
+      "traditional songs"
+    ],
+    "answer": "Korean students sang traditional songs.",
+    "suggested": true
+  },
+  {
+    "source": 46,
+    "question": "News 1: Who organises the ASEAN School Tour Programme?",
+    "answer": "the ASEAN-Korea Centre (AKC)"
+  },
+  {
+    "source": 48,
+    "question": "Make a sentence about the news with the two cues.",
+    "cues": [
+      "the AKC",
+      "cultural exchanges"
+    ],
+    "answer": "The AKC organises cultural exchanges between Korean and ASEAN youths.",
+    "suggested": true
+  },
+  {
+    "source": 50,
+    "question": "“relations” means…",
+    "options": [
+      "A. the way people or groups behave towards each other",
+      "B. family members",
+      "C. news reports",
+      "D. travel plans"
+    ],
+    "correct": 0,
+    "answer": "A. the way people or groups behave towards each other"
+  },
+  {
+    "source": 52,
+    "instruction": "Complete with ONE word from the text.",
+    "question": "News 2: SSEAYP is organised by the government of ______.",
+    "answer": "Japan"
+  },
+  {
+    "source": 54,
+    "question": "Make a sentence about the news with the two cues.",
+    "cues": [
+      "SSEAYP youths",
+      "50 days"
+    ],
+    "answer": "SSEAYP youths will spend 50 days together on board the ship.",
+    "suggested": true
+  },
+  {
+    "source": 56,
+    "question": "News 2: How many youths will join the ship?",
+    "answer": "over 300"
+  },
+  {
+    "source": 58,
+    "question": "Make a sentence about the news with the two cues.",
+    "cues": [
+      "problem-solving",
+      "leadership"
+    ],
+    "answer": "Participants will develop problem-solving and leadership skills.",
+    "suggested": true
+  },
+  {
+    "source": 60,
+    "instruction": "Complete with ONE word from the text.",
+    "question": "News 2: Participants will discuss youth issues and current ______ issues.",
+    "answer": "social"
+  },
+  {
+    "source": 62,
+    "question": "Make a sentence about the news with the two cues.",
+    "cues": [
+      "women in sport",
+      "gender equality"
+    ],
+    "answer": "The talk show on women in sport promoted gender equality.",
+    "suggested": true
+  },
+  {
+    "source": 64,
+    "instruction": "Complete with ONE word from the text.",
+    "question": "News 3: The talk show was ______ on the ASEAN webpage.",
+    "answer": "live-streamed"
+  },
+  {
+    "source": 66,
+    "question": "News 3: How many female sports representatives were there?",
+    "options": [
+      "A. 5",
+      "B. 50",
+      "C. 121",
+      "D. 10"
+    ],
+    "correct": 3,
+    "answer": "D. 10"
+  },
+  {
+    "source": 68,
+    "question": "News 3: Whose rights did the talk show also discuss?",
+    "answer": "sports people with disabilities"
+  },
+  {
+    "source": 70,
+    "question": "Which programme would you like to join? Why?",
+    "cues": [
+      "ASEAN youths",
+      "eye-opening"
+    ],
+    "answer": "I’d like to join SSEAYP because ASEAN youths can enjoy eye-opening cultural exchanges.",
+    "suggested": true
+  }
+];
+const POINTS = [-100,-50,50,100,150,200];
+const $=id=>document.getElementById(id);
+const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let state={teams:4,scores:[0,0,0,0],active:0,done:[],question:null,phase:'idle',wrong:[],winner:null};
+function announce(message){$('status').textContent=message}
+function render(){
+ $('scores').style.setProperty('--teams',state.teams);
+ $('scores').innerHTML=state.scores.map((score,i)=>`<button class="team ${i===state.active?'active':''}" data-team="${i}" aria-pressed="${i===state.active}"><span>Team ${i+1}</span><strong>${score}</strong></button>`).join('');
+ $('board').innerHTML=QUESTIONS.map((_,i)=>`<button class="tile" data-question="${i}" ${state.done.includes(i)?'disabled':''} aria-label="Question ${i+1}${state.done.includes(i)?', completed':''}">${i+1}</button>`).join('');
+ $('progress').textContent=`${state.done.length} / 15 completed`;
+ if(state.done.length===QUESTIONS.length){
+  const best=Math.max(...state.scores),winners=state.scores.flatMap((n,i)=>n===best?['Team '+(i+1)]:[]);
+  announce('MISSION COMPLETE! Great teamwork! '+winners.join(' & ')+' '+(winners.length===1?'wins':'tie')+' with '+best+' points. Keep reading. Keep exploring ASEAN.');
+ }
+}
+function startGame(){state={teams:Number($('team-count').value),scores:Array(Number($('team-count').value)).fill(0),active:0,done:[],question:null,phase:'idle',wrong:[],winner:null};$('home').hidden=true;$('game').hidden=false;render();announce('Team 1: choose a number from 1 to 15.');$('board').querySelector('button').focus()}
+function questionMarkup(q){
+ const options=q.options?`<div class="options">${q.options.map((o,i)=>`<button data-option="${i}" class="${state.wrong.includes(i)?'wrong':''}" ${state.wrong.includes(i)?'disabled':''}>${escapeHTML(o)}</button>`).join('')}</div>`:'';
+ const cues=q.cues?`<div class="cues">${q.cues.map(c=>`<span>${escapeHTML(c)}</span>`).join('')}</div>`:'';
+ return `${q.instruction?`<p class="instruction">${escapeHTML(q.instruction)}</p>`:''}<p class="question">${escapeHTML(q.question)}</p>${cues}${options}<div class="actions"><button id="show-answer">${q.suggested?'Show suggested answer':'Show answer'}</button>${q.options?'':`<button id="accept" class="primary">Correct → Mystery Box</button><button id="next-team">Next team</button>`}</div><div id="model-answer" class="answer" hidden><b>${q.suggested?'SUGGESTED ANSWER':'ANSWER'}</b><p>${escapeHTML(q.answer)}</p>${q.evidence?`<div class="evidence">${escapeHTML(q.evidence)}</div>`:''}</div><p id="feedback" class="feedback" role="status"></p>`;
+}
+function openQuestion(i){if(state.done.includes(i)||state.phase!=='idle')return;state.question=i;state.phase='question';state.wrong=[];$('challenge-title').textContent=`Question ${i+1} / 15 • Team ${state.active+1}`;$('challenge-body').innerHTML=questionMarkup(QUESTIONS[i]);$('close-challenge').hidden=false;$('challenge').showModal()}
+function showAnswer(){if(state.phase!=='question')return;$('model-answer').hidden=false;const q=QUESTIONS[state.question];if(q.options&&!$('accept')){$('challenge-body').insertAdjacentHTML('beforeend','<div class="actions"><button id="accept" class="primary">Correct → Mystery Box</button><button id="next-team">Next team</button></div>')}}
+function nextTeam(){if(state.phase!=='question')return;state.active=(state.active+1)%state.teams;render();$('challenge-title').textContent=`Question ${state.question+1} / 15 • Team ${state.active+1}`;$('feedback').textContent=`Team ${state.active+1}: try this question.`;announce(`Team ${state.active+1} is answering Question ${state.question+1}.`)}
+function chooseOption(i){if(state.phase!=='question')return;const q=QUESTIONS[state.question];if(i===q.correct)winChance();else{if(!state.wrong.includes(i))state.wrong.push(i);const b=$('challenge-body').querySelector(`[data-option="${i}"]`);b.disabled=true;b.classList.add('wrong');nextTeam()}}
+function winChance(){if(state.phase!=='question')return;state.phase='box';state.winner=state.active;$('close-challenge').hidden=true;$('challenge-title').textContent=`Correct! • Team ${state.winner+1}`;$('challenge-body').innerHTML=`<div class="box-stage"><h2>KEEP OR GIVE THE BOX</h2><img src="../images/u04-l3-refresh-box-blue.webp" alt="A sealed blue mystery box" width="180" height="180"><p>Choose who gets the box before you see the points.</p><div class="actions"><button id="keep" class="primary">Keep the box</button><button id="give" class="red">Give the box</button></div></div>`}
+function showRecipients(){if(state.phase!=='box')return;$('challenge-body').innerHTML=`<div class="box-stage"><h2>Give the box to…</h2><div class="actions">${state.scores.map((_,i)=>i!==state.winner?`<button data-recipient="${i}" class="primary">Team ${i+1}</button>`:'').join('')}</div><div class="actions"><button id="back-to-box">Back</button></div></div>`}
+function award(recipient){if(state.phase!=='box')return;state.phase='awarded';const points=POINTS[Math.floor(Math.random()*POINTS.length)];state.scores[recipient]+=points;state.done.push(state.question);state.active=(state.winner+1)%state.teams;render();$('challenge-title').textContent=`Team ${recipient+1} gets the box`;$('challenge-body').innerHTML=`<div class="box-stage"><h2>Mystery points</h2><div class="points">${points>0?'+':''}${points}</div><p>Team ${recipient+1}: ${state.scores[recipient]} points</p><div class="actions"><button id="continue" class="primary">Back to gameboard</button></div></div>`;if(state.done.length<QUESTIONS.length)announce(`Team ${recipient+1} receives ${points>0?'+':''}${points} points.`)}
+function closeQuestion(){if(state.phase==='box')return;state.phase='idle';state.question=null;$('challenge').close();if(state.done.length<QUESTIONS.length)announce(`Team ${state.active+1}: choose a number from 1 to 15.`)}
+$('start').addEventListener('click',startGame);
+$('restart').addEventListener('click',()=>{if(confirm('Restart the game and clear all team scores?'))startGame()});
+document.querySelectorAll('[data-rules]').forEach(b=>b.addEventListener('click',()=>$('rules').showModal()));$('close-rules').addEventListener('click',()=>$('rules').close());
+$('board').addEventListener('click',e=>{const b=e.target.closest('[data-question]');if(b)openQuestion(Number(b.dataset.question))});
+$('scores').addEventListener('click',e=>{const b=e.target.closest('[data-team]');if(b&&state.phase==='idle'&&state.done.length<QUESTIONS.length){state.active=Number(b.dataset.team);render();announce(`Team ${state.active+1}: choose a number.`)}});
+$('close-challenge').addEventListener('click',closeQuestion);
+$('challenge').addEventListener('cancel',e=>{e.preventDefault();if(state.phase==='question'||state.phase==='awarded')closeQuestion()});
+$('challenge-body').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-option'))chooseOption(Number(b.dataset.option));else if(b.hasAttribute('data-recipient'))award(Number(b.dataset.recipient));else if(b.id==='show-answer')showAnswer();else if(b.id==='next-team')nextTeam();else if(b.id==='accept')winChance();else if(b.id==='keep')award(state.winner);else if(b.id==='give')showRecipients();else if(b.id==='back-to-box'){state.phase='question';winChance()}else if(b.id==='continue')closeQuestion()});
+</script></body></html>
