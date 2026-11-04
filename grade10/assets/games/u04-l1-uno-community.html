@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNO Community Challenge · Grade 10 Unit 4 Getting Started</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{color-scheme:light;--navy:#073765;--paper:#FFF8EA;--red:#C5372C;--ink:#17324A;--line:#DBE3EC}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Aptos,"Segoe UI",Arial,sans-serif}button,select{font:inherit}button{cursor:pointer;min-height:44px;padding:10px 18px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--navy);font-weight:750}button:disabled{cursor:default;opacity:.45}button:focus-visible,select:focus-visible,a:focus-visible{outline:4px solid #D89B1A;outline-offset:3px}button.primary{background:var(--navy);color:white;border-color:var(--navy)}button.red{background:var(--red);color:white;border-color:var(--red)}[hidden]{display:none!important}h1,h2,p{margin-top:0}h1,h2{line-height:1.08}h2{font-size:clamp(28px,4.5vh,42px)}
+.home{min-height:100dvh;padding:clamp(22px,4vw,56px);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:32px;border-left:9px solid var(--red)}.eyebrow{font-size:clamp(16px,2.6vh,24px);font-weight:750;letter-spacing:.1em;color:var(--red)}.home h1{font-size:clamp(50px,9.5vh,90px);margin:14px 0;color:var(--navy)}.home h1 span{color:var(--red)}.home p{font-size:clamp(26px,4.5vh,38px);line-height:1.22}.home .subtitle{font-size:clamp(21px,3.5vh,30px)}.start-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:clamp(22px,3.5vh,30px)}select{padding:10px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--navy)}
+.fan{height:360px;position:relative;display:flex;align-items:center;justify-content:center}.fan .uno-card{position:absolute;transform:rotate(var(--angle));width:150px;height:230px;margin-left:var(--shift);box-shadow:0 8px 18px #17324A35}.uno-card{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;width:150px;height:220px;flex-shrink:0;overflow:hidden;background:var(--card,#D93434);color:var(--card,#D93434);border:7px solid white;outline:1px solid #D3DBE4;border-radius:20px;font-size:80px;font-weight:850;box-shadow:0 5px 14px #17324A18}.uno-card::before{content:'';position:absolute;z-index:-1;width:85%;height:80%;background:white;border-radius:50%;transform:rotate(28deg)}.uno-card .corner{position:absolute;top:7px;left:9px;color:white;font-size:22px;line-height:1}.uno-card.action{--card:#142B43;font-size:58px}.uno-card.back{--card:#142B43;color:#EFBF26;font-size:44px;font-style:italic}.uno-card.back::before{background:#C5372C}.uno-card.back .corner{display:none}
+.game{min-height:100dvh;padding:16px 22px 22px}.game-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.game-top h1{font-size:clamp(26px,4.5vh,42px);margin:0;color:var(--navy)}.spacer{flex:1}.progress{font-size:18px}.scores{display:grid;grid-template-columns:repeat(var(--teams,4),minmax(0,1fr));gap:12px;margin-bottom:12px}.team{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;border:2px solid var(--line);font-size:clamp(18px,3vh,26px)}.team strong{font-size:clamp(26px,4.6vh,40px)}.team.active{border-color:var(--red);box-shadow:inset 0 -4px var(--red)}.status{min-height:30px;margin:0 0 12px;font-size:clamp(19px,3.3vh,28px);font-weight:700}.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.tile{height:clamp(88px,17vh,145px);font-size:clamp(32px,6.2vh,58px);border:0;background:linear-gradient(145deg,#D84235,#B32825);color:white;border-radius:16px;box-shadow:0 4px 0 #A52E241F}.tile:nth-child(4n+2){background:linear-gradient(145deg,#0D6CAD,#073765)}.tile:nth-child(4n+3){background:linear-gradient(145deg,#568A36,#32662C)}.tile:nth-child(4n){background:linear-gradient(145deg,#DBA927,#B87C13)}.tile:disabled{opacity:1;background:#E5EBEF;color:#526B7D;box-shadow:none}.tile:disabled::after{content:' ✓';font-size:.45em}
+dialog{width:min(1080px,calc(100vw - 28px));max-height:calc(100dvh - 24px);padding:22px 28px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--ink);overflow:auto}dialog::backdrop{background:#17324AAF}.dialog-top{display:flex;align-items:center;gap:16px;margin-bottom:14px}.dialog-top .eyebrow{flex:1;margin:0}.close{font-size:30px;min-width:44px;padding:4px}.instruction{font-size:clamp(27px,4.5vh,34px);color:var(--red);margin-bottom:10px}.question{font-size:clamp(34px,4.8vh,40px);line-height:1.17;font-weight:750;margin-bottom:16px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}.options button{font-size:clamp(32px,4.8vh,38px);line-height:1.2;text-align:left;padding:14px 18px}.options button.wrong{background:#F8E2DE;border-color:var(--red)}.options button.correct{background:#E8F3E7;border-color:#2E7638}.answer{padding:16px 20px;border-left:5px solid #2E7638;background:#EAF5E9;font-size:clamp(30px,4.8vh,36px);line-height:1.24;margin:16px 0}.answer b{display:block;font-size:.68em;margin-bottom:8px}.answer p{margin:0}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}.actions button{font-size:clamp(22px,3.7vh,30px)}.feedback{font-size:clamp(22px,3.7vh,30px);font-weight:700;color:var(--red);margin:12px 0 0}
+.card-round{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:28px}.card-round .uno-card{margin:0 auto}.card-copy h2{margin:0 0 14px}.card-copy p{font-size:clamp(27px,4.6vh,36px);line-height:1.22;margin-bottom:14px}.score-change{padding:14px 18px;background:white;border:1px solid var(--line);border-radius:12px;font-size:clamp(27px,4.8vh,38px);font-weight:750}.card-history{font-size:21px;color:#526B7D;line-height:1.3;margin-top:18px}.target-choices{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.target-choices button{font-size:clamp(24px,4vh,32px)}.rules{font-size:clamp(23px,3.8vh,30px);line-height:1.28;padding-left:1.1em}.rules li{margin-bottom:12px}.rules-note{font-size:22px}.winner{font-size:clamp(30px,5vh,44px);font-weight:800;color:var(--navy)}
+@media(max-width:650px){.home{display:flex;flex-direction:column;padding:24px;gap:18px;align-items:stretch;border-left-width:6px}.home h1{font-size:48px}.home p{font-size:24px}.home .subtitle{font-size:21px}.fan{height:170px;order:-1}.fan .uno-card{width:92px;height:140px;font-size:48px;margin-left:calc(var(--shift) * .65)}.fan .uno-card .corner{font-size:16px}.game{padding:14px 12px}.game-top{gap:8px}.game-top h1{font-size:25px}.game-top button{padding:8px 10px}.scores{gap:6px}.team{flex-direction:column;padding:8px 4px;gap:3px;font-size:15px}.team strong{font-size:26px}.board{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.tile{height:78px;font-size:34px}.status{font-size:18px}.progress{font-size:15px}dialog{padding:18px 16px}.question{font-size:26px}.instruction{font-size:23px}.options{grid-template-columns:1fr}.options button{font-size:24px;padding:12px 16px}.answer{font-size:24px}.actions button{font-size:20px}.feedback{font-size:22px}.card-round{grid-template-columns:1fr;gap:16px}.card-round .uno-card{width:105px;height:154px;font-size:58px}.card-copy h2{font-size:28px}.card-copy p{font-size:24px}.score-change{font-size:27px}.rules{font-size:21px}.target-choices button{font-size:22px}}
+
+.ppt-source{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;color:var(--navy);background:white;text-decoration:none;font-weight:750;font-size:16px}.source-line{margin:18px 0 0!important}.team:disabled{opacity:.65}.skip-label{display:block;font-size:14px;color:var(--red);font-weight:750}.game-top .ppt-source{padding:10px 12px}@media(max-width:650px){.game-top .ppt-source{padding:8px 10px}.skip-label{font-size:12px}}
+</style></head><body>
+<!-- Teacher-uploaded G10-U4-1c-Getting-started-Game-UNO.pptx: 44 slides, all visible. Questions are from slides 14, 16, …, 42; the SKIP rule on slide 4 is active. -->
+<main><section id="home" class="home"><div><div class="eyebrow">UNIT 4 • GETTING STARTED</div><h1>UNO<br><span>Community Challenge</span></h1><p>Keep the points or draw again?</p><p class="subtitle">15 questions • Community service • Adjectives • Past tenses</p><div class="start-row"><label for="team-count">Teams</label><select id="team-count"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select><button id="start" class="primary">Start game</button><button data-rules>How to play</button></div><p class="source-line"><a class="ppt-source" href="../presentations/u04-l1-getting-started-game-uno.pptx" download="G10-U4-1c-Getting-started-Game-UNO.pptx" lang="vi" title="Tải bản PowerPoint gốc, giữ nguyên hiệu ứng">PPT gốc ↓</a></p></div><div class="fan" aria-hidden="true"><div class="uno-card" style="--card:#0A6AAE;--angle:-22deg;--shift:-130px"><span class="corner">2</span>2</div><div class="uno-card" style="--card:#54862D;--angle:-8deg;--shift:-45px"><span class="corner">7</span>7</div><div class="uno-card" style="--card:#C92F33;--angle:10deg;--shift:45px"><span class="corner">9</span>9</div><div class="uno-card action" style="--angle:23deg;--shift:130px"><span class="corner">↔</span>↔</div></div></section>
+<section id="game" class="game" hidden><div class="game-top"><h1>UNO · Community</h1><span id="progress" class="progress">0 / 15 completed</span><span class="spacer"></span><button data-rules>Rules</button><button id="fullscreen" type="button" aria-pressed="false">Full screen</button><a class="ppt-source" href="../presentations/u04-l1-getting-started-game-uno.pptx" download="G10-U4-1c-Getting-started-Game-UNO.pptx" lang="vi" title="Tải bản PowerPoint gốc, giữ nguyên hiệu ứng">PPT gốc ↓</a><button id="restart">Restart</button></div><div id="scores" class="scores" aria-label="Team scores"></div><p id="status" class="status" aria-live="polite"></p><div id="board" class="board" aria-label="Choose a question"></div></section></main>
+<dialog id="challenge" aria-labelledby="challenge-title"><div class="dialog-top"><p id="challenge-title" class="eyebrow"></p><button id="close-challenge" class="close" aria-label="Back to question board">×</button></div><div id="challenge-body"></div></dialog>
+<dialog id="rules" aria-labelledby="rules-title"><div class="dialog-top"><h2 id="rules-title">How to play</h2><button id="close-rules" class="close" aria-label="Close rules">×</button></div><ol class="rules"><li>Choose a question. Answer it aloud. The teacher checks your answer before you draw a card.</li><li>The number on the cards is the point you can get. Number cards add 1–9 points to your team score.</li><li>KEEP THE POINTS OR DRAW AGAIN FOR MORE POINTS. Choose Keep to end your round, or Draw again to take another card.</li><li><b>SWAP:</b> you must swap your score with one opponent. Choose which team. Then keep the new score or draw again.</li><li><b>SKIP:</b> choose one opponent to miss their next turn. Then keep the score or draw again.</li><li><b>−4:</b> you lose 4 points. Then keep the score or draw again. Scores can go below zero.</li><li><b>RESET:</b> you lose all your points. Your score becomes 0 and the round ends.</li></ol><p class="rules-note">Points change as each card is revealed. Keeping ends the round without adding the same points again. The highest score after 15 questions wins.</p></dialog>
+<script>
+const QUESTIONS = [
+  {
+    "source": 14,
+    "question": "Task 2 · What was Tam doing when Kim went to her house?",
+    "answer": "SHE WAS WORKING AS A VOLUNTEER AT THE LOCAL CENTRE."
+  },
+  {
+    "source": 16,
+    "question": "Task 2 · According to Tam, what can community service do for young people?",
+    "answer": "B. BOOST THEIR CONFIDENCE",
+    "options": [
+      "A. help them earn a lot of money",
+      "B. boost their confidence",
+      "C. give them more free time"
+    ],
+    "correct": 1
+  },
+  {
+    "source": 18,
+    "question": "Task 3 · Find the adjective ending in -less in the conversation.",
+    "answer": "ENDLESS"
+  },
+  {
+    "source": 20,
+    "question": "Task 2 · What are some regular activities at the centre for community development?",
+    "answer": "CLEANING UP THE PARK AND VOLUNTEERING AT AN ORPHANAGE."
+  },
+  {
+    "source": 22,
+    "question": "Task 2 · How often does the local environmental group clean up the park?",
+    "answer": "A. ONCE A WEEK",
+    "options": [
+      "A. once a week",
+      "B. once a month",
+      "C. once a year"
+    ],
+    "correct": 0
+  },
+  {
+    "source": 24,
+    "question": "Task 3 · The suffix -less means…",
+    "answer": "C. WITHOUT OR LACKING",
+    "options": [
+      "A. full of",
+      "B. causing the feeling",
+      "C. without or lacking"
+    ],
+    "correct": 2
+  },
+  {
+    "source": 26,
+    "question": "Task 2 · How can Kim apply for volunteer work at the centre?",
+    "answer": "SHE NEEDS TO FILL IN THE FORM AND SEND IT IN."
+  },
+  {
+    "source": 28,
+    "question": "Task 3 · Find the adjective ending in -ed in the conversation.",
+    "answer": "EXCITED"
+  },
+  {
+    "source": 30,
+    "question": "Task 3 · Which adjective describes how people FEEL?",
+    "answer": "A. EXCITED",
+    "options": [
+      "A. excited",
+      "B. interesting",
+      "C. useful"
+    ],
+    "correct": 0
+  },
+  {
+    "source": 32,
+    "question": "Task 2 · How did Tam find out about the volunteer work?",
+    "answer": "C. SHE SAW AN ADVERTISEMENT AT THE CENTRE.",
+    "options": [
+      "A. A friend told her about it.",
+      "B. She read about it at school.",
+      "C. She saw an advertisement at the centre."
+    ],
+    "correct": 2
+  },
+  {
+    "source": 34,
+    "question": "Task 3 · Find the adjective ending in -ing in the conversation.",
+    "answer": "INTERESTING"
+  },
+  {
+    "source": 36,
+    "question": "Task 4 · Oh, when you came, I ______ as a volunteer at our local centre for community development.",
+    "answer": "WAS WORKING"
+  },
+  {
+    "source": 38,
+    "question": "Task 2 · When did Tam see the advertisement for volunteers?",
+    "answer": "A. LAST SUMMER",
+    "options": [
+      "A. last summer",
+      "B. last month",
+      "C. last week"
+    ],
+    "correct": 0
+  },
+  {
+    "source": 40,
+    "question": "Task 3 · Find TWO adjectives ending in -ful in the conversation.",
+    "answer": "USEFUL, SUCCESSFUL"
+  },
+  {
+    "source": 42,
+    "question": "Task 4 · Last summer, while I was visiting the centre, I ______ an advertisement for volunteers.",
+    "answer": "SAW"
+  }
+];
+const COLORS=['#0B6CAB','#C82F34','#588C33','#C99A1E'];
+const $=id=>document.getElementById(id);
+const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let state={teams:4,scores:[0,0,0,0],skip:[0,0,0,0],active:0,done:[],phase:'idle',question:null,owner:null,deck:[],draws:[],selected:null,roundStart:0};
+function makeDeck(){const cards=[];for(const color of COLORS)for(let value=1;value<=9;value++)cards.push({type:'number',value,color});for(let i=0;i<3;i++){cards.push({type:'swap'});cards.push({type:'skip'});cards.push({type:'minus4'});cards.push({type:'reset'})}for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}return cards}
+function announce(text){$('status').textContent=text}
+function render(){
+ $('scores').style.setProperty('--teams',state.teams);$('scores').innerHTML=state.scores.map((s,i)=>`<button class="team ${i===state.active?'active':''}" data-team="${i}" aria-pressed="${i===state.active}" ${state.skip[i]?'disabled':''}><span>Team ${i+1}${state.skip[i]?`<small class="skip-label">Skip ${state.skip[i]} turn${state.skip[i]===1?'':'s'}</small>`:''}</span><strong>${s}</strong></button>`).join('');
+ $('board').innerHTML=QUESTIONS.map((q,i)=>`<button class="tile" data-question="${i}" ${state.done.includes(i)?'disabled':''} aria-label="Question ${i+1}${state.done.includes(i)?', completed':''}">${i+1}</button>`).join('');$('progress').textContent=`${state.done.length} / 15 completed`;
+ if(state.done.length===QUESTIONS.length){const best=Math.max(...state.scores);const names=state.scores.flatMap((s,i)=>s===best?['Team '+(i+1)]:[]);announce('THE END! '+names.join(' & ')+' '+(names.length===1?'wins':'tie')+' with '+best+' points.')}
+}
+function startGame(){const n=Number($('team-count').value);state={teams:n,scores:Array(n).fill(0),skip:Array(n).fill(0),active:0,done:[],phase:'idle',question:null,owner:null,deck:makeDeck(),draws:[],selected:null,roundStart:0};$('home').hidden=true;$('game').hidden=false;render();announce('Team 1: choose a question.');$('board').querySelector('button').focus()}
+function questionHTML(q){return `${q.instruction?`<p class="instruction">${esc(q.instruction)}</p>`:''}<p class="question">${esc(q.question)}</p>${q.options?`<div class="options">${q.options.map((o,i)=>`<button data-option="${i}">${esc(o)}</button>`).join('')}</div>`:''}<div class="actions"><button id="show-answer">Show answer</button><button id="accept" class="primary" ${q.options?'hidden':''}>Accept answer → Cards</button><button id="next-team">Next team</button></div><div id="model-answer" class="answer" hidden><b>ANSWER</b><p>${esc(q.answer)}</p></div><p id="feedback" class="feedback" role="status"></p>`}
+function openQuestion(i){if(state.phase!=='idle'||state.done.includes(i))return;state.question=i;state.selected=null;state.phase='question';$('challenge-title').textContent=`Question ${i+1} / 15 • Team ${state.active+1}`;$('challenge-body').innerHTML=questionHTML(QUESTIONS[i]);$('close-challenge').hidden=false;$('challenge').showModal()}
+function showAnswer(){if(state.phase!=='question')return;$('model-answer').hidden=false;$('accept').hidden=false}
+function advanceTeam(){let next=(state.active+1)%state.teams;const skipped=[];for(let i=0;i<state.teams&&state.skip[next]>0;i++){state.skip[next]--;skipped.push('Team '+(next+1));next=(next+1)%state.teams}state.active=next;return skipped.length?skipped.join(' & ')+' skipped. ':''}
+function nextTeam(){if(state.phase!=='question')return;const skipped=advanceTeam();state.selected=null;render();$('challenge-title').textContent=`Question ${state.question+1} / 15 • Team ${state.active+1}`;$('challenge-body').innerHTML=questionHTML(QUESTIONS[state.question]);$('feedback').textContent=skipped+`Team ${state.active+1}: try this question.`;announce(`Team ${state.active+1} is answering Question ${state.question+1}.`)}
+function chooseOption(i){if(state.phase!=='question')return;const q=QUESTIONS[state.question];if(i!==q.correct){nextTeam();$('feedback').textContent=`Not yet. Team ${state.active+1}: try again.`;return}state.selected=i;showAnswer();for(const b of $('challenge-body').querySelectorAll('[data-option]')){b.disabled=true;if(Number(b.dataset.option)===i)b.classList.add('correct')}$('feedback').textContent=q.explain?'Correct. Say why, then ask the teacher to accept your answer.':'Correct. Ask the teacher to accept your answer.'}
+function cardHTML(card){if(!card)return '<div class="uno-card back" aria-label="Face-down card">UNO</div>';if(card.type==='number')return `<div class="uno-card" style="--card:${card.color}"><span class="corner">${card.value}</span>${card.value}</div>`;const symbol={swap:'↔',skip:'⏭',minus4:'−4',reset:'0'}[card.type];return `<div class="uno-card action"><span class="corner">${symbol}</span>${symbol}</div>`}
+function historyHTML(){return state.draws.length?`<div class="card-history">This round: ${state.draws.map(c=>c.type==='number'?'+'+c.value:({swap:'SWAP',skip:'SKIP',minus4:'−4',reset:'RESET'}[c.type])).join(' · ')}</div>`:''}
+function acceptAnswer(){if(state.phase!=='question')return;state.phase='ready';state.owner=state.active;state.roundStart=state.scores[state.owner];state.draws=[];$('close-challenge').hidden=true;$('challenge-title').textContent=`Card round • Team ${state.owner+1}`;$('challenge-body').innerHTML=`<div class="card-round">${cardHTML(null)}<div class="card-copy"><h2>I WILL SHOW YOU A CARD</h2><p>Draw your first card.</p><div class="score-change">Team ${state.owner+1}: ${state.scores[state.owner]} points</div><div class="actions"><button id="draw" class="primary">Draw a card</button></div></div></div>`}
+function drawCard(){if(!['ready','choice'].includes(state.phase))return;state.phase='drawing';if(!state.deck.length)state.deck=makeDeck();const card=state.deck.pop();state.draws.push(card);const owner=state.owner;const before=state.scores[owner];
+ if(card.type==='number')state.scores[owner]+=card.value;
+ if(card.type==='minus4')state.scores[owner]-=4;
+ if(card.type==='reset')state.scores[owner]=0;
+ render();
+ if(card.type==='skip'){state.phase='skip-target';$('challenge-body').innerHTML=`<div class="card-round">${cardHTML(card)}<div class="card-copy"><h2>SKIP AN OPPONENT’S NEXT TURN</h2><p>Choose one opponent to miss their next turn.</p><div class="target-choices">${state.scores.map((s,i)=>i!==owner?`<button data-skip="${i}" class="primary">Team ${i+1}</button>`:'').join('')}</div></div></div>${historyHTML()}`;return}
+ if(card.type==='swap'){state.phase='target';$('challenge-body').innerHTML=`<div class="card-round">${cardHTML(card)}<div class="card-copy"><h2>SWAP YOUR SCORE</h2><p>You must swap your score with one opponent.</p><div class="score-change">Team ${owner+1}: ${state.scores[owner]} points</div><div class="target-choices">${state.scores.map((s,i)=>i!==owner?`<button data-target="${i}" class="primary">Team ${i+1} · ${s} points</button>`:'').join('')}</div></div></div>${historyHTML()}`;return}
+ const description=card.type==='number'?`You get ${card.value} points.`:card.type==='minus4'?'You lose 4 points.':'You lose all your points. This round is over.';
+ state.phase=card.type==='reset'?'round-end':'choice';showDecision(card,description,before);
+}
+function showDecision(card,description,before){$('challenge-body').innerHTML=`<div class="card-round">${cardHTML(card)}<div class="card-copy"><h2>${state.phase==='round-end'?'0 POINTS':'KEEP THE POINTS OR DRAW AGAIN'}</h2><p>${esc(description)}</p><div class="score-change">Team ${state.owner+1}: ${before} → ${state.scores[state.owner]} points</div><div class="actions">${state.phase==='round-end'?'<button id="finish" class="primary">Next round</button>':`<button id="keep" class="primary">Keep ${state.scores[state.owner]} points</button><button id="draw" class="red">Draw again</button>`}</div></div></div>${historyHTML()}`}
+function skipTeam(target){if(state.phase!=='skip-target'||target===state.owner||target<0||target>=state.teams)return;state.skip[target]++;state.phase='choice';render();showDecision({type:'skip'},`Team ${target+1} will miss their next turn.`,state.scores[state.owner])}
+function swapWith(target){if(state.phase!=='target'||target===state.owner||target<0||target>=state.teams)return;const owner=state.owner;const before=state.scores[owner];[state.scores[owner],state.scores[target]]=[state.scores[target],state.scores[owner]];state.phase='choice';render();showDecision({type:'swap'},`Scores swapped with Team ${target+1}.`,before)}
+function finishRound(){if(!['choice','round-end'].includes(state.phase))return;const owner=state.owner;state.phase='idle';state.done.push(state.question);state.question=null;state.owner=null;state.active=owner;const skipped=advanceTeam();$('challenge').close();render();if(state.done.length<QUESTIONS.length)announce(skipped+`Team ${state.active+1}: choose a question.`)}
+function closeQuestion(){if(state.phase!=='question')return;state.phase='idle';state.question=null;$('challenge').close()}
+$('start').addEventListener('click',startGame);$('restart').addEventListener('click',()=>{if(confirm('Restart UNO and clear all team scores?'))startGame()});
+document.querySelectorAll('[data-rules]').forEach(b=>b.addEventListener('click',()=>$('rules').showModal()));$('close-rules').addEventListener('click',()=>$('rules').close());
+$('board').addEventListener('click',e=>{const b=e.target.closest('[data-question]');if(b)openQuestion(Number(b.dataset.question))});
+$('scores').addEventListener('click',e=>{const b=e.target.closest('[data-team]');if(b&&state.phase==='idle'&&state.done.length<QUESTIONS.length&&!state.skip[Number(b.dataset.team)]){state.active=Number(b.dataset.team);render();announce(`Team ${state.active+1}: choose a question.`)}});
+$('close-challenge').addEventListener('click',closeQuestion);$('challenge').addEventListener('cancel',e=>{e.preventDefault();if(state.phase==='question')closeQuestion()});
+$('challenge-body').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-option'))chooseOption(Number(b.dataset.option));else if(b.hasAttribute('data-skip'))skipTeam(Number(b.dataset.skip));else if(b.hasAttribute('data-target'))swapWith(Number(b.dataset.target));else if(b.id==='show-answer')showAnswer();else if(b.id==='accept')acceptAnswer();else if(b.id==='next-team')nextTeam();else if(b.id==='draw')drawCard();else if(b.id==='keep'||b.id==='finish')finishRound()});
+
+async function toggleFullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(_){announce('Use the lesson’s full-screen control to enlarge the game.')}}
+$('fullscreen').addEventListener('click',toggleFullscreen);
+document.addEventListener('fullscreenchange',()=>{$('fullscreen').setAttribute('aria-pressed',String(!!document.fullscreenElement));$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen'});
+// Native file downloads can bypass the offline cache. Fetch a cached copy first.
+document.querySelectorAll('.ppt-source').forEach(link=>link.addEventListener('click',async event=>{
+ if(navigator.onLine)return;
+ event.preventDefault();if(link.getAttribute('aria-busy')==='true')return;
+ const label=link.textContent;link.setAttribute('aria-busy','true');link.textContent='Đang chuẩn bị PPT…';
+ try{
+  const response=await fetch(link.href);if(!response.ok)throw new Error('PPT is not cached');
+  const objectURL=URL.createObjectURL(await response.blob());const download=document.createElement('a');
+  download.href=objectURL;download.download=link.download;document.body.append(download);download.click();download.remove();
+  setTimeout(()=>URL.revokeObjectURL(objectURL),60000);
+ }catch(_){
+  let message=link.parentElement.querySelector('.download-message');
+  if(!message){message=document.createElement('span');message.className='download-message';message.setAttribute('role','status');message.style.cssText='display:block;font-size:18px;margin-top:10px';link.insertAdjacentElement('afterend',message)}
+  message.textContent='PPT chưa được lưu trên thiết bị này. Hãy kết nối mạng và cập nhật bản lưu Unit 4.';
+ }finally{link.removeAttribute('aria-busy');link.textContent=label}
+}));
+document.addEventListener('keydown',event=>{
+ if(event.altKey||event.ctrlKey||event.metaKey||event.target.matches('input,select,textarea,[contenteditable]'))return;
+ if(event.key==='Escape'&&document.fullscreenElement){event.preventDefault();document.exitFullscreen();return}
+ if(event.key.toLowerCase()==='f'&&!document.querySelector('dialog[open]')){event.preventDefault();toggleFullscreen();return}
+ if(window.parent===window||document.querySelector('dialog[open]')||!['ArrowLeft','ArrowRight','Escape'].includes(event.key))return;
+ try{parent.document.dispatchEvent(new KeyboardEvent('keydown',{key:event.key,bubbles:true}));event.preventDefault()}catch(_){}
+});
+</script></body></html>

@@ -33,7 +33,7 @@ Chuyển tiết nào sang HTML thì ghi đúng file nguồn ở đây (cách là
 
 | Tiết | Nguồn | Ghi chú |
 |---|---|---|
-| **L1 Getting started** | `G10-U4-L1-Getting-started.pptx` (unit 4 get + Volunteer Charades từ mẫu We Bare Bears) | Track 28. Hội thoại nguyên văn sách tr. 42. Tranh khởi động + tranh từ vựng của PPT. 15 từ → 6. Trò **Volunteer Charades** (21 hoạt động, chỉ lấy chữ) |
+| **L1 Getting started** | `G10-U4-L1-Getting-started.pptx`; game cập nhật theo `G10-U4-1c-Getting-started-Game-UNO.pptx` cô gửi 04/11/2026 | Track 28 và hội thoại nguyên văn tr. 42 giữ nguyên; giữ 15 mục từ đã minh hoạ. Trò **UNO Community Challenge** gồm 15 câu Tasks 2–4. Có PPT gốc tải xuống; xem [nguồn và luật UNO](unit04-getting-started-uno.md). |
 | **L2 Language** | `G10-U4-L2-Language.pptx` (u4 lang + Powerpuff Puzzle – Word Heroes) | Track 29/30. Trò **Word Heroes** (10 câu đồng/trái nghĩa, kiểu thang câu hỏi, có 50:50; không dùng tên/nhân vật Powerpuff) |
 | **L3 Reading** | `G10-U4-L3-Reading.pptx` (u4 read + Predict & Check + A Magical Journey) | Bài đọc nguyên văn tr. 45. ⚠ **Task 4**: giáo án in "4. T · 5. F (deliver free meals)" — lời giải thích thuộc câu 4; theo bài đọc và PPT: **1F 2T 3F 4F 5T** (đang dùng). Trò **Reading Quest** (câu hỏi của Magical Journey + 1 câu). Ảnh Task 1 cắt SGK tr. 45 |
 | **L4 Speaking** | `G10-U4-L4-Speaking.pptx` (u4 spk + 5 từ + Volunteering to the rescue! của cô) | Task 2 giáo án để trống → đáp án ghi "e.g.". Trò **Volunteering to the Rescue!** (10 tình huống) |
