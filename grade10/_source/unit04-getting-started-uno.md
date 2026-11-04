@@ -4,7 +4,9 @@ Nguồn: **G10-U4-1c-Getting-started-Game-UNO.pptx**, cô tải lên ngày 04/11
 44 slide, 14,437,195 byte; tất cả các slide đều đang hiển thị, không có slide ẩn.
 SHA-256: `b33d81fb923d8545819d691d4bdeaa23003ba010535097e3391e04197a697415`.
 
-PPT giữ nguyên từng byte tại `assets/presentations/u04-l1-getting-started-game-uno.pptx`. Nút **PPT gốc** ở trang game cho phép tải bản có các hiệu ứng PowerPoint ban đầu.
+Theo yêu cầu tiếp theo của cô ngày 04/11/2026, không đăng PPT gốc: đã gỡ cả hai nút tải, mã tải khi Offline và tệp PowerPoint khỏi bản web hiện tại. Nguồn đính kèm ban đầu được giữ ở ngoài repository; thông tin tên tệp và SHA-256 phía trên chỉ để đối chiếu nguồn. Không tự đăng lại tệp nguồn khi cập nhật game.
+
+Bản đã công khai trước đó vẫn tồn tại trong lịch sử GitHub và có thể đã được người xem lưu. Thay đổi này không viết lại lịch sử hay thu hồi các bản sao đã có.
 
 ## Phạm vi cập nhật
 
@@ -48,4 +50,4 @@ Giữ nguyên câu hỏi, phương án và đáp án từ PPT theo thứ tự:
 | 14 | 40 | Trả lời ngắn / điền từ |
 | 15 | 42 | Trả lời ngắn / điền từ |
 
-Game và PPT gốc nằm trong gói Offline lớp 10 Unit 4. Khi đã có bản lưu trước đó, dùng **Cập nhật bản lưu** lúc có mạng.
+Gói Offline lớp 10 Unit 4 lưu game HTML, không có PPT gốc. Bản lưu trước đó cần **Cập nhật bản lưu** lúc có mạng để thay gói cũ và bỏ tệp PowerPoint đã được lưu cùng gói.
