@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASEAN News | Asia Flags Reading Challenge</title>
+<style>
+:root{--ink:#103459;--blue:#144b85;--deep:#0e3766;--teal:#047f85;--gold:#ffd85f;--coral:#ef6656;--cream:#fffaf0;--paper:#ffffff;--muted:#587185;--ring:#ffc83a;--shadow:0 8px 26px rgba(16,61,94,.13)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;width:100%}
+body{font-family:Arial,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 98% 1%,#d5fbf0 0,transparent 33%),radial-gradient(circle at 0% 100%,#fff2bf 0,transparent 28%),#ecf5fb;overflow:hidden}
+button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.38;cursor:not-allowed;transform:none!important}button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.shell{height:100vh;height:100dvh;min-height:0;display:grid;grid-template-rows:64px 104px 42px minmax(0,1fr) 22px;gap:9px;padding:10px 16px 8px;max-width:1800px;margin:0 auto}
+.topbar{background:linear-gradient(115deg,#11447d,#087d8b);border-radius:19px;color:white;padding:7px 16px 7px 19px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.topbar::before{content:"";position:absolute;right:305px;top:-50px;border:25px solid #ffffff13;width:170px;height:170px;border-radius:50%;pointer-events:none}
+.brand{position:relative;min-width:0}.brand-kicker{font-size:11px;letter-spacing:.14em;font-weight:800;color:#ffefb5}.brand h1{margin:1px 0 0;letter-spacing:.02em;font-size:clamp(21px,2.4vw,33px);line-height:1.12;font-weight:900;white-space:nowrap}.header-actions{display:flex;flex-wrap:nowrap;gap:8px;position:relative}
+.action{border:1px solid #ffffff66;background:#ffffff21;color:white;font-weight:800;border-radius:11px;padding:10px 12px;white-space:nowrap;font-size:13px;min-height:39px;transition:.15s}.action:hover{background:#ffffff39}.action.sunny{background:var(--gold);color:#16354d;border-color:var(--gold)}.action.sunny:hover{background:#ffefaa}
+.score-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;min-height:0}
+.team-card{--team:#1675ae;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;align-items:center;padding:10px 12px;border-radius:17px;border:2px solid #cadde9;background:#fff;box-shadow:var(--shadow);position:relative;min-width:0;transition:.2s}
+.team-card.active{border:3px solid #f4bb1b;background:#fff9e5;box-shadow:0 0 0 3px #ffd34a55,var(--shadow)}.team-card.active::before{content:"";position:absolute;left:0;top:12px;bottom:12px;width:5px;background:var(--team);border-radius:0 5px 5px 0}
+.team-head{display:flex;align-items:center;gap:7px;margin-bottom:3px}.team-dot{width:10px;height:10px;background:var(--team);border-radius:50%;flex-shrink:0}.team-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:17px;font-weight:900}.turn-chip{font-size:10px;letter-spacing:.08em;background:#0f6a8b;color:white;border-radius:20px;padding:3px 6px;font-weight:900}.double-chip{font-size:10px;background:#e64f37;color:white;border-radius:20px;padding:3px 6px;font-weight:900;white-space:nowrap}
+.score{font-size:37px;font-weight:900;line-height:1;color:var(--team);font-variant-numeric:tabular-nums}.score small{font-size:12px;font-weight:800;color:var(--muted);margin-left:5px}
+.score-buttons{display:flex;flex-direction:column;gap:5px}.score-buttons button{min-width:45px;height:34px;border-radius:9px;font-size:15px;font-weight:900;border:1px solid #c8d6e3;background:#edf5fb;color:#075b87}.score-buttons button.minus{background:#fff2ed;color:#c24e40;border-color:#f6d9d0}.team-card.inactive{opacity:.47}
+.status{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border:1px solid #d7e6ed;border-radius:13px;background:#ffffffd9;font-size:16px;font-weight:800;min-width:0}
+.status-left{display:flex;align-items:center;gap:9px;min-width:0}.status .pulse{height:10px;width:10px;border-radius:50%;background:#17b79f;box-shadow:0 0 0 5px #17b79f20;flex-shrink:0}.status-strong{color:#075d79}.status-right{display:flex;align-items:center;gap:13px;flex-shrink:0}.progress-text{font-weight:900;color:#365e7c}.mini-button{border:none;background:#e4f1f6;color:#155173;border-radius:9px;padding:7px 11px;font-size:13px;font-weight:900;white-space:nowrap}
+.board{min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:11px}
+.tile{appearance:none;border:0;padding:0;background:transparent;position:relative;perspective:700px;min-width:0;min-height:0;border-radius:17px;isolation:isolate;transition:filter .2s}.tile-inner{position:relative;height:100%;width:100%;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}.tile.opened .tile-inner{transform:rotateY(180deg)}.tile-face{display:flex;align-items:center;justify-content:center;gap:7px;flex-direction:column;position:absolute;inset:0;border-radius:17px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.tile-front{background:linear-gradient(135deg,#fff,#f9fcff);border:2px solid #c0dbe7;box-shadow:0 5px 13px #17457519}.tile:not(.opened):hover .tile-front{border-color:#18a0ad;box-shadow:0 8px 19px #1189a42c;transform:translateY(-2px)}
+.tile-front::after{content:"";position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#2dadab,#ffca53,#ed6d55)}.tile-number{position:absolute;top:8px;left:11px;color:#4f738b;font-size:12px;font-weight:900;letter-spacing:.05em}.tile-name{font-size:clamp(15px,1.46vw,20px);font-weight:900;color:#113c63;line-height:1.08;text-align:center;white-space:nowrap}.flag-svg{width:91px;height:58px;display:block;border-radius:4px;border:1px solid #bed2db;box-shadow:0 3px 6px #0000001e;overflow:hidden;flex-shrink:0}
+.tile-back{background:linear-gradient(155deg,#dbe9ef,#cbdde6);border:2px dashed #afcad7;color:#496777;transform:rotateY(180deg)}.tile-back .stamp{width:55px;height:55px;border-radius:50%;border:3px solid #82a6b9;display:grid;place-items:center;font-size:25px;font-weight:900;transform:rotate(-12deg)}.tile-back .complete{font-size:12px;font-weight:900;letter-spacing:.11em}.tile.opened{cursor:default;filter:saturate(.65)}
+.footer{font-size:12px;font-weight:800;color:#54758b;display:flex;align-items:center;justify-content:space-between;white-space:nowrap;gap:10px}
+.overlay{position:fixed;inset:0;z-index:20;background:#062846bc;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:14px}.overlay.show{display:flex}.overlay.news-layer{z-index:30;background:#07263fda}
+.modal{width:min(1020px,96vw);max-height:min(94vh,740px);max-height:min(94dvh,740px);overflow-y:auto;overscroll-behavior:contain;background:#fff;border-radius:22px;border:3px solid #fff;box-shadow:0 22px 70px #001e38a3;padding:24px 28px;position:relative}.modal.large{width:min(1120px,96vw)}.modal.small{width:min(720px,94vw)}
+.modal-title{font-size:clamp(23px,2.4vw,32px);font-weight:900;color:#103a69;line-height:1.14;margin:2px 0 8px}.overline{font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#c15a36}.modal-header{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+.timer{display:flex;align-items:center;gap:6px;border:2px solid #c0dbe8;background:#e6f4f6;border-radius:15px;padding:5px 14px;color:#086f82;flex-shrink:0}.timer b{font-size:39px;line-height:1;font-variant-numeric:tabular-nums}.timer span{font-size:12px;line-height:1.2;font-weight:900}.timer.danger{color:#b62926;border-color:#f3afa8;background:#fff0eb}.timer.paused{color:#687785;background:#ecf0f3;border-color:#d2dce5}
+.prompt{color:#38556e;font-size:19px;line-height:1.25;font-weight:800;margin:10px 0;padding:11px 14px;border-radius:12px;background:#eaf5fb;border-left:5px solid #1e9aaf}.question-text{font-size:clamp(25px,2.5vw,34px);font-weight:900;line-height:1.22;color:#113b66;margin:14px 0 13px}.question-text .highlighted{background:#ffe080;border-radius:6px;padding:2px 8px;color:#1d3d50}.question-text small{font-weight:700;font-size:21px;color:#486579}
+.choices{display:grid;gap:8px;margin:11px 0}.choice{font-size:clamp(17px,1.7vw,23px);line-height:1.22;padding:10px 13px;background:#fff9e8;border:1px solid #ecdca4;border-radius:12px;font-weight:700;color:#213e5a}.choice b{color:#e06d37;padding-right:10px;font-weight:900}.reminder{display:inline-block;background:#fff1be;padding:8px 12px;border-radius:10px;font-size:15px;font-weight:900;color:#77570e;letter-spacing:.03em}
+.button-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;font-size:16px;min-height:46px;transition:.15s}.btn:hover{filter:brightness(.96);transform:translateY(-1px)}.btn.primary{background:#164d85;color:white}.btn.teal{background:#087f83;color:white}.btn.gold{background:#ffd662;color:#4e3900}.btn.light{background:#eaf2f8;color:#1b4a70}.btn.coral{background:#d85a4c;color:white}.btn.green{background:#198866;color:white}.btn.full{width:100%}
+.answer-panel{margin-top:14px;border-radius:15px;background:#ebf9f1;border:2px solid #a8dfbc;padding:16px}.answer-panel[hidden]{display:none}.answer-label{color:#156d52;font-size:13px;font-weight:900;letter-spacing:.12em}.answer-value{font-size:clamp(26px,2.5vw,33px);color:#086347;font-weight:900;margin:7px 0}.evidence{padding:12px 15px;background:#fff;border-left:4px solid #5eae91;border-radius:9px;color:#2c4b51;font-size:18px;line-height:1.38}.evidence strong{font-size:14px;display:block;color:#257a61;margin-bottom:5px}.evidence mark,.article mark{background:#ffdf58;padding:0 2px;border-radius:3px}
+.special-icon{width:98px;height:98px;border-radius:25px;background:linear-gradient(135deg,#ffd758,#fff0ac);color:#a25809;display:grid;place-items:center;margin:0 auto 14px;font-size:58px;box-shadow:0 10px 25px #f1bc3654}.special-icon.double{background:#e4e3ff;color:#5b56b3}.special-icon.lose{background:#ffe2d8;color:#c04e47}.special-title{text-align:center;color:#144777;font-size:42px;font-weight:900;margin:7px 0}.special-detail{font-size:22px;font-weight:750;text-align:center;color:#36536d;line-height:1.3}.special-points{text-align:center;color:#079479;font-size:54px;line-height:1.3;font-weight:900;margin:12px 0}.special-next{font-size:18px;font-weight:800;color:#527085;text-align:center;margin:9px 0}.centered{justify-content:center}.setup-label{font-weight:900;font-size:18px;color:#16416a;margin:16px 0 8px}.selector{display:flex;gap:9px}.selector button{flex:1;border-radius:12px;padding:13px;border:2px solid #cadde5;background:#edf5f9;color:#174d70;font-size:21px;font-weight:900}.selector button.selected{border-color:#0d8290;background:#daf9ef;color:#056f78}.name-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.name-field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:900;color:#355a74}.name-field input{border:2px solid #c9dce9;border-radius:10px;padding:12px;font-size:19px;font-weight:750;min-width:0;color:#113d64}
+.news-head{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:-24px;z-index:1;background:white;border-bottom:2px solid #dcebf1;padding:4px 0 12px;margin-bottom:12px}.news-content{max-height:70vh;max-height:70dvh;overflow:auto;padding-right:8px}.article{font-size:22px;line-height:1.47;color:#234b5c;margin:0 0 16px;background:#f0faf9;border:1px solid #cceae5;border-radius:13px;padding:16px 18px}.article:nth-child(2){background:#f4f8ff;border-color:#d7e3f1}.article:nth-child(3){background:#fff9f0;border-color:#fae5c5}.article-index{font-size:17px;letter-spacing:.1em;font-weight:900;color:#0e7e86;margin-bottom:6px}
+.rank-list{display:grid;gap:9px;margin:20px 0}.rank-row{display:grid;grid-template-columns:65px 1fr auto;gap:10px;align-items:center;background:#edf7fc;border:2px solid #dbebf2;border-radius:15px;padding:13px 19px}.rank-row.first{background:#fff4d2;border-color:#efcb5f}.rank-no{font-size:30px;font-weight:900;color:#0f5675}.rank-name{font-size:23px;font-weight:900;color:#1b476b}.rank-score{font-size:31px;font-weight:900;color:#0a7290;font-variant-numeric:tabular-nums}.rank-remark{font-size:18px;font-weight:750;color:#516e81}
+.toast{position:fixed;z-index:45;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#0c416b;color:#fff;border-radius:13px;box-shadow:0 13px 28px #163d6070;padding:12px 20px;font-size:17px;font-weight:900;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-height:740px) and (min-width:901px){.shell{grid-template-rows:58px 88px 35px minmax(0,1fr) 18px;gap:7px;padding:7px 14px 6px}.team-card{padding:6px 10px}.team-name{font-size:15px}.score{font-size:31px}.score-buttons button{height:29px}.status{font-size:14px}.tile-name{font-size:16px}.flag-svg{height:48px;width:75px}.board{gap:8px}.modal{padding:17px 22px}}
+@media(max-width:900px){body{overflow:auto}.shell{height:auto;min-height:100vh;display:flex;flex-direction:column}.topbar{flex-wrap:wrap;justify-content:center;padding:14px}.header-actions{flex-wrap:wrap;justify-content:center}.score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.board{grid-template-rows:none;grid-auto-rows:minmax(120px,auto)}.tile{min-height:125px}.footer{white-space:normal}.modal{padding:18px}.article{font-size:18px}}
+@media(max-width:500px){.board{grid-template-columns:repeat(2,minmax(0,1fr))}.flag-svg{width:78px;height:52px}.tile-name{font-size:15px}.team-name{font-size:14px}.score{font-size:27px}.name-inputs{grid-template-columns:1fr}.question-text{font-size:23px}.choice{font-size:17px}.modal-header{align-items:flex-start}.timer b{font-size:30px}.brand h1{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><div class="brand-kicker">ENGLISH 11 • UNIT 4 • ASEAN AND VIET NAM • READING</div><h1>ASIA FLAGS <span style="color:#ffda67">READING QUEST</span></h1></div>
+  <div class="header-actions">
+    <button type="button" class="action" id="newsButton">View news</button>
+    <button type="button" class="action" id="undoButton">↶ Undo</button>
+    <button type="button" class="action" id="soundButton">Sound: ON</button>
+    <button type="button" class="action sunny" id="newGameButton">New Game</button>
+  </div>
+</header>
+<section class="score-grid" id="scoreGrid" aria-label="Team scores"></section>
+<div class="status" aria-live="polite"><div class="status-left"><span class="pulse"></span><span id="statusText">Choose your teams to begin!</span></div><div class="status-right"><button class="mini-button" id="rulesButton">How to play</button><span class="progress-text" id="progress">0 / 16 opened</span></div></div>
+<main class="board" id="board" aria-label="Sixteen Asian flag game tiles"></main>
+<footer class="footer"><span>CHOOSE A FLAG • READ • ANSWER • EARN POINTS</span><span>12 reading questions + 4 surprises · 30 seconds per question</span></footer>
+</div>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Game dialog"><div class="modal" id="modalContent"></div></div>
+<div class="overlay news-layer" id="newsOverlay" role="dialog" aria-modal="true" aria-label="ASEAN news articles"><div class="modal large" id="newsContent"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+"use strict";
+// All textbook language below is transcribed from the supplied page images.
+const HEADLINES = [
+  "Don’t miss this opportunity to represent your country!",
+  "Travelling to ASEAN countries",
+  "Equality in sport for ASEAN women",
+  "Korean and ASEAN students",
+  "Volunteers needed to take part in cultural exchanges"
+];
+const DEFINITIONS = [
+  "shown over the Internet",
+  "to act officially for another person or organisation",
+  "the way in which people or groups of people behave towards each other",
+  "surprising because you learn something new"
+];
+const NEWS = [
+  "To raise awareness of ASEAN and promote cultural exchanges between the youths of Korea and ASEAN, the ASEAN-Korea Centre (AKC) regularly organises an ASEAN School Tour Programme. Last week, the AKC welcomed 121 Korean and Asian students from six schools. They learnt about ASEAN members, and discussed why ASEAN was important to Korea, and how to strengthen ASEAN-Korea relations. The students also took part in a variety of cultural activities such as singing traditional songs and making ASEAN posters.",
+  "The Ship for Southeast Asian and Japanese Youth Programme (SSEAYP) is looking for participants. Organised by the government of Japan and supported by the governments of Southeast Asia, this journey will last for 50 days and will bring together over 300 youths from ASEAN countries and Japan. Young people will have the opportunity to take part in exciting discussions on current social and youth issues, and eye-opening cultural exchanges. They will also receive training to help them develop problem-solving and leadership skills. The journey starts in Japan and participants travel to five ASEAN countries.",
+  "An ASEAN talk show on women in sport took place in December. Its goal was promoting gender equality in and through sport. It featured 10 female sports representatives from 10 ASEAN countries. The talk show also discussed the rights of sports people with disabilities. All participants agreed that women and girls should be given more opportunities to play sports and represent their countries at international events. The talk show was live-streamed on the ASEAN webpage."
+];
+const Q2 = "Read the news items and choose the most suitable headline for each one. There are TWO extra headlines.";
+const Q3 = "Read the news items again and match the highlighted words with their meanings.";
+const Q4 = "Read the news items again and answer each question below with no more than FOUR words and/or a number.";
+const QUESTIONS = [
+  {task:2,no:1,q:"1. ________",answer:"D. Korean and ASEAN students",choiceIndex:3,evidence:"To raise awareness of ASEAN and promote cultural exchanges between the youths of Korea and ASEAN, the ASEAN-Korea Centre (AKC) regularly organises an ASEAN School Tour Programme.",news:1},
+  {task:2,no:2,q:"2. ________",answer:"B. Travelling to ASEAN countries",choiceIndex:1,evidence:"The journey starts in Japan and participants travel to five ASEAN countries.",news:2},
+  {task:2,no:3,q:"3. ________",answer:"C. Equality in sport for ASEAN women",choiceIndex:2,evidence:"Its goal was promoting gender equality in and through sport.",news:3},
+  {task:3,no:1,q:"relations",answer:"c. the way in which people or groups of people behave towards each other",choiceIndex:2,evidence:"They learnt about ASEAN members, and discussed why ASEAN was important to Korea, and how to strengthen ASEAN-Korea relations.",news:1},
+  {task:3,no:2,q:"eye-opening",answer:"d. surprising because you learn something new",choiceIndex:3,evidence:"Young people will have the opportunity to take part in exciting discussions on current social and youth issues, and eye-opening cultural exchanges.",news:2},
+  {task:3,no:3,q:"represent",answer:"b. to act officially for another person or organisation",choiceIndex:1,evidence:"All participants agreed that women and girls should be given more opportunities to play sports and represent their countries at international events.",news:3},
+  {task:3,no:4,q:"live-streamed",answer:"a. shown over the Internet",choiceIndex:0,evidence:"The talk show was live-streamed on the ASEAN webpage.",news:3},
+  {task:4,no:1,q:"How many students visited the AKC last week?",answer:"121",evidence:"Last week, the AKC welcomed 121 Korean and Asian students from six schools.",news:1},
+  {task:4,no:2,q:"How long will SSEAYP participants stay together on board the ship?",answer:"50 days",evidence:"Organised by the government of Japan and supported by the governments of Southeast Asia, this journey will last for 50 days and will bring together over 300 youths from ASEAN countries and Japan.",news:2},
+  {task:4,no:3,q:"What will participants in SSEAYP discuss besides youth issues?",answer:"current social issues",evidence:"Young people will have the opportunity to take part in exciting discussions on current social and youth issues, and eye-opening cultural exchanges.",news:2},
+  {task:4,no:4,q:"When did the ASEAN talk show on women in sport happen?",answer:"in December",evidence:"An ASEAN talk show on women in sport took place in December.",news:3},
+  {task:4,no:5,q:"Where was the talk show shown live?",answer:"on the ASEAN webpage",evidence:"The talk show was live-streamed on the ASEAN webpage.",news:3}
+];
+const SPECIALS = ["lucky","lucky","double","lose"];
+const COUNTRIES = [
+  ["Brunei","BN"],["Cambodia","KH"],["Indonesia","ID"],["Laos","LA"],
+  ["Malaysia","MY"],["Myanmar","MM"],["the Philippines","PH"],["Singapore","SG"],
+  ["Thailand","TH"],["Timor-Leste","TL"],["Viet Nam","VN"],["Japan","JP"],
+  ["South Korea","KR"],["China","CN"],["India","IN"],["Mongolia","MN"]
+];
+const DEFAULT_NAMES=["Blue Dragons","Golden Tigers","Green Falcons","Red Phoenixes"];
+const TEAM_COLORS=["#1768b4","#bc7b0d","#087e75","#c74d55"];
+const $=id=>document.getElementById(id);
+const escapeHtml=value=>String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[ch]);
+const letter=i=>String.fromCharCode(97+i);
+function starPoints(cx,cy,r,inner=r*.43,n=5,angle=-90){let parts=[];for(let i=0;i<n*2;i++){let rad=(angle+i*180/n)*Math.PI/180,d=i%2?inner:r;parts.push((cx+Math.cos(rad)*d).toFixed(2)+","+(cy+Math.sin(rad)*d).toFixed(2));}return parts.join(" ");}
+function star(cx,cy,r,fill,inner=r*.43,n=5,angle=-90){return `<polygon points="${starPoints(cx,cy,r,inner,n,angle)}" fill="${fill}"/>`;}
+function rect(x,y,w,h,fill){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}"/>`;}
+function trigram(cx,cy,pattern,rotate){let bits="";for(let i=0;i<3;i++){let y=-15+i*12;if(pattern[i]===1){bits+=rect(-23,y,46,7,"#111");}else{bits+=rect(-23,y,20,7,"#111")+rect(3,y,20,7,"#111");}}return `<g transform="translate(${cx} ${cy}) rotate(${rotate})">${bits}</g>`;}
+function flagSvg(code,name){
+  let s="";
+  switch(code){
+    case "BN": // yellow field, white and black diagonal bands, red state crest
+      s=rect(0,0,180,120,"#f7e017")+`<polygon points="0,15 0,53 180,115 180,77" fill="#fff"/><polygon points="0,37 0,56 180,120 180,100" fill="#111"/>`+
+      `<g fill="none" stroke="#c51135" stroke-width="3" stroke-linecap="round"><path d="M72 51 Q90 34 108 51 M76 53 H104 M80 38 H100 M90 30 V60 M70 70 Q90 91 110 70 M72 75 Q90 94 108 75"/><circle cx="90" cy="58" r="16" stroke-width="2.6"/><path d="M75 57 L63 51 M105 57 L117 51 M84 48 H96"/></g><path d="M86 33 l4 -13 4 13 -4 -3z" fill="#c51135"/>`;
+      break;
+    case "KH":
+      s=rect(0,0,180,120,"#032ea1")+rect(0,30,180,60,"#e00025")+`<g fill="#fff"><path d="M47 77 H135 V82 H47z M56 71 H127 V76 H56z M65 63 H119 V70 H65z M66 59 l11 -6 11 6 v4 H66z M95 59 l10 -6 11 6 v4 H95z M81 55 v-12 h5 v-5 h12 v5 h5 v12 z M85 39 l7 -10 7 10 z M70 56 v-8 l7 -7 7 7 v8 z M102 56 v-8 l7 -7 7 7 v8 z M53 79 v-13 h7 v13 M122 79 v-13 h7 v13"/></g>`;
+      break;
+    case "ID":s=rect(0,0,180,60,"#ed1c24")+rect(0,60,180,60,"#fff");break;
+    case "LA":s=rect(0,0,180,120,"#ce1126")+rect(0,30,180,60,"#002868")+`<circle cx="90" cy="60" r="24" fill="#fff"/>`;break;
+    case "MY":
+      for(let i=0;i<14;i++)s+=rect(0,i*120/14,180,120/14+.25,i%2===0?"#cc0001":"#fff");
+      s+=rect(0,0,92,68.6,"#010066")+`<circle cx="38" cy="34" r="22" fill="#ffcc00"/><circle cx="47" cy="29" r="20" fill="#010066"/>`+star(70,34,15,"#ffcc00",6.6,14,-90);break;
+    case "MM":s=rect(0,0,180,40,"#fecb00")+rect(0,40,180,40,"#34b233")+rect(0,80,180,40,"#ea2839")+star(90,60,34,"#fff",14.5);break;
+    case "PH":
+      s=rect(0,0,180,60,"#0038a8")+rect(0,60,180,60,"#ce1126")+`<polygon points="0,0 95,60 0,120" fill="#fff"/>`+
+        `<circle cx="34" cy="60" r="11" fill="#fcd116"/>`;
+      for(let i=0;i<8;i++){let a=i*Math.PI/4;let x=34+Math.cos(a)*15,y=60+Math.sin(a)*15;s+=`<path d="M${x.toFixed(1)} ${y.toFixed(1)} l${(Math.cos(a-.12)*9).toFixed(1)} ${(Math.sin(a-.12)*9).toFixed(1)} l${(-Math.cos(a+.12)*9).toFixed(1)} ${(-Math.sin(a+.12)*9).toFixed(1)} z" fill="#fcd116"/>`}
+      s+=star(12,19,7,"#fcd116",2.8)+star(12,101,7,"#fcd116",2.8)+star(77,60,7,"#fcd116",2.8);break;
+    case "SG":
+      s=rect(0,0,180,60,"#ef3340")+rect(0,60,180,60,"#fff")+`<circle cx="45" cy="34" r="22" fill="#fff"/><circle cx="53" cy="30" r="20" fill="#ef3340"/>`+
+        star(74,16,7,"#fff",2.9)+star(88,29,7,"#fff",2.9)+star(82,46,7,"#fff",2.9)+star(65,46,7,"#fff",2.9)+star(61,28,7,"#fff",2.9);break;
+    case "TH":s=rect(0,0,180,20,"#a51931")+rect(0,20,180,20,"#fff")+rect(0,40,180,40,"#2d2a4a")+rect(0,80,180,20,"#fff")+rect(0,100,180,20,"#a51931");break;
+    case "TL":s=rect(0,0,180,120,"#dc241f")+`<polygon points="0,0 120,60 0,120" fill="#ffc726"/><polygon points="0,0 79,60 0,120" fill="#000"/>`+star(31,60,20,"#fff",8,5,-104);break;
+    case "VN":s=rect(0,0,180,120,"#da251d")+star(90,60,36,"#ffff00",14.7);break;
+    case "JP":s=rect(0,0,180,120,"#fff")+`<circle cx="90" cy="60" r="35" fill="#bc002d"/>`;break;
+    case "KR":
+      s=rect(0,0,180,120,"#fff")+`<circle cx="90" cy="60" r="29" fill="#cd2e3a"/><path d="M61 60 A29 29 0 0 0 119 60 C119 44 90 44 90 60 C90 76 61 76 61 60Z" fill="#0047a0"/>`+
+        trigram(42,29,[1,1,1],-32)+trigram(139,29,[0,1,0],32)+trigram(42,91,[1,0,1],32)+trigram(139,91,[0,0,0],-32);break;
+    case "CN":
+      s=rect(0,0,180,120,"#de2910")+star(37,31,20,"#ffde00",8)+star(75,14,7,"#ffde00",2.8,5,-111)+star(89,32,7,"#ffde00",2.8,5,-125)+star(87,53,7,"#ffde00",2.8,5,-145)+star(72,70,7,"#ffde00",2.8,5,-160);break;
+    case "IN":
+      s=rect(0,0,180,40,"#ff9933")+rect(0,40,180,40,"#fff")+rect(0,80,180,40,"#128807")+`<circle cx="90" cy="60" r="17" fill="none" stroke="#000080" stroke-width="2"/><circle cx="90" cy="60" r="2.7" fill="#000080"/>`;
+      for(let i=0;i<24;i++){let a=Math.PI*2*i/24;s+=`<line x1="${(90+Math.cos(a)*4).toFixed(2)}" y1="${(60+Math.sin(a)*4).toFixed(2)}" x2="${(90+Math.cos(a)*16).toFixed(2)}" y2="${(60+Math.sin(a)*16).toFixed(2)}" stroke="#000080" stroke-width=".9"/>`;}break;
+    case "MN":
+      s=rect(0,0,60,120,"#c4272f")+rect(60,0,60,120,"#015197")+rect(120,0,60,120,"#c4272f")+
+      `<g fill="#f9d132" stroke="#f9d132" stroke-width="1.7"><path d="M27 25 Q22 17 27 7 Q30 15 33 11 Q37 18 32 25 Z"/><circle cx="30" cy="33" r="7" fill="none" stroke-width="3"/><path d="M30 27 a8 8 0 0 0 0 14 a5 5 0 0 0 0 -14"/><rect x="14" y="46" width="32" height="4"/><path d="M14 55 L26 62 L14 69 Z M46 55 L34 62 L46 69 Z"/><path d="M28 54 h4 v18 h-4z"/><rect x="14" y="78" width="32" height="4"/><rect x="14" y="87" width="6" height="17"/><rect x="40" y="87" width="6" height="17"/><rect x="24" y="87" width="12" height="4"/><circle cx="30" cy="98" r="6" fill="none" stroke-width="2"/><rect x="14" y="107" width="32" height="4"/></g>`;break;
+  }
+  return `<svg class="flag-svg" viewBox="0 0 180 120" role="img" aria-label="Flag of ${escapeHtml(name)}">${s}</svg>`;
+}
+let teamCount=4;
+let teams=DEFAULT_NAMES.map((name,i)=>({name,score:0,double:false,color:TEAM_COLORS[i]}));
+let currentTeam=0,deck=[],activeTile=null,modalView=null,answerShown=false,specialContext=null;
+let history=[],timeRemaining=30,timeRunning=false,timerId=null,nextTick=0,flipTimer=null;
+let isNewsOpen=false,newsWasRunning=false,soundEnabled=true,audioContext=null,toastTimeout=null;
+function shuffle(input){let a=[...input];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function snapshot(){return JSON.parse(JSON.stringify({teamCount,teams,currentTeam,deck,activeTile,modalView,answerShown,specialContext,timeRemaining}));}
+function record(){history.push(snapshot());if(history.length>90)history.shift();}
+function restore(s){teamCount=s.teamCount;teams=s.teams;currentTeam=s.currentTeam;deck=s.deck;activeTile=s.activeTile;modalView=s.modalView;answerShown=s.answerShown;specialContext=s.specialContext;timeRemaining=s.timeRemaining;}
+function nextTeam(){currentTeam=(currentTeam+1)%teamCount;}
+function isFinished(){return deck.length===16 && deck.every(t=>t.opened) && activeTile===null;}
+function renderAll(){renderTeams();renderBoard();renderStatus();$("undoButton").disabled=history.length===0;}
+function renderTeams(){
+ $("scoreGrid").innerHTML=teams.slice(0,teamCount).map((team,i)=>`<div class="team-card ${i===currentTeam?"active":""}" style="--team:${team.color}">
+ <div><div class="team-head"><span class="team-dot"></span><span class="team-name" title="${escapeHtml(team.name)}">${escapeHtml(team.name)}</span>${i===currentTeam?'<span class="turn-chip">TURN</span>':''}${team.double?'<span class="double-chip">×2</span>':''}</div>
+ <div class="score">${team.score}<small>PTS</small></div></div>
+ <div class="score-buttons"><button aria-label="Add 5 points to ${escapeHtml(team.name)}" data-team="${i}" data-delta="5">+5</button><button class="minus" aria-label="Subtract 5 points from ${escapeHtml(team.name)}" data-team="${i}" data-delta="-5">−5</button></div></div>`).join("");
+ $("scoreGrid").querySelectorAll("[data-team]").forEach(b=>b.addEventListener("click",()=>manualScore(Number(b.dataset.team),Number(b.dataset.delta))));
+}
+function renderBoard(){
+ $("board").innerHTML=deck.map((tile,i)=>`<button type="button" class="tile ${tile.opened?"opened":""}" data-index="${i}" ${tile.opened?"disabled":""} aria-label="${escapeHtml(tile.country[0])} flag, ${tile.opened?"opened":"unopened"}">
+ <div class="tile-inner"><div class="tile-face tile-front"><span class="tile-number">${String(i+1).padStart(2,"0")}</span>${flagSvg(tile.country[1],tile.country[0])}<span class="tile-name">${escapeHtml(tile.country[0])}</span></div>
+ <div class="tile-face tile-back"><span class="stamp">✓</span><span class="complete">OPENED</span></div></div></button>`).join("");
+ $("board").querySelectorAll(".tile:not([disabled])").forEach(b=>b.addEventListener("click",()=>openTile(Number(b.dataset.index))));
+}
+function renderStatus(){let openCount=deck.filter(t=>t.opened).length;$("progress").textContent=`${openCount} / 16 opened`;$("statusText").innerHTML=isFinished()?'<span class="status-strong">All flags opened! Check the final results.</span>':`Now playing: <span class="status-strong">${escapeHtml(teams[currentTeam].name)}</span> · Choose a flag!`;}
+function manualScore(i,delta){if(modalView||isNewsOpen)return;record();teams[i].score+=delta;renderAll();showToast(`${teams[i].name}: ${delta>0?"+5":"−5"} points`);}
+function undo(){if(!history.length)return;if(flipTimer){clearTimeout(flipTimer);flipTimer=null;}stopTimer();closeNews(true);let old=history.pop();restore(old);renderAll();if(modalView==="question"&&activeTile!==null){renderQuestion();showOverlay();}else{hideOverlay();if(modalView==="ranking")showRankings();}showToast("Last action undone");}
+function stopTimer(){timeRunning=false;if(timerId!==null){clearInterval(timerId);timerId=null;}}
+function updateTimer(){let el=$("timerNumber");if(el)el.textContent=Math.ceil(Math.max(0,timeRemaining));let wrapper=$("timerContainer");if(wrapper){wrapper.classList.toggle("danger",timeRemaining<=10&&timeRemaining>0);wrapper.classList.toggle("paused",!timeRunning);}let b=$("pauseButton");if(b)b.textContent=timeRunning?"Pause timer":"Resume timer";}
+function startTimer(){stopTimer();if(timeRemaining<=0)return;timeRunning=true;nextTick=performance.now();timerId=setInterval(()=>{let now=performance.now();timeRemaining=Math.max(0,timeRemaining-(now-nextTick)/1000);nextTick=now;updateTimer();if(timeRemaining<=0){stopTimer();updateTimer();playSound("timeout");showToast("Time is up — the teacher decides!");}},120);updateTimer();}
+function pauseTimer(){if(!timeRunning)return;let now=performance.now();timeRemaining=Math.max(0,timeRemaining-(now-nextTick)/1000);stopTimer();updateTimer();}
+function toggleTimer(){if(timeRunning)pauseTimer();else startTimer();}
+function showOverlay(){$("overlay").classList.add("show")}
+function hideOverlay(){$("overlay").classList.remove("show")}
+function showToast(message){const t=$("toast");if(toastTimeout)clearTimeout(toastTimeout);t.textContent=message;t.classList.add("show");toastTimeout=setTimeout(()=>t.classList.remove("show"),2500);}
+function openTile(i){
+ if(modalView||isNewsOpen||activeTile!==null||flipTimer||deck[i].opened)return;
+ record();deck[i].opened=true;activeTile=i;renderBoard();renderStatus();playSound("flip");
+ flipTimer=setTimeout(()=>{flipTimer=null;const item=deck[i].content;if(item.kind==="question"){
+   modalView="question";answerShown=false;timeRemaining=30;renderQuestion();showOverlay();startTimer();
+ }else{resolveSpecial(item.type);}},550);
+}
+function resolveSpecial(type){
+ const played=currentTeam,team=teams[played];
+ if(type==="lucky"){team.score+=25;playSound("lucky");}
+ else if(type==="double"){team.double=true;playSound("double");}
+ else if(type==="lose"){playSound("lose");}
+ nextTeam();specialContext={type,teamName:team.name,nextName:teams[currentTeam].name};activeTile=null;modalView="special";renderAll();renderSpecial();showOverlay();
+}
+function renderSpecial(){
+ const c=specialContext;if(!c)return;
+ const content={lucky:{heading:"LUCKY FLAG!",icon:"★",effect:"+25 POINTS",message:`${escapeHtml(c.teamName)} wins 25 points instantly!`},double:{heading:"DOUBLE POINTS!",icon:"×2",effect:"NEXT CORRECT = 30 POINTS",message:`${escapeHtml(c.teamName)} will earn 30 instead of 15 on their next correct answer.`},lose:{heading:"LOSE A TURN!",icon:"↷",effect:"0 POINTS",message:`${escapeHtml(c.teamName)} misses this turn.`}}[c.type];
+ $("modalContent").className="modal small";
+ $("modalContent").innerHTML=`<div class="overline" style="text-align:center">SURPRISE FLAG</div><div class="special-icon ${c.type}">${content.icon}</div><h2 class="special-title">${content.heading}</h2><div class="special-detail">${content.message}</div><div class="special-points">${content.effect}</div><div class="special-next">Next turn: <b>${escapeHtml(c.nextName)}</b></div><div class="button-row centered"><button class="btn light" id="undoSpecial">↶ Undo</button><button class="btn primary" id="continueSpecial">Continue to flags</button></div>`;
+ $("undoSpecial").addEventListener("click",undo);$("continueSpecial").addEventListener("click",()=>{modalView=null;specialContext=null;hideOverlay();if(isFinished())showRankings();});
+}
+function renderQuestion(){
+ if(activeTile===null)return;const q=deck[activeTile].content.question;const team=teams[currentTeam];
+ let body="";
+ if(q.task===2){body=`<div class="question-text">${q.q}</div><div class="choices">${HEADLINES.map((v,i)=>`<div class="choice"><b>${letter(i).toUpperCase()}.</b>${escapeHtml(v)}</div>`).join("")}</div>`;}
+ else if(q.task===3){body=`<div class="question-text"><small>${q.no}.</small> <span class="highlighted">${escapeHtml(q.q)}</span></div><div class="choices">${DEFINITIONS.map((v,i)=>`<div class="choice"><b>${letter(i)}.</b>${escapeHtml(v)}</div>`).join("")}</div>`;}
+ else{body=`<div class="question-text">${q.no}. ${escapeHtml(q.q)}</div><div class="reminder">NO MORE THAN FOUR WORDS AND/OR A NUMBER</div>`;}
+ const prompt={2:Q2,3:Q3,4:Q4}[q.task];
+ $("modalContent").className="modal large";
+ $("modalContent").innerHTML=`<div class="modal-header"><div><div class="overline">TASK ${q.task} · ${escapeHtml(team.name)} · NEWS ITEM ${q.news}</div><h2 class="modal-title">${q.task===2?"Choose the headline":q.task===3?"Match the meaning":"Find the answer in the news"}</h2></div>
+ <div class="timer" id="timerContainer" aria-label="Time remaining"><b id="timerNumber">30</b><span>SECONDS<br>LEFT</span></div></div>
+ <div class="prompt">${escapeHtml(prompt)}</div>${body}
+ <div class="button-row"><button class="btn light" id="pauseButton">Pause timer</button><button class="btn teal" id="modalNewsButton">View news</button><button class="btn light" id="undoTileButton">↶ Undo tile</button>${!answerShown?'<button class="btn gold" id="revealButton">Show answer</button>':''}</div>
+ <div class="answer-panel" id="answerPanel" ${answerShown?"":"hidden"}><div class="answer-label">CORRECT ANSWER</div><div class="answer-value">${escapeHtml(q.answer)}</div><div class="evidence"><strong>EVIDENCE FROM THE NEWS ITEM ${q.news}</strong>${highlightEvidence(q.evidence,q)}</div>
+ <div class="button-row"><button class="btn green" id="correctButton">Correct +${team.double?30:15}</button><button class="btn coral" id="wrongButton">Wrong +0</button></div></div>`;
+ $("pauseButton").addEventListener("click",toggleTimer);$("modalNewsButton").addEventListener("click",openNews);$("undoTileButton").addEventListener("click",undo);
+ if(!answerShown)$("revealButton").addEventListener("click",revealAnswer);
+ if(answerShown){$("correctButton").addEventListener("click",()=>judge(true));$("wrongButton").addEventListener("click",()=>judge(false));}
+ updateTimer();
+}
+function highlightEvidence(sentence,q){
+ // Exact, source-derived evidence, with the target text highlighted.
+ let target=q.task===2?["ASEAN-Korea Centre","five ASEAN countries","gender equality"][q.no-1]:q.task===3?q.q:q.answer;
+ let safe=escapeHtml(sentence);let term=escapeHtml(target);let pos=safe.toLowerCase().indexOf(term.toLowerCase());
+ if(pos!==-1)safe=safe.slice(0,pos)+"<mark>"+safe.slice(pos,pos+term.length)+"</mark>"+safe.slice(pos+term.length);
+ return safe;
+}
+function revealAnswer(){answerShown=true;pauseTimer();renderQuestion();const panel=$("answerPanel");if(panel)panel.scrollIntoView({block:"nearest",behavior:"smooth"});}
+function judge(correct){
+ if(modalView!=="question"||!answerShown||activeTile===null)return;
+ record();stopTimer();const team=teams[currentTeam];let points=0;
+ if(correct){points=team.double?30:15;team.score+=points;team.double=false;playSound("correct");}
+ else playSound("wrong");
+ let oldName=team.name;activeTile=null;answerShown=false;modalView=null;nextTeam();hideOverlay();renderAll();
+ showToast(`${oldName}: ${correct?`Correct! +${points}`:"Wrong — 0 points"}. Next: ${teams[currentTeam].name}`);
+ if(isFinished())setTimeout(()=>{if(!modalView&&!isNewsOpen&&isFinished())showRankings();},500);
+}
+function showRankings(){stopTimer();const ranked=teams.slice(0,teamCount).map((t,i)=>({...t,teamId:i})).sort((a,b)=>b.score-a.score||a.teamId-b.teamId);let prev=null,rank=0;
+ const rows=ranked.map((t,i)=>{if(t.score!==prev)rank=i+1;prev=t.score;return `<div class="rank-row ${rank===1?"first":""}"><div class="rank-no">#${rank}</div><div class="rank-name">${escapeHtml(t.name)}${rank===1?' ★':''}</div><div class="rank-score">${t.score} pts</div></div>`;}).join("");
+ const winners=ranked.filter(t=>t.score===ranked[0].score);const winMessage=winners.length===1?`${escapeHtml(winners[0].name)} wins!`:`It's a tie! ${winners.map(t=>escapeHtml(t.name)).join(" & ")} share first place.`;
+ modalView="ranking";$("modalContent").className="modal small";$("modalContent").innerHTML=`<div class="overline" style="text-align:center">ALL 16 FLAGS COMPLETED</div><h2 class="special-title">FINAL RESULTS</h2><div class="rank-remark" style="text-align:center">${winMessage}</div><div class="rank-list">${rows}</div><div class="button-row centered"><button class="btn light" id="returnBoard">Back to board</button><button class="btn gold" id="rankNewGame">New Game</button></div>`;
+ $("returnBoard").addEventListener("click",()=>{modalView=null;hideOverlay();});$("rankNewGame").addEventListener("click",requestNewGame);showOverlay();
+}
+function showRules(){if(modalView)return;modalView="rules";$("modalContent").className="modal small";$("modalContent").innerHTML=`<div class="overline">TEACHER GUIDE</div><h2 class="modal-title">How to play</h2><div style="font-size:20px;line-height:1.55;color:#2b4e65;font-weight:700">
+ <p>1. Play with 2, 3 or 4 teams, taking turns in order.</p><p>2. Choose one flag and answer the reading question in 30 seconds.</p><p>3. Use <b>Show answer</b>, then the teacher chooses <b>Correct</b> or <b>Wrong</b>.</p><p>4. Correct = <b>15 points</b>; wrong = <b>0 points</b>.</p><p>5. Two <b>Lucky Flags</b> give 25 points each. <b>Double Points</b> makes the team's next correct answer worth 30. <b>Lose a Turn</b> passes play to the next team.</p><p>6. Use <b>+5 / −5</b> to adjust scores and <b>Undo</b> to reverse the last change.</p></div><div class="button-row centered"><button class="btn primary" id="closeRules">Back to flags</button></div>`;$("closeRules").addEventListener("click",()=>{modalView=null;hideOverlay()});showOverlay();}
+function newsArticleMarkup(text){return escapeHtml(text).replace(/\b(?:relations|eye-opening|represent|live-streamed)\b/g,word=>`<mark>${word}</mark>`);}
+function openNews(){if(isNewsOpen)return;newsWasRunning=timeRunning;if(timeRunning)pauseTimer();isNewsOpen=true;
+ $("newsContent").innerHTML=`<div class="news-head"><div><div class="overline">UNIT 4 · READING</div><h2 class="modal-title" style="margin:0">ASEAN news</h2></div><button class="btn primary" id="closeNewsButton">Back to game</button></div><div class="news-content" id="newsScroll">${NEWS.map((text,i)=>`<article class="article"><div class="article-index">NEWS ITEM ${i+1}</div>${newsArticleMarkup(text)}</article>`).join("")}</div>`;
+ $("closeNewsButton").addEventListener("click",()=>closeNews());$("newsOverlay").classList.add("show");}
+function closeNews(silent=false){if(!isNewsOpen)return;isNewsOpen=false;$("newsOverlay").classList.remove("show");if(newsWasRunning&&!silent&&modalView==="question"&&!answerShown)startTimer();newsWasRunning=false;}
+function requestNewGame(){if(!confirm("Start a new game? The current scores, flags and turns will be reset."))return;closeNews(true);stopTimer();if(flipTimer){clearTimeout(flipTimer);flipTimer=null;}showSetup();}
+function showSetup(){modalView="setup";$("modalContent").className="modal small";$("modalContent").innerHTML=`<div class="overline">READY FOR A NEW ADVENTURE?</div><h2 class="modal-title">Set up your teams</h2><div class="setup-label">How many teams?</div><div class="selector" id="teamCountSelector">${[2,3,4].map(n=>`<button type="button" data-count="${n}" class="${n===teamCount?'selected':''}">${n} teams</button>`).join("")}</div><div class="setup-label">Team names</div><div class="name-inputs" id="teamNameFields">${teams.slice(0,teamCount).map((t,i)=>`<label class="name-field">Team ${i+1}<input maxlength="24" data-name="${i}" type="text" value="${escapeHtml(t.name)}" autocomplete="off"></label>`).join("")}</div><div class="button-row centered" style="margin-top:23px"><button class="btn gold full" id="startGame">START GAME →</button></div>`;
+ $("teamCountSelector").querySelectorAll("[data-count]").forEach(b=>b.addEventListener("click",()=>{
+   saveSetupNames();teamCount=Number(b.dataset.count);renderSetupInputs();
+ }));$("startGame").addEventListener("click",startGame);showOverlay();}
+function saveSetupNames(){if(modalView!=="setup")return;$("teamNameFields").querySelectorAll("[data-name]").forEach(inp=>{const index=Number(inp.dataset.name);const val=inp.value.trim();if(val)teams[index].name=val;});}
+function renderSetupInputs(){const countSel=$("teamCountSelector");countSel.querySelectorAll("[data-count]").forEach(b=>b.classList.toggle("selected",Number(b.dataset.count)===teamCount));$("teamNameFields").innerHTML=teams.slice(0,teamCount).map((t,i)=>`<label class="name-field">Team ${i+1}<input maxlength="24" data-name="${i}" type="text" value="${escapeHtml(t.name)}" autocomplete="off"></label>`).join("");}
+function startGame(){saveSetupNames();teams=teams.map((t,i)=>({name:t.name.trim()||DEFAULT_NAMES[i],score:0,double:false,color:TEAM_COLORS[i]}));currentTeam=0;activeTile=null;answerShown=false;specialContext=null;modalView=null;timeRemaining=30;history=[];stopTimer();
+ const content=shuffle([...QUESTIONS.map(question=>({kind:"question",question})),...SPECIALS.map(type=>({kind:"special",type}))]);deck=COUNTRIES.map((country,i)=>({country,content:content[i],opened:false}));
+ hideOverlay();renderAll();showToast("Game started! Choose a flag.");}
+function playSound(kind){if(!soundEnabled)return;try{const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)return;if(!audioContext)audioContext=new Ctx();if(audioContext.state==="suspended")audioContext.resume();
+ const sounds={correct:[[523,.10],[659,.10],[784,.17]],wrong:[[370,.16],[260,.2]],lucky:[[523,.08],[660,.08],[784,.1],[1046,.22]],double:[[520,.09],[780,.18]],lose:[[470,.11],[350,.14],[240,.19]],flip:[[340,.06]],timeout:[[550,.08],[550,.11]]};let offset=0;for(const [freq,duration] of (sounds[kind]||[])){
+ let osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type=kind==="wrong"||kind==="lose"?"triangle":"sine";osc.frequency.value=freq;osc.connect(gain);gain.connect(audioContext.destination);
+ let at=audioContext.currentTime+offset;gain.gain.setValueAtTime(.0001,at);gain.gain.exponentialRampToValueAtTime(.105,at+.015);gain.gain.exponentialRampToValueAtTime(.0001,at+duration);osc.start(at);osc.stop(at+duration+.015);offset+=duration*.82;
+ }}catch(e){/* Audio is optional; the game works with sound blocked. */}}
+$("newGameButton").addEventListener("click",requestNewGame);$("undoButton").addEventListener("click",undo);$("newsButton").addEventListener("click",openNews);$("rulesButton").addEventListener("click",showRules);
+$("soundButton").addEventListener("click",()=>{soundEnabled=!soundEnabled;$("soundButton").textContent=`Sound: ${soundEnabled?"ON":"OFF"}`;if(soundEnabled)playSound("flip");});
+// Prevent accidentally dismissing unanswered questions or surprise cards.
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&isNewsOpen)closeNews();});
+deck=COUNTRIES.map(country=>({country,content:{kind:"special",type:"lucky"},opened:false}));
+renderAll();showSetup();
+</script>
+</body>
+</html>

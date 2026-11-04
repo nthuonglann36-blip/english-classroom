@@ -13,11 +13,26 @@ Bài web có **55 slide**. Các hình minh hoạ và bảng màu navy `#073765`,
 - Đủ Vocabulary Check, Word Detective, Headline Hunt, ba bản tin, đáp án và bằng chứng, Task 4, Task 5, phần ASEAN Reporter, bình chọn, wrap-up và bài tập về nhà.
 - PPT mới chỉ minh hoạ các bản tin, vì vậy giữ nguyên bốn đoạn văn sách trong bài web trước đó, gồm bản tin số 2 đã tách làm hai trang. Không cắt nội dung bài đọc.
 
-## Đáp án Task 2 và game Explore ASEAN
+## Đáp án Task 2 và các bản game
 
 Theo slide 34 của **PPT mới**: **1D · 2B · 3C**. Bản tin 2 dùng **B. Travelling to ASEAN countries**, với bằng chứng *Ship • journey • travel to five ASEAN countries*.
 
-Bản web trước và `assets/games/u04-l3-explore-asean.html` dùng 2A theo giáo án trước đó. Tệp game cũ giữ nguyên. Tạo bản riêng `assets/games/u04-l3-explore-asean-reading2026.html`, chỉ đồng bộ đáp án và bằng chứng của câu này theo PPT mới; bài Reading mới nhúng bản riêng đó. Giáo viên đã được thông báo về khác biệt A/B trong lúc cập nhật.
+Bản web trước và `assets/games/u04-l3-explore-asean.html` dùng 2A theo giáo án trước đó. Tệp game cũ giữ nguyên. Bản `assets/games/u04-l3-explore-asean-reading2026.html` đã đồng bộ 2B theo PPT. Trong lần gửi tiếp theo ngày 04/11/2026, giáo viên gửi lại cùng PPT và bổ sung game HTML mới; bài Reading hiện nhúng **Asia Flags Reading Quest** dưới đây, cũng dùng 2B. Các tệp game trước đó không thay đổi.
+
+## Asia Flags Reading Quest — game HTML giáo viên cung cấp
+
+Nguồn: **reading_asean_flags_game.html**, 46.297 byte. SHA-256: `00f346dcde31fe7045b5e0bdeec2cc9262b14520462532c16764deb293a11a55`.
+
+Lưu nguyên từng byte ở `assets/games/u04-l3-reading-asean-flags.html`, nhúng tại **slide web 45**, thay game Explore ASEAN của bản cập nhật trước. Hướng dẫn ở slide 44 được đồng bộ theo game mới:
+
+- 16 ô cờ châu Á; 2–4 đội, có thể đặt tên đội.
+- 12 câu: 3 câu tiêu đề (Task 2), 4 câu nghĩa từ (Task 3), 5 câu đọc chi tiết (Task 4).
+- 4 ô bất ngờ: hai Lucky Flags +25 điểm, Double Points cho lần trả lời đúng tiếp theo +30, Lose a Turn chuyển lượt.
+- Câu thường đúng +15, sai +0; mỗi câu có đồng hồ 30 giây, lời giải và bằng chứng. Có nút chỉnh ±5 và Undo.
+- View news hiển thị đủ ba bản tin, tạm dừng đồng hồ khi mở và tiếp tục khi quay lại. Văn bản khớp với các đoạn trong bài web.
+- SVG cờ và âm thanh tạo bằng Web Audio được đóng gói trong file, không gọi nguồn bên ngoài.
+
+`unit04/flags-embed.js` chỉ điều chỉnh kích thước khung nhúng trên màn hình hẹp để giữ đủ tiêu đề và các nút; không sửa mã hoặc nội dung của game giáo viên gửi. Game Mystery Box ở slide 53 giữ nguyên. PPT gửi lại có cùng SHA-256 với bản đã xuất bản, nên tệp tải xuống không đổi.
 
 ## Mystery Box
 
@@ -42,7 +57,7 @@ Bản web trước và `assets/games/u04-l3-explore-asean.html` dùng 2A theo gi
 | 32 | 33–34 |
 | 33, kèm văn bản sách | 35–40 |
 | 34 | 41–43 |
-| 35 | 44–45; game Explore ASEAN ở 45 |
+| 35, bổ sung game HTML giáo viên gửi | 44–45; Asia Flags Reading Quest ở 45 |
 | 36 | 46–48 |
 | 37 | 49–50 |
 | 38 | 51–52 |
