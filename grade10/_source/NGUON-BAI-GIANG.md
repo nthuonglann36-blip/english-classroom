@@ -26,7 +26,7 @@ Chuyển tiết nào sang HTML thì ghi đúng file nguồn ở đây (cách là
 | **L4 Speaking** | `G10-U3-L4-Speaking.pptx` (u3 spk + 6 từ SGK_Expanded + Don’t Say The Word) | Task 1 theo giáo án. Trò **Don’t Say It!** (10 thẻ Taboo, 45 giây) |
 | **L5 Listening** | `G10-U3-L5-Listening.pptx` (u3 lis + trò điền poster lễ hội của cô) | Track 21/22. ⚠ **Task 2**: giáo án A, D — PPT ghi A, C, D. ⚠ **Task 3 câu 5**: giáo án T — PPT ghi F. Đang dùng đáp án giáo án, cô nghe lại để xác nhận. Trò thưởng Festival Info Desk (audio riêng) chưa đưa lên. Ảnh Task 1 cắt SGK tr. 33 |
 | **L6 Writing** | `G10-U3-L6-Writing.pptx` (u3 wrt + 6 từ SGK_Expanded + Blog Builder Relay) | Blog của Ann nguyên văn sách. Blog Builder vòng 1–2 (xếp câu, sửa 5 lỗi) → slide lật đáp án; vòng 3 → câu mẫu Task 3 |
-| **L7 Communication & Culture** | `G10-U3-L7-Communication-Culture.pptx` (u3 comm + Don’t say the word chầu văn) | Track 23. Bài đọc *chau van* nguyên văn sách tr. 35. Trò **Don’t Say the Word!** (10 từ chầu văn, chỉ lấy từ của trò mẫu Pinny). Trò thưởng Chau Van Stand/Sit chưa đưa lên |
+| **L7 Communication & Culture** | Bản NEW_v3_khoi-phuc giáo viên gửi (58 slide; giữ PPT gốc riêng) | Track 23; 6 video đoán nhạc; 9 từ có hình, IPA, nghĩa và ví dụ; bài đọc *chau van* tr. 35; trò **Give and Take Points** (8 câu, thẻ điểm âm/dương). [Đối chiếu nguồn](unit03-lesson7-refresh.md). |
 | **L8 Looking back & Project** | `G10-U3-L8-Looking-back-Project.pptx` (L8 SGK_Expanded + Brain Brawl kiểu Jeopardy) | Track 24. Trò **Brain Brawl: Music Champions** (5 chủ đề × 4 mức điểm). Ảnh Project (hát Xoan) cắt SGK tr. 37 |
 
 ## Unit 4 · For a better community (tpl-community — giao diện mới 22/10: mòng két + cam, ảnh bìa = tranh slide 1 bài G10-U4-L1)
