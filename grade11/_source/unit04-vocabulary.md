@@ -4,7 +4,7 @@
 
 Reading bỏ một mục participant bị lặp và sửa Gender quality thành gender equality theo bài đọc. Listening dùng look out for theo xác nhận của giáo viên. Giữ riêng các từ cùng họ.
 
-Language có 4 slide giới thiệu từ riêng; các cụm cultural exchange, current issues, contribution, leadership skills và đáp án bài tập Task 1 được giữ nguyên.
+Language cập nhật theo PPT cô gửi 05/11/2026: 4 cụm cultural exchange, current issues, contribution, leadership skills, có hình, phiên âm, nghĩa, ví dụ, họ từ và collocation. Các từ nền cultural, contribution, leadership, exchange trong danh sách dưới đây tiếp tục xuất hiện trong các mục từ/họ từ; đáp án bài tập Task 1 giữ nguyên. Xem [nguồn và ánh xạ mới](unit04-language.md).
 
 Phiên âm theo cách đọc Anh–Anh; cả cụm be qualified for có phiên âm đầy đủ. Các tranh mới là minh hoạ AI; các tranh Culture có sẵn được dùng lại. Tất cả hình được lưu nội bộ để dùng Offline.
 
