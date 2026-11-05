@@ -95,3 +95,7 @@ body.tpl-asean.language-refresh .deck > .slide:not(.play){padding-top:18px;}
 .language-refresh .language-eyebrow{padding-right:125px;}
 .language-refresh .language-part,.language-refresh .language-vocabulary .language-part{right:260px;}
 @media(max-width:900px){.language-refresh .language-eyebrow{padding-right:0;}}
+@media(max-width:900px){
+ .language-refresh .deck-nav > .count:last-child{display:none;}
+ .language-refresh .deck-nav button{white-space:nowrap;flex-shrink:0;}
+}
