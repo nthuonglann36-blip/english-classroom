@@ -99,3 +99,7 @@ body.tpl-asean.language-refresh .deck > .slide:not(.play){padding-top:18px;}
  .language-refresh .deck-nav > .count:last-child{display:none;}
  .language-refresh .deck-nav button{white-space:nowrap;flex-shrink:0;}
 }
+
+/* The source deck links to a separate XO file, which has not been provided. */
+.language-refresh .language-game-launch{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:16px;font-size:.8em;color:var(--muted);}
+.language-refresh .language-game-launch button{min-height:44px;padding:8px 18px;border:1px solid var(--rule);border-radius:999px;font:inherit;font-weight:700;background:#E7ECEF;color:#526B7D;}
