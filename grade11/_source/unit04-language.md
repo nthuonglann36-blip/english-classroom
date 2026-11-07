@@ -1,37 +1,51 @@
 # Unit 4 · Lesson 2 — Language
 
-Nguồn hiện tại: **G11-U4-L2-Language_co-game-XO.pptx**, cô gửi ngày 05/11/2026.
-40 slide, tất cả hiển thị; 7,637,910 byte.
-SHA-256: `72eb6abfed546ee9f0154bb2b46ae918e3b12f69d4cd25f5a1eeb70c31e25189`.
+Nguồn hiện tại: **G11-U4-L2-Language_co-game-XO_xep-cot_dien-nghia_gioi-tu_nghia-truoc_dong-ho.pptx**, cô gửi ngày 07/11/2026.
+45 slide, tất cả hiển thị; 10,429,122 byte.
+SHA-256: `804b3511313e3041210b9006fee56e3691639d7702f83fe2cc1869a87534a053`.
 PPT gốc giữ ngoài repository; không đăng tệp hoặc nút tải trên website và Offline.
 
-Bài web có **61 slide**, giữ nội dung học của 40 slide nguồn; game XO cần thêm tệp HTML riêng trước khi hoạt động. Các bảng dài, bài tập và thẻ từ được tách để chữ vẫn dễ đọc trên máy chiếu. Thứ tự theo PPT mới, gồm cả phần gerund mở rộng; không cắt về bản cốt lõi trước đây. Giữ đúng chữ của PPT, bao gồm **participated in** ở Grammar Task 1 câu 5.
+Bài web có **69 slide**, giữ nội dung học của đủ 45 slide nguồn. Bảng và bài tập dài được tách để chữ vẫn dễ đọc trên máy chiếu. Phần đầu, phát âm, từ vựng, các quy tắc gerund cơ bản, bài tập sách và Board Race được giữ theo nguồn; cập nhật các hoạt động mới dưới đây. **participated in** ở Grammar Task 1 câu 5 giữ đúng PPT.
+
+## Hoạt động xếp cột
+
+- Slide nguồn 24–27 → web 32–35: **40 động từ**, mỗi trang 10 từ. Xếp vào VERB + V-ING, VERB + TO V, VERB + BARE V; đúng **28/8/4** từ như phần tổng kết nguồn 28.
+- Slide nguồn 30–31 → web 40–41: **20 cụm có giới từ**, mỗi trang 10 cụm. Xếp vào VERB / ADJECTIVE / NOUN + PREPOSITION; giữ nguyên từ và đáp án trong PPT.
+- Check next chuyển từng từ từ ngân hàng vào cột đúng theo thứ tự trái sang phải, hàng trên rồi hàng dưới. Check all hoặc phím A hiện tất cả; Reset words đưa đủ từ về ngân hàng. Các cột đích ban đầu trống, không lộ đáp án.
+- Danh sách tổng kết 40 từ ở nguồn 28 được giữ đầy đủ trên web 36–37. Phần giới từ nguồn 29 có đủ công thức, ba ví dụ và nhóm by / without / before / after / instead of trên web 38–39.
+
+## Đọc nghĩa trước, kiểm tra dạng và ví dụ sau
+
+Nguồn 34–36 có **16 dòng**, được tách thành các cặp trên web 45–52. Ban đầu chỉ thấy động từ và nghĩa. Bấm Check this meaning để hiện **+ V-ing / + to V** cùng câu ví dụ của đúng dòng đó; phím A và nút Hiện hết đáp án mở các dòng của trang đang xem. Giữ nguyên mọi nghĩa, dạng và ví dụ trong PPT.
+
+Thứ tự dòng lấy theo vị trí trên slide gốc, kể cả hai nghĩa của forget, thay vì thứ tự lưu các shape trong XML. Không đưa ví dụ ra trước khi học sinh suy luận dạng động từ.
+
+## Đồng hồ hoạt động
+
+- Đồng hồ trong PPT bắt đầu tại **2:00** cho nguồn 24–27, 34, 36; **1:30** cho nguồn 30–31, 35. Các nhãn tổng thời lượng 3 MIN / 4 MIN vẫn theo PPT.
+- Web dùng đồng hồ HTML thay video: Start / Pause / Resume, Reset timer, thanh thời gian và thông báo hết giờ. Không cần tệp video ngoài để dùng Offline.
+- Một đồng hồ dùng chung cho các trang web tách từ cùng slide PPT, nên đổi giữa các cặp nghĩa không làm bắt đầu lại thời gian. Đồng hồ tạm dừng khi sang hoạt động khác hoặc ẩn tab; chỉ chạy khi giáo viên bấm Start/Resume. Hết giờ không tự mở đáp án.
+- Mã riêng ở `unit04/language-activities.js`; không sửa bộ slide hoặc mã game dùng chung.
 
 ## Hình và audio
 
-Năm hình được trích từ PPT, chuyển sang WebP và giữ đầy đủ khung hình: `assets/images/u04-l2-language-*.webp`. Hình ghép ở bìa/các phần chuyển và bốn tranh cho **cultural exchange**, **current issues**, **contribution**, **leadership skills**. Ghi chú trong PPT xác định đây là minh hoạ AI được tạo cho tài liệu nguồn; không tạo tranh mới trong lần cập nhật này.
+Toàn bộ ảnh và audio có sẵn khớp từng byte với nguồn mới. Giữ năm hình `assets/images/u04-l2-language-*.webp`, bốn cụm từ **cultural exchange, current issues, contribution, leadership skills**, đủ phiên âm, nghĩa tiếng Việt, định nghĩa, ví dụ, họ từ và collocation.
 
-Mỗi cụm từ có phiên âm, nghĩa tiếng Việt, định nghĩa, ví dụ, họ từ và collocation. Các từ nền cô gửi trước đó (cultural, contribution, leadership, exchange) tiếp tục xuất hiện trong các mục từ/họ từ phù hợp.
-
-Audio 28 và 29 trong PPT khớp SHA-256 với `u04-track28.mp3` và `u04-track29.mp3` đang có. Dùng lại đúng hai tệp audio này; nút phát hoạt động cả trong gói Offline.
+Audio 28/29 trong PPT khớp `u04-track28.mp3` và `u04-track29.mp3`. Dùng lại đúng hai tệp. Các video mới là đồng hồ, được chuyển thành điều khiển HTML có cùng thời gian đếm ngược.
 
 ## XO: V-ing or to V?
 
-PPT mới thêm slide nguồn 37, tương ứng slide web **58**, sau Grammar Challenge. Giữ nguyên tiêu đề, thời lượng 10 phút, dòng mô tả “Two teams • 60 questions • Three in a row wins” và bốn luật: chọn ô, trả lời đúng để đánh dấu, đội kia được cướp ô khi trả lời sai, ba dấu thẳng hàng thắng.
-
-Liên kết trong PPT trỏ đến **G11-U4-L2-Game-XO-Gerund-Infinitive.html** nằm bên ngoài PPT; không có tệp nhúng, dữ liệu 60 câu hoặc đáp án trong phần đính kèm. Tệp HTML này chưa được cung cấp và cũng chưa có trong repository. Chưa tự tạo câu thay thế hoặc liên kết tới đường dẫn không tồn tại. Nút Play X O được vô hiệu hoá, kèm thông báo game chưa sẵn sàng. Khi nhận đúng tệp HTML gốc, nhúng nó và bật game; cập nhật lại gói Offline cùng lần xuất bản.
-
-Các slide nguồn 1–36 và nội dung ba slide cuối giữ nguyên so với **G11-U4-L2-Language.pptx** trước đó; toàn bộ hình/audio khớp từng byte. Bản web trước có 60 slide; chỉ chèn thêm hướng dẫn XO và cập nhật số thứ tự nguồn. Board Race vẫn hoạt động.
+Hướng dẫn nguồn 42 nằm tại web **66**. PPT vẫn liên kết đến **G11-U4-L2-Game-XO-Gerund-Infinitive.html**, chưa có tệp HTML hoặc dữ liệu 60 câu trong phần đính kèm. Trạng thái Play X O tiếp tục vô hiệu hoá kèm thông báo game chưa sẵn sàng; không tạo câu thay thế hoặc đặt liên kết hỏng. Khi nhận đúng HTML gốc, nhúng và cập nhật gói Offline.
 
 ## Board Race
 
-Giữ nguyên từng byte `assets/games/u04-l2-board-race-asean.html` và các tệp game dùng chung. SHA-256 của tệp game: `d49ddaf936fecbf2697dfe4b9891ced2b02c75d7526d9905606a9f3e0f8d71be`.
+Game giữ nguyên từng byte tại `assets/games/u04-l2-board-race-asean.html`.
+SHA-256: `d49ddaf936fecbf2697dfe4b9891ced2b02c75d7526d9905606a9f3e0f8d71be`.
+Tám câu và câu thưởng ASEAN khớp nguồn 44 và ghi chú. Hướng dẫn ở web **67**, game ở **68**, Exit Ticket ở **69**. Hai đội, mỗi câu đúng +1 điểm.
 
-Tám định nghĩa và đáp án trùng với slide 39; câu thưởng trong ghi chú yêu cầu viết đầy đủ ASEAN cũng đã có trong game. Hai đội, mỗi câu đúng +1 điểm. Game nằm ở slide web **60**, sau phần XO và trước Exit Ticket, theo thứ tự PPT mới. Hướng dẫn ở slide **59**.
+Challenge câu 2: đáp án chính A (try talking) theo ý thử một giải pháp; ghi chú PPT cho phép B nếu học sinh giải thích đúng nghĩa cố gắng.
 
-Challenge câu 2: đáp án chính A (try talking) theo ý “thử một giải pháp”; ghi chú PPT cho phép B nếu học sinh giải thích đúng nghĩa “cố gắng”.
-
-## Ánh xạ slide PPT → slide web
+## Ánh xạ PPT → web
 
 | PPT | Web |
 | --- | --- |
@@ -59,21 +73,26 @@ Challenge câu 2: đáp án chính A (try talking) theo ý “thử một giải
 | 22 | 30 |
 | 23 | 31 |
 | 24 | 32 |
-| 25 | 33–34 |
-| 26 | 35–36 |
-| 27 | 37–38 |
-| 28 | 39 |
-| 29 | 40–41 |
-| 30 | 42 |
-| 31 | 43–44 |
-| 32 | 45–46 |
-| 33 | 47–49 |
-| 34 | 50–52 |
-| 35 | 53 |
-| 36 | 54–57 |
-| 37 | 58 (hướng dẫn XO; chờ HTML để chơi) |
-| 38 | 59 |
-| 39 | 60 |
+| 25 | 33 |
+| 26 | 34 |
+| 27 | 35 |
+| 28 | 36–37 |
+| 29 | 38–39 |
+| 30 | 40 |
+| 31 | 41 |
+| 32 | 42–43 |
+| 33 | 44 |
+| 34 | 45–47 |
+| 35 | 48–49 |
+| 36 | 50–52 |
+| 37 | 53–54 |
+| 38 | 55–57 |
+| 39 | 58–60 |
 | 40 | 61 |
+| 41 | 62–65 |
+| 42 | 66 |
+| 43 | 67 |
+| 44 | 68 |
+| 45 | 69 |
 
-Hình, nội dung web, Board Race và audio nội bộ được lưu trong gói Offline Unit 4. Không thay đổi các bài khác.
+Bài web, hình, audio, hoạt động và Board Race được lưu trong gói Offline Unit 4. Không phát hành PPT nguồn.
