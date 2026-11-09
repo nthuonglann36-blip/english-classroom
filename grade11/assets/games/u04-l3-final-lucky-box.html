@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky Box · Unit 4 Reading</title><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="u04-l3-final-games.css"></head><body><header class="top"><div><p class="tag">GRADE 11 · UNIT 4 · EXERCISE 4</p><h1>Lucky Box!</h1></div><div class="tools"><button type="button" id="rules-open">Rules</button><button type="button" data-fullscreen>Full screen</button></div></header><main><section class="intro" id="home"><div><h2>Read. Write.<br>Reveal. Choose.</h2><p>Five reading questions · 20 seconds to write</p><ul><li>Correct answer: +10 base points.</li><li>Then choose a bonus box.</li><li>Teacher checks the answers first.</li></ul></div><form id="setup" class="setup"><label>Teams<select id="team-count"><option value="2">2 teams</option><option value="3">3 teams</option><option value="4" selected>4 teams</option></select></label><div id="names" class="names"></div><button class="primary" type="submit" id="start">Play Lucky Box →</button></form></section><section id="board-screen" hidden><div id="scores" class="scores" aria-label="Team scores"></div><div id="winner" class="winner" hidden></div><div class="board-heading"><div><h2>Choose a reading question</h2><p id="progress"></p></div><button id="undo" type="button" disabled>↶ Undo last round</button></div><div id="board" class="boxes"></div><div class="footer"><p>NO MORE THAN FOUR words and/or a number.</p><button id="restart" type="button">Restart</button></div></section></main>
+<dialog id="round" aria-labelledby="round-title"><div class="dialog-layout"><header class="dialog-head"><div><p class="tag" id="phase-label"></p><h2 id="round-title"></h2></div><button id="close-round" type="button" class="close" aria-label="Back to questions">×</button></header><div id="round-body" class="dialog-body"></div><footer id="round-footer" class="dialog-footer"></footer></div></dialog>
+<dialog id="rules" aria-labelledby="rules-title"><header class="dialog-head"><h2 id="rules-title">How to play</h2><button type="button" id="rules-close" class="close" aria-label="Close rules">×</button></header><div class="rules-copy"><ol><li>Teams write their answer on a mini board in <b>20 seconds</b>. Use no more than four words and/or a number.</li><li>Reveal the correct answer. The teacher marks every team that answered correctly.</li><li>Each correct team gets <b>+10 base points</b>, then chooses one face-down bonus box.</li><li>Bonus boxes contain <b>−10, −5, +5, +10, +15 or +20</b> points. Their positions are shuffled for each team.</li><li>Finish all confirmed teams’ boxes before leaving the round. The full result is saved once.</li><li>After five questions, the highest score wins. Undo restores the latest round; reopening a settled question only reviews it.</li></ol></div></dialog><div class="toast" id="toast" role="status" hidden></div>
+<script id="question-data" type="application/json">[
+  {
+    "q": "How many students visited the AKC last week?",
+    "answer": "121",
+    "evidence": "Last week, the AKC welcomed 121 Korean and Asian students from six schools."
+  },
+  {
+    "q": "How long will SSEAYP participants stay together on board the ship?",
+    "answer": "50 days",
+    "evidence": "Organised by the government of Japan and supported by the governments of Southeast Asia, this journey will last for 50 days and will bring together over 300 youths from ASEAN countries and Japan."
+  },
+  {
+    "q": "What will participants in SSEAYP discuss besides youth issues?",
+    "answer": "current social issues",
+    "evidence": "Young people will have the opportunity to take part in exciting discussions on current social and youth issues, and eye-opening cultural exchanges."
+  },
+  {
+    "q": "When did the ASEAN talk show on women in sport happen?",
+    "answer": "in December",
+    "evidence": "An ASEAN talk show on women in sport took place in December."
+  },
+  {
+    "q": "Where was the talk show shown live?",
+    "answer": "on the ASEAN webpage",
+    "evidence": "The talk show was live-streamed on the ASEAN webpage."
+  }
+]</script><script src="u04-l3-final-lucky-box.js"></script></body></html>
