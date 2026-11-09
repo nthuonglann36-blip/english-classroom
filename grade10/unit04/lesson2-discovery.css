@@ -1,0 +1,6 @@
+/* Entry points to the standalone, self-contained grammar discovery. */
+body.l2-with-discovery .discovery-shortcut{white-space:nowrap}
+body.l2-with-discovery .discovery-open{display:inline-flex;align-items:center;gap:10px;min-height:58px;padding:.35em .65em;border:2px solid var(--ink);border-radius:14px;background:var(--ink);color:var(--paper);font:inherit;font-weight:700;text-decoration:none}
+body.l2-with-discovery .discovery-open:focus-visible{outline:4px solid var(--ink);outline-offset:4px}
+body.l2-with-discovery .discovery-launch p{margin-bottom:.8em}
+@media(max-width:700px){body.l2-with-discovery .bar .brand{display:none}body.l2-with-discovery .bar{gap:8px;padding-inline:10px}body.l2-with-discovery .discovery-shortcut{margin-left:auto;padding-inline:10px}}
