@@ -7,14 +7,19 @@ libraries, fonts or network requests.
 
 ## Lesson integration
 
-- Open from **Grammar discovery ↗** in the Lesson 2 toolbar, or from the
-  **A Sunday of surprises** slide before textbook grammar practice.
-- The activity opens in a new tab to retain the full projector height and one
-  set of navigation controls. Return to the lesson tab for textbook tasks.
-- The former opening grammar rule slide is replaced by the discovery launcher.
-  The cover and objectives do not name the target tenses before discovery.
-- Keep textbook tasks, pronunciation Tracks 29/30, vocabulary and Word Heroes.
-  Discovery can also be taught separately; pacing depends on student discussion.
+- The current Language FINAL lesson links to this activity from **Discovery**
+  in its toolbar and **Watch! / Open grammar discovery** before the textbook
+  grammar explanation and practice.
+- The teacher's new PPT contains an unfilled video placeholder at source slide
+  43. The approved interactive story is used there instead of an unavailable
+  video. See [the current lesson source](unit04-language-final.md).
+- The activity opens in a new tab for the full projector height and one set of
+  navigation controls. Return to the lesson tab for textbook tasks.
+- Within this standalone activity, tense names and rules first appear at
+  Step 6. The parent lesson follows the teacher's uploaded PPT sequence.
+- Pronunciation Tracks 29/30, vocabulary review cards and Word Heroes remain
+  available in the parent lesson. Pace the discovery and book tasks to fit
+  student discussion.
 
 ## Activity behavior
 
